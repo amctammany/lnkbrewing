@@ -23,7 +23,9 @@ export default function RootLayout({
           <NavLink href="/ingredients">Ingredients</NavLink>
           <NavLink href="/styles">Styles</NavLink>
         </Nav>
-        {children}
+        <main className="top-16 min-h-screen left-2 right-2 flex flex-col items-center justify-between p-2">
+          {children}
+        </main>
       </body>
     </html>
   );
