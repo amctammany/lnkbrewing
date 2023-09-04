@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  recipes   Recipe[]
+}
+
+model Recipe {
+  id             Int             @id @default(autoincrement())
+  name           String
+  slug           String          @unique
+  description    String
+  authorUsername String
+  author         User            @relation(fields: [authorUsername], references: [username])
+  styleIdentifer String?
+  style          Style?          @relation(fields: [styleIdentifer], references: [identifier])
+  updatedAt      DateTime        @default(now())
+  createdAt      DateTime        @default(now())
+  hops           HopIngredient[]
+}
+
+enum MassUnit {
+  oz
+  lb
+  g
+  kg
+}
+
+model HopIngredient {
+  id         Int      @id @default(autoincrement())
+  recipeId   Int
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  amount     Float
+  amountType MassUnit
+  hopId      Int
+  hop        Hop      @relation(fields: [hopId], references: [id])
+}
+
+model Yeast {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  description String?
+  country     String?
+  tolerance   Float?
+  attenuation Float?
+}
+
+model Fermentable {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  description String?
+  notes       String?
+  country     String?
+  power       Int?
+  maxUsage    Float?
+  color       Float?
+  potential   Float?
+  stability   String?
+}
+
+enum StyleCategory {
+  beer
+  mead
+  cider
+}
+
+model Style {
+  id            Int           @id @default(autoincrement())
+  name          String
+  slug          String        @unique
+  recipes       Recipe[]
+  category      StyleCategory
+  subcategoryId Int
+  identifier    String        @unique
+  aroma         String?
+  appearance    String?
+  flavor        String?
+  mouthfeel     String?
+  comments      String?
+  history       String?
+  ingredients   String?
+  comparison    String?
+  examples      String?
+  ibuLow        Float?
+  ibuHigh       Float?
+  ibuFlex       Boolean       @default(false)
+  ogLow         Float?
+  ogHigh        Float?
+  ogFlex        Boolean       @default(false)
+  fgLow         Float?
+  fgHigh        Float?
+  fgFlex        Boolean       @default(false)
+  srmLow        Float?
+  srmHigh       Float?
+  srmFlex       Boolean       @default(false)
+  abvLow        Float?
+  abvHigh       Float?
+  abvFlex       Boolean       @default(false)
+}
+
+enum HopUsage {
+  aroma
+  bittering
+  dual
+}
+
+model Hop {
+  id                Int             @id @default(autoincrement())
+  name              String
+  slug              String          @unique
+  description       String?
+  country           String?
+  usage             HopUsage?
+  alpha             Float?
+  alphaLow          Float?
+  alphaHigh         Float?
+  beta              Float?
+  betaLow           Float?
+  betaHigh          Float?
+  caryophyllene     Float?
+  caryophylleneLow  Float?
+  caryophylleneHigh Float?
+  cohumulone        Float?
+  cohumuloneLow     Float?
+  cohumuloneHigh    Float?
+  farnesene         Float?
+  farneseneLow      Float?
+  farneseneHigh     Float?
+  humulene          Float?
+  humuleneLow       Float?
+  humuleneHigh      Float?
+  myrcene           Float?
+  myrceneLow        Float?
+  myrceneHigh       Float?
+  totalOil          Float?
+  totalOilLow       Float?
+  totalOilHigh      Float?
+  purpose           String?
+  flavor            String?
+  notes             String?
+  substitutesString String[]
+  styles            String[]
+  HopIngredient     HopIngredient[]
+}
