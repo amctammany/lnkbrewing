@@ -36,16 +36,19 @@ export default async function StyleDisplay({
   return (
     <div className="m-5 p-5 bg-slate-200">
       <h2 className="text-2xl">Style Display: {style?.name}</h2>
-      <Link className="text-2xl" href={`/styles/${style?.identifier}/edit`}>
+      <Link
+        className="text-2xl font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        href={`/styles/${style?.identifier}/edit`}
+      >
         Edit
       </Link>
       {fieldNames.map((field) => (
-        <>
+        <div key={field} className="m-2 p-2 bg-white shadow-sm">
           <h2 key={field} className="text-lg uppercase underline">
             {field}
           </h2>
-          <p className="px-2">{style?.[field]}</p>
-        </>
+          <p className="px-2 m-2">{style?.[field]}</p>
+        </div>
       ))}
       {JSON.stringify(style)}
     </div>
