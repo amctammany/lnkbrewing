@@ -56,13 +56,16 @@ async function main() {
   await prisma.hop.createMany({
     data: hops.map(({ usage, ...hop }) => ({
       ...hop,
-      slug: slugify(hop.name),
+      slug: slugify(hop.name, { lower: true }),
       usage: HopUsage[usage as HopUsage],
     })),
   });
 
   await prisma.fermentable.createMany({
-    data: grains.map((grain) => ({ ...grain, slug: slugify(grain.name) })),
+    data: grains.map((grain) => ({
+      ...grain,
+      slug: slugify(grain.name, { lower: true }),
+    })),
   });
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
