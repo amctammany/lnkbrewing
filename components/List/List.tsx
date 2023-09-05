@@ -3,8 +3,8 @@ export type ListProps = {
 };
 export const List = ({ children }: ListProps) => {
   return (
-    <div className="flex-auto w-full m-2 p-2 bg-slate-400">
-      <ul className="flex-grow ">{children}</ul>
+    <div className="flex-auto w-full m-2 p-2 bg-white">
+      <ul className="flex-grow divide-y divide-blue-500">{children}</ul>
     </div>
   );
 };

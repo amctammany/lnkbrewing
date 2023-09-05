@@ -1,13 +1,13 @@
 import Link from "next/link";
+import { ListItem, ListItemProps } from "./ListItem";
 
-export type ListItemButtonProps = {
+export type ListItemButtonProps = ListItemProps & {
   href: string;
-  children?: React.ReactNode;
 };
 export const ListItemButton = ({ href, children }: ListItemButtonProps) => {
   return (
-    <Link href={href}>
-      <li className="px-4 py-2">{children}</li>
-    </Link>
+    <ListItem>
+      <Link href={href}>{children}</Link>
+    </ListItem>
   );
 };
