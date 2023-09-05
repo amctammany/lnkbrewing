@@ -1,5 +1,6 @@
-import { Form, Submit, TextArea } from "@/components";
+import { Form, Submit, TextArea, TextField } from "@/components";
 import { prisma } from "@/lib/client";
+import { update } from "../../actions";
 import { Style } from "@prisma/client";
 type StyleEditorProps = {
   params: {
@@ -29,7 +30,9 @@ export default async function StyleEditor({
   return (
     <div className="m-5 p-5 bg-slate-200">
       <h2 className="text-2xl">Style Editor: {style?.name}</h2>
-      <Form>
+      <Form action={update}>
+        <input type="hidden" name="_id" value={style?.id} />
+        <TextField name="name" defaultValue={style?.name} />
         {fieldNames.map((field) => (
           <TextArea key={field} name={field} defaultValue={style?.[field]} />
         ))}
