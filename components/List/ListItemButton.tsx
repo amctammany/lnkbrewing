@@ -7,7 +7,9 @@ export type ListItemButtonProps = ListItemProps & {
 export const ListItemButton = ({ href, children }: ListItemButtonProps) => {
   return (
     <ListItem>
-      <Link href={href}>{children}</Link>
+      <Link className="group" href={href}>
+        {children}
+      </Link>
     </ListItem>
   );
 };
