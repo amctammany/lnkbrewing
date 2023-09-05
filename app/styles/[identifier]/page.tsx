@@ -34,16 +34,18 @@ export default async function StyleDisplay({
     },
   });
   return (
-    <div className="m-5 p-5 bg-slate-200">
-      <h2 className="text-2xl">Style Display: {style?.name}</h2>
-      <Link
-        className="text-2xl font-medium text-blue-600 dark:text-blue-500 hover:underline"
-        href={`/styles/${style?.identifier}/edit`}
-      >
-        Edit
-      </Link>
+    <div className="m-5 p-0 bg-slate-200">
+      <div className="flex border-2 bg-white m-2 p-2">
+        <h2 className="text-2xl flex-grow">Style Display: {style?.name}</h2>
+        <Link
+          className="text-2xl flex-shrink px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          href={`/styles/${style?.identifier}/edit`}
+        >
+          Edit
+        </Link>
+      </div>
       {fieldNames.map((field) => (
-        <div key={field} className="m-2 p-2 bg-white shadow-sm">
+        <div key={field} className="m-2 p-2 bg-white shadow-sm drop-shadow">
           <h2 key={field} className="text-lg uppercase underline">
             {field}
           </h2>
