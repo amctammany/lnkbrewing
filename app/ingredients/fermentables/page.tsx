@@ -11,7 +11,7 @@ export default async function FermentablesIndex() {
       {fermentables.map((fermentable) => (
         <ListItemButton
           key={fermentable.id}
-          href={`/fermentables/${fermentable.slug}`}
+          href={`/ingredients/fermentables/${fermentable.slug}`}
         >
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
