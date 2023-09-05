@@ -1,5 +1,9 @@
 import { List, ListItemButton } from "@/components";
 import { prisma } from "@/lib/client";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK Styles",
+};
 export default async function StylesIndex() {
   const styles = await prisma.style.findMany();
   return (

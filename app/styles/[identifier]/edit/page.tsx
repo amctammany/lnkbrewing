@@ -7,6 +7,12 @@ type StyleEditorProps = {
     identifier: string;
   };
 };
+
+export function generateMetadata({ params }: StyleEditorProps) {
+  return {
+    title: `LNK Style ${params.identifier} - Edit`,
+  };
+}
 const fieldNames: (keyof Style)[] = [
   "aroma",
   "appearance",
@@ -33,6 +39,7 @@ export default async function StyleEditor({
       <Form action={update}>
         <input type="hidden" name="_id" value={style?.id} />
         <TextField name="name" defaultValue={style?.name} />
+        <TextField name="identifier" defaultValue={style?.identifier} />
         {fieldNames.map((field) => (
           <TextArea key={field} name={field} defaultValue={style?.[field]} />
         ))}

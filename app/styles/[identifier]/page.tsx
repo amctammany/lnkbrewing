@@ -19,6 +19,12 @@ const fieldNames: (keyof Style)[] = [
   "examples",
 ];
 
+export function generateMetadata({ params }: StyleDisplayProps) {
+  return {
+    title: `LNK Style: ${params.identifier}`,
+  };
+}
+
 export default async function StyleDisplay({
   params: { identifier },
 }: StyleDisplayProps) {
