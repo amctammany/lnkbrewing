@@ -1,11 +1,14 @@
-import { List, ListItemButton } from "@/components";
+import { List, ListItemButton, Table, TableColumn } from "@/components";
 import { prisma } from "@/lib/client";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "LNK Hops",
 };
+const columns = [{ name: "name" }, { name: "country" }];
 export default async function HopsIndex() {
   const hops = await prisma.hop.findMany();
+  return <Table src={hops} columns={columns} />;
+  /**
   return (
     <List>
       {hops.map((hop) => (
@@ -26,4 +29,5 @@ export default async function HopsIndex() {
       ))}
     </List>
   );
+     */
 }
