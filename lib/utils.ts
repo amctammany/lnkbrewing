@@ -19,3 +19,7 @@ export function parseFloats(src: FormData, ...keys: string[]) {
     return acc;
   }, {} as Record<string, number | undefined>);
 }
+
+export type KeysOfValue<T, TCondition> = {
+  [K in keyof T]: T[K] extends TCondition ? K : never;
+}[keyof T];
