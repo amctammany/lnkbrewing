@@ -31,10 +31,10 @@ export default async function StyleDisplay({
       <h2 className="text-2xl">Style Display: {style?.name}</h2>
       {fieldNames.map((field) => (
         <>
-          <h2 key={field} className="text-lg uppercase">
+          <h2 key={field} className="text-lg uppercase underline">
             {field}
           </h2>
-          <p>{style?.[field]}</p>
+          <p className="px-2">{style?.[field]}</p>
         </>
       ))}
       {JSON.stringify(style)}
