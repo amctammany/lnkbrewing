@@ -6,7 +6,13 @@ type FermentableDisplayProps = {
     slug: string;
   };
 };
-const fieldNames: (keyof Fermentable)[] = ["description", "country"];
+const fieldNames: (keyof Fermentable)[] = ["description", "notes", "country"];
+const numberFieldNames: (keyof Fermentable)[] = [
+  "power",
+  "maxUsage",
+  "color",
+  "potential",
+];
 
 export function generateMetadata({ params }: FermentableDisplayProps) {
   return {
@@ -43,6 +49,17 @@ export default async function FermentableDisplay({
           <p className="px-2 m-2">{fermentable?.[field]}</p>
         </div>
       ))}
+
+      <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-4">
+        {numberFieldNames.map((field) => (
+          <div key={field} className="m-2 p-2 bg-white shadow-sm drop-shadow">
+            <h2 key={field} className="text-lg uppercase underline">
+              {field}
+            </h2>
+            <p className="px-2 m-2">{fermentable?.[field]}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

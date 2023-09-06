@@ -32,9 +32,11 @@ export const FermentableForm = ({ src, action }: FermentableFormProps) => {
       />
       <TextArea name="notes" rows={3} label="Notes" defaultValue={src?.notes} />
 
-      {numberFields.map((f) => (
-        <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
-      ))}
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+        {numberFields.map((f) => (
+          <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
+        ))}
+      </div>
       <Submit>Save</Submit>
     </Form>
   );
