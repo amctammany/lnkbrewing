@@ -39,6 +39,7 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
           </div>
         ))}
       </div>
+      {JSON.stringify(recipe)}
     </div>
   );
 };

@@ -17,6 +17,7 @@ export default async function RecipeDisplay({
   params: { id },
 }: RecipeDisplayProps) {
   const recipe = await prisma.recipe.findFirst({
+    include: { author: true, hops: true },
     where: {
       id: parseInt(id),
     },

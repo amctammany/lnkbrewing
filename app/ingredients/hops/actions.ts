@@ -1,4 +1,5 @@
 "use server";
+import { HopUsage } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -9,7 +10,7 @@ const schema = zfd.formData({
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
-  usage: z.enum(["aroma", "bittering", "dual"]),
+  usage: z.nativeEnum(HopUsage).optional().default(HopUsage.dual),
   alpha: zfd.numeric(z.number().min(0).max(40).optional()),
   beta: zfd.numeric(z.number().min(0).max(40).optional()),
   caryophyllene: zfd.numeric(z.number().min(0).max(40).optional()),

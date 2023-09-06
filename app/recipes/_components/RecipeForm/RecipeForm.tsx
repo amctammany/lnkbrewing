@@ -1,5 +1,6 @@
 import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
 import { Recipe } from "@prisma/client";
+import { RecipeHopIngredients } from "./RecipeHopIngredients";
 
 export type RecipeFormProps = {
   src: Recipe | null;
@@ -16,6 +17,7 @@ export const RecipeForm = ({ src, action }: RecipeFormProps) => {
         label="description"
         defaultValue={src?.description}
       />
+      <RecipeHopIngredients src={src} />
       <Submit>Update Recipe</Submit>
     </Form>
   );
