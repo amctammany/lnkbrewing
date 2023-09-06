@@ -1,4 +1,5 @@
 import React from "react";
+import { TableRow, makeTableRow } from "./TableRow";
 export type TableProps<T extends Record<string, any>> = {
   src: T[];
   columns: {
@@ -12,22 +13,21 @@ export function Table<T extends Record<string, any>>({
   src,
   columns,
 }: TableProps<T>) {
+  const Row = makeTableRow(columns);
   return (
-    <table className="table-auto">
+    <table className="table-auto border border-collapse border-slate-400">
       <thead>
         <tr>
           {columns.map(({ name, label }) => (
-            <th key={name}>{label || name}</th>
+            <th className="border border-slate-400" key={name}>
+              {label || name}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
         {src.map((row) => (
-          <tr className="border-b-2" key={row.id}>
-            {columns.map(({ label, name }) => (
-              <td key={`${row.id}-${name}`}>{row[name]}</td>
-            ))}
-          </tr>
+          <Row key={row.id} data={row} />
         ))}
       </tbody>
     </table>

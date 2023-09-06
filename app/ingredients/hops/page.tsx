@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "LNK Hops",
 };
 const columns = [
-  { name: "name" },
+  { name: "name", href: (src) => `/ingredients/hops/${src.slug}` },
   { name: "country" },
   { name: "usage" },
   { name: "alpha" },
