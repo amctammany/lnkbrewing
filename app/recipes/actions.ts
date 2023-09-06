@@ -11,7 +11,7 @@ const schema = zfd.formData({
   description: zfd.text(z.string().optional()),
   hops: z
     .object({
-      id: zfd.numeric(z.number().optional()),
+      //recipeId: zfd.numeric(z.number()),
       hopId: zfd.numeric(z.number().optional().default(1078)),
       amount: zfd.numeric(z.number().min(0)),
       amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
@@ -21,27 +21,16 @@ const schema = zfd.formData({
 });
 export async function updateRecipe(formData: FormData) {
   const data = schema.parse(formData);
-  const hops = await prisma.$transaction(
-    data.hops.map(({ id, ...hop }) => {
-      if (id) {
-        return prisma.hopIngredient.update({
-          where: { id },
-          data: hop,
-        });
-      } else {
-        return prisma.hopIngredient.create({
-          data: { ...hop, recipeId: data.id },
-        });
-      }
-    })
-  );
   const res = await prisma.recipe.update({
     where: {
       id: data.id,
     },
     data: {
       ...data,
-      hops: { set: hops },
+      hops: {
+        deleteMany: {},
+        createMany: { data: data.hops },
+      },
     },
   });
   redirect(`/recipes/${res.id}`);

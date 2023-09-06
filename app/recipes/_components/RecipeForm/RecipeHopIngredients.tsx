@@ -10,6 +10,10 @@ export type RecipeHopIngredientsProps = {
 
 export const RecipeHopIngredients = ({ src }: RecipeHopIngredientsProps) => {
   const [hopIngredients, setHopIngredients] = useState(src?.hops || []);
+  const removeHopIngredient = (index: number) => (e: React.MouseEvent) => {
+    setHopIngredients((o) => o.filter((_, i) => i !== index));
+    e.preventDefault();
+  };
   const addHopIngredient = (e: React.MouseEvent) => {
     setHopIngredients((old) => [
       ...old,
@@ -36,6 +40,7 @@ export const RecipeHopIngredients = ({ src }: RecipeHopIngredientsProps) => {
                 label="Amount"
                 defaultValue={hop?.amount}
               />
+              <button onClick={removeHopIngredient(index)}>Remove</button>
             </div>
           </li>
         ))}
