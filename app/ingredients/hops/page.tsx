@@ -4,7 +4,13 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "LNK Hops",
 };
-const columns = [{ name: "name" }, { name: "country" }];
+const columns = [
+  { name: "name" },
+  { name: "country" },
+  { name: "usage" },
+  { name: "alpha" },
+  { name: "beta" },
+];
 export default async function HopsIndex() {
   const hops = await prisma.hop.findMany();
   return <Table src={hops} columns={columns} />;

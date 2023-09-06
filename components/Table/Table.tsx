@@ -13,7 +13,7 @@ export function Table<T extends Record<string, any>>({
   columns,
 }: TableProps<T>) {
   return (
-    <table>
+    <table className="table-auto">
       <thead>
         <tr>
           {columns.map(({ name, label }) => (
@@ -23,7 +23,7 @@ export function Table<T extends Record<string, any>>({
       </thead>
       <tbody>
         {src.map((row) => (
-          <tr key={row.id}>
+          <tr className="border-b-2" key={row.id}>
             {columns.map(({ label, name }) => (
               <td key={`${row.id}-${name}`}>{row[name]}</td>
             ))}
