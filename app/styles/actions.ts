@@ -1,30 +1,29 @@
 "use server";
 import { prisma } from "@/lib/client";
-import { parseStrings } from "@/lib/utils";
 import { redirect } from "next/navigation";
+import { zfd } from "zod-form-data";
+import { z } from "zod";
 
-export async function update(data: FormData) {
-  const id = parseInt((data.get("_id") as string) || "");
-  const strings = parseStrings(
-    data,
-    "name",
-    "aroma",
-    "appearance",
-    "flavor",
-    "mouthfeel",
-    "history",
-    "ingredients",
-    "comments",
-    "comparison",
-    "examples"
-  );
+const schema = zfd.formData({
+  id: zfd.numeric(),
+  name: zfd.text(),
+  aroma: zfd.text(z.string().optional()),
+  appearance: zfd.text(z.string().optional()),
+  flavor: zfd.text(z.string().optional()),
+  mouthfeel: zfd.text(z.string().optional()),
+  history: zfd.text(z.string().optional()),
+  ingredients: zfd.text(z.string().optional()),
+  comments: zfd.text(z.string().optional()),
+  comparison: zfd.text(z.string().optional()),
+  examples: zfd.text(z.string().optional()),
+});
+export async function update(formData: FormData) {
+  const data = schema.parse(formData);
   const res = await prisma.style.update({
     where: {
-      id,
+      id: data.id,
     },
-    data: {
-      ...strings,
-    },
+    data,
   });
   redirect(`/styles/${res.identifier}`);
 }

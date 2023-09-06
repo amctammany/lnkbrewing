@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/client";
 import { FermentableForm } from "../../_components";
+import { updateFermentable } from "../../actions";
 type FermentableDisplayProps = {
   params: {
     slug: string;
@@ -22,7 +23,7 @@ export default async function FermentableDisplay({
   });
   return (
     <div className="m-5 p-0 min-w-full bg-slate-200">
-      <FermentableForm src={fermentable} />
+      <FermentableForm src={fermentable} action={updateFermentable} />
     </div>
   );
 }

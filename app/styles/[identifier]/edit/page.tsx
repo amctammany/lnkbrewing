@@ -37,7 +37,7 @@ export default async function StyleEditor({
     <div className="m-5 p-5 bg-slate-200">
       <h2 className="text-2xl">Style Editor: {style?.name}</h2>
       <Form action={update}>
-        <input type="hidden" name="_id" value={style?.id} />
+        <input type="hidden" name="id" value={style?.id} />
         <TextField name="name" defaultValue={style?.name} />
         <TextField name="identifier" defaultValue={style?.identifier} />
         {fieldNames.map((field) => (

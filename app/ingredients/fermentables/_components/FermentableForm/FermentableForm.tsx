@@ -1,8 +1,9 @@
-import { Form, NumberField, Submit, TextField } from "@/components";
+import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
 import { Fermentable } from "@prisma/client";
 
 export type FermentableFormProps = {
   src: Fermentable | null;
+  action?: (formData: FormData) => void;
 };
 type Diff<T, U> = T extends U ? never : T;
 
@@ -18,15 +19,18 @@ const numberFields: NumberKeys<Fermentable>[] = [
   "potential",
   "maxUsage",
 ];
-export const FermentableForm = ({ src }: FermentableFormProps) => {
+export const FermentableForm = ({ src, action }: FermentableFormProps) => {
   return (
-    <Form>
+    <Form action={action}>
+      <input type="hidden" name="id" value={src?.id} />
       <TextField name="name" label="Name" defaultValue={src?.name} />
-      <TextField
+      <TextArea
         name="description"
+        rows={3}
         label="Description"
         defaultValue={src?.description}
       />
+      <TextArea name="notes" rows={3} label="Notes" defaultValue={src?.notes} />
 
       {numberFields.map((f) => (
         <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
