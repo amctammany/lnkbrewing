@@ -57,7 +57,7 @@ async function main() {
     data: hops.map(({ usage, ...hop }) => ({
       ...hop,
       slug: slugify(hop.name, { lower: true }),
-      usage: HopUsage[usage as HopUsage],
+      usage: HopUsage[usage?.toLowerCase() as HopUsage],
     })),
   });
 
