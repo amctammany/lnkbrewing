@@ -1,5 +1,12 @@
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
-import { Hop } from "@prisma/client";
+import {
+  Form,
+  NumberField,
+  Select,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components";
+import { Hop, HopUsage } from "@prisma/client";
 
 export type HopFormProps = {
   src: Hop | null;
@@ -16,6 +23,7 @@ export const HopForm = ({ src, action }: HopFormProps) => {
         label="description"
         defaultValue={src?.description}
       />
+      <Select name="usage" defaultValue={src?.usage} options={HopUsage} />
       <TextArea name="flavor" label="flavor" defaultValue={src?.flavor} />
       <div className="grid grid-cols-3 gap-4">
         <NumberField

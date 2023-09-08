@@ -1,4 +1,11 @@
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
+import {
+  Form,
+  NumberField,
+  Select,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components";
 import { Recipe } from "@prisma/client";
 import { RecipeHopIngredients } from "./RecipeHopIngredients";
 
@@ -12,6 +19,10 @@ export const RecipeForm = ({ src, action }: RecipeFormProps) => {
     <Form action={action}>
       <input type="hidden" name="id" value={src?.id} />
       <TextField name="name" label="Name" defaultValue={src?.name} />
+      <Select name="category" defaultValue={src?.styleIdentifer}>
+        <option value="1A">1A</option>
+        <option value="21A">21A</option>
+      </Select>
       <TextArea
         name="description"
         label="description"
