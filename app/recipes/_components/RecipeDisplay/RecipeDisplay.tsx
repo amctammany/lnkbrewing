@@ -58,7 +58,9 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
                 <p className="flex-grow px-2 m-0 text-lg">
                   {hop?.hop.name?.toString()}
                 </p>
-                <p className="flex-shrink px-2 m-0 text-lg">Duration</p>
+                <p className="flex-shrink px-2 m-0 text-lg">
+                  {hop?.duration} {hop?.durationType}
+                </p>
               </div>
             </ListItem>
           ))}

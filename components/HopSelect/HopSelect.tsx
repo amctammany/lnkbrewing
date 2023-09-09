@@ -8,7 +8,7 @@ export type HopSelectProps = {
   defaultValue?: number;
   hops: any;
 };
-export const HopSelect = async ({
+export const HopSelect = ({
   name,
   label,
   hops,

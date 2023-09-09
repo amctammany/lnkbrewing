@@ -1,5 +1,5 @@
 "use server";
-import { MassUnit } from "@prisma/client";
+import { MassUnit, TimeUnit } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
@@ -15,6 +15,8 @@ const schema = zfd.formData({
       hopId: zfd.numeric(z.number().optional().default(1078)),
       amount: zfd.numeric(z.number().min(0)),
       amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
+      duration: zfd.numeric(z.number().min(0)),
+      durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
       //amountType: z.enum(["kg", "g", "oz", "lb"]).default("kg"),
     })
     .array(),

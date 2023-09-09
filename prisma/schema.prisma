@@ -40,14 +40,22 @@ enum MassUnit {
   kg
 }
 
+enum TimeUnit {
+  min
+  hr
+  day
+}
+
 model HopIngredient {
-  id         Int      @id @default(autoincrement())
-  recipeId   Int
-  recipe     Recipe   @relation(fields: [recipeId], references: [id])
-  amount     Float
-  amountType MassUnit
-  hopId      Int
-  hop        Hop      @relation(fields: [hopId], references: [id])
+  id           Int      @id @default(autoincrement())
+  recipeId     Int
+  recipe       Recipe   @relation(fields: [recipeId], references: [id])
+  amount       Float
+  amountType   MassUnit
+  duration     Float
+  durationType TimeUnit
+  hopId        Int
+  hop          Hop      @relation(fields: [hopId], references: [id])
 }
 
 model Yeast {

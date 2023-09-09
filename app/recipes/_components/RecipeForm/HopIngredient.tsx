@@ -1,5 +1,9 @@
-import { HopSelect, NumberField } from "@/components";
-import { Hop, HopIngredient as HopIngredientType } from "@prisma/client";
+import { HopSelect, NumberField, Select } from "@/components";
+import {
+  Hop,
+  HopIngredient as HopIngredientType,
+  TimeUnit,
+} from "@prisma/client";
 
 export type HopIngredientProps = {
   hops: any;
@@ -33,6 +37,18 @@ export const HopIngredient = ({
         label="Amount"
         defaultValue={hop?.amount}
       />
+      <NumberField
+        name={`hops[${index}].duration`}
+        label="Time"
+        defaultValue={hop?.duration}
+      />
+      <Select
+        name={`hops[${index}].durationType`}
+        label="Time Unit"
+        options={TimeUnit}
+        defaultValue={hop?.durationType}
+      />
+
       {children}
     </div>
   );
