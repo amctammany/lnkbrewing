@@ -1,9 +1,5 @@
-import { HopSelect, NumberField, Select } from "@/components";
-import {
-  Hop,
-  HopIngredient as HopIngredientType,
-  TimeUnit,
-} from "@prisma/client";
+import { NumberField, Select } from "@/components";
+import { HopIngredient as HopIngredientType, TimeUnit } from "@prisma/client";
 
 export type HopIngredientProps = {
   hops: any;

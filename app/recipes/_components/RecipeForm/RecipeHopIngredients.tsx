@@ -2,7 +2,6 @@
 import {
   Button,
   Form,
-  HopSelect,
   NumberField,
   Section,
   Submit,

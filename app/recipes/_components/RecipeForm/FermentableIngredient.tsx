@@ -1,9 +1,7 @@
-import { FermentableSelect, NumberField, Select } from "@/components";
+import { NumberField, Select } from "@/components";
 import {
-  Fermentable,
   FermentableIngredient as FermentableIngredientType,
   MassUnit,
-  TimeUnit,
 } from "@prisma/client";
 
 export type FermentableIngredientProps = {

@@ -22,17 +22,13 @@ type ExtendedHopIngredient = HopIngredient & {
   hop: Pick<Hop, "id" | "name">;
 };
 type ExtendedRecipe = Recipe & {
-  style: Pick<Style, "id" | "identifier" | "name">;
+  style: Pick<Style, "id" | "identifier" | "name"> | null;
   hops: ExtendedHopIngredient[];
   fermentables: ExtendedFermentableIngredient[];
 };
 export type RecipeDisplayProps = {
   recipe?: ExtendedRecipe | null;
 };
-
-const fieldNames: (keyof Recipe)[] = ["description"];
-const numberFieldNames: (keyof Recipe)[] = [];
-
 export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
   return (
     //<div className="m-5 p-2 min-w-full bg-slate-200 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">

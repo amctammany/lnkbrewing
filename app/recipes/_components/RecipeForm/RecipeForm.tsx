@@ -2,7 +2,6 @@ import {
   Form,
   Section,
   Select,
-  StyleSelect,
   Submit,
   TextArea,
   TextField,
