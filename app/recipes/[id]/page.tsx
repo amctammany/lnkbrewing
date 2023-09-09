@@ -19,6 +19,9 @@ export default async function RecipeDisplayPage({
     include: {
       author: true,
       hops: { include: { hop: { select: { name: true, id: true } } } },
+      fermentables: {
+        include: { fermentable: { select: { name: true, id: true } } },
+      },
     },
     where: {
       id: parseInt(id),

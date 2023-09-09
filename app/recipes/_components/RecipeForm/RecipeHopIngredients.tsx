@@ -38,8 +38,13 @@ export const RecipeHopIngredients = ({
     e.preventDefault();
   };
   return (
-    <div>
-      <button onClick={addHopIngredient}>Add</button>
+    <div className="flex-auto">
+      <div className="flex">
+        <h3 className="text-lg flex-grow">Hops</h3>
+        <button className="flex-shrink" onClick={addHopIngredient}>
+          Add
+        </button>
+      </div>
       <ul>
         {hopIngredients.map((hop, index) => (
           <li key={index}>

@@ -17,7 +17,7 @@ export default async function RecipeDisplay({
   params: { id },
 }: RecipeDisplayProps) {
   const recipe = await prisma.recipe.findFirst({
-    include: { author: true, hops: true },
+    include: { author: true, hops: true, fermentables: true },
     where: {
       id: parseInt(id),
     },
@@ -33,8 +33,18 @@ export default async function RecipeDisplay({
     acc[hop.id] = hop.name;
     return acc;
   }, {} as Record<string, string>);
+  const fermentables = (
+    await prisma.fermentable.findMany({
+      select: {
+        name: true,
+        id: true,
+      },
+    })
+  ).reduce((acc, fermentable) => {
+    acc[fermentable.id] = fermentable.name;
+    return acc;
+  }, {} as Record<string, string>);
 
-  const fermentables = await prisma.fermentable.findMany();
   return (
     <div className="m-5 p-0 min-w-full bg-slate-200">
       <RecipeForm

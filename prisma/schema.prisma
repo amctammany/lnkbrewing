@@ -20,17 +20,18 @@ model User {
 }
 
 model Recipe {
-  id             Int             @id @default(autoincrement())
+  id             Int                     @id @default(autoincrement())
   name           String
-  slug           String          @unique
+  slug           String                  @unique
   description    String
   authorUsername String
-  author         User            @relation(fields: [authorUsername], references: [username])
+  author         User                    @relation(fields: [authorUsername], references: [username])
   styleIdentifer String?
-  style          Style?          @relation(fields: [styleIdentifer], references: [identifier])
-  updatedAt      DateTime        @default(now())
-  createdAt      DateTime        @default(now())
+  style          Style?                  @relation(fields: [styleIdentifer], references: [identifier])
+  updatedAt      DateTime                @default(now())
+  createdAt      DateTime                @default(now())
   hops           HopIngredient[]
+  fermentables   FermentableIngredient[]
 }
 
 enum MassUnit {
@@ -58,6 +59,18 @@ model HopIngredient {
   hop          Hop      @relation(fields: [hopId], references: [id])
 }
 
+model FermentableIngredient {
+  id            Int         @id @default(autoincrement())
+  recipeId      Int
+  recipe        Recipe      @relation(fields: [recipeId], references: [id])
+  amount        Float
+  amountType    MassUnit
+  //duration      Float
+  //durationType  TimeUnit
+  fermentableId Int
+  fermentable   Fermentable @relation(fields: [fermentableId], references: [id])
+}
+
 model Yeast {
   id          Int     @id @default(autoincrement())
   name        String
@@ -69,17 +82,18 @@ model Yeast {
 }
 
 model Fermentable {
-  id          Int     @id @default(autoincrement())
-  name        String
-  slug        String  @unique
-  description String?
-  notes       String?
-  country     String?
-  power       Int?
-  maxUsage    Float?
-  color       Float?
-  potential   Float?
-  stability   String?
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  slug                  String                  @unique
+  description           String?
+  notes                 String?
+  country               String?
+  power                 Int?
+  maxUsage              Float?
+  color                 Float?
+  potential             Float?
+  stability             String?
+  FermentableIngredient FermentableIngredient[]
 }
 
 enum StyleCategory {

@@ -9,6 +9,15 @@ const schema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
+  fermentables: z
+    .object({
+      //recipeId: zfd.numeric(z.number()),
+      fermentableId: zfd.numeric(z.number().optional().default(1078)),
+      amount: zfd.numeric(z.number().min(0)),
+      amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
+    })
+    .array(),
+
   hops: z
     .object({
       //recipeId: zfd.numeric(z.number()),
@@ -29,6 +38,10 @@ export async function updateRecipe(formData: FormData) {
     },
     data: {
       ...data,
+      fermentables: {
+        deleteMany: {},
+        createMany: { data: data.fermentables },
+      },
       hops: {
         deleteMany: {},
         createMany: { data: data.hops },
