@@ -66,8 +66,6 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
           ))}
         </List>
       </div>
-
-      {JSON.stringify(recipe)}
     </div>
   );
 };

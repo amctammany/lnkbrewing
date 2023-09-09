@@ -52,7 +52,6 @@ export default async function StyleDisplay({
           <p className="px-2 m-2">{style?.[field]}</p>
         </div>
       ))}
-      {JSON.stringify(style)}
     </div>
   );
 }

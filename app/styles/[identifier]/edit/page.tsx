@@ -45,7 +45,6 @@ export default async function StyleEditor({
         ))}
         <Submit>Save</Submit>
       </Form>
-      {JSON.stringify(style)}
     </div>
   );
 }
