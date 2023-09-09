@@ -47,7 +47,7 @@ export const RecipeForm = ({
       </Section>
       <RecipeHopIngredients hops={hops} src={src} />
       <RecipeFermentableIngredients fermentables={fermentables} src={src} />
-      <Submit>Update Recipe</Submit>
+      <Submit>{(src?.id ? "Update" : "Create") + " Recipe"}</Submit>
     </Form>
   );
 };
