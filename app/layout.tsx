@@ -22,8 +22,6 @@ export default function RootLayout({
           <NavLink href="/recipes">Recipes</NavLink>
           <NavLink href="/ingredients">Ingredients</NavLink>
           <NavLink href="/styles">Styles</NavLink>
-
-          <AuthenticationNav />
         </Nav>
         <main className="top-16 min-h-screen min-w-full left-2 right-2 flex flex-col items-center justify-between p-2">
           {children}

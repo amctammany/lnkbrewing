@@ -10,48 +10,48 @@ async function main() {
   await prisma.hop.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.user.deleteMany();
-  const alex = await prisma.user.upsert({
-    where: { email: "alex@gmail.com" },
-    update: {},
-    create: {
-      email: "alex@gmail.com",
-      name: "Alex",
-      username: "alex",
-      recipes: {
-        create: [
-          {
-            name: "First Recipe",
-            slug: "first-recipe",
-            description: "Desc",
-          },
-        ],
-      },
-    },
-  });
+  //const alex = await prisma.user.upsert({
+  //where: { email: "alex@gmail.com" },
+  //update: {},
+  //create: {
+  //email: "alex@gmail.com",
+  //name: "Alex",
+  //username: "alex",
+  //recipes: {
+  //create: [
+  //{
+  //name: "First Recipe",
+  //slug: "first-recipe",
+  //description: "Desc",
+  //},
+  //],
+  //},
+  //},
+  //});
 
-  const kathy = await prisma.user.upsert({
-    where: { email: "kathy@gmail.com" },
-    update: {},
-    create: {
-      email: "kathy@gmail.com",
-      name: "Kathy",
-      username: "kathy",
-      recipes: {
-        create: [
-          {
-            name: "Second Recipe",
-            slug: "second-recipe",
-            description: "Desc",
-          },
-          {
-            name: "Final Recipe",
-            slug: "final-recipe",
-            description: "Desc",
-          },
-        ],
-      },
-    },
-  });
+  //const kathy = await prisma.user.upsert({
+  //where: { email: "kathy@gmail.com" },
+  //update: {},
+  //create: {
+  //email: "kathy@gmail.com",
+  //name: "Kathy",
+  //username: "kathy",
+  //recipes: {
+  //create: [
+  //{
+  //name: "Second Recipe",
+  //slug: "second-recipe",
+  //description: "Desc",
+  //},
+  //{
+  //name: "Final Recipe",
+  //slug: "final-recipe",
+  //description: "Desc",
+  //},
+  //],
+  //},
+  //},
+  //});
 
   await prisma.hop.createMany({
     data: hops.map(({ usage, ...hop }) => ({
@@ -74,8 +74,6 @@ async function main() {
       category: StyleCategory[category.toLowerCase() as StyleCategory],
     })),
   });
-
-  console.log({ alex, kathy });
 }
 main()
   .then(async () => {
