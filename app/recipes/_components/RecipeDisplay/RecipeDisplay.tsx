@@ -52,7 +52,8 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
       </Section>
 
       <Section header="Style">
-        <Prop label="Style">{recipe?.style?.identifier}</Prop>
+        <Prop label="Style Identifier">{recipe?.style?.identifier}</Prop>
+        <Prop label="Style Name">{recipe?.style?.name}</Prop>
       </Section>
       <Section header="Hops">
         <ul>
