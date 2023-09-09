@@ -1,10 +1,14 @@
 import { List, ListItemButton } from "@/components";
 import { prisma } from "@/lib/client";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 export const metadata: Metadata = {
   title: "LNK Recipes",
 };
 export default async function RecipesIndex() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
   const recipes = await prisma.recipe.findMany();
   return (
     <List>
