@@ -9,7 +9,7 @@ export const NavLink = ({ children, href }: NavLinkProps) => {
     <li>
       <Link
         href={href}
-        className="block text-center py-2 px-4 font-bold hover:text-red-500"
+        className="block text-center py-2 px-4 rounded-lg font-bold text-white hover:text-red-500"
       >
         {children}
       </Link>

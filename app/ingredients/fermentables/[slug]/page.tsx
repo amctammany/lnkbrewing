@@ -1,3 +1,4 @@
+import { Section } from "@/components";
 import { prisma } from "@/lib/client";
 import { Fermentable } from "@prisma/client";
 import Link from "next/link";
@@ -29,20 +30,19 @@ export default async function FermentableDisplay({
     },
   });
   return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <div className="flex border-2 bg-white m-2 p-2">
-        <h2 className="text-2xl flex-grow">
-          Fermentable Display: {fermentable?.name}
-        </h2>
+    <Section
+      header={`Fermentable: ${fermentable?.name}`}
+      actions={
         <Link
           className="text-2xl flex-shrink px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline"
           href={`/ingredients/fermentables/${fermentable?.slug}/edit`}
         >
           Edit
         </Link>
-      </div>
+      }
+    >
       {fieldNames.map((field) => (
-        <div key={field} className="m-2 p-2 bg-white shadow-sm drop-shadow">
+        <div key={field} className="m-2 p-2">
           <h2 key={field} className="text-lg uppercase underline">
             {field}
           </h2>
@@ -60,6 +60,6 @@ export default async function FermentableDisplay({
           </div>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }

@@ -65,14 +65,12 @@ export default async function RecipeDisplay({
   }, {} as Record<string, string>);
 
   return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <RecipeForm
-        src={recipe}
-        action={updateRecipe}
-        hops={hops}
-        styles={styles}
-        fermentables={fermentables}
-      />
-    </div>
+    <RecipeForm
+      src={recipe}
+      action={updateRecipe}
+      hops={hops}
+      styles={styles}
+      fermentables={fermentables}
+    />
   );
 }

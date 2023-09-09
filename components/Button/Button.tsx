@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export type ButtonProps = {
   onClick?: React.MouseEventHandler;
   className?: string;
@@ -11,5 +13,13 @@ export const Button = ({ onClick, className, children }: ButtonProps) => {
     >
       {children}
     </button>
+  );
+};
+export type ButtonLinkProps = ButtonProps & { href: string };
+export const ButtonLink = ({ href, ...props }: ButtonLinkProps) => {
+  return (
+    <Link href={href}>
+      <Button {...props} />
+    </Link>
   );
 };
