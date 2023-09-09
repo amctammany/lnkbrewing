@@ -68,9 +68,9 @@ model Recipe {
   id             Int                     @id @default(autoincrement())
   name           String
   slug           String                  @unique
-  description    String
-  authorId       String
-  author         User                    @relation(fields: [authorId], references: [id])
+  description    String?
+  authorEmail    String
+  author         User                    @relation(fields: [authorEmail], references: [email])
   styleIdentifer String?
   style          Style?                  @relation(fields: [styleIdentifer], references: [identifier])
   updatedAt      DateTime                @default(now())

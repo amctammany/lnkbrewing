@@ -28,6 +28,7 @@ export const RecipeForm = ({
   return (
     <Form action={action}>
       <input type="hidden" name="id" value={src?.id} />
+      <input type="hidden" name="authorEmail" value={src?.authorEmail} />
       <Section header="General">
         <TextField name="name" label="Name" defaultValue={src?.name} />
         <TextArea
@@ -41,7 +42,7 @@ export const RecipeForm = ({
           label="Style"
           name="styleIdentifer"
           options={styles}
-          defaultValue={src?.styleIdentifer || ""}
+          defaultValue={src?.styleIdentifer || "1A"}
         />
       </Section>
       <RecipeHopIngredients hops={hops} src={src} />

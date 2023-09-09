@@ -1,5 +1,12 @@
 import { ButtonLink, List, ListItem, Section } from "@/components";
-import { Fermentable, Hop, HopIngredient, Recipe, Style } from "@prisma/client";
+import {
+  Fermentable,
+  Hop,
+  HopIngredient,
+  Recipe,
+  Style,
+  User,
+} from "@prisma/client";
 import Link from "next/link";
 type PropProps = {
   label?: string;
@@ -22,6 +29,7 @@ type ExtendedHopIngredient = HopIngredient & {
   hop: Pick<Hop, "id" | "name">;
 };
 type ExtendedRecipe = Recipe & {
+  author: Pick<User, "name" | "email" | "id"> | null;
   style: Pick<Style, "id" | "identifier" | "name"> | null;
   hops: ExtendedHopIngredient[];
   fermentables: ExtendedFermentableIngredient[];
@@ -43,7 +51,7 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
         <Section header="General">
           <Prop label="Name">{recipe?.name}</Prop>
-          <Prop label="Author">{recipe?.authorUsername}</Prop>
+          <Prop label="Author">{recipe?.author?.name}</Prop>
           <Prop label="Description">{recipe?.description}</Prop>
         </Section>
 
