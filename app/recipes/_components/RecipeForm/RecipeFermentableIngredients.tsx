@@ -6,6 +6,8 @@ import {
   Submit,
   TextArea,
   TextField,
+  Button,
+  Section,
 } from "@/components";
 import {
   Recipe,
@@ -40,14 +42,14 @@ export const RecipeFermentableIngredients = ({
     ]);
     e.preventDefault();
   };
+
+  const FermentableActionBar = () => (
+    <Button className="flex-shrink" onClick={addFermentableIngredient}>
+      Add
+    </Button>
+  );
   return (
-    <div className="flex-auto">
-      <div className="flex">
-        <label className="text-lg flex-grow">Fermentables</label>
-        <button className="flex-shrink" onClick={addFermentableIngredient}>
-          Add
-        </button>
-      </div>
+    <Section header="Fermentables" actions={<FermentableActionBar />}>
       <ul>
         {fermentableIngredients.map((fermentable, index) => (
           <li key={index}>
@@ -56,13 +58,13 @@ export const RecipeFermentableIngredients = ({
               fermentable={fermentable}
               index={index}
             >
-              <button onClick={removeFermentableIngredient(index)}>
+              <Button onClick={removeFermentableIngredient(index)}>
                 Remove
-              </button>
+              </Button>
             </FermentableIngredient>
           </li>
         ))}
       </ul>
-    </div>
+    </Section>
   );
 };

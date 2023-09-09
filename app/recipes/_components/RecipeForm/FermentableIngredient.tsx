@@ -2,6 +2,7 @@ import { FermentableSelect, NumberField, Select } from "@/components";
 import {
   Fermentable,
   FermentableIngredient as FermentableIngredientType,
+  MassUnit,
   TimeUnit,
 } from "@prisma/client";
 
@@ -18,7 +19,7 @@ export const FermentableIngredient = ({
   children,
 }: FermentableIngredientProps) => {
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="flex flex-auto gap-2">
       <input
         type="hidden"
         name={`fermentables[${index}].id`}
@@ -30,19 +31,32 @@ export const FermentableIngredient = ({
         name={`fermentables[${index}].recipeId`}
         value={fermentable?.recipeId}
       />
-      <FermentableSelect
-        fermentables={fermentables}
-        name={`fermentables[${index}].fermentableId`}
-        label="Fermentable"
-        defaultValue={fermentable?.fermentableId}
-      />
-      <NumberField
-        name={`fermentables[${index}].amount`}
-        label="Amount"
-        defaultValue={fermentable?.amount}
-      />
+      <div className="flex-1">
+        <FermentableSelect
+          fermentables={fermentables}
+          name={`fermentables[${index}].fermentableId`}
+          label="Fermentable"
+          defaultValue={fermentable?.fermentableId}
+        />
+      </div>
+      <div className="flex-0 w-28">
+        <NumberField
+          name={`fermentables[${index}].amount`}
+          label="Amount"
+          defaultValue={fermentable?.amount}
+        />
+      </div>
 
-      {children}
+      <div className="flex-0 w-24">
+        <Select
+          label="Type"
+          name={`hops[${index}].amountType`}
+          options={MassUnit}
+          defaultValue={fermentable?.amountType}
+        />
+      </div>
+
+      <div className="flex-shrink m-auto">{children}</div>
     </div>
   );
 };

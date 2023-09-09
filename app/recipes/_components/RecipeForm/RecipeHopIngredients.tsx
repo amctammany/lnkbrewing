@@ -1,8 +1,10 @@
 "use client";
 import {
+  Button,
   Form,
   HopSelect,
   NumberField,
+  Section,
   Submit,
   TextArea,
   TextField,
@@ -37,23 +39,23 @@ export const RecipeHopIngredients = ({
     ]);
     e.preventDefault();
   };
+  const HopActionBar = () => (
+    <Button className="flex-shrink" onClick={addHopIngredient}>
+      Add
+    </Button>
+  );
+
   return (
-    <div className="flex-auto">
-      <div className="flex">
-        <h3 className="text-lg flex-grow">Hops</h3>
-        <button className="flex-shrink" onClick={addHopIngredient}>
-          Add
-        </button>
-      </div>
+    <Section header="Hops" actions={<HopActionBar />}>
       <ul>
         {hopIngredients.map((hop, index) => (
           <li key={index}>
             <HopIngredient hops={hops} hop={hop} index={index}>
-              <button onClick={removeHopIngredient(index)}>Remove</button>
+              <Button onClick={removeHopIngredient(index)}>Remove</Button>
             </HopIngredient>
           </li>
         ))}
       </ul>
-    </div>
+    </Section>
   );
 };
