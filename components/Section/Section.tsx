@@ -7,7 +7,7 @@ export type SectionProps = {
 
 export const Section = ({ header, icon, actions, children }: SectionProps) => {
   return (
-    <div className="flex-auto">
+    <div className=" ">
       <div className="flex bg-slate-100 ">
         <div className="flex-shrink">{icon}</div>
         <h4 className="flex-grow text-lg font-bold py-2 px-4 m-0 border-red-300">
@@ -16,7 +16,7 @@ export const Section = ({ header, icon, actions, children }: SectionProps) => {
         <div>{actions}</div>
       </div>
 
-      <div className="bg-white">{children}</div>
+      <div className="bg-white p-2">{children}</div>
     </div>
   );
 };

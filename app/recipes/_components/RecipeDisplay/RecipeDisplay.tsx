@@ -35,7 +35,7 @@ const numberFieldNames: (keyof Recipe)[] = [];
 
 export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
   return (
-    <div className="m-5 p-0 min-w-full bg-slate-200 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+    <div className="m-5 p-2 min-w-full bg-slate-200 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
       <div className="flex items-center md:col-span-2">
         <h2 className="text-2xl flex-grow">Recipe Display: {recipe?.name}</h2>
         <Link

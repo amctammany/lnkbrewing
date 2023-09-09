@@ -28,8 +28,8 @@ export const HopIngredient = ({
           value={hop?.recipeId}
         />
         <div className="flex-1">
-          <HopSelect
-            hops={hops}
+          <Select
+            options={hops}
             name={`hops[${index}].hopId`}
             label="Hop"
             defaultValue={hop?.hopId}

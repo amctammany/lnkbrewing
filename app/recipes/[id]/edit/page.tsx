@@ -50,9 +50,17 @@ export default async function RecipeDisplay({
         name: true,
         identifier: true,
       },
+      orderBy: [
+        {
+          subcategoryId: "asc",
+        },
+        {
+          identifier: "asc",
+        },
+      ],
     })
   ).reduce((acc, style) => {
-    acc[style.identifier] = style.name;
+    acc[style.identifier] = `${style.identifier}: ${style.name}`;
     return acc;
   }, {} as Record<string, string>);
 

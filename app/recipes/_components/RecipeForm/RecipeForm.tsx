@@ -38,9 +38,10 @@ export const RecipeForm = ({
         />
       </Section>
       <Section header="Style">
-        <StyleSelect
+        <Select
+          label="Style"
           name="styleIdentifer"
-          styles={styles}
+          options={styles}
           defaultValue={src?.styleIdentifer || ""}
         />
       </Section>

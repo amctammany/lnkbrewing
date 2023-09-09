@@ -32,8 +32,8 @@ export const FermentableIngredient = ({
         value={fermentable?.recipeId}
       />
       <div className="flex-1">
-        <FermentableSelect
-          fermentables={fermentables}
+        <Select
+          options={fermentables}
           name={`fermentables[${index}].fermentableId`}
           label="Fermentable"
           defaultValue={fermentable?.fermentableId}
