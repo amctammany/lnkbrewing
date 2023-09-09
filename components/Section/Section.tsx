@@ -16,7 +16,7 @@ export const Section = ({ header, icon, actions, children }: SectionProps) => {
         <div>{actions}</div>
       </div>
 
-      <div>{children}</div>
+      <div className="bg-white">{children}</div>
     </div>
   );
 };

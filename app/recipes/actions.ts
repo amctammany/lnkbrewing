@@ -9,6 +9,7 @@ const schema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
+  styleIdentifer: zfd.text(z.string().optional()),
   fermentables: z
     .object({
       //recipeId: zfd.numeric(z.number()),

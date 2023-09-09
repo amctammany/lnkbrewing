@@ -18,6 +18,7 @@ export default async function RecipeDisplayPage({
   const recipe = await prisma.recipe.findFirst({
     include: {
       author: true,
+      style: true,
       hops: { include: { hop: { select: { name: true, id: true } } } },
       fermentables: {
         include: { fermentable: { select: { name: true, id: true } } },

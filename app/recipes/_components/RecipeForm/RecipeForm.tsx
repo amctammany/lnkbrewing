@@ -2,6 +2,7 @@ import {
   Form,
   Section,
   Select,
+  StyleSelect,
   Submit,
   TextArea,
   TextField,
@@ -14,12 +15,14 @@ export type RecipeFormProps = {
   src: Recipe | null;
   action?: (data: FormData) => void;
   hops: any;
+  styles: any;
   fermentables: any;
 };
 
 export const RecipeForm = ({
   src,
   hops,
+  styles,
   fermentables,
   action,
 }: RecipeFormProps) => {
@@ -35,10 +38,11 @@ export const RecipeForm = ({
         />
       </Section>
       <Section header="Style">
-        <Select name="category" defaultValue={src?.styleIdentifer}>
-          <option value="1A">1A</option>
-          <option value="21A">21A</option>
-        </Select>
+        <StyleSelect
+          name="styleIdentifer"
+          styles={styles}
+          defaultValue={src?.styleIdentifer || ""}
+        />
       </Section>
       <RecipeHopIngredients hops={hops} src={src} />
       <RecipeFermentableIngredients fermentables={fermentables} src={src} />

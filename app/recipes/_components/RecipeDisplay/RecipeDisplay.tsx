@@ -1,6 +1,18 @@
-import { List, ListItem } from "@/components";
-import { Fermentable, Hop, HopIngredient, Recipe } from "@prisma/client";
+import { List, ListItem, Section } from "@/components";
+import { Fermentable, Hop, HopIngredient, Recipe, Style } from "@prisma/client";
 import Link from "next/link";
+type PropProps = {
+  label?: string;
+  children?: any;
+};
+const Prop = ({ label, children }: PropProps) => {
+  return (
+    <div className="flex flex-auto p-2 border-b-2">
+      <b className="px-3">{label}</b>
+      <div className="flex-grow">{children}</div>
+    </div>
+  );
+};
 
 type FermentableIngredient = any;
 type ExtendedFermentableIngredient = FermentableIngredient & {
@@ -10,6 +22,7 @@ type ExtendedHopIngredient = HopIngredient & {
   hop: Pick<Hop, "id" | "name">;
 };
 type ExtendedRecipe = Recipe & {
+  style: Pick<Style, "id" | "identifier" | "name">;
   hops: ExtendedHopIngredient[];
   fermentables: ExtendedFermentableIngredient[];
 };
@@ -32,31 +45,20 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
           Edit
         </Link>
       </div>
-      {fieldNames.map((field) => (
-        <div key={field} className="m-2 p-2 bg-white shadow-sm drop-shadow">
-          <h2 key={field} className="text-lg uppercase underline">
-            {field}
-          </h2>
-          <p className="px-2 m-2">{recipe?.[field]?.toString()}</p>
-        </div>
-      ))}
+      <Section header="General">
+        <Prop label="Name">{recipe?.name}</Prop>
+        <Prop label="Author">{recipe?.authorUsername}</Prop>
+        <Prop label="Description">{recipe?.description}</Prop>
+      </Section>
 
-      <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-4">
-        {numberFieldNames.map((field) => (
-          <div key={field} className="m-2 p-2 bg-white shadow-sm drop-shadow">
-            <h2 key={field} className="text-lg uppercase underline">
-              {field}
-            </h2>
-            <p className="px-2 m-2">{recipe?.[field]?.toString()}</p>
-          </div>
-        ))}
-      </div>
-      <div className="m-2 p-2 bg-white shadow-sm drop-shadow">
-        <h2 className="text-lg underline">Hops</h2>
-        <List>
+      <Section header="Style">
+        <Prop label="Style">{recipe?.style?.identifier}</Prop>
+      </Section>
+      <Section header="Hops">
+        <ul>
           {recipe?.hops.map((hop) => (
-            <ListItem key={hop.id}>
-              <div className="bg-white flex items-center ">
+            <li key={hop.id}>
+              <div className="bg-white flex items-center p-2 ">
                 <h2 className="text-lg flex-shrink">
                   {hop.amount} {hop.amountType}
                 </h2>
@@ -67,17 +69,16 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
                   {hop?.duration} {hop?.durationType}
                 </p>
               </div>
-            </ListItem>
+            </li>
           ))}
-        </List>
-      </div>
+        </ul>
+      </Section>
 
-      <div className="m-2 p-2 bg-white shadow-sm drop-shadow">
-        <h2 className="text-lg underline">Fermentables</h2>
-        <List>
+      <Section header="Fermentables">
+        <ul>
           {recipe?.fermentables.map((fermentable) => (
-            <ListItem key={fermentable.id}>
-              <div className="bg-white flex items-center ">
+            <li key={fermentable.id}>
+              <div className="bg-white flex items-center p-2">
                 <h2 className="text-lg flex-shrink">
                   {fermentable.amount} {fermentable.amountType}
                 </h2>
@@ -88,10 +89,10 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
                   {fermentable?.duration} {fermentable?.durationType}
                 </p>
               </div>
-            </ListItem>
+            </li>
           ))}
-        </List>
-      </div>
+        </ul>
+      </Section>
     </div>
   );
 };

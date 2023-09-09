@@ -6,3 +6,4 @@ export * from "./Nav";
 export * from "./HopSelect";
 export * from "./FermentableSelect";
 export * from "./Section";
+export * from "./StyleSelect";
