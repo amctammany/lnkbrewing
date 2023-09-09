@@ -1,8 +1,15 @@
-import { Recipe } from "@prisma/client";
+import { List, ListItem } from "@/components";
+import { Hop, HopIngredient, Recipe } from "@prisma/client";
 import Link from "next/link";
 
+type ExtendedHopIngredient = HopIngredient & {
+  hop: Pick<Hop, "id" | "name">;
+};
+type ExtendedRecipe = Recipe & {
+  hops: ExtendedHopIngredient[];
+};
 export type RecipeDisplayProps = {
-  recipe?: Recipe | null;
+  recipe?: ExtendedRecipe | null;
 };
 
 const fieldNames: (keyof Recipe)[] = ["description"];
@@ -39,6 +46,25 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
           </div>
         ))}
       </div>
+      <div className="m-2 p-2 bg-white shadow-sm drop-shadow">
+        <h2 className="text-lg underline">Hops</h2>
+        <List>
+          {recipe?.hops.map((hop) => (
+            <ListItem key={hop.id}>
+              <div className="bg-white flex items-center ">
+                <h2 className="text-lg flex-shrink">
+                  {hop.amount} {hop.amountType}
+                </h2>
+                <p className="flex-grow px-2 m-0 text-lg">
+                  {hop?.hop.name?.toString()}
+                </p>
+                <p className="flex-shrink px-2 m-0 text-lg">Duration</p>
+              </div>
+            </ListItem>
+          ))}
+        </List>
+      </div>
+
       {JSON.stringify(recipe)}
     </div>
   );

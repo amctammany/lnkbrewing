@@ -22,9 +22,27 @@ export default async function RecipeDisplay({
       id: parseInt(id),
     },
   });
+  const hops = (
+    await prisma.hop.findMany({
+      select: {
+        name: true,
+        id: true,
+      },
+    })
+  ).reduce((acc, hop) => {
+    acc[hop.id] = hop.name;
+    return acc;
+  }, {} as Record<string, string>);
+
+  const fermentables = await prisma.fermentable.findMany();
   return (
     <div className="m-5 p-0 min-w-full bg-slate-200">
-      <RecipeForm src={recipe} action={updateRecipe} />
+      <RecipeForm
+        src={recipe}
+        action={updateRecipe}
+        hops={hops}
+        fermentables={fermentables}
+      />
     </div>
   );
 }

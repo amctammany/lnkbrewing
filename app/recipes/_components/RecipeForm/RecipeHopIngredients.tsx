@@ -1,14 +1,30 @@
 "use client";
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
-import { Recipe, HopIngredient } from "@prisma/client";
+import {
+  Form,
+  HopSelect,
+  NumberField,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components";
+import {
+  Recipe,
+  HopIngredient as HopIngredientType,
+  Hop,
+} from "@prisma/client";
 import { useState } from "react";
+import { HopIngredient } from "./HopIngredient";
 
-type ExtendedRecipe = Recipe & { hops?: HopIngredient[] };
+type ExtendedRecipe = Recipe & { hops?: HopIngredientType[] };
 export type RecipeHopIngredientsProps = {
   src: ExtendedRecipe | null;
+  hops: any[];
 };
 
-export const RecipeHopIngredients = ({ src }: RecipeHopIngredientsProps) => {
+export const RecipeHopIngredients = ({
+  src,
+  hops,
+}: RecipeHopIngredientsProps) => {
   const [hopIngredients, setHopIngredients] = useState(src?.hops || []);
   const removeHopIngredient = (index: number) => (e: React.MouseEvent) => {
     setHopIngredients((o) => o.filter((_, i) => i !== index));
@@ -17,7 +33,7 @@ export const RecipeHopIngredients = ({ src }: RecipeHopIngredientsProps) => {
   const addHopIngredient = (e: React.MouseEvent) => {
     setHopIngredients((old) => [
       ...old,
-      { recipeId: src?.id } as HopIngredient,
+      { recipeId: src?.id } as HopIngredientType,
     ]);
     e.preventDefault();
   };
@@ -27,21 +43,9 @@ export const RecipeHopIngredients = ({ src }: RecipeHopIngredientsProps) => {
       <ul>
         {hopIngredients.map((hop, index) => (
           <li key={index}>
-            <div className="grid grid-cols-4 gap-4">
-              <input type="hidden" name={`hops[${index}].id`} value={hop?.id} />
-
-              <input
-                type="hidden"
-                name={`hops[${index}].recipeId`}
-                value={hop?.recipeId}
-              />
-              <NumberField
-                name={`hops[${index}].amount`}
-                label="Amount"
-                defaultValue={hop?.amount}
-              />
+            <HopIngredient hops={hops} hop={hop} index={index}>
               <button onClick={removeHopIngredient(index)}>Remove</button>
-            </div>
+            </HopIngredient>
           </li>
         ))}
       </ul>

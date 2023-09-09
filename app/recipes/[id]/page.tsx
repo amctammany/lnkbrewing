@@ -1,14 +1,10 @@
-import { List, ListItemButton } from "@/components";
 import { prisma } from "@/lib/client";
-import { Recipe } from "@prisma/client";
-import Link from "next/link";
 import { RecipeDisplay } from "../_components";
 type RecipeDisplayProps = {
   params: {
     id: string;
   };
 };
-const fieldNames: (keyof Recipe)[] = ["description"];
 
 export function generateMetadata({ params }: RecipeDisplayProps) {
   return {
@@ -20,7 +16,10 @@ export default async function RecipeDisplayPage({
   params: { id },
 }: RecipeDisplayProps) {
   const recipe = await prisma.recipe.findFirst({
-    include: { author: true, hops: true },
+    include: {
+      author: true,
+      hops: { include: { hop: { select: { name: true, id: true } } } },
+    },
     where: {
       id: parseInt(id),
     },
