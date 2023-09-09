@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthenticationNav } from ".";
 
 export type NavProps = {
   children: React.ReactNode;
@@ -15,9 +16,10 @@ export const Nav = ({ children }: NavProps) => {
           >
             LNK Brewing
           </Link>
-          <ul className="flex items-center flex-col font-medium p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0">
+          <ul className="flex flex-grow items-center flex-col font-medium p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0">
             {children}
           </ul>
+          <AuthenticationNav />
         </div>
       </div>
     </nav>
