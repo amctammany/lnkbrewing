@@ -16,19 +16,11 @@ export const AuthenticationNav = async ({}: AuthenticationNavProps) => {
       Sign In
     </Link>
   ) : (
-    <>
-      <Link
-        href="/admin"
-        className="block text-center py-2 px-4 rounded-lg font-bold text-white hover:text-red-500"
-      >
-        {session.user?.name}
-      </Link>
-      <Link
-        href="/api/auth/signout"
-        className="block text-center py-2 px-4 rounded-lg font-bold text-white hover:text-red-500"
-      >
-        Logout
-      </Link>
-    </>
+    <Link
+      href="/admin"
+      className="block text-center py-2 px-4 rounded-lg font-bold text-white hover:text-red-500"
+    >
+      Admin
+    </Link>
   );
 };
