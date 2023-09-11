@@ -1,4 +1,10 @@
-import { List, ListItemButton, Table, TableColumn } from "@/components";
+import {
+  List,
+  ListItemButton,
+  Section,
+  Table,
+  TableColumn,
+} from "@/components";
 import { prisma } from "@/lib/client";
 import { Hop } from "@prisma/client";
 import { Metadata } from "next";
@@ -14,7 +20,11 @@ const columns = [
 ];
 export default async function HopsIndex() {
   const hops = await prisma.hop.findMany();
-  return <Table src={hops} columns={columns} />;
+  return (
+    <Section header="Hops">
+      <Table src={hops} columns={columns} />
+    </Section>
+  );
   /**
   return (
     <List>

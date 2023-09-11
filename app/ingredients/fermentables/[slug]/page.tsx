@@ -1,4 +1,4 @@
-import { Section } from "@/components";
+import { ButtonLink, Section } from "@/components";
 import { prisma } from "@/lib/client";
 import { Fermentable } from "@prisma/client";
 import Link from "next/link";
@@ -33,12 +33,11 @@ export default async function FermentableDisplay({
     <Section
       header={`Fermentable: ${fermentable?.name}`}
       actions={
-        <Link
-          className="text-2xl flex-shrink px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        <ButtonLink
           href={`/ingredients/fermentables/${fermentable?.slug}/edit`}
         >
           Edit
-        </Link>
+        </ButtonLink>
       }
     >
       {fieldNames.map((field) => (

@@ -1,3 +1,4 @@
+import { Section } from "@/components";
 import Link from "next/link";
 
 const links = [
@@ -6,14 +7,16 @@ const links = [
 ];
 export default function IngredientsIndex() {
   return (
-    <div className="flex">
-      {links.map(([label, url]) => (
-        <Link key={url} href={url}>
-          <div className="m-5 p-5 bg-green-100 text-blue-500 underline uppercase text-lg font-bold ">
-            {label}
-          </div>
-        </Link>
-      ))}
-    </div>
+    <Section header="IngredientsIndex">
+      <div className="flex flex-col">
+        {links.map(([label, url]) => (
+          <Link key={url} href={url}>
+            <div className="m-5 p-5 text-center rounded-lg bg-slate-400 border-2 text-white underline uppercase text-lg font-bold ">
+              {label}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </Section>
   );
 }

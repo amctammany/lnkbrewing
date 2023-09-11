@@ -15,7 +15,7 @@ export function Table<T extends Record<string, any>>({
 }: TableProps<T>) {
   const Row = makeTableRow(columns);
   return (
-    <table className="table-auto border border-collapse border-slate-400">
+    <table className="min-w-full table-auto border border-collapse border-slate-400">
       <thead>
         <tr>
           {columns.map(({ name, label }) => (
