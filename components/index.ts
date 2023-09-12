@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./Modal";
 export * from "./Form";
 export * from "./List";
 export * from "./Table";

@@ -15,6 +15,7 @@ import {
 } from "@prisma/client";
 import { useState } from "react";
 import { HopIngredient } from "./HopIngredient";
+import Link from "next/link";
 
 type ExtendedRecipe = Recipe & { hops?: HopIngredientType[] };
 export type RecipeHopIngredientsProps = {
@@ -50,6 +51,7 @@ export const RecipeHopIngredients = ({
         {hopIngredients.map((hop, index) => (
           <li key={index}>
             <HopIngredient hops={hops} hop={hop} index={index}>
+              <Link href={`/recipes/${src?.id}/edit/hops/${hop.id}`}>Edit</Link>
               <Button onClick={removeHopIngredient(index)}>Remove</Button>
             </HopIngredient>
           </li>
