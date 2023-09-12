@@ -4,10 +4,11 @@ export type ModalProps = {
 };
 
 export const Modal = ({ children }: ModalProps) => {
-  console.log("modal");
   return (
-    <div className="fixed top-2 bottom-2 left-2 right-2 p-2 m-4 bg-white z-50 w-full">
-      {children}
+    <div className="fixed  top-2 bottom-2 right-2 left-2 z-50  h-[calc(100%-1rem)] w-[calc(100%-1rem)] max-h-full">
+      <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white ">
+        <div className="relative p-5">{children}</div>
+      </div>
     </div>
   );
 };

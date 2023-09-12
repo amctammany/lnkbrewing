@@ -1,6 +1,7 @@
 "use client";
 import {
   Button,
+  ButtonLink,
   Form,
   NumberField,
   Section,
@@ -40,9 +41,12 @@ export const RecipeHopIngredients = ({
     e.preventDefault();
   };
   const HopActionBar = () => (
-    <Button className="flex-shrink" onClick={addHopIngredient}>
+    <ButtonLink
+      className="flex-shrink"
+      href={`/recipes/${src?.id}/edit/hops/new`}
+    >
       Add
-    </Button>
+    </ButtonLink>
   );
 
   return (
