@@ -7,24 +7,19 @@ import {
   TextField,
 } from "@/components";
 import { Fermentable, Recipe } from "@prisma/client";
-import { RecipeHopIngredients } from "./RecipeHopIngredients";
-import { RecipeFermentableIngredients } from "./RecipeFermentableIngredients";
+import { HopIngredients } from "./RecipeHopIngredients";
+import { FermentableIngredients } from "./RecipeFermentableIngredients";
 
 export type RecipeFormProps = {
   src: Recipe | null;
   action?: (data: FormData) => void;
-  hops: any;
-  styles: any;
-  fermentables: any;
+  //hops: any;
+  //styles: any;
+  //fermentables: any;
 };
 
-export const RecipeForm = ({
-  src,
-  hops,
-  styles,
-  fermentables,
-  action,
-}: RecipeFormProps) => {
+export const RecipeForm = ({ src, action }: RecipeFormProps) => {
+  const styles = { style: "123" };
   return (
     <Form action={action}>
       <input type="hidden" name="id" value={src?.id} />
@@ -45,8 +40,8 @@ export const RecipeForm = ({
           defaultValue={src?.styleIdentifer || "1A"}
         />
       </Section>
-      <RecipeHopIngredients hops={hops} src={src} />
-      <RecipeFermentableIngredients fermentables={fermentables} src={src} />
+      <HopIngredients recipeId={src?.id} />
+      <FermentableIngredients recipeId={src?.id} />
       <Submit>{(src?.id ? "Update" : "Create") + " Recipe"}</Submit>
     </Form>
   );

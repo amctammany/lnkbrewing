@@ -1,69 +1,51 @@
-"use client";
-import {
-  Form,
-  NumberField,
-  Submit,
-  TextArea,
-  TextField,
-  Button,
-  Section,
-} from "@/components";
-import {
-  Recipe,
-  FermentableIngredient as FermentableIngredientType,
-  Fermentable,
-} from "@prisma/client";
-import { useState } from "react";
-import { FermentableIngredient } from "./FermentableIngredient";
+import { ButtonLink, List, ListItem, Section } from "@/components";
+import { prisma } from "@/lib/client";
 
-type ExtendedRecipe = Recipe & { fermentables?: FermentableIngredientType[] };
-export type RecipeFermentableIngredientsProps = {
-  src: ExtendedRecipe | null;
-  fermentables: any[];
+export type FermentableIngredientsProps = {
+  recipeId?: number;
 };
-
-export const RecipeFermentableIngredients = ({
-  src,
-  fermentables,
-}: RecipeFermentableIngredientsProps) => {
-  const [fermentableIngredients, setFermentableIngredients] = useState(
-    src?.fermentables || []
-  );
-  const removeFermentableIngredient =
-    (index: number) => (e: React.MouseEvent) => {
-      setFermentableIngredients((o) => o.filter((_, i) => i !== index));
-      e.preventDefault();
-    };
-  const addFermentableIngredient = (e: React.MouseEvent) => {
-    setFermentableIngredients((old) => [
-      ...old,
-      { recipeId: src?.id } as FermentableIngredientType,
-    ]);
-    e.preventDefault();
-  };
-
+export const FermentableIngredients = async ({
+  recipeId,
+}: FermentableIngredientsProps) => {
+  const recipeFermentables = await prisma.fermentableIngredient.findMany({
+    where: {
+      recipeId,
+    },
+    include: {
+      fermentable: true,
+    },
+  });
   const FermentableActionBar = () => (
-    <Button className="flex-shrink" onClick={addFermentableIngredient}>
+    <ButtonLink
+      scroll={false}
+      className="flex-shrink"
+      href="?fermentableId=new"
+    >
       Add
-    </Button>
+    </ButtonLink>
   );
+
   return (
     <Section header="Fermentables" actions={<FermentableActionBar />}>
-      <ul>
-        {fermentableIngredients.map((fermentable, index) => (
-          <li key={index}>
-            <FermentableIngredient
-              fermentables={fermentables}
-              fermentable={fermentable}
-              index={index}
-            >
-              <Button onClick={removeFermentableIngredient(index)}>
-                Remove
-              </Button>
-            </FermentableIngredient>
-          </li>
+      <List>
+        {recipeFermentables.map((fermentable) => (
+          <ListItem key={fermentable.id}>
+            <div className="flex gap-4">
+              <div className="flex-1">{fermentable.fermentable.name}</div>
+              <div className="flex-0">{fermentable.amount}</div>
+              <div className="flex-0">{fermentable.amountType}</div>
+              <div>
+                <ButtonLink
+                  scroll={false}
+                  href={`?fermentableId=${fermentable.id}`}
+                >
+                  Edit
+                </ButtonLink>
+              </div>
+            </div>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </Section>
   );
 };

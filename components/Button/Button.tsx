@@ -15,10 +15,10 @@ export const Button = ({ onClick, className, children }: ButtonProps) => {
     </button>
   );
 };
-export type ButtonLinkProps = ButtonProps & { href: string };
-export const ButtonLink = ({ href, ...props }: ButtonLinkProps) => {
+export type ButtonLinkProps = ButtonProps & { scroll?: boolean; href: string };
+export const ButtonLink = ({ href, scroll, ...props }: ButtonLinkProps) => {
   return (
-    <Link href={href}>
+    <Link href={href} scroll={scroll}>
       <Button {...props} />
     </Link>
   );

@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/client";
-import { RecipeForm } from "../../_components";
+import {
+  FermentableIngredientModal,
+  HopIngredientModal,
+  RecipeForm,
+} from "../../_components";
 import { updateRecipe } from "../../actions";
 import {
   Form,
@@ -35,71 +39,14 @@ export default async function RecipeDisplay({
       id: parseInt(id),
     },
   });
-  const hops = (
-    await prisma.hop.findMany({
-      select: {
-        name: true,
-        id: true,
-      },
-    })
-  ).reduce((acc, hop) => {
-    acc[hop.id] = hop.name;
-    return acc;
-  }, {} as Record<string, string>);
-  const fermentables = (
-    await prisma.fermentable.findMany({
-      select: {
-        name: true,
-        id: true,
-      },
-    })
-  ).reduce((acc, fermentable) => {
-    acc[fermentable.id] = fermentable.name;
-    return acc;
-  }, {} as Record<string, string>);
-  const styles = (
-    await prisma.style.findMany({
-      select: {
-        name: true,
-        identifier: true,
-      },
-      orderBy: [
-        {
-          subcategoryId: "asc",
-        },
-        {
-          identifier: "asc",
-        },
-      ],
-    })
-  ).reduce((acc, style) => {
-    acc[style.identifier] = `${style.identifier}: ${style.name}`;
-    return acc;
-  }, {} as Record<string, string>);
-
-  const src = recipe;
   return (
-    <Form action={updateRecipe}>
-      <input type="hidden" name="id" value={src?.id} />
-      <input type="hidden" name="authorEmail" value={src?.authorEmail} />
-      <Section header="General">
-        <TextField name="name" label="Name" defaultValue={src?.name} />
-        <TextArea
-          name="description"
-          label="description"
-          defaultValue={src?.description}
-        />
-      </Section>
-      <Section header="Style">
-        <Select
-          label="Style"
-          name="styleIdentifer"
-          options={styles}
-          defaultValue={src?.styleIdentifer || "1A"}
-        />
-      </Section>
-      <HopIngredients recipeId={src?.id} hopId={searchParams?.hopId} />
-      <Submit>{(src?.id ? "Update" : "Create") + " Recipe"}</Submit>
-    </Form>
+    <>
+      <HopIngredientModal recipeId={parseInt(id)} hopId={searchParams?.hopId} />
+      <FermentableIngredientModal
+        recipeId={parseInt(id)}
+        fermentableId={searchParams?.fermentableId}
+      />
+      <RecipeForm src={recipe} action={updateRecipe} />
+    </>
   );
 }

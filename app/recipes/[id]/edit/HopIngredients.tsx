@@ -1,16 +1,10 @@
-import { Button, ButtonLink, List, ListItem, Section } from "@/components";
+import { ButtonLink, List, ListItem, Section } from "@/components";
 import { prisma } from "@/lib/client";
-import { HopIngredientModal } from "../../_components";
-import Link from "next/link";
 
 export type HopIngredientsProps = {
   recipeId?: number;
-  hopId?: string;
 };
-export const HopIngredients = async ({
-  recipeId,
-  hopId,
-}: HopIngredientsProps) => {
+export const HopIngredients = async ({ recipeId }: HopIngredientsProps) => {
   const recipeHops = await prisma.hopIngredient.findMany({
     where: {
       recipeId,
@@ -20,31 +14,29 @@ export const HopIngredients = async ({
     },
   });
   const HopActionBar = () => (
-    <ButtonLink className="flex-shrink" href="?hopId=new">
+    <ButtonLink scroll={false} className="flex-shrink" href="?hopId=new">
       Add
     </ButtonLink>
   );
 
   return (
-    <>
-      <HopIngredientModal recipeId={recipeId} hopId={hopId} />
-
-      <Section header="Hops" actions={<HopActionBar />}>
-        <List>
-          {recipeHops.map((hop) => (
-            <ListItem key={hop.id}>
-              <div className="flex gap-4">
-                <div className="flex-0">{hop.duration}</div>
-                <div className="flex-1">{hop.hop.name}</div>
-                <div className="flex-0">{hop.amount}</div>
-                <div>
-                  <ButtonLink href={`?hopId=${hop.id}`}>Edit</ButtonLink>
-                </div>
+    <Section header="Hops" actions={<HopActionBar />}>
+      <List>
+        {recipeHops.map((hop) => (
+          <ListItem key={hop.id}>
+            <div className="flex gap-4">
+              <div className="flex-0">{hop.duration}</div>
+              <div className="flex-1">{hop.hop.name}</div>
+              <div className="flex-0">{hop.amount}</div>
+              <div>
+                <ButtonLink scroll={false} href={`?hopId=${hop.id}`}>
+                  Edit
+                </ButtonLink>
               </div>
-            </ListItem>
-          ))}
-        </List>
-      </Section>
-    </>
+            </div>
+          </ListItem>
+        ))}
+      </List>
+    </Section>
   );
 };
