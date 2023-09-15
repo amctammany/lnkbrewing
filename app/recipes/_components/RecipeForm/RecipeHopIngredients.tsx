@@ -51,7 +51,7 @@ export const RecipeHopIngredients = ({
         {hopIngredients.map((hop, index) => (
           <li key={index}>
             <HopIngredient hops={hops} hop={hop} index={index}>
-              <Link href={`/recipes/${src?.id}/edit/hops/${hop.id}`}>Edit</Link>
+              <Link href={`/recipes/${src?.id}/edit/?hop=${hop.id}`}>Edit</Link>
               <Button onClick={removeHopIngredient(index)}>Remove</Button>
             </HopIngredient>
           </li>
