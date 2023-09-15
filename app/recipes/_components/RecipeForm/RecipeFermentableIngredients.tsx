@@ -1,69 +1,41 @@
-"use client";
-import {
-  Form,
-  NumberField,
-  Submit,
-  TextArea,
-  TextField,
-  Button,
-  Section,
-} from "@/components";
-import {
-  Recipe,
-  FermentableIngredient as FermentableIngredientType,
-  Fermentable,
-} from "@prisma/client";
-import { useState } from "react";
+import { ButtonLink, List, ListItem, Section } from "@/components";
+import { prisma } from "@/lib/client";
 import { FermentableIngredient } from "./FermentableIngredient";
 
-type ExtendedRecipe = Recipe & { fermentables?: FermentableIngredientType[] };
 export type RecipeFermentableIngredientsProps = {
-  src: ExtendedRecipe | null;
-  fermentables: any[];
+  recipeId?: number;
 };
-
-export const RecipeFermentableIngredients = ({
-  src,
-  fermentables,
+export const RecipeFermentableIngredients = async ({
+  recipeId,
 }: RecipeFermentableIngredientsProps) => {
-  const [fermentableIngredients, setFermentableIngredients] = useState(
-    src?.fermentables || []
-  );
-  const removeFermentableIngredient =
-    (index: number) => (e: React.MouseEvent) => {
-      setFermentableIngredients((o) => o.filter((_, i) => i !== index));
-      e.preventDefault();
-    };
-  const addFermentableIngredient = (e: React.MouseEvent) => {
-    setFermentableIngredients((old) => [
-      ...old,
-      { recipeId: src?.id } as FermentableIngredientType,
-    ]);
-    e.preventDefault();
-  };
-
+  const recipeFermentables = await prisma.fermentableIngredient.findMany({
+    where: {
+      recipeId,
+    },
+    include: {
+      fermentable: true,
+    },
+  });
   const FermentableActionBar = () => (
-    <Button className="flex-shrink" onClick={addFermentableIngredient}>
+    <ButtonLink
+      scroll={false}
+      className="flex-shrink"
+      href="?fermentableId=new"
+    >
       Add
-    </Button>
+    </ButtonLink>
   );
+
   return (
     <Section header="Fermentables" actions={<FermentableActionBar />}>
-      <ul>
-        {fermentableIngredients.map((fermentable, index) => (
-          <li key={index}>
-            <FermentableIngredient
-              fermentables={fermentables}
-              fermentable={fermentable}
-              index={index}
-            >
-              <Button onClick={removeFermentableIngredient(index)}>
-                Remove
-              </Button>
-            </FermentableIngredient>
-          </li>
+      <List>
+        {recipeFermentables.map((fermentable) => (
+          <FermentableIngredient
+            key={fermentable.id}
+            fermentable={fermentable}
+          />
         ))}
-      </ul>
+      </List>
     </Section>
   );
 };

@@ -1,4 +1,3 @@
 export * from "./RecipeForm";
-export * from "./HopIngredient";
-export * from "./FermentableIngredient";
-export * from "./HopIngredientForm";
+export * from "./HopIngredientModal";
+export * from "./FermentableIngredientModal";

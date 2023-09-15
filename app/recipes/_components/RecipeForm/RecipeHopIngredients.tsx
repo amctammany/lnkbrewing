@@ -1,66 +1,34 @@
-"use client";
-import {
-  Button,
-  ButtonLink,
-  Form,
-  NumberField,
-  Section,
-  Submit,
-  TextArea,
-  TextField,
-} from "@/components";
-import {
-  Recipe,
-  HopIngredient as HopIngredientType,
-  Hop,
-} from "@prisma/client";
-import { useState } from "react";
+import { ButtonLink, List, ListItem, Section } from "@/components";
+import { prisma } from "@/lib/client";
 import { HopIngredient } from "./HopIngredient";
-import Link from "next/link";
 
-type ExtendedRecipe = Recipe & { hops?: HopIngredientType[] };
 export type RecipeHopIngredientsProps = {
-  src: ExtendedRecipe | null;
-  hops: any[];
+  recipeId?: number;
 };
-
-export const RecipeHopIngredients = ({
-  src,
-  hops,
+export const RecipeHopIngredients = async ({
+  recipeId,
 }: RecipeHopIngredientsProps) => {
-  const [hopIngredients, setHopIngredients] = useState(src?.hops || []);
-  const removeHopIngredient = (index: number) => (e: React.MouseEvent) => {
-    setHopIngredients((o) => o.filter((_, i) => i !== index));
-    e.preventDefault();
-  };
-  const addHopIngredient = (e: React.MouseEvent) => {
-    setHopIngredients((old) => [
-      ...old,
-      { recipeId: src?.id } as HopIngredientType,
-    ]);
-    e.preventDefault();
-  };
+  const recipeHops = await prisma.hopIngredient.findMany({
+    where: {
+      recipeId,
+    },
+    include: {
+      hop: true,
+    },
+  });
   const HopActionBar = () => (
-    <ButtonLink
-      className="flex-shrink"
-      href={`/recipes/${src?.id}/edit/hops/new`}
-    >
+    <ButtonLink scroll={false} className="flex-shrink" href="?hopId=new">
       Add
     </ButtonLink>
   );
 
   return (
     <Section header="Hops" actions={<HopActionBar />}>
-      <ul>
-        {hopIngredients.map((hop, index) => (
-          <li key={index}>
-            <HopIngredient hops={hops} hop={hop} index={index}>
-              <Link href={`/recipes/${src?.id}/edit/hops/${hop.id}`}>Edit</Link>
-              <Button onClick={removeHopIngredient(index)}>Remove</Button>
-            </HopIngredient>
-          </li>
+      <List>
+        {recipeHops.map((hop) => (
+          <HopIngredient key={hop.id} hop={hop} />
         ))}
-      </ul>
+      </List>
     </Section>
   );
 };

@@ -37,29 +37,23 @@ const recipeSchema = zfd.formData({
 export async function updateRecipe(formData: FormData) {
   const { id, authorEmail, styleIdentifer, ...data } =
     recipeSchema.parse(formData);
-
   const res = await prisma.recipe.update({
     where: {
       id,
     },
-    data,
-    //data: {
-    //...data,
-    //fermentables: {
-    //deleteMany: {},
-    //createMany: { data: data.fermentables || [] },
-    //},
-    //hops: {
-    //deleteMany: {},
-    //createMany: { data: data.hops || [] },
-    //},
-    //},
+    data: {
+      ...data,
+      //style: { connect: { identifier: styleIdentifer } },
+      author: { connect: { email: authorEmail } },
+      slug: slugify(data.name, { lower: true }),
+    },
   });
   redirect(`/recipes/${res.id}`);
 }
+
 export async function createRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, ...data } =
-    recipeSchema.parse(formData);
+  const { id, authorEmail, styleIdentifer, ...data } = schema.parse(formData);
+
   const res = await prisma.recipe.create({
     data: {
       ...data,
@@ -77,9 +71,8 @@ export async function createRecipe(formData: FormData) {
   });
   redirect(`/recipes/${res.id}`);
 }
-//}
-
 const hopIngredientSchema = zfd.formData({
+  id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
   hopId: zfd.numeric(z.number().optional().default(1078)),
   amount: zfd.numeric(z.number().min(0)),
@@ -87,13 +80,40 @@ const hopIngredientSchema = zfd.formData({
   duration: zfd.numeric(z.number().min(0)),
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
-//.object({
-////amountType: z.enum(["kg", "g", "oz", "lb"]).default("kg"),
-//})
-
-export async function createHopIngredient(formData: FormData) {
+export async function addHopIngredientToRecipe(formData: FormData) {
   const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.create({
+    data,
+  });
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+export async function updateHopIngredient(formData: FormData) {
+  const data = hopIngredientSchema.parse(formData);
+  const res = await prisma.hopIngredient.update({
+    where: { id: data.id },
+    data,
+  });
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+
+const fermentableIngredientSchema = zfd.formData({
+  id: zfd.numeric(z.number().optional()),
+  recipeId: zfd.numeric(z.number()),
+  fermentableId: zfd.numeric(z.number().optional().default(1078)),
+  amount: zfd.numeric(z.number().min(0)),
+  amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
+});
+export async function addFermentableIngredientToRecipe(formData: FormData) {
+  const data = fermentableIngredientSchema.parse(formData);
+  const res = await prisma.fermentableIngredient.create({
+    data,
+  });
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+export async function updateFermentableIngredient(formData: FormData) {
+  const data = fermentableIngredientSchema.parse(formData);
+  const res = await prisma.fermentableIngredient.update({
+    where: { id: data.id },
     data,
   });
   redirect(`/recipes/${res.recipeId}/edit`);
