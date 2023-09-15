@@ -1,60 +1,26 @@
-import { NumberField, Select } from "@/components";
-import { HopIngredient as HopIngredientType, TimeUnit } from "@prisma/client";
+import { ButtonLink, ListItem, NumberField, Select } from "@/components";
+import {
+  Hop,
+  HopIngredient as HopIngredientType,
+  TimeUnit,
+} from "@prisma/client";
 
 export type HopIngredientProps = {
-  hops: any;
-  hop: HopIngredientType | null;
-  index: number;
-  children?: React.ReactNode;
+  hop: HopIngredientType & { hop: Hop };
 };
-export const HopIngredient = ({
-  hops,
-  hop,
-  index,
-  children,
-}: HopIngredientProps) => {
+export const HopIngredient = ({ hop }: HopIngredientProps) => {
   return (
-    <div className="flex flex-auto">
-      <div className="flex flex-grow gap-1">
-        <input type="hidden" name={`hops[${index}].id`} value={hop?.id} />
-
-        <input
-          type="hidden"
-          name={`hops[${index}].recipeId`}
-          value={hop?.recipeId}
-        />
-        <div className="flex-1">
-          <Select
-            options={hops}
-            name={`hops[${index}].hopId`}
-            label="Hop"
-            defaultValue={hop?.hopId}
-          />
+    <ListItem>
+      <div className="flex gap-4">
+        <div className="flex-0">{hop.duration}</div>
+        <div className="flex-1">{hop.hop.name}</div>
+        <div className="flex-0">{hop.amount}</div>
+        <div>
+          <ButtonLink scroll={false} href={`?hopId=${hop.id}`}>
+            Edit
+          </ButtonLink>
         </div>
-        <div className="flex-0 w-28">
-          <NumberField
-            name={`hops[${index}].amount`}
-            label="Amount"
-            defaultValue={hop?.amount}
-          />
-        </div>
-        <div className="flex-0 w-24">
-          <NumberField
-            name={`hops[${index}].duration`}
-            label="Time"
-            defaultValue={hop?.duration}
-          />
-        </div>
-        <div className="flex-0 w-24">
-          <Select
-            name={`hops[${index}].durationType`}
-            label="Time Unit"
-            options={TimeUnit}
-            defaultValue={hop?.durationType}
-          />
-        </div>
-        <div className="flex-shrink m-auto">{children}</div>
       </div>
-    </div>
+    </ListItem>
   );
 };

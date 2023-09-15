@@ -1,12 +1,13 @@
 import { ButtonLink, List, ListItem, Section } from "@/components";
 import { prisma } from "@/lib/client";
+import { FermentableIngredient } from "./FermentableIngredient";
 
-export type FermentableIngredientsProps = {
+export type RecipeFermentableIngredientsProps = {
   recipeId?: number;
 };
-export const FermentableIngredients = async ({
+export const RecipeFermentableIngredients = async ({
   recipeId,
-}: FermentableIngredientsProps) => {
+}: RecipeFermentableIngredientsProps) => {
   const recipeFermentables = await prisma.fermentableIngredient.findMany({
     where: {
       recipeId,
@@ -29,21 +30,10 @@ export const FermentableIngredients = async ({
     <Section header="Fermentables" actions={<FermentableActionBar />}>
       <List>
         {recipeFermentables.map((fermentable) => (
-          <ListItem key={fermentable.id}>
-            <div className="flex gap-4">
-              <div className="flex-1">{fermentable.fermentable.name}</div>
-              <div className="flex-0">{fermentable.amount}</div>
-              <div className="flex-0">{fermentable.amountType}</div>
-              <div>
-                <ButtonLink
-                  scroll={false}
-                  href={`?fermentableId=${fermentable.id}`}
-                >
-                  Edit
-                </ButtonLink>
-              </div>
-            </div>
-          </ListItem>
+          <FermentableIngredient
+            key={fermentable.id}
+            fermentable={fermentable}
+          />
         ))}
       </List>
     </Section>

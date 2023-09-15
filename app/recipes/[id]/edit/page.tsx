@@ -4,18 +4,6 @@ import {
   HopIngredientModal,
   RecipeForm,
 } from "../../_components";
-import { updateRecipe } from "../../actions";
-import {
-  Form,
-  Section,
-  TextField,
-  TextArea,
-  Select,
-  Submit,
-} from "@/components";
-import { RecipeFermentableIngredients } from "../../_components/RecipeForm/RecipeFermentableIngredients";
-import { RecipeHopIngredients } from "../../_components/RecipeForm/RecipeHopIngredients";
-import { HopIngredients } from "./HopIngredients";
 type RecipeDisplayProps = {
   params: {
     id: string;
@@ -46,7 +34,7 @@ export default async function RecipeDisplay({
         recipeId={parseInt(id)}
         fermentableId={searchParams?.fermentableId}
       />
-      <RecipeForm src={recipe} action={updateRecipe} />
+      <RecipeForm src={recipe} />
     </>
   );
 }

@@ -29,7 +29,6 @@ HopIngredientModalProps) => {
           },
         })
       : ({ recipeId } as HopIngredient);
-  console.log(hop);
   const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   const hops = (
     await prisma.hop.findMany({

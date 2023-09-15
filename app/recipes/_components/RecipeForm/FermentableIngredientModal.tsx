@@ -29,7 +29,6 @@ FermentableIngredientModalProps) => {
           },
         })
       : ({ recipeId } as FermentableIngredient);
-  console.log(fermentable);
   const action = fermentable?.id
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
