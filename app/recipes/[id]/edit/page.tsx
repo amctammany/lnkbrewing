@@ -4,23 +4,23 @@ import {
   HopIngredientModal,
   RecipeForm,
 } from "../../_components";
-type RecipeDisplayProps = {
+type RecipeEditorProps = {
   params: {
     id: string;
   };
   searchParams: Record<string, string> | null;
 };
 
-export function generateMetadata({ params }: RecipeDisplayProps) {
+export function generateMetadata({ params }: RecipeEditorProps) {
   return {
     title: `LNK Recipe: ${params.id}`,
   };
 }
 
-export default async function RecipeDisplay({
+export default async function RecipeEditor({
   params: { id },
   searchParams,
-}: RecipeDisplayProps) {
+}: RecipeEditorProps) {
   const recipe = await prisma.recipe.findFirst({
     include: { author: true, hops: true, fermentables: true, style: true },
     where: {
