@@ -1,18 +1,25 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import { useClickAway } from "@/hooks";
 import { useRouter } from "next/navigation";
 
 interface ClickAwayRouterProps {
   url: string;
+  Component: React.Component;
   children: React.ReactNode | React.ReactNode[];
 }
 
 export const ClickAwayRouter: FC<ClickAwayRouterProps> = ({
   url,
+  Component,
   children,
 }) => {
   const router = useRouter();
+  //const ref = useRef(null);
   const ref = useClickAway(() => router.replace(url, { scroll: false }));
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div className="relative" ref={ref}>
+      {children}
+    </div>
+  );
 };

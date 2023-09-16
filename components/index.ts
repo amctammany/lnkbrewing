@@ -2,7 +2,6 @@ export * from "./Button";
 export * from "./Modal";
 export * from "./Menu";
 export * from "./ClickAwayRouter";
-export * from "./NewModal";
 export * from "./Form";
 export * from "./List";
 export * from "./Table";

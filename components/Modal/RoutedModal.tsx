@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Button, ButtonLink } from "..";
+import { Button, ButtonLink, ClickAwayRouter } from "..";
 
 export type RoutedModalProps = {
   hidden?: boolean;
@@ -28,7 +28,7 @@ export const RoutedModal = ({
               Close
             </ButtonLink>
           </div>
-          {children}
+          <ClickAwayRouter url={returnUrl}>{children}</ClickAwayRouter>
         </div>
       </div>
     </div>
