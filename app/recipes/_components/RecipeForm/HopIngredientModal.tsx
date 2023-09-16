@@ -5,6 +5,7 @@ import {
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
+import { HopSelect } from "./HopSelect";
 export type HopIngredientModalProps = {
   recipeId?: number;
   hopId?: string;
@@ -30,18 +31,6 @@ HopIngredientModalProps) => {
         })
       : ({ recipeId } as HopIngredient);
   const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
-  const hops = (
-    await prisma.hop.findMany({
-      select: {
-        name: true,
-        alpha: true,
-        id: true,
-      },
-    })
-  ).reduce((acc, hop) => {
-    acc[hop.id] = hop.name;
-    return acc;
-  }, {} as any);
   return hidden ? null : (
     <Modal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
       HopIngredientModal
@@ -49,12 +38,7 @@ HopIngredientModalProps) => {
         <input type="hidden" name="id" value={hop?.id} />
         <input type="hidden" name="recipeId" value={recipeId} />
         <div className="flex-1">
-          <Select
-            options={hops}
-            name="hopId"
-            label="Hop"
-            defaultValue={hop?.hopId}
-          />
+          <HopSelect name="hopId" label="Hop" value={hop?.hopId} />
         </div>
         <div className="flex-0 w-28">
           <NumberField

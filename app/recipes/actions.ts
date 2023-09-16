@@ -52,7 +52,8 @@ export async function updateRecipe(formData: FormData) {
 }
 
 export async function createRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, ...data } = schema.parse(formData);
+  const { id, authorEmail, styleIdentifer, ...data } =
+    recipeSchema.parse(formData);
 
   const res = await prisma.recipe.create({
     data: {

@@ -5,6 +5,7 @@ import {
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
+import { FermentableSelect } from "./FermentableSelect";
 export type FermentableIngredientModalProps = {
   recipeId?: number;
   fermentableId?: string;
@@ -32,19 +33,6 @@ FermentableIngredientModalProps) => {
   const action = fermentable?.id
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
-  const fermentables = (
-    await prisma.fermentable.findMany({
-      select: {
-        name: true,
-        power: true,
-        potential: true,
-        id: true,
-      },
-    })
-  ).reduce((acc, fermentable) => {
-    acc[fermentable.id] = fermentable.name;
-    return acc;
-  }, {} as any);
   return hidden ? null : (
     <Modal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
       FermentableIngredientModal
@@ -52,11 +40,10 @@ FermentableIngredientModalProps) => {
         <input type="hidden" name="id" value={fermentable?.id} />
         <input type="hidden" name="recipeId" value={recipeId} />
         <div className="flex-1">
-          <Select
-            options={fermentables}
+          <FermentableSelect
             name="fermentableId"
             label="Fermentable"
-            defaultValue={fermentable?.fermentableId}
+            value={fermentable?.fermentableId}
           />
         </div>
         <div className="flex-0 w-28">
