@@ -4,9 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import { Menu, MenuItem } from "@/components";
 import { AdminForm } from "./AdminForm";
-import dynamic from "next/dynamic";
-//import { AdminModal } from "./AdminModal";
-const AdminModal = dynamic(() => import("./AdminModal"), { ssr: false });
+import { AdminModal } from "./AdminModal";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
