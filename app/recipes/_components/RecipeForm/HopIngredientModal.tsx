@@ -1,4 +1,4 @@
-import { Form, Modal, NumberField, Select, Submit } from "@/components";
+import { Form, NumberField, RoutedModal, Select, Submit } from "@/components";
 import { HopIngredient, TimeUnit } from "@prisma/client";
 import {
   addHopIngredientToRecipe,
@@ -32,7 +32,7 @@ HopIngredientModalProps) => {
       : ({ recipeId } as HopIngredient);
   const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   return hidden ? null : (
-    <Modal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
+    <RoutedModal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
       HopIngredientModal
       <Form action={action}>
         <input type="hidden" name="id" value={hop?.id} />
@@ -64,6 +64,6 @@ HopIngredientModalProps) => {
         </div>
         <Submit>Save</Submit>
       </Form>
-    </Modal>
+    </RoutedModal>
   );
 };

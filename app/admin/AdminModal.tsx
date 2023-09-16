@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, NewModal } from "@/components";
+import { Button, Modal } from "@/components";
 import { useClickAway } from "@/hooks";
 import { useEffect, useRef, useState } from "react";
 export type AdminModalProps = {
@@ -14,12 +14,12 @@ export const AdminModal = ({ children }: AdminModalProps) => {
   return (
     <>
       <Button onClick={handleToggle}>Open</Button>
-      <NewModal
+      <Modal
         hidden={!open}
         menu={<Button onClick={() => setOpen(false)}>Close</Button>}
       >
         <div ref={ref}>{children}</div>
-      </NewModal>
+      </Modal>
     </>
   );
 };

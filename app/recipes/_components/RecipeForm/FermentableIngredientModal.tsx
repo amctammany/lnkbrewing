@@ -1,4 +1,4 @@
-import { Form, Modal, NumberField, Select, Submit } from "@/components";
+import { Form, RoutedModal, NumberField, Select, Submit } from "@/components";
 import { FermentableIngredient, MassUnit, TimeUnit } from "@prisma/client";
 import {
   addFermentableIngredientToRecipe,
@@ -34,7 +34,7 @@ FermentableIngredientModalProps) => {
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
   return hidden ? null : (
-    <Modal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
+    <RoutedModal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
       FermentableIngredientModal
       <Form action={action}>
         <input type="hidden" name="id" value={fermentable?.id} />
@@ -63,6 +63,6 @@ FermentableIngredientModalProps) => {
         </div>
         <Submit>Save</Submit>
       </Form>
-    </Modal>
+    </RoutedModal>
   );
 };

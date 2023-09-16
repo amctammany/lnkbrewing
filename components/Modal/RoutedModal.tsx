@@ -1,15 +1,16 @@
-//"use client";
 import clsx from "clsx";
 import { Button, ButtonLink } from "..";
 
-export type NewModalProps = {
+export type RoutedModalProps = {
   hidden?: boolean;
-  menu?: React.ReactNode;
-  //returnUrl: string;
-  //onClose?: any;
+  returnUrl: string;
   children?: any;
 };
-export const NewModal = ({ hidden, menu, children }: NewModalProps) => {
+export const RoutedModal = ({
+  hidden,
+  returnUrl,
+  children,
+}: RoutedModalProps) => {
   //const handleClose = () => router.back();
   const className = clsx(
     " top-2 bottom-2 right-2 left-2 z-50  h-[calc(100%-1rem)] w-[calc(100%-1rem)] max-h-full",
@@ -22,11 +23,14 @@ export const NewModal = ({ hidden, menu, children }: NewModalProps) => {
     <div className={className}>
       <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white ">
         <div className="relative p-5">
-          <div>{menu}</div>
+          <div>
+            <ButtonLink scroll={false} href={returnUrl}>
+              Close
+            </ButtonLink>
+          </div>
           {children}
         </div>
       </div>
     </div>
   );
 };
-export default NewModal;
