@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import { useState, useRef, useEffect } from "react";
 
 export type MenuProps = {
@@ -19,9 +20,9 @@ export const Menu = ({ label, children }: MenuProps) => {
     document.addEventListener("click", handleClickAway, true);
     return () => document.removeEventListener("click", handleClickAway, true);
   });
-  const menuClass = open
-    ? "absolute list-none float-left z-[1000] shadow-lg"
-    : "absolute hidden list-none float-left z-[1000]";
+  const menuClass = clsx("absolute list-none float-left z-[1000] shadow-lg", {
+    hidden: !open,
+  });
   return (
     <div ref={ref} className="relative">
       <button
