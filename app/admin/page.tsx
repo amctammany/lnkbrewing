@@ -19,10 +19,16 @@ export default async function AdminPage() {
       AdminPage
       <h4>{session?.user?.email}</h4>
       <p>{JSON.stringify(user)}</p>
-      <Menu label="menu">
-        <MenuItem>First</MenuItem>
-        <MenuItem>Second</MenuItem>
-      </Menu>
+      <div className="flex flex-auto">
+        <Menu label="menu">
+          <MenuItem>First</MenuItem>
+          <MenuItem>Second</MenuItem>
+        </Menu>
+        <Menu label="menu">
+          <MenuItem>First</MenuItem>
+          <MenuItem>Second</MenuItem>
+        </Menu>
+      </div>
     </div>
   );
 }
