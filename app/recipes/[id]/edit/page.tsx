@@ -30,18 +30,11 @@ export default async function RecipeEditorPage({
   });
   return (
     <>
-      <ClickAwayRouter url={`/recipes/${id}/edit`}>
-        <HopIngredientModal
-          recipeId={parseInt(id)}
-          hopId={searchParams?.hopId}
-        />
-      </ClickAwayRouter>
-      <ClickAwayRouter url={`/recipes/${id}/edit`}>
-        <FermentableIngredientModal
-          recipeId={parseInt(id)}
-          fermentableId={searchParams?.fermentableId}
-        />
-      </ClickAwayRouter>
+      <HopIngredientModal recipeId={parseInt(id)} hopId={searchParams?.hopId} />
+      <FermentableIngredientModal
+        recipeId={parseInt(id)}
+        fermentableId={searchParams?.fermentableId}
+      />
       <RecipeForm src={recipe} />
     </>
   );
