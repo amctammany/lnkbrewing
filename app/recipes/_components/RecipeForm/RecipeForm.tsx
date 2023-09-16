@@ -1,22 +1,15 @@
-import {
-  Form,
-  Section,
-  Select,
-  Submit,
-  TextArea,
-  TextField,
-} from "@/components";
+import { Form, Section, Submit, TextArea, TextField } from "@/components";
 import { Fermentable, Recipe } from "@prisma/client";
 import { RecipeHopIngredients } from "./RecipeHopIngredients";
 import { RecipeFermentableIngredients } from "./RecipeFermentableIngredients";
 import { updateRecipe } from "../../actions";
+import { StyleSelect } from ".";
 
 export type RecipeFormProps = {
   src: Recipe | null;
 };
 
 export const RecipeForm = ({ src }: RecipeFormProps) => {
-  const styles = { style: "123" };
   return (
     <Form action={updateRecipe}>
       <input type="hidden" name="id" value={src?.id} />
@@ -30,11 +23,10 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
         />
       </Section>
       <Section header="Style">
-        <Select
+        <StyleSelect
+          value={src?.styleIdentifer || "1A"}
           label="Style"
           name="styleIdentifer"
-          options={styles}
-          defaultValue={src?.styleIdentifer || "1A"}
         />
       </Section>
       <RecipeHopIngredients recipeId={src?.id} />

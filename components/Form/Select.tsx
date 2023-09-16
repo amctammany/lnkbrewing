@@ -6,7 +6,7 @@ export type SelectProps = {
   label?: string;
   defaultValue: any;
   children?: React.ReactNode | React.ReactNode[];
-  options?: Record<string, string>;
+  options?: Record<string | number, string | number>;
 };
 export const Select = ({
   name,
