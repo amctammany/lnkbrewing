@@ -1,11 +1,11 @@
-import { Form, RoutedModal, NumberField, Select, Submit } from "@/components";
-import { FermentableIngredient, MassUnit, TimeUnit } from "@prisma/client";
+import { RoutedModal } from "@/components";
+import { FermentableIngredient } from "@prisma/client";
 import {
   addFermentableIngredientToRecipe,
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
-import { FermentableSelect } from "./FermentableSelect";
+import { FermentableIngredientForm } from "./FermentableIngredientForm";
 export type FermentableIngredientModalProps = {
   recipeId?: number;
   fermentableId?: string;
@@ -36,33 +36,7 @@ FermentableIngredientModalProps) => {
   return hidden ? null : (
     <RoutedModal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
       FermentableIngredientModal
-      <Form action={action}>
-        <input type="hidden" name="id" value={fermentable?.id} />
-        <input type="hidden" name="recipeId" value={recipeId} />
-        <div className="flex-1">
-          <FermentableSelect
-            name="fermentableId"
-            label="Fermentable"
-            value={fermentable?.fermentableId}
-          />
-        </div>
-        <div className="flex-0 w-28">
-          <NumberField
-            name="amount"
-            label="Amount"
-            defaultValue={fermentable?.amount}
-          />
-        </div>
-        <div className="flex-0 w-24">
-          <Select
-            name="durationType"
-            label="Time Unit"
-            options={MassUnit}
-            defaultValue={fermentable?.amountType}
-          />
-        </div>
-        <Submit>Save</Submit>
-      </Form>
+      <FermentableIngredientForm src={fermentable} action={action} />
     </RoutedModal>
   );
 };

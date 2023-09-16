@@ -1,5 +1,4 @@
 import { Form, NumberField, Select, Submit, TextField } from "@/components";
-import { prisma } from "@/lib/client";
 import { HopIngredient, MassUnit, TimeUnit } from "@prisma/client";
 import { HopSelect } from "./HopSelect";
 
