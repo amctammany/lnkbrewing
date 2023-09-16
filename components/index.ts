@@ -1,5 +1,6 @@
 export * from "./Button";
 export * from "./Modal";
+export * from "./Menu";
 export * from "./Form";
 export * from "./List";
 export * from "./Table";
