@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface ClickAwayRouterProps {
   url: string;
-  Component: React.Component;
+  Component?: React.Component;
   children: React.ReactNode | React.ReactNode[];
 }
 
@@ -15,8 +15,8 @@ export const ClickAwayRouter: FC<ClickAwayRouterProps> = ({
   children,
 }) => {
   const router = useRouter();
-  //const ref = useRef(null);
-  const ref = useClickAway(() => router.replace(url, { scroll: false }));
+  const ref = useRef(null);
+  //const ref = useClickAway(() => router.replace(url, { scroll: false }));
   return (
     <div className="relative" ref={ref}>
       {children}
