@@ -1,4 +1,5 @@
 "use client";
+import { useClickAway } from "@/hooks";
 import clsx from "clsx";
 import { useState, useRef, useEffect } from "react";
 
@@ -8,18 +9,9 @@ export type MenuProps = {
 };
 
 export const Menu = ({ label, children }: MenuProps) => {
-  const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((v) => !v);
-  useEffect(() => {
-    const handleClickAway = (e: any) => {
-      // Click inside Menu
-      if (ref.current?.contains(e.target)) return;
-      setOpen(false);
-    };
-    document.addEventListener("click", handleClickAway, true);
-    return () => document.removeEventListener("click", handleClickAway, true);
-  });
+  const ref = useClickAway(() => setOpen(false));
   const menuClass = clsx("absolute list-none float-left z-[1000] shadow-lg", {
     hidden: !open,
   });
