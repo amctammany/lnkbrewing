@@ -4,7 +4,9 @@ import { prisma } from "@/lib/client";
 import { cache } from "react";
 
 export const getStyles = cache(async () => {
-  const styles = await prisma.style.findMany();
+  const styles = await prisma.style.findMany({
+    orderBy: [{ subcategoryId: "asc" }, { identifier: "asc" }],
+  });
   return styles;
 });
 
