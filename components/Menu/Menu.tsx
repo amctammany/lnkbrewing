@@ -16,7 +16,7 @@ export const Menu = ({ label, children }: MenuProps) => {
     hidden: !open,
   });
   return (
-    <div ref={ref} className="relative">
+    <div className="relative">
       <button
         onClick={toggleOpen}
         className="flex items-center whitespace-nowrap  uppercase rounded bg-stone-500 px-6 py-2 font-medium text-xs"
