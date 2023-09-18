@@ -188,9 +188,9 @@ enum HopUsage {
 }
 
 model Hop {
-  id                Int             @id @default(autoincrement())
+  id                Int               @id @default(autoincrement())
   name              String
-  slug              String          @unique
+  slug              String            @unique
   description       String?
   country           String?
   usage             HopUsage?
@@ -224,4 +224,28 @@ model Hop {
   substitutesString String[]
   styles            String[]
   HopIngredient     HopIngredient[]
+  HopSensoryPanel   HopSensoryPanel[]
+}
+
+model HopSensoryPanel {
+  id            Int     @id @default(autoincrement())
+  hopId         Int
+  hop           Hop     @relation(fields: [hopId], references: [id])
+  sweetAromatic Float
+  berry         Float
+  stoneFruit    Float
+  pomme         Float
+  melon         Float
+  tropical      Float
+  citrus        Float
+  floral        Float
+  herbal        Float
+  vegetal       Float
+  grassy        Float
+  earthy        Float
+  woody         Float
+  spicy         Float
+  year          Int?
+  author        String?
+  notes         String?
 }
