@@ -41,7 +41,11 @@ export default async function HopDisplay({
     where: {
       slug,
     },
+    include: {
+      HopSensoryPanel: true,
+    },
   });
+  const panel = hop?.HopSensoryPanel[0];
   return (
     <Section
       header={`Hop: ${hop?.name}`}
@@ -134,6 +138,14 @@ export default async function HopDisplay({
             high={hop?.totalOilHigh}
             avg={hop?.totalOil}
           />
+        </div>
+        <div>
+          Sensory
+          {Object.entries(panel || {}).map(([k, v]) => (
+            <div key={k}>
+              {k} : {v}
+            </div>
+          ))}
         </div>
       </div>
     </Section>

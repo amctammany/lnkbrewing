@@ -192,6 +192,7 @@ model Hop {
   name              String
   slug              String            @unique
   description       String?
+  characteristics   String?
   country           String?
   usage             HopUsage?
   alpha             Float?
