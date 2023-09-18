@@ -63,6 +63,7 @@ export async function GET() {
   const hops = await prisma.hop.findMany({
     select: { slug: true, id: true },
   });
+  await prisma.hopSensoryPanel.deleteMany();
   const res = await Promise.allSettled(
     hops.map(async ({ slug, id }) => {
       return fetchSensoryData(getHopUrl(slug), id);
