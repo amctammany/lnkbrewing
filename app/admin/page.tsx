@@ -17,10 +17,9 @@ export default async function AdminPage() {
   });
 
   return (
-    <div>
+    <div className="p-3 max-w-2xl">
       AdminPage
       <h4>{session?.user?.email}</h4>
-      <p>{JSON.stringify(user)}</p>
       <div className="flex flex-auto">
         <Menu label="menu">
           <MenuItem>First</MenuItem>
