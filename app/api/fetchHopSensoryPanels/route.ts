@@ -40,7 +40,7 @@ const fetchSensoryData = async (path: string, hopId: number) =>
           .split(" ")
           .map((s) => s.split(",").map((n) => parseFloat(n)));
         const dists = (points as Point[]).map((p: Point) =>
-          (dist(p, origin) / 310).toPrecision(2)
+          (dist(p, origin) / 226.3).toPrecision(2)
         );
 
         const flavorMap = dists.reduce(
