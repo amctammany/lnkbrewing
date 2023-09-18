@@ -61,6 +61,22 @@ export default async function HopDisplay({
               <p className="px-2 m-1">{hop?.[field]}</p>
             </div>
           ))}
+          <div className="m-2 p-0 ">
+            <h2 className="text-lg uppercase underline">Styles</h2>
+            {hop?.styles.map((style) => (
+              <p key={style} className="px-2 m-1">
+                {style}
+              </p>
+            ))}
+          </div>
+          <div className="m-2 p-0 ">
+            <h2 className="text-lg uppercase underline">Substitutes</h2>
+            {hop?.substitutesString.map((sub) => (
+              <p key={sub} className="px-2 m-1">
+                {sub}
+              </p>
+            ))}
+          </div>
         </div>
         <div className="p-2 shadow-lg">
           <RangeProp
