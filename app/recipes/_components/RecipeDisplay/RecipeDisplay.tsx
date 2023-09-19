@@ -75,7 +75,9 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
                     {fermentable?.fermentable.name?.toString()}
                   </p>
                   <p className="flex-shrink px-2 m-0 text-lg">
+                    {/**
                     {fermentable?.duration} {fermentable?.durationType}
+                      */}
                   </p>
                 </div>
               </li>

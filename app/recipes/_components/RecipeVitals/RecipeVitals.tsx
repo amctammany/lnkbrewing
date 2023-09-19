@@ -1,9 +1,10 @@
 import { Section } from "@/components";
 import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
+import { Recipe } from "@prisma/client";
 
 interface RecipeVitalsProps {
-  src?: ExtendedRecipe | null;
+  src?: Recipe | null;
 }
 export interface RecipeVitalType {
   abv: number;

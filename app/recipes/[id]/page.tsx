@@ -20,9 +20,15 @@ export default async function RecipeDisplayPage({
       author: true,
       style: true,
       equipment: true,
-      hops: { include: { hop: { select: { name: true, id: true } } } },
+      hops: {
+        include: { hop: { select: { name: true, id: true, alpha: true } } },
+      },
       fermentables: {
-        include: { fermentable: { select: { name: true, id: true } } },
+        include: {
+          fermentable: {
+            select: { name: true, id: true, color: true, potential: true },
+          },
+        },
       },
     },
     where: {
