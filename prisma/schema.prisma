@@ -65,18 +65,24 @@ model VerificationToken {
 }
 
 model Recipe {
-  id             Int                     @id @default(autoincrement())
-  name           String
-  slug           String                  @unique
-  description    String?
-  authorEmail    String
-  author         User                    @relation(fields: [authorEmail], references: [email])
-  styleIdentifer String?
-  style          Style?                  @relation(fields: [styleIdentifer], references: [identifier])
-  updatedAt      DateTime                @default(now())
-  createdAt      DateTime                @default(now())
-  hops           HopIngredient[]
-  fermentables   FermentableIngredient[]
+  id                 Int                     @id @default(autoincrement())
+  name               String
+  slug               String                  @unique
+  description        String?
+  authorEmail        String
+  author             User                    @relation(fields: [authorEmail], references: [email])
+  styleIdentifer     String?
+  style              Style?                  @relation(fields: [styleIdentifer], references: [identifier])
+  updatedAt          DateTime                @default(now())
+  createdAt          DateTime                @default(now())
+  hops               HopIngredient[]
+  fermentables       FermentableIngredient[]
+  equipment          EquipmentProfile        @relation(fields: [equipmentProfileId], references: [id])
+  equipmentProfileId Int
+  boilTime           Float?
+  batchVolume        Float?
+  //boilVolume         Float?
+  //preboilVolume      Float?
 }
 
 enum MassUnit {
@@ -250,4 +256,22 @@ model HopSensoryPanel {
   year          Int?
   author        String?
   notes         String?
+}
+
+model EquipmentProfile {
+  id              Int      @id @default(autoincrement())
+  name            String
+  slug            String   @unique
+  description     String?
+  batchVolume     Float?
+  boilTime        Float?
+  brewEfficiency  Float?
+  mashEfficiency  Float?
+  boilOffRate     Float?
+  trubLoss        Float?   @default(0)
+  mashLoss        Float?   @default(0)
+  fermenterLoss   Float?   @default(0)
+  grainAbsorption Float?   @default(0.5)
+  waterGrainRatio Float?   @default(1.5)
+  Recipe          Recipe[]
 }

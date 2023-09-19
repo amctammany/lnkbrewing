@@ -6,6 +6,7 @@ import styles from "../data/styles.json";
 const prisma = new PrismaClient();
 async function main() {
   await prisma.style.deleteMany();
+  await prisma.equipmentProfile.deleteMany();
   //await prisma.recipe.deleteMany();
   await prisma.hop.deleteMany();
   //await prisma.hopSensoryPanel.deleteMany();
@@ -55,6 +56,19 @@ async function main() {
   //},
   //},
   //});
+  await prisma.equipmentProfile.create({
+    data: {
+      name: "Anvil 10.5",
+      slug: slugify("Anvil 10.5", { lower: true }),
+      description: "Anvil Foundry",
+      boilOffRate: 0.5,
+      trubLoss: 0.55,
+      mashLoss: 0,
+      fermenterLoss: 0.5,
+      batchVolume: 4.4,
+      brewEfficiency: 0.7,
+    },
+  });
 
   await prisma.hop.createMany({
     data: hops.map(({ usage, ...hop }) => ({
