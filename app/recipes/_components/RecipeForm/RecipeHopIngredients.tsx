@@ -12,6 +12,7 @@ export const RecipeHopIngredients = async ({
     where: {
       recipeId,
     },
+    orderBy: [{ durationType: "asc" }, { duration: "desc" }],
     include: {
       hop: true,
     },

@@ -83,6 +83,11 @@ model Recipe {
   batchVolume        Float?
   boilVolume         Float?
   preboilVolume      Float?
+  abv                Float                   @default(0)
+  srm                Float                   @default(0)
+  og                 Float                   @default(0)
+  fg                 Float                   @default(0)
+  ibu                Float                   @default(0)
 }
 
 enum MassUnit {

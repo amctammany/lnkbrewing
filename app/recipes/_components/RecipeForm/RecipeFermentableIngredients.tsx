@@ -12,6 +12,7 @@ export const RecipeFermentableIngredients = async ({
     where: {
       recipeId,
     },
+    orderBy: { amount: "desc" },
     include: {
       fermentable: true,
     },

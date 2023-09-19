@@ -13,6 +13,7 @@ export const HopIngredient = ({ hop }: HopIngredientProps) => {
     <ListItem>
       <div className="flex gap-4">
         <div className="flex-0">{hop.duration}</div>
+        <div className="flex-0">{hop.durationType}</div>
         <div className="flex-1">{hop.hop.name}</div>
         <div className="flex-0">{hop.amount}</div>
         <div>

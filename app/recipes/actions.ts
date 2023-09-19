@@ -73,7 +73,32 @@ export async function updateRecipe(formData: FormData) {
       slug: slugify(data.name, { lower: true }),
     },
   });
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}`);
+}
+export async function updateRecipeVitals(id: number) {
+  const recipe = await prisma.recipe.findFirst({
+    where: { id },
+    include: {
+      author: true,
+      style: true,
+      hops: { include: { hop: true } },
+      fermentables: { include: { fermentable: true } },
+      equipment: true,
+    },
+  });
+  if (!recipe) return;
+  const vitals = calculateVitals(recipe);
+  const { author, style, equipment, hops, fermentables, ...data } = recipe;
+  return prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      ...data,
+      ...vitals,
+    },
+  });
 }
 
 export async function createRecipe(formData: FormData) {
@@ -112,6 +137,7 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   const res = await prisma.hopIngredient.create({
     data,
   });
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
@@ -120,6 +146,7 @@ export async function updateHopIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 
@@ -135,6 +162,7 @@ export async function addFermentableIngredientToRecipe(formData: FormData) {
   const res = await prisma.fermentableIngredient.create({
     data,
   });
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateFermentableIngredient(formData: FormData) {
@@ -143,6 +171,7 @@ export async function updateFermentableIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export interface RecipeVitalType {
@@ -152,7 +181,7 @@ export interface RecipeVitalType {
   srm: number;
   ibu: number;
 }
-export function calculateVitals(src: ExtendedRecipe) {
+function calculateVitals(src: ExtendedRecipe) {
   console.log(src.fermentables);
   const og =
     (src.fermentables.reduce((acc, fermentable) => {
