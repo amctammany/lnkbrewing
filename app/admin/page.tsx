@@ -3,17 +3,17 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import { Menu, MenuItem } from "@/components";
-//import { AdminForm } from "./AdminForm";
+import { AdminForm } from "./AdminForm";
 //import { AdminModal } from "./AdminModal";
-import dynamic from "next/dynamic";
-const AdminForm = dynamic(
-  () => import("./AdminForm").then((s) => s.AdminForm),
-  { ssr: false }
-);
-const AdminModal = dynamic(
-  () => import("./AdminModal").then((s) => s.AdminModal),
-  { ssr: false }
-);
+//import dynamic from "next/dynamic";
+//const AdminForm = dynamic(
+//() => import("./AdminForm").then((s) => s.AdminForm),
+//{ ssr: false }
+//);
+//const AdminModal = dynamic(
+//() => import("./AdminModal").then((s) => s.AdminModal),
+//{ ssr: false }
+//);
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -39,9 +39,7 @@ export default async function AdminPage() {
           <MenuItem>Second</MenuItem>
         </Menu>
       </div>
-      <AdminModal>
-        <AdminForm src={user} />
-      </AdminModal>
+      <AdminForm src={user} />
     </div>
   );
 }
