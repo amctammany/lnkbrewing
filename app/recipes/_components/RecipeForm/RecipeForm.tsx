@@ -1,4 +1,5 @@
 import {
+  ButtonLink,
   Form,
   NumberField,
   Section,
@@ -31,21 +32,33 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
           defaultValue={src?.description}
         />
       </Section>
-      <Section header="Equipment">
+      <Section
+        header="Equipment"
+        actions={
+          <>
+            <ButtonLink scroll={false} href="?equipment=1">
+              Edit
+            </ButtonLink>
+          </>
+        }
+      >
         <EquipmentProfileSelect
+          disabled
           name="equipmentProfileId"
           value={src?.equipmentProfileId}
         />
         <NumberField
+          disabled
           name="batchVolume"
           label="Batch Volume"
           step={0.01}
           defaultValue={src?.batchVolume}
         />
         <NumberField
+          disabled
           name="boilTime"
           label="Boil Time"
-          defaultValue={src?.batchVolume}
+          defaultValue={src?.boilTime}
         />
       </Section>
       <Section header="Style">

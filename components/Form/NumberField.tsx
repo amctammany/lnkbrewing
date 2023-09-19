@@ -5,17 +5,20 @@ export type NumberFieldProps = {
   label?: string;
   defaultValue: any;
   step?: number;
+  disabled?: boolean;
 };
 export const NumberField = ({
   name,
   label,
   step,
   defaultValue,
+  disabled,
 }: NumberFieldProps) => {
   return (
     <Label label={label || name}>
       <input
-        className="block w-full"
+        disabled={disabled || false}
+        className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         type="number"
         step={step || 1}
         name={name}
