@@ -155,6 +155,7 @@ model Style {
   category      StyleCategory
   subcategoryId Int
   identifier    String        @unique
+  overall       String?
   aroma         String?
   appearance    String?
   flavor        String?

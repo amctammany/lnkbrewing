@@ -1,11 +1,11 @@
 import { List, ListItemButton, Section } from "@/components";
-import { prisma } from "@/lib/client";
 import { Metadata } from "next";
+import { getStyles } from "./queries";
 export const metadata: Metadata = {
   title: "LNK Styles",
 };
 export default async function StylesIndex() {
-  const styles = await prisma.style.findMany();
+  const styles = await getStyles();
   return (
     <Section header="Styles">
       <List>

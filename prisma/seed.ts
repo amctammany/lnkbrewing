@@ -5,12 +5,12 @@ import grains from "../data/grains.json";
 import styles from "../data/styles.json";
 const prisma = new PrismaClient();
 async function main() {
-  //await prisma.style.deleteMany();
+  await prisma.style.deleteMany();
   //await prisma.recipe.deleteMany();
-  //await prisma.hop.deleteMany();
+  await prisma.hop.deleteMany();
   //await prisma.hopSensoryPanel.deleteMany();
   //await prisma.hopIngredient.deleteMany();
-  //await prisma.fermentable.deleteMany();
+  await prisma.fermentable.deleteMany();
   //await prisma.fermentableIngredient.deleteMany();
   //await prisma.user.deleteMany();
   //const alex = await prisma.user.upsert({
