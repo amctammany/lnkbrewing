@@ -2,7 +2,7 @@
 
 import { Button, Modal } from "@/components";
 import { useClickAway } from "@/hooks";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 export type AdminModalProps = {
   children: React.ReactNode;
 };
