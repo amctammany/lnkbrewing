@@ -1,12 +1,13 @@
 import { RoutedModal } from "@/components";
 import { EquipmentProfile, TimeUnit } from "@prisma/client";
-import { updateRecipe, updateRecipeEquipment } from "@/app/recipes/actions";
+import { updateRecipe } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
 import { EquipmentProfileForm } from "./EquipmentProfileForm";
 import { getRecipe } from "@/app/recipes/queries";
 export type EquipmentProfileModalProps = {
   recipeId: number;
   open?: boolean;
+  hop?: EquipmentProfile;
   action?: (data: FormData) => void;
 };
 export const EquipmentProfileModal = async ({
@@ -25,10 +26,9 @@ EquipmentProfileModalProps) => {
   //},
   //})
   //: ({ recipeId } as EquipmentProfile);
-  return (
+  return !open ? null : (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipeId}/edit`}>
-      EquipmentProfileModal
-      <EquipmentProfileForm src={recipe} action={updateRecipeEquipment} />
+      <EquipmentProfileForm src={recipe} action={updateRecipe} />
     </RoutedModal>
   );
 };

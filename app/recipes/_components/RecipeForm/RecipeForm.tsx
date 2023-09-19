@@ -14,6 +14,7 @@ import { RecipeFermentableIngredients } from "./RecipeFermentableIngredients";
 import { updateRecipe } from "../../actions";
 import { StyleSelect } from ".";
 import { EquipmentProfileSelect } from "@/app/profiles/_components";
+import { RecipeVitals } from "../RecipeVitals";
 
 export type RecipeFormProps = {
   src: Recipe | null;
@@ -68,9 +69,12 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
           name="styleIdentifer"
         />
       </Section>
+      <RecipeVitals src={src} />
       <RecipeHopIngredients recipeId={src?.id} />
       <RecipeFermentableIngredients recipeId={src?.id} />
-      <Submit>{(src?.id ? "Update" : "Create") + " Recipe"}</Submit>
+      <div className=" col-span-2 flex flex-auto items-center mx-auto">
+        <Submit>Save</Submit>
+      </div>
     </Form>
   );
 };

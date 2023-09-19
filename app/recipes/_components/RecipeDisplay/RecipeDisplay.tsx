@@ -1,14 +1,5 @@
-import { ButtonLink, List, ListItem, Section } from "@/components";
-import {
-  EquipmentProfile,
-  Fermentable,
-  Hop,
-  HopIngredient,
-  Recipe,
-  Style,
-  User,
-} from "@prisma/client";
-import Link from "next/link";
+import { ButtonLink, Section } from "@/components";
+import { ExtendedRecipe } from "../../types";
 type PropProps = {
   label?: string;
   children?: any;
@@ -22,20 +13,6 @@ const Prop = ({ label, children }: PropProps) => {
   );
 };
 
-type FermentableIngredient = any;
-type ExtendedFermentableIngredient = FermentableIngredient & {
-  fermentable: Pick<Fermentable, "id" | "name">;
-};
-type ExtendedHopIngredient = HopIngredient & {
-  hop: Pick<Hop, "id" | "name">;
-};
-type ExtendedRecipe = Recipe & {
-  author: Pick<User, "name" | "email" | "id"> | null;
-  style: Pick<Style, "id" | "identifier" | "name"> | null;
-  equipment: EquipmentProfile | null;
-  hops: ExtendedHopIngredient[];
-  fermentables: ExtendedFermentableIngredient[];
-};
 export type RecipeDisplayProps = {
   recipe?: ExtendedRecipe | null;
 };

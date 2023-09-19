@@ -67,7 +67,7 @@ export async function updateRecipe(formData: FormData) {
       ...data,
       style: { connect: { identifier: styleIdentifer } },
       author: { connect: { email: authorEmail } },
-      equipment: { connect: { id: equipmentProfileId } },
+      //equipment: { connect: { id: equipmentProfileId } },
       slug: slugify(data.name, { lower: true }),
     },
   });
