@@ -13,6 +13,8 @@ const recipeSchema = zfd.formData({
   authorEmail: zfd.text(),
   styleIdentifer: zfd.text(),
   equipmentProfileId: zfd.numeric(z.number().optional()),
+  boilTime: zfd.numeric(z.number().optional()),
+  batchVolume: zfd.numeric(z.number().optional()),
   //fermentables: z
   //.object({
   ////recipeId: zfd.numeric(z.number()),

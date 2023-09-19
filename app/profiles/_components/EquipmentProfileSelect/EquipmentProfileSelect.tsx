@@ -4,7 +4,7 @@ import { Select } from "@/components";
 export type EquipmentProfileSelectProps = {
   label?: string;
   name?: string;
-  value?: number;
+  value?: number | null;
   //src: any; //{ equipmentProfileIdentifer?: string };
 };
 

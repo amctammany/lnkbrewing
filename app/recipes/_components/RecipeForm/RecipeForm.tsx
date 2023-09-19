@@ -1,5 +1,6 @@
 import {
   Form,
+  NumberField,
   Section,
   Select,
   Submit,
@@ -34,6 +35,17 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
         <EquipmentProfileSelect
           name="equipmentProfileId"
           value={src?.equipmentProfileId}
+        />
+        <NumberField
+          name="batchVolume"
+          label="Batch Volume"
+          step={0.01}
+          defaultValue={src?.batchVolume}
+        />
+        <NumberField
+          name="boilTime"
+          label="Boil Time"
+          defaultValue={src?.batchVolume}
         />
       </Section>
       <Section header="Style">

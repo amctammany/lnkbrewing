@@ -63,6 +63,8 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
         </Section>
         <Section header="Equipment">
           <Prop label="Equipment Profile">{recipe?.equipment?.name}</Prop>
+          <Prop label="Batch Volume">{recipe?.batchVolume}</Prop>
+          <Prop label="Boil Time">{recipe?.boilTime}</Prop>
         </Section>
         <Section header="Hops">
           <ul>
