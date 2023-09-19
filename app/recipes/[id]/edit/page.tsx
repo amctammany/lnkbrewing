@@ -26,7 +26,13 @@ export default async function RecipeEditorPage({
   searchParams,
 }: RecipeEditorPageProps) {
   const recipe = await prisma.recipe.findFirst({
-    include: { author: true, hops: true, fermentables: true, style: true },
+    include: {
+      author: true,
+      hops: { include: { hop: true } },
+      equipment: true,
+      fermentables: { include: { fermentable: true } },
+      style: true,
+    },
     where: {
       id: parseInt(id),
     },

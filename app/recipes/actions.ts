@@ -43,6 +43,7 @@ const equipmentSchema = zfd.formData({
   equipmentProfileId: zfd.numeric(z.number().optional()),
   boilTime: zfd.numeric(z.number().optional()),
   batchVolume: zfd.numeric(z.number().optional()),
+  boilVolume: zfd.numeric(z.number().optional()),
 });
 
 export async function updateRecipeEquipment(formData: FormData) {

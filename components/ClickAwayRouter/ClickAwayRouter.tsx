@@ -15,7 +15,6 @@ export const ClickAwayRouter: FC<ClickAwayRouterProps> = ({
   const router = useRouter();
   const ref = useClickAway(() => {
     router.replace(url, { scroll: false });
-    console.log("clickaway");
   });
   return (
     <div className="relative" ref={ref}>

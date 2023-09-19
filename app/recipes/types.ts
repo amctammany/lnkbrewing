@@ -9,10 +9,10 @@ import {
 } from "@prisma/client";
 import { User } from "next-auth";
 
-type ExtendedFermentableIngredient = FermentableIngredient & {
+export type ExtendedFermentableIngredient = FermentableIngredient & {
   fermentable: Pick<Fermentable, "id" | "name" | "potential" | "color">;
 };
-type ExtendedHopIngredient = HopIngredient & {
+export type ExtendedHopIngredient = HopIngredient & {
   hop: Pick<Hop, "id" | "name" | "alpha">;
 };
 export type ExtendedRecipe = Recipe & {

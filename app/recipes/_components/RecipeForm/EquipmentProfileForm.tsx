@@ -25,8 +25,17 @@ export async function EquipmentProfileForm({
       <div>
         <NumberField
           name="batchVolume"
+          step={0.01}
           label="Batch Volume"
           defaultValue={src?.batchVolume}
+        />
+      </div>
+      <div>
+        <NumberField
+          name="boilVolume"
+          step={0.01}
+          label="Boil Volume"
+          defaultValue={src?.boilVolume}
         />
       </div>
 

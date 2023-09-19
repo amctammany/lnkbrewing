@@ -81,8 +81,8 @@ model Recipe {
   equipmentProfileId Int?
   boilTime           Float?
   batchVolume        Float?
-  //boilVolume         Float?
-  //preboilVolume      Float?
+  boilVolume         Float?
+  preboilVolume      Float?
 }
 
 enum MassUnit {

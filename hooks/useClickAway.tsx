@@ -5,8 +5,6 @@ export function useClickAway(listener: () => void) {
   useEffect(() => {
     const handleClickAway = (e: any) => {
       // Click inside Menu
-      console.log(ref.current);
-      console.log(e.target);
       if (ref.current?.contains(e.target)) return;
       listener();
     };

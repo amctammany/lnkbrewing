@@ -1,6 +1,6 @@
 import { RoutedModal } from "@/components";
 import { EquipmentProfile, TimeUnit } from "@prisma/client";
-import { updateRecipe } from "@/app/recipes/actions";
+import { updateRecipe, updateRecipeEquipment } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
 import { EquipmentProfileForm } from "./EquipmentProfileForm";
 import { getRecipe } from "@/app/recipes/queries";
@@ -28,7 +28,7 @@ EquipmentProfileModalProps) => {
   //: ({ recipeId } as EquipmentProfile);
   return !open ? null : (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipeId}/edit`}>
-      <EquipmentProfileForm src={recipe} action={updateRecipe} />
+      <EquipmentProfileForm src={recipe} action={updateRecipeEquipment} />
     </RoutedModal>
   );
 };

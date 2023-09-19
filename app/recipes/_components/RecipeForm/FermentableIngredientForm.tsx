@@ -28,9 +28,9 @@ export async function FermentableIngredientForm({
       </div>
       <div>
         <Select
-          name="durationType"
-          label="Time Unit"
-          options={TimeUnit}
+          name="amountType"
+          label="Amount Unit"
+          options={MassUnit}
           defaultValue={src?.amountType}
         />
       </div>
