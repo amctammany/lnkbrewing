@@ -1,5 +1,6 @@
 import { ButtonLink, List, ListItem, Section } from "@/components";
 import {
+  EquipmentProfile,
   Fermentable,
   Hop,
   HopIngredient,
@@ -31,6 +32,7 @@ type ExtendedHopIngredient = HopIngredient & {
 type ExtendedRecipe = Recipe & {
   author: Pick<User, "name" | "email" | "id"> | null;
   style: Pick<Style, "id" | "identifier" | "name"> | null;
+  equipment: EquipmentProfile | null;
   hops: ExtendedHopIngredient[];
   fermentables: ExtendedFermentableIngredient[];
 };
@@ -58,6 +60,9 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
         <Section header="Style">
           <Prop label="Style Identifier">{recipe?.style?.identifier}</Prop>
           <Prop label="Style Name">{recipe?.style?.name}</Prop>
+        </Section>
+        <Section header="Equipment">
+          <Prop label="Equipment Profile">{recipe?.equipment?.name}</Prop>
         </Section>
         <Section header="Hops">
           <ul>

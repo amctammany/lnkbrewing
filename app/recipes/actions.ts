@@ -12,6 +12,7 @@ const recipeSchema = zfd.formData({
   description: zfd.text(z.string().optional()),
   authorEmail: zfd.text(),
   styleIdentifer: zfd.text(),
+  equipmentProfileId: zfd.numeric(z.number().optional()),
   //fermentables: z
   //.object({
   ////recipeId: zfd.numeric(z.number()),
@@ -35,7 +36,7 @@ const recipeSchema = zfd.formData({
   //.optional(),
 });
 export async function updateRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, ...data } =
+  const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
     recipeSchema.parse(formData);
   const res = await prisma.recipe.update({
     where: {
@@ -45,6 +46,7 @@ export async function updateRecipe(formData: FormData) {
       ...data,
       style: { connect: { identifier: styleIdentifer } },
       author: { connect: { email: authorEmail } },
+      equipment: { connect: { id: equipmentProfileId } },
       slug: slugify(data.name, { lower: true }),
     },
   });
@@ -52,12 +54,13 @@ export async function updateRecipe(formData: FormData) {
 }
 
 export async function createRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, ...data } =
+  const { id, equipmentProfileId, authorEmail, styleIdentifer, ...data } =
     recipeSchema.parse(formData);
 
   const res = await prisma.recipe.create({
     data: {
       ...data,
+      equipment: { connect: { id: equipmentProfileId } },
       style: { connect: { identifier: styleIdentifer } },
       author: {
         connect: {

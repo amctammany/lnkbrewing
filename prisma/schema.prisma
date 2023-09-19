@@ -77,8 +77,8 @@ model Recipe {
   createdAt          DateTime                @default(now())
   hops               HopIngredient[]
   fermentables       FermentableIngredient[]
-  equipment          EquipmentProfile        @relation(fields: [equipmentProfileId], references: [id])
-  equipmentProfileId Int
+  equipment          EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
+  equipmentProfileId Int?
   boilTime           Float?
   batchVolume        Float?
   //boilVolume         Float?

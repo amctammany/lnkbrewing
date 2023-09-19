@@ -1,9 +1,17 @@
-import { Form, Section, Submit, TextArea, TextField } from "@/components";
+import {
+  Form,
+  Section,
+  Select,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components";
 import { Fermentable, Recipe } from "@prisma/client";
 import { RecipeHopIngredients } from "./RecipeHopIngredients";
 import { RecipeFermentableIngredients } from "./RecipeFermentableIngredients";
 import { updateRecipe } from "../../actions";
 import { StyleSelect } from ".";
+import { EquipmentProfileSelect } from "@/app/profiles/_components";
 
 export type RecipeFormProps = {
   src: Recipe | null;
@@ -20,6 +28,12 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
           name="description"
           label="description"
           defaultValue={src?.description}
+        />
+      </Section>
+      <Section header="Equipment">
+        <EquipmentProfileSelect
+          name="equipmentProfileId"
+          value={src?.equipmentProfileId}
         />
       </Section>
       <Section header="Style">
