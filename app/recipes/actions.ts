@@ -149,6 +149,17 @@ export async function updateHopIngredient(formData: FormData) {
   await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
+const removeHopIngredientSchema = zfd.formData({
+  id: zfd.numeric(),
+});
+export async function removeHopIngredient(formData: FormData) {
+  const { id } = removeHopIngredientSchema.parse(formData);
+  const res = await prisma.hopIngredient.delete({
+    where: { id },
+  });
+  await updateRecipeVitals(res.id);
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
 
 const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),

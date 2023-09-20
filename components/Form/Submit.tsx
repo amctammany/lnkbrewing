@@ -1,5 +1,5 @@
 export type SubmitProps = {
-  children: string;
+  children: React.ReactNode;
 };
 export const Submit = ({ children }: SubmitProps) => {
   return (
