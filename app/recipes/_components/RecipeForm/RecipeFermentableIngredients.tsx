@@ -21,7 +21,7 @@ export const RecipeFermentableIngredients = async ({
   return (
     <Section header="Fermentables" actions={<FermentableActionBar />}>
       <List>
-        {fermentables.map((fermentable) => (
+        {(fermentables || []).map((fermentable) => (
           <FermentableIngredient
             key={fermentable.id}
             fermentable={fermentable}

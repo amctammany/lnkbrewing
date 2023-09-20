@@ -26,7 +26,7 @@ export const RecipeHopIngredients = async ({
   return (
     <Section header="Hops" actions={<HopActionBar />}>
       <List>
-        {hops.map((hop) => (
+        {(hops || []).map((hop) => (
           <HopIngredient key={hop.id} hop={hop} />
         ))}
       </List>

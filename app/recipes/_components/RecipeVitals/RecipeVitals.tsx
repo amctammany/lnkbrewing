@@ -2,6 +2,7 @@ import { Section } from "@/components";
 import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
 import { Recipe } from "@prisma/client";
+import { RecipeVitalType } from "../../actions";
 
 interface RecipeVitalsProps {
   src?: Recipe | null;
