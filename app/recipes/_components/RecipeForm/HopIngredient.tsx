@@ -1,3 +1,5 @@
+import { TrashIcon } from "@heroicons/react/24/solid";
+
 import {
   Button,
   ButtonLink,
@@ -19,13 +21,14 @@ export type HopIngredientProps = {
 };
 type RemoveHopButtonProps = {
   id: number;
-  children: React.ReactNode;
 };
-const RemoveHopButton = ({ id, children }: RemoveHopButtonProps) => {
+const RemoveHopButton = ({ id }: RemoveHopButtonProps) => {
   return (
     <form action={removeHopIngredient}>
       <input type="hidden" name="id" value={id} />
-      <Submit>{children}</Submit>
+      <button type="submit" className="border-red-300 border rounded-md p-2">
+        <TrashIcon className="h-6 w-6 text-red-500 " />
+      </button>
     </form>
   );
 };
@@ -38,7 +41,7 @@ export const HopIngredient = ({ hop }: HopIngredientProps) => {
         <div className="flex-1">{hop.hop.name}</div>
         <div className="flex-0">{hop.amount}</div>
         <div>
-          <RemoveHopButton id={hop.id}>Delete</RemoveHopButton>
+          <RemoveHopButton id={hop.id} />
           <ButtonLink scroll={false} href={`?hopId=${hop.id}`}>
             Edit
           </ButtonLink>

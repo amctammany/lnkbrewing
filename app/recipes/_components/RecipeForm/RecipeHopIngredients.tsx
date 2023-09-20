@@ -1,6 +1,7 @@
 import { ButtonLink, List, ListItem, Section } from "@/components";
 import { HopIngredient } from "./HopIngredient";
 import { ExtendedHopIngredient } from "../../types";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 export type RecipeHopIngredientsProps = {
   hops?: ExtendedHopIngredient[] | null;
@@ -19,7 +20,7 @@ export const RecipeHopIngredients = async ({
   //});
   const HopActionBar = () => (
     <ButtonLink scroll={false} className="flex-shrink" href="?hopId=new">
-      Add
+      <PlusIcon className="w-6 h-6 text-lg" />
     </ButtonLink>
   );
 

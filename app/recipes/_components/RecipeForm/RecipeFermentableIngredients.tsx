@@ -1,6 +1,7 @@
 import { ButtonLink, List, ListItem, Section } from "@/components";
 import { FermentableIngredient } from "./FermentableIngredient";
 import { ExtendedFermentableIngredient } from "../../types";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 export type RecipeFermentableIngredientsProps = {
   fermentables?: ExtendedFermentableIngredient[] | null;
@@ -14,7 +15,7 @@ export const RecipeFermentableIngredients = async ({
       className="flex-shrink"
       href="?fermentableId=new"
     >
-      Add
+      <PlusIcon className="w-6 h-6 text-lg" />
     </ButtonLink>
   );
 
