@@ -3,9 +3,10 @@ import {
   Fermentable,
   FermentableIngredient as FermentableIngredientType,
 } from "@prisma/client";
+import { ExtendedFermentableIngredient } from "../../types";
 
 export type FermentableIngredientProps = {
-  fermentable: FermentableIngredientType & { fermentable: Fermentable };
+  fermentable: ExtendedFermentableIngredient;
 };
 export const FermentableIngredient = ({
   fermentable,

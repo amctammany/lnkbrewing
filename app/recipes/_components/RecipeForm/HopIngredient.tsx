@@ -4,9 +4,10 @@ import {
   HopIngredient as HopIngredientType,
   TimeUnit,
 } from "@prisma/client";
+import { ExtendedHopIngredient } from "../../types";
 
 export type HopIngredientProps = {
-  hop: HopIngredientType & { hop: Hop };
+  hop: ExtendedHopIngredient;
 };
 export const HopIngredient = ({ hop }: HopIngredientProps) => {
   return (

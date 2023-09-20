@@ -15,9 +15,10 @@ import { updateRecipe } from "../../actions";
 import { StyleSelect } from ".";
 import { EquipmentProfileSelect } from "@/app/profiles/_components";
 import { RecipeVitals } from "../RecipeVitals";
+import { ExtendedRecipe } from "../../types";
 
 export type RecipeFormProps = {
-  src: Recipe | null;
+  src: ExtendedRecipe | null;
 };
 
 export const RecipeForm = ({ src }: RecipeFormProps) => {
@@ -70,8 +71,8 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
         />
       </Section>
       <RecipeVitals src={src} />
-      <RecipeHopIngredients recipeId={src?.id} />
-      <RecipeFermentableIngredients recipeId={src?.id} />
+      <RecipeHopIngredients hops={src?.hops} />
+      <RecipeFermentableIngredients fermentables={src?.fermentables} />
       <div className=" col-span-2 flex flex-auto items-center mx-auto">
         <Submit>Save</Submit>
       </div>

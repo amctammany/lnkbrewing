@@ -1,5 +1,6 @@
 import { ButtonLink, Section } from "@/components";
 import { ExtendedRecipe } from "../../types";
+import { RecipeVitals } from "..";
 type PropProps = {
   label?: string;
   children?: any;
@@ -43,6 +44,7 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
           <Prop label="Batch Volume">{recipe?.batchVolume}</Prop>
           <Prop label="Boil Time">{recipe?.boilTime}</Prop>
         </Section>
+        <RecipeVitals src={recipe} />
         <Section header="Hops">
           <ul>
             {recipe?.hops.map((hop) => (
