@@ -1,5 +1,10 @@
 import { Form, NumberField, Select, Submit, TextField } from "@/components";
-import { FermentableIngredient, MassUnit, TimeUnit } from "@prisma/client";
+import {
+  FermentableIngredient,
+  FermentableIngredientUsage,
+  MassUnit,
+  TimeUnit,
+} from "@prisma/client";
 import { FermentableSelect } from "./FermentableSelect";
 
 export type FermentableIngredientFormProps = {
@@ -34,6 +39,15 @@ export async function FermentableIngredientForm({
           defaultValue={src?.amountType}
         />
       </div>
+      <div className="">
+        <Select
+          name="usage"
+          label="Unit"
+          options={FermentableIngredientUsage}
+          defaultValue={src?.usage}
+        />
+      </div>
+
       <Submit>Save</Submit>
     </Form>
   );
