@@ -14,7 +14,6 @@ type RecipeEditorPageProps = {
   searchParams: Record<string, string> | null;
 };
 
-export const dynamic = "force-dynamic";
 export function generateMetadata({ params }: RecipeEditorPageProps) {
   return {
     title: `LNK Recipe: ${params.id}`,
@@ -39,10 +38,12 @@ export default async function RecipeEditorPage({
   });
   return (
     <>
-      <EquipmentProfileModal
-        recipeId={parseInt(id)}
-        open={!!searchParams?.equipment}
-      />
+      {!!searchParams?.equipment && (
+        <EquipmentProfileModal
+          recipeId={parseInt(id)}
+          open={!!searchParams?.equipment}
+        />
+      )}
       <HopIngredientModal recipeId={parseInt(id)} hopId={searchParams?.hopId} />
       <FermentableIngredientModal
         recipeId={parseInt(id)}

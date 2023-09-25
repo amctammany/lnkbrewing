@@ -5,14 +5,14 @@ import grains from "../data/grains.json";
 import styles from "../data/styles.json";
 const prisma = new PrismaClient();
 async function main() {
-  //await prisma.style.deleteMany();
-  //await prisma.equipmentProfile.deleteMany();
-  //await prisma.recipe.deleteMany();
-  //await prisma.hop.deleteMany();
+  await prisma.style.deleteMany();
+  await prisma.equipmentProfile.deleteMany();
+  await prisma.hopIngredient.deleteMany();
+  await prisma.fermentableIngredient.deleteMany();
+  await prisma.hop.deleteMany();
   //await prisma.hopSensoryPanel.deleteMany();
-  //await prisma.hopIngredient.deleteMany();
-  //await prisma.fermentable.deleteMany();
-  //await prisma.fermentableIngredient.deleteMany();
+  await prisma.fermentable.deleteMany();
+  await prisma.recipe.deleteMany();
   //await prisma.user.deleteMany();
   //const alex = await prisma.user.upsert({
   //where: { email: "alex@gmail.com" },
@@ -56,6 +56,20 @@ async function main() {
   //},
   //},
   //});
+  await prisma.equipmentProfile.create({
+    data: {
+      name: "Anvil 6.5",
+      slug: slugify("Anvil 6.5", { lower: true }),
+      description: "Anvil Foundry",
+      boilOffRate: 0.45,
+      trubLoss: 0.35,
+      mashLoss: 0,
+      fermenterLoss: 0.5,
+      batchVolume: 3.4,
+      brewEfficiency: 0.68,
+    },
+  });
+
   await prisma.equipmentProfile.create({
     data: {
       name: "Anvil 10.5",

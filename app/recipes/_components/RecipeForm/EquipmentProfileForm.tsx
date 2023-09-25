@@ -1,26 +1,58 @@
-import { Form, NumberField, Select, Submit, TextField } from "@/components";
+"use client";
+import {
+  Form,
+  Label,
+  NumberField,
+  //Select,
+  Submit,
+  //TextField,
+} from "@/components";
 import { EquipmentProfile, MassUnit, Recipe, TimeUnit } from "@prisma/client";
-import { EquipmentProfileSelect } from "@/app/profiles/_components";
+//import { EquipmentProfileSelect } from "@/app/profiles/_components";
 
 export type EquipmentProfileFormProps = {
   src: Recipe | null;
+  profiles: EquipmentProfile[];
   action?: (data: FormData) => void;
 };
 
-export async function EquipmentProfileForm({
+export function EquipmentProfileForm({
   src,
+  profiles,
   action,
 }: EquipmentProfileFormProps) {
-  console.log(src);
+  const options = profiles.reduce((acc, profile) => {
+    acc[
+      profile.id
+    ] = `${profile.name}: ${profile.batchVolume} - ${profile.brewEfficiency}`;
+    return acc;
+  }, {} as Record<string, string>);
+  const opts = Object.entries(options).map(([k, v]) => (
+    <option key={k} value={k}>
+      {v}
+    </option>
+  ));
+
+  const handleProfileSelect: React.ChangeEventHandler<HTMLSelectElement> = (
+    e
+  ) => {
+    const profile = profiles.find((p) => p.id === parseInt(e.target.value));
+    console.log(profile);
+  };
   return (
     <Form action={action}>
       <input type="hidden" name="id" value={src?.id} />
       <div>
-        <EquipmentProfileSelect
-          name="equipmentProfileId"
-          label="Equipment"
-          value={src?.equipmentProfileId}
-        />
+        <Label label="Profile">
+          <select
+            onChange={handleProfileSelect}
+            className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+            name="equipmentProfileId"
+            defaultValue={src?.equipmentProfileId || profiles[0].id}
+          >
+            {opts}
+          </select>
+        </Label>
       </div>
       <div>
         <NumberField
@@ -50,3 +82,4 @@ export async function EquipmentProfileForm({
     </Form>
   );
 }
+export default EquipmentProfileForm;
