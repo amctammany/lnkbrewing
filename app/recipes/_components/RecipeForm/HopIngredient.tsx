@@ -15,6 +15,7 @@ import {
 } from "@prisma/client";
 import { ExtendedHopIngredient } from "../../types";
 import { removeHopIngredient } from "../../actions";
+import Link from "next/link";
 
 export type HopIngredientProps = {
   hop: ExtendedHopIngredient;
@@ -35,18 +36,30 @@ const RemoveHopButton = ({ id }: RemoveHopButtonProps) => {
 export const HopIngredient = ({ hop }: HopIngredientProps) => {
   return (
     <ListItem>
-      <div className="flex gap-4">
-        <div className="flex-0">{hop.duration}</div>
-        <div className="flex-0">{hop.durationType}</div>
-        <div className="flex-1">{hop.hop.name}</div>
-        <div className="flex-0">{hop.amount}</div>
-        <div>
-          <RemoveHopButton id={hop.id} />
-          <ButtonLink scroll={false} href={`?hopId=${hop.id}`}>
-            Edit
-          </ButtonLink>
+      <Link scroll={false} href={`?hopId=${hop.id}`}>
+        <div className="px-2 pb-1 grid grid-cols-6 gap-2 group-hover:bg-slate-500/10 ">
+          <div className="">
+            <div className="">
+              <div className="text-lg ">
+                {hop.duration} {hop.durationType}
+              </div>
+              <div className="text-xs">{hop.usage}</div>
+            </div>
+          </div>
+          <div className="col-span-4">
+            <div className="">
+              <div className="text-lg">{hop.hop.name}</div>
+              <div className="text-xs">IBU: {hop.alpha}</div>
+            </div>
+          </div>
+          <div>
+            <div className="">
+              <div className="text-lg">{hop.amount}</div>
+              <div className="text-xs">{hop.amountType}</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </Link>
     </ListItem>
   );
 };
