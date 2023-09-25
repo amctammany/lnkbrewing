@@ -1,13 +1,16 @@
 "use client";
-import {
-  Form,
-  Label,
-  NumberField,
-  //Select,
-  Submit,
-  //TextField,
-} from "@/components";
-import { EquipmentProfile, MassUnit, Recipe, TimeUnit } from "@prisma/client";
+import { Form } from "@/components/Form/Form";
+import { Label } from "@/components/Form/Label";
+import { Submit } from "@/components/Form/Submit";
+//import {
+//Form,
+//Label,
+//NumberField,
+////Select,
+//Submit,
+////TextField,
+//} from "@/components";
+import { type EquipmentProfile, type Recipe } from "@prisma/client";
 import { useState } from "react";
 //import { EquipmentProfileSelect } from "@/app/profiles/_components";
 

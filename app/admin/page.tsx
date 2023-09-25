@@ -3,19 +3,15 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import { Menu, MenuItem } from "@/components";
-import { AdminForm } from "./AdminForm";
+//import { AdminForm } from "./AdminForm";
 //import { AdminModal } from "./AdminModal";
-//import dynamic from "next/dynamic";
-//const AdminForm = dynamic(
-//() => import("./AdminForm").then((s) => s.AdminForm),
-//{ ssr: false }
-//);
+import AdminPage from "./AdminPage";
 //const AdminModal = dynamic(
 //() => import("./AdminModal").then((s) => s.AdminModal),
 //{ ssr: false }
 //);
 
-export default async function AdminPage() {
+export default async function Page() {
   const session = await getServerSession(authOptions);
   if (!session) return redirect("/");
   const user = await prisma.user.findFirst({
@@ -27,19 +23,7 @@ export default async function AdminPage() {
 
   return (
     <div className="p-3 max-w-2xl">
-      AdminPage
-      <h4>{session?.user?.email}</h4>
-      <div className="flex flex-auto">
-        <Menu label="menu">
-          <MenuItem>First</MenuItem>
-          <MenuItem>Second</MenuItem>
-        </Menu>
-        <Menu label="menu">
-          <MenuItem>First</MenuItem>
-          <MenuItem>Second</MenuItem>
-        </Menu>
-      </div>
-      <AdminForm src={user} />
+      <AdminPage src={user} />
     </div>
   );
 }

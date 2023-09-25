@@ -1,4 +1,10 @@
-import { Form, Submit, TextField } from "@/components";
+"use client";
+
+import { Form } from "@/components/Form/Form";
+import { Submit } from "@/components/Form/Submit";
+import { TextField } from "@/components/Form/TextField";
+
+//import { Form, Submit, TextField } from "@/components";
 
 export type AdminFormProps = {
   src: any;
@@ -13,3 +19,4 @@ export const AdminForm = ({ src, action }: AdminFormProps) => {
     </Form>
   );
 };
+export default AdminForm;
