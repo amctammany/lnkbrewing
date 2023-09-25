@@ -84,7 +84,6 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${res.id}`);
 }
 export async function updateRecipeVitals(id: number) {
-  console.log("updateRecipeVitals", id);
   const recipe = await prisma.recipe.findFirst({
     where: { id },
     include: {
@@ -97,7 +96,6 @@ export async function updateRecipeVitals(id: number) {
   });
   if (!recipe) return;
   const vitals = calculateVitals(recipe);
-  console.log(vitals);
   const { author, style, equipment, hops, fermentables, ...data } = recipe;
   return prisma.recipe.update({
     where: {
@@ -207,7 +205,6 @@ export interface RecipeVitalType {
   ibu: number;
 }
 function calculateVitals(src: ExtendedRecipe) {
-  console.log(src.fermentables);
   const og =
     (src.fermentables.reduce((acc, fermentable) => {
       acc +=

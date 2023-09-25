@@ -286,6 +286,8 @@ model EquipmentProfile {
   slug            String   @unique
   description     String?
   batchVolume     Float?
+  boilVolume      Float?
+  preboilVolume   Float?
   boilTime        Float?
   brewEfficiency  Float?
   mashEfficiency  Float?

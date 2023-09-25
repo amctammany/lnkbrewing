@@ -6,7 +6,7 @@ import {
 } from "../../_components";
 //import { ClickAwayRouter } from "@/components/";
 //import { EquipmentProfileForm } from "@/app/profiles/_components";
-import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentModal";
+import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
 type RecipeEditorPageProps = {
   params: {
     id: string;

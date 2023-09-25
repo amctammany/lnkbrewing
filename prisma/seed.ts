@@ -66,6 +66,8 @@ async function main() {
       mashLoss: 0,
       fermenterLoss: 0.5,
       batchVolume: 3.4,
+      preboilVolume: 4.5,
+      boilVolume: 4.5,
       brewEfficiency: 0.68,
     },
   });
@@ -80,6 +82,8 @@ async function main() {
       mashLoss: 0,
       fermenterLoss: 0.5,
       batchVolume: 4.4,
+      preboilVolume: 6.5,
+      boilVolume: 6.5,
       brewEfficiency: 0.7,
     },
   });
