@@ -23,15 +23,15 @@ export type RecipeFormProps = {
 
 export const RecipeForm = ({ src }: RecipeFormProps) => {
   return (
-    <div className="flex-auto w-full m-2 p-2 bg-white">
-      <form action={updateRecipe}>
-        <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
-          <div className=" col-span-2 flex flex-auto items-center mx-auto">
+    <div className="w-full">
+      <Form action={updateRecipe}>
+        <div className=" flex flex-col md:grid gap-2 md:gap-4 md:grid-cols-2">
+          <div className=" col-span-2 flex flex-auto items-center ">
             <Submit>Save</Submit>
-          </div>
 
-          <input type="hidden" name="id" value={src?.id} />
-          <input type="hidden" name="authorEmail" value={src?.authorEmail} />
+            <input type="hidden" name="id" value={src?.id} />
+            <input type="hidden" name="authorEmail" value={src?.authorEmail} />
+          </div>
           <Section header="General">
             <TextField name="name" label="Name" defaultValue={src?.name} />
             <TextArea
@@ -78,7 +78,7 @@ export const RecipeForm = ({ src }: RecipeFormProps) => {
           </Section>
           <RecipeVitals src={src} />
         </div>
-      </form>
+      </Form>
       <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
         <RecipeHopIngredients hops={src?.hops} />
         <RecipeFermentableIngredients fermentables={src?.fermentables} />

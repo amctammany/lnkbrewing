@@ -6,6 +6,7 @@ import {
 } from "@/app/recipes/actions";
 import { prisma } from "@/lib/client";
 import { FermentableIngredientForm } from "./FermentableIngredientForm";
+import { getFermentableOptions } from "@/app/ingredients/fermentables/queries";
 export type FermentableIngredientModalProps = {
   recipeId?: number;
   fermentableId?: string;
@@ -30,13 +31,17 @@ FermentableIngredientModalProps) => {
           },
         })
       : ({ recipeId } as FermentableIngredient);
+  const fermentableOptions = await getFermentableOptions();
   const action = fermentable?.id
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
   return hidden ? null : (
     <RoutedModal hidden={hidden} returnUrl={`/recipes/${recipeId}/edit`}>
-      FermentableIngredientModal
-      <FermentableIngredientForm src={fermentable} action={action} />
+      <FermentableIngredientForm
+        fermentableOptions={fermentableOptions}
+        src={fermentable}
+        action={action}
+      />
     </RoutedModal>
   );
 };
