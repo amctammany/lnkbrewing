@@ -55,6 +55,8 @@ export async function updateRecipeEquipment(formData: FormData) {
     },
     data,
   });
+
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}/edit`);
 }
 
@@ -77,6 +79,7 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${res.id}`);
 }
 export async function updateRecipeVitals(id: number) {
+  console.log("updateRecipeVitals", id);
   const recipe = await prisma.recipe.findFirst({
     where: { id },
     include: {
@@ -89,6 +92,7 @@ export async function updateRecipeVitals(id: number) {
   });
   if (!recipe) return;
   const vitals = calculateVitals(recipe);
+  console.log(vitals);
   const { author, style, equipment, hops, fermentables, ...data } = recipe;
   return prisma.recipe.update({
     where: {
@@ -137,7 +141,7 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   const res = await prisma.hopIngredient.create({
     data,
   });
-  await updateRecipeVitals(res.id);
+  await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
@@ -146,7 +150,7 @@ export async function updateHopIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
-  await updateRecipeVitals(res.id);
+  await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 const removeHopIngredientSchema = zfd.formData({
@@ -157,7 +161,7 @@ export async function removeHopIngredient(formData: FormData) {
   const res = await prisma.hopIngredient.delete({
     where: { id },
   });
-  await updateRecipeVitals(res.id);
+  await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 
@@ -173,7 +177,7 @@ export async function addFermentableIngredientToRecipe(formData: FormData) {
   const res = await prisma.fermentableIngredient.create({
     data,
   });
-  await updateRecipeVitals(res.id);
+  await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateFermentableIngredient(formData: FormData) {
@@ -182,7 +186,7 @@ export async function updateFermentableIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
-  await updateRecipeVitals(res.id);
+  await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
 export interface RecipeVitalType {
