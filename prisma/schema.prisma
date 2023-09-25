@@ -103,28 +103,45 @@ enum TimeUnit {
   day
 }
 
+enum HopIngredientUsage {
+  Boil
+  Whirlpool
+  DryHop
+  Mash
+}
+
 model HopIngredient {
-  id           Int      @id @default(autoincrement())
+  id           Int                @id @default(autoincrement())
   recipeId     Int
-  recipe       Recipe   @relation(fields: [recipeId], references: [id])
+  recipe       Recipe             @relation(fields: [recipeId], references: [id])
   amount       Float
+  usage        HopIngredientUsage
   amountType   MassUnit
   duration     Float
   durationType TimeUnit
   hopId        Int
-  hop          Hop      @relation(fields: [hopId], references: [id])
+  hop          Hop                @relation(fields: [hopId], references: [id])
+  alpha        Float?
+}
+
+enum FermentableIngredientUsage {
+  Mash
+  Extract
+  Steep
+  Late
 }
 
 model FermentableIngredient {
-  id            Int         @id @default(autoincrement())
+  id            Int                        @id @default(autoincrement())
   recipeId      Int
-  recipe        Recipe      @relation(fields: [recipeId], references: [id])
+  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
+  usage         FermentableIngredientUsage
   amount        Float
   amountType    MassUnit
   //duration      Float
   //durationType  TimeUnit
   fermentableId Int
-  fermentable   Fermentable @relation(fields: [fermentableId], references: [id])
+  fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
 }
 
 model Yeast {

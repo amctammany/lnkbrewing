@@ -1,5 +1,10 @@
 "use server";
-import { MassUnit, TimeUnit } from "@prisma/client";
+import {
+  FermentableIngredientUsage,
+  HopIngredientUsage,
+  MassUnit,
+  TimeUnit,
+} from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
@@ -132,6 +137,8 @@ const hopIngredientSchema = zfd.formData({
   recipeId: zfd.numeric(z.number()),
   hopId: zfd.numeric(z.number().optional().default(1078)),
   amount: zfd.numeric(z.number().min(0)),
+  alpha: zfd.numeric(z.number().min(0).optional()),
+  usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
   duration: zfd.numeric(z.number().min(0)),
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
@@ -169,6 +176,9 @@ const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
   fermentableId: zfd.numeric(z.number().optional().default(1078)),
+  usage: z
+    .nativeEnum(FermentableIngredientUsage)
+    .default(FermentableIngredientUsage.Mash),
   amount: zfd.numeric(z.number().min(0)),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
 });

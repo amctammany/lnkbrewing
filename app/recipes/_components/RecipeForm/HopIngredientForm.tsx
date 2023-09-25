@@ -1,5 +1,10 @@
 import { Form, NumberField, Select, Submit, TextField } from "@/components";
-import { HopIngredient, MassUnit, TimeUnit } from "@prisma/client";
+import {
+  HopIngredient,
+  MassUnit,
+  TimeUnit,
+  HopIngredientUsage,
+} from "@prisma/client";
 import { HopSelect } from "./HopSelect";
 
 export type HopIngredientFormProps = {
@@ -22,6 +27,15 @@ export async function HopIngredientForm({
       <div className="">
         <NumberField name="amount" label="Amount" defaultValue={src?.amount} />
       </div>
+      <div className="">
+        <Select
+          name="usage"
+          label="Unit"
+          options={HopIngredientUsage}
+          defaultValue={src?.usage}
+        />
+      </div>
+
       <div className="">
         <Select
           name="amountType"
