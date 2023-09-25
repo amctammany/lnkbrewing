@@ -16,20 +16,29 @@ export async function HopIngredientForm({
     <Form action={action}>
       <input type="hidden" name="id" value={src?.id} />
       <input type="hidden" name="recipeId" value={src?.recipeId} />
-      <div className="flex-1">
+      <div className="col-span-2">
         <HopSelect name="hopId" label="Hop" value={src?.hopId} />
       </div>
-      <div className="flex-0 w-28">
+      <div className="">
         <NumberField name="amount" label="Amount" defaultValue={src?.amount} />
       </div>
-      <div className="flex-0 w-24">
+      <div className="">
+        <Select
+          name="amountType"
+          label="Unit"
+          options={MassUnit}
+          defaultValue={src?.amountType}
+        />
+      </div>
+
+      <div className="">
         <NumberField
           name="duration"
           label="Time"
           defaultValue={src?.duration}
         />
       </div>
-      <div className="flex-0 w-24">
+      <div className="">
         <Select
           name="durationType"
           label="Time Unit"

@@ -13,7 +13,7 @@ export const RoutedModal = ({
 }: RoutedModalProps) => {
   //const handleClose = () => router.back();
   const className = clsx(
-    " top-2 bottom-2 right-2 left-2 z-50  h-[calc(100%-1rem)] w-[calc(100%-1rem)] max-h-full",
+    "bg-slate-800/75 top-0 bottom-0 right-0 left-0 z-50  h-[calc(100%-1rem)] w-[calc(100%-0rem)] max-h-full pt-5",
     {
       hidden: hidden,
       fixed: !hidden,
