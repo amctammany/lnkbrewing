@@ -18,19 +18,28 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
   return (
     <div className="w-full">
       <div className="flex flex-row md:grid md:grid-cols-4 gap-4">
-        <Section header="General">
-          <TextField name="name" defaultValue={src?.name} disabled />
-        </Section>
+        <div className="col-span-2">
+          <Section header="General">
+            <TextField name="name" defaultValue={src?.name} disabled />
+          </Section>
+        </div>
         <EquipmentSection
           open={!!searchParams?.equipment}
           recipeId={recipeId}
         />
         <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
-        <HopIngredientSection hopId={searchParams?.hopId} recipeId={recipeId} />
-        <FermentableIngredientSection
-          fermentableId={searchParams?.fermentableId}
-          recipeId={recipeId}
-        />
+        <div className="col-span-2">
+          <HopIngredientSection
+            hopId={searchParams?.hopId}
+            recipeId={recipeId}
+          />
+        </div>
+        <div className="col-span-2">
+          <FermentableIngredientSection
+            fermentableId={searchParams?.fermentableId}
+            recipeId={recipeId}
+          />
+        </div>
       </div>
     </div>
   );
