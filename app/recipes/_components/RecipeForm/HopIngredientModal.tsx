@@ -1,4 +1,4 @@
-import { RoutedModal } from "@/components";
+import { RoutedModal } from "@/components/Modal/RoutedModal";
 import { HopIngredient, TimeUnit } from "@prisma/client";
 import {
   addHopIngredientToRecipe,

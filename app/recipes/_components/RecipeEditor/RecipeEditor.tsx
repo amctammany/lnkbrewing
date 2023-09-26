@@ -3,13 +3,14 @@ import { ExtendedRecipe } from "../../types";
 import { Section } from "@/components/Section/Section";
 import { TextField } from "@/components/Form/TextField";
 import { EquipmentSection } from "./EquipmentSection/EquipmentSection";
+import { StyleSection } from "./StyleSection/StyleSection";
 
 interface RecipeEditorProps {
   recipeId: number;
   searchParams?: Record<string, string>;
   src?: ExtendedRecipe | null;
 }
-
+export const dynamic = "force-dynamic";
 export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
   const { src, searchParams, recipeId } = props;
 
@@ -23,7 +24,7 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
           open={!!searchParams?.equipment}
           recipeId={recipeId}
         />
-        <Section header="Style"></Section>
+        <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
         RecipeEditor
       </div>
     </div>

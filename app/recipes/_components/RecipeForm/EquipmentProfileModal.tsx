@@ -1,4 +1,4 @@
-import { RoutedModal } from "@/components";
+import { RoutedModal } from "@/components/Modal/RoutedModal";
 import { EquipmentProfile, TimeUnit } from "@prisma/client";
 import { updateRecipe, updateRecipeEquipment } from "@/app/recipes/actions";
 //import { prisma } from "@/lib/client";

@@ -69,7 +69,7 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
           <Prop key={p.label} {...p} />
         ))}
       </div>
-      <EquipmentProfileModal recipe={recipe} open={open} />
+      {open && <EquipmentProfileModal recipe={recipe} open={open} />}
     </Section>
   );
 };

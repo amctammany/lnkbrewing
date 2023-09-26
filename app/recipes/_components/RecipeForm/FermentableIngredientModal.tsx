@@ -1,4 +1,4 @@
-import { RoutedModal } from "@/components";
+import { RoutedModal } from "@/components/Modal/RoutedModal";
 import { FermentableIngredient } from "@prisma/client";
 import {
   addFermentableIngredientToRecipe,

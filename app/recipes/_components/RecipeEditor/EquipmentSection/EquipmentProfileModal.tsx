@@ -21,13 +21,14 @@ export const EquipmentProfileModal: FC<EquipmentProfileModalProps> = async ({
   const equipmentProfiles = await getEquipmentProfileOptions();
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
-      Stuff
-      <EquipmentSelect
-        recipeId={recipe?.id}
-        options={equipmentProfiles}
-        action={changeRecipeEquipmentProfile}
-      />
-      <EquipmentProfileForm recipe={recipe} action={updateRecipeEquipment} />
+      <div>
+        <EquipmentSelect
+          recipeId={recipe?.id}
+          options={equipmentProfiles}
+          action={changeRecipeEquipmentProfile}
+        />
+        <EquipmentProfileForm recipe={recipe} action={updateRecipeEquipment} />
+      </div>
     </RoutedModal>
   );
 };

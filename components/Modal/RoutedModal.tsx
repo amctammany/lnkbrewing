@@ -22,14 +22,16 @@ export const RoutedModal = ({
   return (
     <div className={className}>
       <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white ">
-        <div className="relative p-5">
-          <div>
-            <ButtonLink scroll={false} href={returnUrl}>
-              Close
-            </ButtonLink>
+        <ClickAwayRouter url={returnUrl}>
+          <div className="relative p-5">
+            <div>
+              <ButtonLink scroll={false} href={returnUrl}>
+                Close
+              </ButtonLink>
+            </div>
+            {children}
           </div>
-          <ClickAwayRouter url={returnUrl}>{children}</ClickAwayRouter>
-        </div>
+        </ClickAwayRouter>
       </div>
     </div>
   );

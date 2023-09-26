@@ -51,10 +51,6 @@ const equipmentSchema = zfd.formData({
   batchVolume: zfd.numeric(z.number().optional()),
   boilVolume: zfd.numeric(z.number().optional()),
 });
-const equipmentProfileSchema = zfd.formData({
-  id: zfd.numeric(z.number()),
-  equipmentProfileId: zfd.numeric(z.number().optional()),
-});
 
 export async function changeRecipeEquipmentProfile({
   recipeId,
@@ -93,7 +89,24 @@ export async function updateRecipeEquipment(formData: FormData) {
   await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}/edit`);
 }
-
+const recipeStyleSchema = zfd.formData({
+  id: zfd.numeric(z.number()),
+  styleIdentifer: zfd.text(),
+});
+export async function updateRecipeStyle(formData: FormData) {
+  const { id, styleIdentifer } = recipeStyleSchema.parse(formData);
+  const res = await prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      style: {
+        connect: { identifier: styleIdentifer },
+      },
+    },
+  });
+  redirect(`/recipes/${res.id}/edit`);
+}
 export async function updateRecipe(formData: FormData) {
   const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
     recipeSchema.parse(formData);
