@@ -1,5 +1,5 @@
 import { getEquipmentProfileOptions } from "@/app/profiles/queries";
-import { Select } from "@/components";
+import { Select } from "@/components/Form/Select";
 
 export type EquipmentProfileSelectProps = {
   label?: string;

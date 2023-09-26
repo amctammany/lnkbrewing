@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
 import { Section } from "@/components/Section/Section";
 import { TextField } from "@/components/Form/TextField";
-import EquipmentSection from "./EquipmentSection";
+import { EquipmentSection } from "./EquipmentSection/EquipmentSection";
 
 interface RecipeEditorProps {
   recipeId: number;

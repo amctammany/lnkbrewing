@@ -25,7 +25,6 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   const recipe = await getExtendedRecipe(recipeId);
   return (
     <Section header="Equipment" actions={<EquipmentSectionActions />}>
-      {recipe?.equipmentProfileId}
       <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
         <div className="col-span-2">
           <EquipmentProfileSelect
