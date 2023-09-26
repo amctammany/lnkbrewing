@@ -3,6 +3,7 @@ import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
 import { StyleModal } from "./StyleModal";
+import { RecipeVitals } from "../..";
 
 interface StyleSectionProps {
   recipeId: number;
@@ -24,7 +25,15 @@ export const StyleSection: FC<StyleSectionProps> = async ({
 
   return (
     <Section header="Style" actions={<StyleSectionActions />}>
-      <div className="flex flex-col ">Style Vitals</div>
+      <div className="flex flex-col ">
+        <div className="flex">
+          <h4 className="flex-grow text-md font-bold">Style</h4>
+          <span className="pr-1 underline">{recipe?.style?.identifier}</span>
+          <span className="">{recipe?.style?.name}</span>
+        </div>
+
+        <RecipeVitals src={recipe} />
+      </div>
       {open && <StyleModal recipe={recipe} open={open} />}
     </Section>
   );
