@@ -19,33 +19,55 @@ const EquipmentSectionActions = () => {
     </div>
   );
 };
+type PropProps = {
+  label?: string | null;
+  value?: string | number | null;
+  unit?: string | null;
+};
+const Prop = ({ label, value, unit }: PropProps) => {
+  return (
+    <div className="flex">
+      <h4 className="flex-grow text-md font-bold">{label}</h4>
+      <span className="pr-1">{value}</span>
+      <span className="">{unit}</span>
+    </div>
+  );
+};
 export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   recipeId,
   open,
 }) => {
   const recipe = await getExtendedRecipe(recipeId);
+  const equipmentSectionProps = [
+    { label: "Profile", value: recipe?.equipment?.name },
+    {
+      label: "Boil Time",
+      value: recipe?.boilTime,
+      unit: "min",
+    },
+    {
+      label: "Batch Volume",
+      value: recipe?.batchVolume,
+      unit: "gal",
+    },
+    {
+      label: "Mash Efficiency",
+      value: (recipe?.equipment?.mashEfficiency || 0) * 100,
+      unit: "%",
+    },
+    {
+      label: "Brew Efficiency",
+      value: (recipe?.equipment?.brewEfficiency || 0) * 100,
+      unit: "%",
+    },
+  ];
+
   return (
     <Section header="Equipment" actions={<EquipmentSectionActions />}>
-      <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
-        <div className="col-span-2">
-          <EquipmentProfileSelect
-            name="equipmentProfileId"
-            value={recipe?.equipmentProfileId}
-            disabled
-          />
-        </div>
-        <NumberField
-          label="Boil Time"
-          name="boilTime"
-          defaultValue={recipe?.boilTime}
-          disabled
-        />
-        <NumberField
-          label="Batch Volume"
-          name="batchVolume"
-          defaultValue={recipe?.batchVolume}
-          disabled
-        />
+      <div className="flex flex-col ">
+        {equipmentSectionProps.map((p) => (
+          <Prop key={p.label} {...p} />
+        ))}
       </div>
       <EquipmentProfileModal recipe={recipe} open={open} />
     </Section>
