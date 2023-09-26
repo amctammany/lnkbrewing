@@ -56,22 +56,29 @@ const equipmentProfileSchema = zfd.formData({
   equipmentProfileId: zfd.numeric(z.number().optional()),
 });
 
-export async function changeRecipeEquipmentProfile(formData: FormData) {
-  const data = equipmentProfileSchema.parse(formData);
+export async function changeRecipeEquipmentProfile({
+  recipeId,
+  equipmentProfileId,
+}: {
+  recipeId: number;
+  equipmentProfileId: number;
+}) {
+  //const data = equipmentProfileSchema.parse(formData);
   const profile = await prisma.equipmentProfile.findFirst({
     where: {
-      id: data.equipmentProfileId,
+      id: equipmentProfileId,
     },
   });
   const { boilTime, batchVolume, preboilVolume } = profile || {};
   const res = await prisma.recipe.update({
-    where: { id: data.id },
+    where: { id: recipeId },
     data: {
       boilTime,
       batchVolume,
       preboilVolume,
     },
   });
+  console.log(res);
   redirect(`/recipes/${res.id}/edit/?equipment=1`);
 }
 export async function updateRecipeEquipment(formData: FormData) {

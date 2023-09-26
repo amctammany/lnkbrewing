@@ -6,6 +6,7 @@ import { EquipmentProfileModal } from "./EquipmentProfileModal";
 import { NumberField } from "@/components/Form/NumberField";
 import { EquipmentProfileSelect } from "@/app/profiles/_components";
 
+export const dynamic = "force-validate";
 interface EquipmentSectionProps {
   recipeId: number;
   open: boolean;
@@ -14,7 +15,7 @@ interface EquipmentSectionProps {
 const EquipmentSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?equipment=true">Edit</ButtonLink>
+      <ButtonLink href="?equipment=1">Edit</ButtonLink>
     </div>
   );
 };
