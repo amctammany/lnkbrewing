@@ -23,3 +23,4 @@ export const StyleModal: FC<StyleProfileModalProps> = async ({
     </RoutedModal>
   );
 };
+export default StyleModal;

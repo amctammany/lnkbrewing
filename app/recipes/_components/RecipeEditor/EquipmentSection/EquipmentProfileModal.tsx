@@ -32,3 +32,4 @@ export const EquipmentProfileModal: FC<EquipmentProfileModalProps> = async ({
     </RoutedModal>
   );
 };
+export default EquipmentProfileModal;

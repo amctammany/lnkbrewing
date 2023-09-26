@@ -1,12 +1,12 @@
-import { prisma } from "@/lib/client";
-import {
-  FermentableIngredientModal,
-  HopIngredientModal,
-  RecipeForm,
-} from "../../_components";
-//import { ClickAwayRouter } from "@/components/";
-//import { EquipmentProfileForm } from "@/app/profiles/_components";
-import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
+//import { prisma } from "@/lib/client";
+//import {
+//FermentableIngredientModal,
+//HopIngredientModal,
+//RecipeForm,
+//} from "../../_components";
+////import { ClickAwayRouter } from "@/components/";
+////import { EquipmentProfileForm } from "@/app/profiles/_components";
+//import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
 import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
 import { getExtendedRecipe } from "../../queries";
 type RecipeEditorPageProps = {

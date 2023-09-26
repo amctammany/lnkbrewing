@@ -2,7 +2,9 @@ import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
 import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-import { StyleModal } from "./StyleModal";
+//import { StyleModal } from "./StyleModal";
+import dynamic from "next/dynamic";
+const StyleModal = dynamic(() => import("./StyleModal"), { ssr: false });
 import { RecipeVitals } from "../..";
 
 interface StyleSectionProps {

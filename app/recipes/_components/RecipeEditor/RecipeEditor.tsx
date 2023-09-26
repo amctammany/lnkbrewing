@@ -10,7 +10,6 @@ interface RecipeEditorProps {
   searchParams?: Record<string, string>;
   src?: ExtendedRecipe | null;
 }
-export const dynamic = "force-dynamic";
 export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
   const { src, searchParams, recipeId } = props;
 
@@ -25,7 +24,6 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
           recipeId={recipeId}
         />
         <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
-        RecipeEditor
       </div>
     </div>
   );

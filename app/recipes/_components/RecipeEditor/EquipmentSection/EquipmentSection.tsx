@@ -2,11 +2,12 @@ import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
 import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-import { EquipmentProfileModal } from "./EquipmentProfileModal";
-import { NumberField } from "@/components/Form/NumberField";
-import { EquipmentProfileSelect } from "@/app/profiles/_components";
+//import { EquipmentProfileModal } from "./EquipmentProfileModal";
+import dynamic from "next/dynamic";
+const EquipmentProfileModal = dynamic(() => import("./EquipmentProfileModal"), {
+  ssr: false,
+});
 
-export const dynamic = "force-validate";
 interface EquipmentSectionProps {
   recipeId: number;
   open: boolean;
