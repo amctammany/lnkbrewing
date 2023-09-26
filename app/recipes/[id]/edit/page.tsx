@@ -7,11 +7,13 @@ import {
 //import { ClickAwayRouter } from "@/components/";
 //import { EquipmentProfileForm } from "@/app/profiles/_components";
 import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
+import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
+import { getExtendedRecipe } from "../../queries";
 type RecipeEditorPageProps = {
   params: {
     id: string;
   };
-  searchParams: Record<string, string> | null;
+  searchParams?: Record<string, string>;
 };
 
 export function generateMetadata({ params }: RecipeEditorPageProps) {
@@ -24,32 +26,12 @@ export default async function RecipeEditorPage({
   params: { id },
   searchParams,
 }: RecipeEditorPageProps) {
-  const recipe = await prisma.recipe.findFirst({
-    include: {
-      author: true,
-      hops: { include: { hop: true } },
-      equipment: true,
-      fermentables: { include: { fermentable: true } },
-      style: true,
-    },
-    where: {
-      id: parseInt(id),
-    },
-  });
+  const recipe = await getExtendedRecipe(parseInt(id));
   return (
-    <>
-      {!!searchParams?.equipment && (
-        <EquipmentProfileModal
-          recipeId={parseInt(id)}
-          open={!!searchParams?.equipment}
-        />
-      )}
-      <HopIngredientModal recipeId={parseInt(id)} hopId={searchParams?.hopId} />
-      <FermentableIngredientModal
-        recipeId={parseInt(id)}
-        fermentableId={searchParams?.fermentableId}
-      />
-      <RecipeForm src={recipe} />
-    </>
+    <RecipeEditor
+      src={recipe}
+      recipeId={parseInt(id)}
+      searchParams={searchParams}
+    />
   );
 }
