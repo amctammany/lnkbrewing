@@ -38,8 +38,6 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
       hop: true,
     },
   });
-  console.log(hopId);
-  console.log(hopIngredient);
 
   return (
     <Section header="Hops" actions={<HopIngredientSectionActions />}>

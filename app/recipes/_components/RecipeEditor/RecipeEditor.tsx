@@ -5,6 +5,7 @@ import { TextField } from "@/components/Form/TextField";
 import { EquipmentSection } from "./EquipmentSection/EquipmentSection";
 import { StyleSection } from "./StyleSection/StyleSection";
 import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSection";
+import { FermentableIngredientSection } from "./FermentableIngredientSection/FermentableIngredientSection";
 
 interface RecipeEditorProps {
   recipeId: number;
@@ -26,6 +27,10 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
         />
         <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
         <HopIngredientSection hopId={searchParams?.hopId} recipeId={recipeId} />
+        <FermentableIngredientSection
+          fermentableId={searchParams?.fermentableId}
+          recipeId={recipeId}
+        />
       </div>
     </div>
   );
