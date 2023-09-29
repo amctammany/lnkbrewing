@@ -1,8 +1,6 @@
-import dynamic from "next/dynamic";
-const AdminForm = dynamic(() => import("./AdminForm"), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
+import { ButtonLink } from "@/components/Button/Button";
+import Prop from "@/components/Prop/Prop";
+import { Section } from "@/components/Section/Section";
 
 export type AdminPageProps = {
   src: any;
@@ -12,7 +10,13 @@ export type AdminPageProps = {
 export const AdminPage = ({ src, action }: AdminPageProps) => {
   return (
     <div>
-      <AdminForm src={src} action={action} />
+      <div>
+        <Prop label="Name" value={src.name} />
+        <Prop label="Email" value={src.email} />
+      </div>
+      <div>
+        <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
+      </div>
     </div>
   );
 };
