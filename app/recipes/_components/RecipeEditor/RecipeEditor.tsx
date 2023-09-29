@@ -6,6 +6,7 @@ import { EquipmentSection } from "./EquipmentSection/EquipmentSection";
 import { StyleSection } from "./StyleSection/StyleSection";
 import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSection";
 import { FermentableIngredientSection } from "./FermentableIngredientSection/FermentableIngredientSection";
+import { GeneralSection } from "./GeneralSection/GeneralSection";
 
 interface RecipeEditorProps {
   recipeId: number;
@@ -19,9 +20,7 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
     <div className="w-full">
       <div className="flex flex-row md:grid md:grid-cols-4 gap-4">
         <div className="col-span-2">
-          <Section header="General">
-            <TextField name="name" defaultValue={src?.name} disabled />
-          </Section>
+          <GeneralSection open={!!searchParams?.general} recipeId={recipeId} />
         </div>
         <EquipmentSection
           open={!!searchParams?.equipment}

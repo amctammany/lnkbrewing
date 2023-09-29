@@ -16,8 +16,8 @@ const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
-  authorEmail: zfd.text(),
-  styleIdentifer: zfd.text(),
+  authorEmail: zfd.text(z.string().optional()),
+  styleIdentifer: zfd.text(z.string().optional()),
   equipmentProfileId: zfd.numeric(z.number().optional()),
   boilTime: zfd.numeric(z.number().optional()),
   batchVolume: zfd.numeric(z.number().optional()),
@@ -107,6 +107,28 @@ export async function updateRecipeStyle(formData: FormData) {
   });
   redirect(`/recipes/${res.id}/edit`);
 }
+const recipeGeneralSchema = zfd.formData({
+  id: zfd.numeric(z.number()),
+  name: zfd.text(),
+  description: zfd.text(),
+});
+
+export async function updateRecipeGeneral(formData: FormData) {
+  const { id, name, description } = recipeGeneralSchema.parse(formData);
+  const res = await prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      description,
+      //equipment: { connect: { id: equipmentProfileId } },
+      slug: slugify(name, { lower: true }),
+    },
+  });
+  redirect(`/recipes/${res.id}/edit`);
+}
+
 export async function updateRecipe(formData: FormData) {
   const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
     recipeSchema.parse(formData);
@@ -119,7 +141,7 @@ export async function updateRecipe(formData: FormData) {
       style: { connect: { identifier: styleIdentifer } },
       author: { connect: { email: authorEmail } },
       //equipment: { connect: { id: equipmentProfileId } },
-      slug: slugify(data.name, { lower: true }),
+      slug: slugify(data.name || "", { lower: true }),
     },
   });
   await updateRecipeVitals(res.id);
@@ -165,7 +187,7 @@ export async function createRecipe(formData: FormData) {
         },
       },
 
-      slug: slugify(data.name, { lower: true }),
+      slug: slugify(data.name || "", { lower: true }),
       //fermentables: { createMany: { data: data.fermentables || [] } },
       //hops: { createMany: { data: data.hops || [] } },
     },
