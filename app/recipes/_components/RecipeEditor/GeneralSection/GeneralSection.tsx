@@ -6,6 +6,7 @@ import React, { FC } from "react";
 import dynamic from "next/dynamic";
 const GeneralModal = dynamic(() => import("./GeneralModal"), { ssr: false });
 import { RecipeVitals } from "../..";
+import Prop from "@/components/Prop/Prop";
 
 interface GeneralSectionProps {
   recipeId: number;
@@ -28,14 +29,8 @@ export const GeneralSection: FC<GeneralSectionProps> = async ({
   return (
     <Section header="General" actions={<GeneralSectionActions />}>
       <div className="flex flex-col ">
-        <div>
-          <b>Name:</b>
-          <span>{recipe?.name}</span>
-        </div>
-        <div>
-          <b>Description:</b>
-          <span>{recipe?.description}</span>
-        </div>
+        <Prop label="Name" value={recipe?.name} />
+        <Prop label="Description" value={recipe?.description} />
       </div>
       {open && <GeneralModal recipe={recipe} open={open} />}
     </Section>

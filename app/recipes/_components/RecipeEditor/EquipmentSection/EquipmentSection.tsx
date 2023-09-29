@@ -4,6 +4,7 @@ import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
 //import { EquipmentProfileModal } from "./EquipmentProfileModal";
 import dynamic from "next/dynamic";
+import Prop from "@/components/Prop/Prop";
 const EquipmentProfileModal = dynamic(() => import("./EquipmentProfileModal"), {
   ssr: false,
 });
@@ -17,20 +18,6 @@ const EquipmentSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?equipment=1">Edit</ButtonLink>
-    </div>
-  );
-};
-type PropProps = {
-  label?: string | null;
-  value?: string | number | null;
-  unit?: string | null;
-};
-const Prop = ({ label, value, unit }: PropProps) => {
-  return (
-    <div className="flex">
-      <h4 className="flex-grow text-md font-bold">{label}</h4>
-      <span className="pr-1">{value}</span>
-      <span className="">{unit}</span>
     </div>
   );
 };
