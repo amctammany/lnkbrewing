@@ -1,6 +1,14 @@
-import { PrismaClient, HopUsage, StyleCategory } from "@prisma/client";
+import {
+  PrismaClient,
+  HopUsage,
+  StyleCategory,
+  YeastForm,
+  YeastType,
+  YeastFlocculation,
+} from "@prisma/client";
 import slugify from "slugify";
 import hops from "../data/hops.json";
+import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
 import styles from "../data/styles.json";
 const prisma = new PrismaClient();
@@ -11,6 +19,7 @@ async function main() {
   await prisma.fermentableIngredient.deleteMany();
   await prisma.hop.deleteMany();
   //await prisma.hopSensoryPanel.deleteMany();
+  await prisma.yeast.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.recipe.deleteMany();
   //await prisma.user.deleteMany();
@@ -86,6 +95,25 @@ async function main() {
       boilVolume: 6.5,
       brewEfficiency: 0.7,
     },
+  });
+
+  await prisma.yeast.createMany({
+    data: yeasts.map(
+      ({ type, form, flocculation, temp, attenuation, notes, ...yeast }) => ({
+        ...yeast,
+        type: YeastType[type as YeastType],
+        flocculation:
+          YeastFlocculation[
+            flocculation?.replace(" ", "") as YeastFlocculation
+          ],
+        form: YeastForm[form as YeastForm],
+        attenuation: attenuation / 100,
+        tempLow: temp[0],
+        tempHigh: temp[1],
+        notes: notes[0],
+        usage: notes[1],
+      })
+    ),
   });
 
   await prisma.hop.createMany({

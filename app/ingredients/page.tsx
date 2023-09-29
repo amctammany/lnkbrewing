@@ -4,6 +4,7 @@ import Link from "next/link";
 const links = [
   ["Hops", "/ingredients/hops"],
   ["Fermentables", "/ingredients/fermentables"],
+  ["Yeasts", "/ingredients/yeasts"],
 ];
 export default function IngredientsIndex() {
   return (

@@ -144,14 +144,41 @@ model FermentableIngredient {
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
 }
 
+enum YeastForm {
+  Liquid
+  Dry
+}
+
+enum YeastFlocculation {
+  VeryHigh
+  High
+  Medium
+  Low
+  VeryLow
+}
+
+enum YeastType {
+  Ale
+  Lager
+  Wheat
+  Wine
+}
+
 model Yeast {
-  id          Int     @id @default(autoincrement())
-  name        String
-  slug        String  @unique
-  description String?
-  country     String?
-  tolerance   Float?
-  attenuation Float?
+  id           Int                @id @default(autoincrement())
+  name         String
+  slug         String             @unique
+  usage        String?
+  description  String?
+  notes        String?
+  manufacturer String?
+  type         YeastType?
+  form         YeastForm?
+  tempLow      Float?
+  tempHigh     Float?
+  flocculation YeastFlocculation?
+  tolerance    Float?
+  attenuation  Float?
 }
 
 model Fermentable {
@@ -160,6 +187,7 @@ model Fermentable {
   slug                  String                  @unique
   description           String?
   notes                 String?
+  manufacturer          String?
   country               String?
   power                 Int?
   maxUsage              Float?
