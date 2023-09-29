@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
-import { Section } from "@/components/Section/Section";
-import { TextField } from "@/components/Form/TextField";
+//import { Section } from "@/components/Section/Section";
+//import { TextField } from "@/components/Form/TextField";
 import { EquipmentSection } from "./EquipmentSection/EquipmentSection";
 import { StyleSection } from "./StyleSection/StyleSection";
 import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSection";

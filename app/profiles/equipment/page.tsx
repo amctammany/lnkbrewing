@@ -1,6 +1,8 @@
-import { List, ListItemButton, Section } from "@/components";
 import { Metadata } from "next";
 import { getEquipmentProfiles } from "@/app/profiles/queries";
+import { ListItemButton } from "@/components/List/ListItemButton";
+import { Section } from "@/components/Section/Section";
+import { List } from "@/components/List/List";
 export const metadata: Metadata = {
   title: "LNK Profiles",
 };
