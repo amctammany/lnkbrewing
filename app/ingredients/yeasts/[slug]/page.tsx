@@ -33,7 +33,6 @@ function RangeProp({ label, low, high, avg }: RangePropProps) {
         <div className="flex-grow text-md">
           Range: {low} - {high}
         </div>
-        <div className="text-md">Average: {avg}</div>
       </div>
     </div>
   );

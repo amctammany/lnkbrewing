@@ -69,7 +69,8 @@ const Prop = ({ label, children }: PropProps) => {
   );
 };
 export const RecipeVitals: FC<RecipeVitalsProps> = ({ src }) => {
-  const { og, srm, fg, ibu, abv } = src || ({} as RecipeVitalType);
+  const { og, srm, fg, ibu, abv } =
+    src || ({ og: 0, fg: 0, srm: 0, ibu: 0, abv: 0 } as RecipeVitalType);
   return (
     <Section header="Vitals">
       <Prop label="OG">{og.toFixed(3)}</Prop>

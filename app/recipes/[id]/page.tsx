@@ -20,6 +20,11 @@ export default async function RecipeDisplayPage({
       author: true,
       style: true,
       equipment: true,
+      yeasts: {
+        include: {
+          yeast: true,
+        },
+      },
       hops: {
         include: { hop: { select: { name: true, id: true, alpha: true } } },
       },

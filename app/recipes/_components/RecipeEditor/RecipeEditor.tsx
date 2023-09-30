@@ -7,6 +7,7 @@ import { StyleSection } from "./StyleSection/StyleSection";
 import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSection";
 import { FermentableIngredientSection } from "./FermentableIngredientSection/FermentableIngredientSection";
 import { GeneralSection } from "./GeneralSection/GeneralSection";
+import { YeastIngredientSection } from "./YeastIngredientSection/YeastIngredientSection";
 
 interface RecipeEditorProps {
   recipeId: number;
@@ -39,6 +40,12 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
             recipeId={recipeId}
           />
         </div>
+      </div>
+      <div className="col-span-2">
+        <YeastIngredientSection
+          yeastId={searchParams?.yeastId}
+          recipeId={recipeId}
+        />
       </div>
     </div>
   );

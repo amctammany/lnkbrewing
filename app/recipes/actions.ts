@@ -4,6 +4,7 @@ import {
   HopIngredientUsage,
   MassUnit,
   TimeUnit,
+  YeastAmountType,
 } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
@@ -153,6 +154,7 @@ export async function updateRecipeVitals(id: number) {
     include: {
       author: true,
       style: true,
+      yeasts: { include: { yeast: true } },
       hops: { include: { hop: true } },
       fermentables: { include: { fermentable: true } },
       equipment: true,
@@ -160,7 +162,8 @@ export async function updateRecipeVitals(id: number) {
   });
   if (!recipe) return;
   const vitals = calculateVitals(recipe);
-  const { author, style, equipment, hops, fermentables, ...data } = recipe;
+  const { author, style, equipment, hops, yeasts, fermentables, ...data } =
+    recipe;
   return prisma.recipe.update({
     where: {
       id,
@@ -194,6 +197,42 @@ export async function createRecipe(formData: FormData) {
   });
   redirect(`/recipes/${res.id}`);
 }
+const yeastIngredientSchema = zfd.formData({
+  id: zfd.numeric(z.number().optional()),
+  recipeId: zfd.numeric(z.number()),
+  yeastId: zfd.numeric(z.number()),
+  amount: zfd.numeric(z.number().min(0)),
+  amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
+});
+export async function addYeastIngredientToRecipe(formData: FormData) {
+  const data = yeastIngredientSchema.parse(formData);
+  const res = await prisma.yeastIngredient.create({
+    data,
+  });
+  await updateRecipeVitals(res.recipeId);
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+export async function updateYeastIngredient(formData: FormData) {
+  const data = yeastIngredientSchema.parse(formData);
+  const res = await prisma.yeastIngredient.update({
+    where: { id: data.id },
+    data,
+  });
+  await updateRecipeVitals(res.recipeId);
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+const removeYeastIngredientSchema = zfd.formData({
+  id: zfd.numeric(),
+});
+export async function removeYeastIngredient(formData: FormData) {
+  const { id } = removeYeastIngredientSchema.parse(formData);
+  const res = await prisma.yeastIngredient.delete({
+    where: { id },
+  });
+  await updateRecipeVitals(res.recipeId);
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+
 const hopIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),

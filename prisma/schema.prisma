@@ -75,6 +75,7 @@ model Recipe {
   style              Style?                  @relation(fields: [styleIdentifer], references: [identifier])
   updatedAt          DateTime                @default(now())
   createdAt          DateTime                @default(now())
+  yeasts             YeastIngredient[]
   hops               HopIngredient[]
   fermentables       FermentableIngredient[]
   equipment          EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
@@ -144,6 +145,22 @@ model FermentableIngredient {
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
 }
 
+enum YeastAmountType {
+  g
+  package
+}
+
+model YeastIngredient {
+  id          Int             @id @default(autoincrement())
+  recipeId    Int
+  recipe      Recipe          @relation(fields: [recipeId], references: [id])
+  amount      Float
+  amountType  YeastAmountType
+  yeastId     Int
+  yeast       Yeast           @relation(fields: [yeastId], references: [id])
+  attenuation Float?
+}
+
 enum YeastForm {
   Liquid
   Dry
@@ -165,20 +182,21 @@ enum YeastType {
 }
 
 model Yeast {
-  id           Int                @id @default(autoincrement())
-  name         String
-  slug         String             @unique
-  usage        String?
-  description  String?
-  notes        String?
-  manufacturer String?
-  type         YeastType?
-  form         YeastForm?
-  tempLow      Float?
-  tempHigh     Float?
-  flocculation YeastFlocculation?
-  tolerance    Float?
-  attenuation  Float?
+  id              Int                @id @default(autoincrement())
+  name            String
+  slug            String             @unique
+  usage           String?
+  description     String?
+  notes           String?
+  manufacturer    String?
+  type            YeastType?
+  form            YeastForm?
+  tempLow         Float?
+  tempHigh        Float?
+  flocculation    YeastFlocculation?
+  tolerance       Float?
+  attenuation     Float?
+  YeastIngredient YeastIngredient[]
 }
 
 model Fermentable {

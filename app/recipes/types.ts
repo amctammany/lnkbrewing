@@ -6,9 +6,17 @@ import {
   Recipe,
   Style,
   EquipmentProfile,
+  Yeast,
+  YeastIngredient,
 } from "@prisma/client";
 import { User } from "next-auth";
 
+export type ExtendedYeastIngredient = YeastIngredient & {
+  yeast: Pick<
+    Yeast,
+    "id" | "name" | "form" | "type" | "attenuation" | "flocculation"
+  >;
+};
 export type ExtendedFermentableIngredient = FermentableIngredient & {
   fermentable: Pick<Fermentable, "id" | "name" | "potential" | "color">;
 };
@@ -21,4 +29,5 @@ export type ExtendedRecipe = Recipe & {
   equipment: EquipmentProfile | null;
   hops: ExtendedHopIngredient[];
   fermentables: ExtendedFermentableIngredient[];
+  yeasts: ExtendedYeastIngredient[];
 };
