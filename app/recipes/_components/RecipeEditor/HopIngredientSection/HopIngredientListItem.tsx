@@ -24,15 +24,17 @@ const RemoveHopButton = ({ id }: RemoveHopButtonProps) => {
 export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
   return (
     <ListItem>
-      <Link scroll={false} href={`?hopId=${hop.id}`}>
-        <div className="px-2 pb-1 grid grid-cols-6 gap-2 group-hover:bg-slate-500/10 ">
+      <div className="flex group-hover:bg-slate-500/10">
+        <Link
+          className="flex-grow px-2 pb-1 grid grid-cols-6 gap-2  "
+          scroll={false}
+          href={`?hopId=${hop.id}`}
+        >
           <div className="">
-            <div className="">
-              <div className="text-lg ">
-                {hop.duration} {hop.durationType}
-              </div>
-              <div className="text-xs">{hop.usage}</div>
+            <div className="text-lg ">
+              {hop.duration} {hop.durationType}
             </div>
+            <div className="text-xs">{hop.usage}</div>
           </div>
           <div className="col-span-4">
             <div className="">
@@ -40,14 +42,15 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
               <div className="text-xs">IBU: {hop.alpha}</div>
             </div>
           </div>
-          <div>
-            <div className="">
-              <div className="text-lg">{hop.amount}</div>
-              <div className="text-xs">{hop.amountType}</div>
-            </div>
+          <div className="">
+            <div className="text-lg">{hop.amount}</div>
+            <div className="text-xs">{hop.amountType}</div>
           </div>
+        </Link>
+        <div className="m-auto">
+          <RemoveHopButton id={hop.id} />
         </div>
-      </Link>
+      </div>
     </ListItem>
   );
 };

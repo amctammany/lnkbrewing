@@ -40,12 +40,12 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
             recipeId={recipeId}
           />
         </div>
-      </div>
-      <div className="col-span-2">
-        <YeastIngredientSection
-          yeastId={searchParams?.yeastId}
-          recipeId={recipeId}
-        />
+        <div className="col-span-2">
+          <YeastIngredientSection
+            yeastId={searchParams?.yeastId}
+            recipeId={recipeId}
+          />
+        </div>
       </div>
     </div>
   );

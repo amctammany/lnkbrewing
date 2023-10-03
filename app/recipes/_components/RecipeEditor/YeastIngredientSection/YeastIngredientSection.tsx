@@ -10,6 +10,7 @@ const YeastIngredientModal = dynamic(() => import("./YeastIngredientModal"), {
 import { List } from "@/components/List/List";
 import { YeastIngredientListItem } from "./YeastIngredientListItem";
 import { prisma } from "@/lib/client";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 interface YeastIngredientSectionProps {
   recipeId: number;
@@ -19,7 +20,9 @@ interface YeastIngredientSectionProps {
 const YeastIngredientSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?yeastId=new">add</ButtonLink>
+      <ButtonLink href="?yeastId=new">
+        <PlusIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

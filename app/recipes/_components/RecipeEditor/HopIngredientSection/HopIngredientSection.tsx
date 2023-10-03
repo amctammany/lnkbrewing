@@ -11,6 +11,7 @@ import { RecipeVitals } from "../..";
 import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
 import { prisma } from "@/lib/client";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 interface HopIngredientSectionProps {
   recipeId: number;
@@ -20,7 +21,9 @@ interface HopIngredientSectionProps {
 const HopIngredientSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?hopId=new">add</ButtonLink>
+      <ButtonLink href="?hopId=new">
+        <PlusIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

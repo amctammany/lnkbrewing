@@ -26,8 +26,12 @@ export const YeastIngredientListItem = ({
 }: YeastIngredientListItemProps) => {
   return (
     <ListItem>
-      <Link scroll={false} href={`?yeastId=${yeast.id}`}>
-        <div className="px-2 pb-1 grid grid-cols-6 gap-2 group-hover:bg-slate-500/10 ">
+      <div className="flex group-hover:bg-slate-500/10 ">
+        <Link
+          className="flex-grow px-2 pb-1 grid grid-cols-6 gap-2"
+          scroll={false}
+          href={`?yeastId=${yeast.id}`}
+        >
           <div className="">
             <div className="">
               <div className="text-lg ">{yeast.yeast.type}</div>
@@ -48,8 +52,11 @@ export const YeastIngredientListItem = ({
               <div className="text-xs">{yeast.amountType}</div>
             </div>
           </div>
+        </Link>
+        <div className="m-auto">
+          <RemoveYeastButton id={yeast.id} />
         </div>
-      </Link>
+      </div>
     </ListItem>
   );
 };

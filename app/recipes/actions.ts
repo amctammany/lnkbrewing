@@ -12,7 +12,7 @@ import { zfd } from "zod-form-data";
 import { z } from "zod";
 import slugify from "slugify";
 import { ExtendedRecipe } from "./types";
-
+/**
 const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
@@ -44,7 +44,46 @@ const recipeSchema = zfd.formData({
   //.array()
   //.optional(),
 });
+export async function createRecipe(formData: FormData) {
+  const { id, equipmentProfileId, authorEmail, styleIdentifer, ...data } =
+    recipeSchema.parse(formData);
 
+  const res = await prisma.recipe.create({
+    data: {
+      ...data,
+      equipment: { connect: { id: equipmentProfileId } },
+      style: { connect: { identifier: styleIdentifer } },
+      author: {
+        connect: {
+          email: authorEmail,
+        },
+      },
+
+      slug: slugify(data.name || "", { lower: true }),
+      //fermentables: { createMany: { data: data.fermentables || [] } },
+      //hops: { createMany: { data: data.hops || [] } },
+    },
+  });
+  redirect(`/recipes/${res.id}`);
+}
+export async function updateRecipe(formData: FormData) {
+  const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
+    recipeSchema.parse(formData);
+  const res = await prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      ...data,
+      style: { connect: { identifier: styleIdentifer } },
+      author: { connect: { email: authorEmail } },
+      slug: slugify(data.name || "", { lower: true }),
+    },
+  });
+  await updateRecipeVitals(res.id);
+  redirect(`/recipes/${res.id}`);
+}
+**/
 const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   equipmentProfileId: zfd.numeric(z.number().optional()),
@@ -70,12 +109,12 @@ export async function changeRecipeEquipmentProfile({
   const res = await prisma.recipe.update({
     where: { id: recipeId },
     data: {
+      equipmentProfileId,
       boilTime,
       batchVolume,
       preboilVolume,
     },
   });
-  console.log(res);
   redirect(`/recipes/${res.id}/edit/?equipment=1`);
 }
 export async function updateRecipeEquipment(formData: FormData) {
@@ -123,30 +162,10 @@ export async function updateRecipeGeneral(formData: FormData) {
     data: {
       name,
       description,
-      //equipment: { connect: { id: equipmentProfileId } },
       slug: slugify(name, { lower: true }),
     },
   });
   redirect(`/recipes/${res.id}/edit`);
-}
-
-export async function updateRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
-    recipeSchema.parse(formData);
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
-    data: {
-      ...data,
-      style: { connect: { identifier: styleIdentifer } },
-      author: { connect: { email: authorEmail } },
-      //equipment: { connect: { id: equipmentProfileId } },
-      slug: slugify(data.name || "", { lower: true }),
-    },
-  });
-  await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}`);
 }
 export async function updateRecipeVitals(id: number) {
   const recipe = await prisma.recipe.findFirst({
@@ -175,28 +194,6 @@ export async function updateRecipeVitals(id: number) {
   });
 }
 
-export async function createRecipe(formData: FormData) {
-  const { id, equipmentProfileId, authorEmail, styleIdentifer, ...data } =
-    recipeSchema.parse(formData);
-
-  const res = await prisma.recipe.create({
-    data: {
-      ...data,
-      equipment: { connect: { id: equipmentProfileId } },
-      style: { connect: { identifier: styleIdentifer } },
-      author: {
-        connect: {
-          email: authorEmail,
-        },
-      },
-
-      slug: slugify(data.name || "", { lower: true }),
-      //fermentables: { createMany: { data: data.fermentables || [] } },
-      //hops: { createMany: { data: data.hops || [] } },
-    },
-  });
-  redirect(`/recipes/${res.id}`);
-}
 const yeastIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
@@ -221,11 +218,11 @@ export async function updateYeastIngredient(formData: FormData) {
   await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
-const removeYeastIngredientSchema = zfd.formData({
+const removeSchema = zfd.formData({
   id: zfd.numeric(),
 });
 export async function removeYeastIngredient(formData: FormData) {
-  const { id } = removeYeastIngredientSchema.parse(formData);
+  const { id } = removeSchema.parse(formData);
   const res = await prisma.yeastIngredient.delete({
     where: { id },
   });
@@ -261,11 +258,8 @@ export async function updateHopIngredient(formData: FormData) {
   await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
-const removeHopIngredientSchema = zfd.formData({
-  id: zfd.numeric(),
-});
 export async function removeHopIngredient(formData: FormData) {
-  const { id } = removeHopIngredientSchema.parse(formData);
+  const { id } = removeSchema.parse(formData);
   const res = await prisma.hopIngredient.delete({
     where: { id },
   });
@@ -300,6 +294,15 @@ export async function updateFermentableIngredient(formData: FormData) {
   await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
+export async function removeFermentableIngredient(formData: FormData) {
+  const { id } = removeSchema.parse(formData);
+  const res = await prisma.fermentableIngredient.delete({
+    where: { id },
+  });
+  await updateRecipeVitals(res.recipeId);
+  redirect(`/recipes/${res.recipeId}/edit`);
+}
+
 export interface RecipeVitalType {
   abv: number;
   og: number;
