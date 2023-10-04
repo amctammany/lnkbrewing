@@ -9,8 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "postinstall": "prisma generate --data-proxy --generator client",
-    "db:generate": "prisma generate --data-proxy",
+    "precommit": "echo 'Precommit'",
+    "postinstall": "prisma generate ",
+    "db:generate": "prisma generate ",
     "db:seed": "prisma db seed"
   },
   "dependencies": {

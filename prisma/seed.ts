@@ -17,6 +17,7 @@ async function main() {
   await prisma.equipmentProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
+  await prisma.yeastIngredient.deleteMany();
   await prisma.hop.deleteMany();
   //await prisma.hopSensoryPanel.deleteMany();
   await prisma.yeast.deleteMany();
