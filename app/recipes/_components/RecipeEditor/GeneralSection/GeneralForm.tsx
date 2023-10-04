@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 interface GeneralFormProps {
   recipe?: Recipe | null;
-  action: (data: FormData) => void;
+  action: any;
 }
 type GeneralFormInput = {
   id: number;
