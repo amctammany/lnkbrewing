@@ -200,6 +200,7 @@ const yeastIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
   yeastId: zfd.numeric(z.number()),
+  attenuation: zfd.numeric(z.number().min(0)),
   amount: zfd.numeric(z.number().min(0)),
   amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
 });

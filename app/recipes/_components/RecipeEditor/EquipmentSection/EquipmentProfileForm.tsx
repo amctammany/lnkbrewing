@@ -9,6 +9,7 @@ import { EquipmentProfile } from "@prisma/client";
 import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { EquipmentSelect } from "./EquipmentSelect";
+import { Select } from "@/components/Form/Select";
 
 interface EquipmentProfileFormProps {
   recipe?: ExtendedRecipe | null;
@@ -67,15 +68,12 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Label label="Equipment Profile">
-        <select
-          className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-          {...register("equipmentProfileId")}
-          onChange={handleChange}
-        >
-          {opts}
-        </select>
-      </Label>
+      <Select
+        label="Equipment Profile"
+        {...register("equipmentProfileId")}
+        onChange={handleChange}
+        options={options}
+      />
 
       <input type="hidden" value={recipe?.id} {...register("id")} />
       <div className="flex flex-row md:grid md:grid-cols-2 gap-2">

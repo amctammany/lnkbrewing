@@ -22,7 +22,8 @@ export const YeastIngredientModal: FC<
 > = async ({ recipe, yeast, yeastId, open }) => {
   const yeasts = await getYeasts();
 
-  const action = yeastId ? updateYeastIngredient : addYeastIngredientToRecipe;
+  const action =
+    yeastId !== "new" ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
