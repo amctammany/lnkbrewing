@@ -66,7 +66,7 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Label label="Equipment Profile">
         <select
           className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
@@ -79,41 +79,13 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
 
       <input type="hidden" value={recipe?.id} {...register("id")} />
       <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
-        <Label label="Boil Time">
-          <input
-            className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-            type="number"
-            step={1}
-            {...register("boilTime", { valueAsNumber: false })}
-          />
-        </Label>
-        <Label label="Batch Volume">
-          <input
-            className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-            type="number"
-            step={0.01}
-            {...register("batchVolume", { valueAsNumber: false })}
-          />
-        </Label>
-        <Label label="Mash Efficiency">
-          <input
-            className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-            type="number"
-            step={0.01}
-            {...register("mashEfficiency", { valueAsNumber: false })}
-          />
-        </Label>
-        <Label label="Brew Efficiency">
-          <input
-            className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-            type="number"
-            step={0.01}
-            {...register("brewEfficiency", { valueAsNumber: false })}
-          />
-        </Label>
+        <NumberField step={1} {...register("boilTime")} />
+        <NumberField step={0.01} {...register("batchVolume")} />
+        <NumberField step={0.01} {...register("mashEfficiency")} />
+        <NumberField step={0.01} {...register("brewEfficiency")} />
 
         <Submit>Save</Submit>
       </div>
-    </form>
+    </Form>
   );
 };
