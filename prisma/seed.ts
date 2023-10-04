@@ -11,7 +11,7 @@ import hops from "../data/hops.json";
 import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
 import styles from "../data/styles.json";
-const prisma = new PrismaClient();
+import { prisma } from "../lib/client";
 async function main() {
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
