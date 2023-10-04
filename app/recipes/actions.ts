@@ -90,6 +90,8 @@ const equipmentSchema = zfd.formData({
   boilTime: zfd.numeric(z.number().optional()),
   batchVolume: zfd.numeric(z.number().optional()),
   boilVolume: zfd.numeric(z.number().optional()),
+  mashEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
+  brewEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
 });
 
 export async function changeRecipeEquipmentProfile({
@@ -118,10 +120,10 @@ export async function changeRecipeEquipmentProfile({
   redirect(`/recipes/${res.id}/edit/?equipment=1`);
 }
 export async function updateRecipeEquipment(formData: FormData) {
-  const data = equipmentSchema.parse(formData);
+  const { id, ...data } = equipmentSchema.parse(formData);
   const res = await prisma.recipe.update({
     where: {
-      id: data.id,
+      id,
     },
     data,
   });

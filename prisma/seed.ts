@@ -78,7 +78,9 @@ async function main() {
       batchVolume: 3.4,
       preboilVolume: 4.5,
       boilVolume: 4.5,
-      brewEfficiency: 0.68,
+      mashEfficiency: 0.68,
+      brewEfficiency: 0.5,
+      boilTime: 60,
     },
   });
 
@@ -95,6 +97,8 @@ async function main() {
       preboilVolume: 6.5,
       boilVolume: 6.5,
       brewEfficiency: 0.7,
+      mashEfficiency: 0.6,
+      boilTime: 60,
     },
   });
 

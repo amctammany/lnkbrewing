@@ -6,7 +6,10 @@ import {
   changeRecipeEquipmentProfile,
   updateRecipeEquipment,
 } from "@/app/recipes/actions";
-import { getEquipmentProfileOptions } from "@/app/profiles/queries";
+import {
+  getEquipmentProfileOptions,
+  getEquipmentProfiles,
+} from "@/app/profiles/queries";
 import { EquipmentSelect } from "./EquipmentSelect";
 
 interface EquipmentProfileModalProps {
@@ -18,16 +21,15 @@ export const EquipmentProfileModal: FC<EquipmentProfileModalProps> = async ({
   recipe,
   open,
 }) => {
-  const equipmentProfiles = await getEquipmentProfileOptions();
+  const equipmentProfiles = await getEquipmentProfiles();
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
-        <EquipmentSelect
-          recipeId={recipe?.id}
-          options={equipmentProfiles}
-          action={changeRecipeEquipmentProfile}
+        <EquipmentProfileForm
+          profiles={equipmentProfiles}
+          recipe={recipe}
+          action={updateRecipeEquipment}
         />
-        <EquipmentProfileForm recipe={recipe} action={updateRecipeEquipment} />
       </div>
     </RoutedModal>
   );

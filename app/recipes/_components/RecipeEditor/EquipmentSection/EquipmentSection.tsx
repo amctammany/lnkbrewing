@@ -40,12 +40,12 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
     },
     {
       label: "Mash Efficiency",
-      value: (recipe?.equipment?.mashEfficiency || 0) * 100,
+      value: (recipe?.mashEfficiency || 0) * 100,
       unit: "%",
     },
     {
       label: "Brew Efficiency",
-      value: (recipe?.equipment?.brewEfficiency || 0) * 100,
+      value: (recipe?.brewEfficiency || 0) * 100,
       unit: "%",
     },
   ];

@@ -80,10 +80,18 @@ model Recipe {
   fermentables       FermentableIngredient[]
   equipment          EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
   equipmentProfileId Int?
-  boilTime           Float?
   batchVolume        Float?
   boilVolume         Float?
   preboilVolume      Float?
+  boilTime           Float?
+  brewEfficiency     Float?
+  mashEfficiency     Float?
+  boilOffRate        Float?
+  trubLoss           Float?                  @default(0)
+  mashLoss           Float?                  @default(0)
+  fermenterLoss      Float?                  @default(0)
+  grainAbsorption    Float?                  @default(0.5)
+  waterGrainRatio    Float?                  @default(1.5)
   abv                Float                   @default(0)
   srm                Float                   @default(0)
   og                 Float                   @default(0)
