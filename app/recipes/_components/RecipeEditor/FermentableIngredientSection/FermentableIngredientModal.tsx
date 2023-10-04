@@ -4,7 +4,10 @@ import {
   addFermentableIngredientToRecipe,
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
-import { getFermentableOptions } from "@/app/ingredients/fermentables/queries";
+import {
+  getFermentableOptions,
+  getFermentables,
+} from "@/app/ingredients/fermentables/queries";
 import {
   ExtendedFermentableIngredient,
   ExtendedRecipe,
@@ -21,9 +24,9 @@ interface FermentableIngredientProfileModalProps {
 export const FermentableIngredientModal: FC<
   FermentableIngredientProfileModalProps
 > = async ({ recipe, fermentable, fermentableId, open }) => {
-  const fermentables = await getFermentableOptions();
+  const fermentables = await getFermentables();
 
-  const action = fermentable?.id
+  const action = fermentableId
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
   return (
@@ -32,7 +35,7 @@ export const FermentableIngredientModal: FC<
         <FermentableIngredientForm
           fermentable={fermentable}
           action={action}
-          fermentableOptions={fermentables}
+          fermentables={fermentables}
         />
       </div>
     </RoutedModal>

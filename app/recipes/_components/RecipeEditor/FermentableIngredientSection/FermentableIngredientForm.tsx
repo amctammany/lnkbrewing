@@ -1,4 +1,6 @@
+"use client";
 import {
+  Fermentable,
   FermentableIngredient,
   FermentableIngredientUsage,
   MassUnit,
@@ -9,54 +11,99 @@ import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
-import { ExtendedFermentableIngredient } from "@/app/recipes/types";
+import {
+  ExtendedFermentableIngredient,
+  ExtendedRecipe,
+} from "@/app/recipes/types";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export type FermentableIngredientFormProps = {
+  recipe?: ExtendedRecipe | null;
   fermentable?: ExtendedFermentableIngredient | null;
-  fermentableOptions: any;
-  action?: (data: FormData) => void;
+  fermentables: Fermentable[];
+  action: (data: FormData) => void;
 };
 
+type FermentableIngredientFormInput = {
+  id: number;
+  recipeId: number;
+  fermentableId: number | null;
+  color: number | null;
+  potential: number | null;
+  amount: number | null;
+  amountType: MassUnit | null;
+  usage: FermentableIngredientUsage;
+};
 export function FermentableIngredientForm({
+  recipe,
   fermentable: src,
-  fermentableOptions,
+  fermentables,
   action,
 }: FermentableIngredientFormProps) {
+  const { register, handleSubmit, reset, setValue } =
+    useForm<FermentableIngredientFormInput>({
+      defaultValues: src || { recipeId: recipe?.id },
+    });
+  const onSubmit: SubmitHandler<FermentableIngredientFormInput> = (data) => {
+    const body = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== null) {
+        body.append(key, value?.toString());
+      }
+    });
+    console.log(data);
+    action(body);
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const { name, value } = e.currentTarget;
+    const fermentable = fermentables.find((p) => p.id === parseInt(value));
+    if (!fermentable) return;
+    setValue("fermentableId", fermentable?.id);
+    setValue("potential", fermentable?.potential);
+    setValue("color", fermentable?.color);
+  };
+  const options = (fermentables || []).reduce((acc, hop) => {
+    acc[hop.id] = hop.name;
+    return acc;
+  }, {} as Record<string, string>);
+
   return (
-    <Form action={action}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
-        <input type="hidden" name="id" value={src?.id} />
-        <input type="hidden" name="recipeId" value={src?.recipeId} />
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
           <Select
-            name="fermentableId"
             label="Fermentable"
-            value={src?.fermentableId}
-            options={fermentableOptions}
+            {...register("fermentableId")}
+            options={options}
+            onChange={handleChange}
           />
         </div>
         <div>
-          <NumberField
-            name="amount"
-            label="Amount"
-            defaultValue={src?.amount}
-          />
+          <NumberField {...register("amount")} label="Amount" />
         </div>
         <div>
           <Select
-            name="amountType"
+            {...register("amountType")}
             label="Amount Unit"
             options={MassUnit}
-            defaultValue={src?.amountType}
           />
         </div>
         <div className="">
           <Select
-            name="usage"
-            label="Unit"
+            label="Usage"
             options={FermentableIngredientUsage}
-            defaultValue={src?.usage}
+            {...register("usage")}
           />
+        </div>
+        <div>
+          <NumberField {...register("potential")} label="Potential" />
+        </div>
+        <div>
+          <NumberField {...register("color")} label="Color" />
         </div>
 
         <div className="col-span-2">
