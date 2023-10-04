@@ -6,7 +6,7 @@ import {
   addHopIngredientToRecipe,
   updateHopIngredient,
 } from "@/app/recipes/actions";
-import { getHopOptions } from "@/app/ingredients/hops/queries";
+import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
 import { prisma } from "@/lib/client";
 import { HopIngredient } from "@prisma/client";
 
@@ -23,7 +23,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
   hopId,
   open,
 }) => {
-  const hops = await getHopOptions();
+  const hops = await getHops();
 
   const action = hopId ? updateHopIngredient : addHopIngredientToRecipe;
   return (

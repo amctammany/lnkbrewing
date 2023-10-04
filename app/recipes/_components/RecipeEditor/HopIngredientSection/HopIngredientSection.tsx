@@ -50,7 +50,12 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
         ))}
       </List>
       {open && (
-        <HopIngredientModal hop={hopIngredient} recipe={recipe} open={open} />
+        <HopIngredientModal
+          hop={hopIngredient}
+          hopId={hopId}
+          recipe={recipe}
+          open={open}
+        />
       )}
     </Section>
   );

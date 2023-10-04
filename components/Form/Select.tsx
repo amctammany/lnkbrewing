@@ -9,9 +9,9 @@ export type SelectProps = {
   disabled?: boolean;
   children?: React.ReactNode | React.ReactNode[];
   options?: Record<string | number, string | number>;
-  //onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 
-  onChange?: (e: SyntheticEvent) => void;
+  //onChange?: (e: SyntheticEvent) => void;
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref: any;
