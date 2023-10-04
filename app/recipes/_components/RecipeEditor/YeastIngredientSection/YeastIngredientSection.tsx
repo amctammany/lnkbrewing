@@ -51,6 +51,7 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
       {open && (
         <YeastIngredientModal
           yeast={yeastIngredient}
+          yeastId={yeastId}
           recipe={recipe}
           open={open}
         />

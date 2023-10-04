@@ -34,13 +34,11 @@ export const GeneralForm: FC<GeneralFormProps> = ({ recipe, action }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="relative flex-auto w-full m-2 p-2 bg-white">
-        <input type="hidden" {...register("id")} />
-        <TextField {...register("name")} />
-        <TextArea {...register("description")} />
-        <Submit>Save</Submit>
-      </div>
-    </form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <input type="hidden" {...register("id")} />
+      <TextField {...register("name")} />
+      <TextArea {...register("description")} />
+      <Submit>Save</Submit>
+    </Form>
   );
 };

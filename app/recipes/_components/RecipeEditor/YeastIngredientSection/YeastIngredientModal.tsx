@@ -6,7 +6,7 @@ import {
   addYeastIngredientToRecipe,
   updateYeastIngredient,
 } from "@/app/recipes/actions";
-import { getYeastOptions } from "@/app/ingredients/yeasts/queries";
+import { getYeastOptions, getYeasts } from "@/app/ingredients/yeasts/queries";
 import { prisma } from "@/lib/client";
 import { YeastIngredient } from "@prisma/client";
 
@@ -20,7 +20,7 @@ interface YeastIngredientProfileModalProps {
 export const YeastIngredientModal: FC<
   YeastIngredientProfileModalProps
 > = async ({ recipe, yeast, yeastId, open }) => {
-  const yeasts = await getYeastOptions();
+  const yeasts = await getYeasts();
 
   const action = yeastId ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (

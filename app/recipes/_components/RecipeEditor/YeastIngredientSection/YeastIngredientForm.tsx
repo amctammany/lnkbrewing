@@ -1,18 +1,32 @@
+"use client";
+
 import { ExtendedYeastIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
 import { Submit } from "@/components/Form/Submit";
 import React, { FC } from "react";
-import { YeastAmountType } from "@prisma/client";
+import { MassUnit, TimeUnit, Yeast, YeastAmountType } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface YeastIngredientFormProps {
   recipe?: ExtendedRecipe | null;
   yeast?: ExtendedYeastIngredient | null;
   yeastId?: string;
   action?: any;
-  yeasts?: Record<string, string>;
+  yeasts: Yeast[];
 }
+
+type YeastIngredientFormInput = {
+  id: number;
+  recipeId: number;
+  yeastId: number | null;
+  amount: number | null;
+  amountType: YeastAmountType | null;
+  attenuation: number | null;
+  //duration: number | null;
+  //durationType: TimeUnit | null;
+};
 
 export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   recipe,
@@ -21,47 +35,69 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   yeast,
   yeasts,
 }) => {
-  console.log(yeast);
   const src =
     yeastId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
       : yeast;
+  const { register, handleSubmit, reset, setValue } =
+    useForm<YeastIngredientFormInput>({
+      defaultValues: src || { recipeId: recipe?.id },
+    });
+  const onSubmit: SubmitHandler<YeastIngredientFormInput> = (data) => {
+    const body = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== null) {
+        body.append(key, value?.toString());
+      }
+    });
+    console.log(data);
+    action(body);
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const { name, value } = e.currentTarget;
+    const yeast = yeasts.find((p) => p.id === parseInt(value));
+    if (!yeast) return;
+    setValue("yeastId", yeast?.id);
+    setValue("attenuation", yeast?.attenuation);
+  };
+  const options = (yeasts || []).reduce((acc, yeast) => {
+    acc[yeast.id] = yeast.name;
+    return acc;
+  }, {} as Record<string, string>);
+
   return (
-    <Form action={action}>
-      <input type="hidden" name="recipeId" value={recipe?.id} />
-      <input type="hidden" name="id" value={src?.id} />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("recipeId")} />
+
       <div className="flex flex-row gap-2 md:grid md:grid-cols-2">
         <div className="col-span-2">
           <Select
-            name="yeastId"
             label="Yeast"
-            defaultValue={src?.yeastId}
-            options={yeasts}
+            {...register("yeastId")}
+            options={options}
+            onChange={handleChange}
           />
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div className="">
-            <NumberField
-              name="amount"
-              label="Amount"
-              defaultValue={src?.amount}
-            />
+            <NumberField label="Amount" {...register("amount")} />
           </div>
           <div className="">
             <Select
-              name="amountType"
+              {...register("amountType")}
               label="Unit"
               options={YeastAmountType}
-              defaultValue={src?.amountType}
             />
           </div>
         </div>
         <div className="">
           <NumberField
-            name="attenuation"
-            step={0.01}
+            {...register("attenuation")}
+            step={0.001}
             label="Attenuation (%)"
-            defaultValue={src?.attenuation || src?.yeast?.attenuation}
           />
         </div>
 

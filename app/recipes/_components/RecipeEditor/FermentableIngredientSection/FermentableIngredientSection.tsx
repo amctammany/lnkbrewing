@@ -61,6 +61,7 @@ export const FermentableIngredientSection: FC<
       {open && (
         <FermentableIngredientModal
           fermentable={fermentableIngredient}
+          fermentableId={fermentableId}
           recipe={recipe}
           open={open}
         />
