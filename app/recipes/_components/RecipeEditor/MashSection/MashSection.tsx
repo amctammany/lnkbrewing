@@ -5,6 +5,7 @@ import React, { FC } from "react";
 //import { MashProfileModal } from "./MashProfileModal";
 import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
+import { List, ListItem } from "@/components/List";
 const MashProfileModal = dynamic(() => import("./MashProfileModal"), {
   ssr: false,
 });
@@ -27,11 +28,11 @@ export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
     { label: "Profile", value: recipe?.mash?.name },
     {
       label: "Final Gravity",
-      value: recipe?.fg,
+      value: recipe?.fg.toFixed(3),
     },
     {
       label: "Alcohol By Volume",
-      value: recipe?.abv,
+      value: recipe?.abv.toFixed(2),
     },
   ];
 
@@ -41,6 +42,19 @@ export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
         {mashSectionProps.map((p) => (
           <Prop key={p.label} {...p} />
         ))}
+      </div>
+      <div>
+        <List>
+          {(recipe?.mash?.steps || []).map((step, index) => (
+            <ListItem key={index}>
+              <div className="grid grid-cols-4">
+                <div className="col-span-2">Temperature</div>
+                <div className="">{step.temperature} F</div>
+                <div className="">{step.time} min</div>
+              </div>
+            </ListItem>
+          ))}
+        </List>
       </div>
       {open && <MashProfileModal recipe={recipe} open={open} />}
     </Section>

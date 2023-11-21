@@ -8,7 +8,7 @@ export const getExtendedRecipe = cache(async (id: number) =>
       hops: { include: { hop: true } },
       yeasts: { include: { yeast: true } },
       equipment: true,
-      mash: true,
+      mash: { include: { steps: true } },
       fermentables: { include: { fermentable: true } },
       style: true,
     },
