@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "precommit": "echo 'Precommit'",
+    "precommit": "pnpm lint && pnpm build",
     "postinstall": "prisma generate ",
     "db:generate": "prisma generate ",
     "db:seed": "prisma db seed"
