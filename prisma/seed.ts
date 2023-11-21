@@ -92,6 +92,19 @@ async function main() {
       steps: { create: [{ temperature: 152, time: 60 }] },
     },
   });
+  await prisma.mashProfile.create({
+    data: {
+      name: "Medium Fermentability with Mashout",
+      slug: slugify("Medium Fermentability with Mashout", { lower: true }),
+      description: "Medium Fermentability",
+      steps: {
+        create: [
+          { temperature: 152, time: 60 },
+          { temperature: 168, time: 10 },
+        ],
+      },
+    },
+  });
 
   await prisma.equipmentProfile.create({
     data: {
