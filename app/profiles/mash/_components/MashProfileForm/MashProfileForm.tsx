@@ -2,9 +2,9 @@
 import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
 import { MashProfile } from "@prisma/client";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { createMashProfile, updateMashProfile } from "../../_actions";
+import { createMashProfile, updateMashProfile } from "@/app/profiles/actions";
 import { MashProfileSteps } from "./MashProfileSteps";
-import { MashProfileInput } from "../../mash/types";
+import { MashProfileInput } from "@/app/profiles/mash/types";
 import { formData } from "zod-form-data";
 
 export type MashProfileFormProps = {
@@ -13,7 +13,7 @@ export type MashProfileFormProps = {
 export const MashProfileForm = ({ src }: MashProfileFormProps) => {
   const { control, register, handleSubmit, trigger, reset, setValue } =
     useForm<MashProfileInput>({
-      defaultValues: src || { steps: [] },
+      defaultValues: { ...src, steps: src?.steps ?? [] },
     });
   const { fields, update, append, prepend, remove, swap, move, insert } =
     useFieldArray({
@@ -52,7 +52,9 @@ export const MashProfileForm = ({ src }: MashProfileFormProps) => {
         </div>
         <div className="col-span-2">
           <MashProfileSteps
+            src={src}
             steps={fields}
+            control={control}
             update={update}
             append={append}
             register={register}

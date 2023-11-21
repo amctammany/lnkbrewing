@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/client";
-import { MashProfileForm } from "@/app/profiles/_components";
+import { MashProfileForm } from "@/app/profiles/mash/_components";
 type MashProfileDisplayProps = {
   params: {
     slug: string;
@@ -19,6 +19,7 @@ export default async function MashProfileDisplay({
     where: {
       slug,
     },
+    include: { steps: true },
   });
   console.log(mashProfile);
   return (

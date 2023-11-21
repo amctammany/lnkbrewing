@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/client";
-import { EquipmentProfileForm } from "@/app/profiles/_components";
-import { updateEquipmentProfile } from "@/app/profiles/actions";
+import { EquipmentProfileForm } from "@/app/profiles/equipment/_components";
 type EquipmentProfileDisplayProps = {
   params: {
     slug: string;
@@ -23,10 +22,7 @@ export default async function EquipmentProfileDisplay({
   });
   return (
     <div className="m-5 p-0 min-w-full bg-slate-200">
-      <EquipmentProfileForm
-        src={equipmentProfile}
-        action={updateEquipmentProfile}
-      />
+      <EquipmentProfileForm src={equipmentProfile} />
     </div>
   );
 }

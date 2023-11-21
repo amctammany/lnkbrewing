@@ -19,22 +19,36 @@ const mashSchema = zfd.formData({
   ),
 });
 export const createMashProfile = async (formData: FormData) => {
-  const data = mashSchema.parse(formData);
+  const { steps, ...data } = mashSchema.parse(formData);
   console.log(data);
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
+      steps: {
+        createMany: { data: steps },
+      },
     },
+    include: { steps: true },
   });
   redirect(`/profiles/mash/${res.slug}`);
 };
 export const updateMashProfile = async (formData: FormData) => {
-  console.log(formData);
-  const data = mashSchema.parse(formData);
+  const { steps, ...data } = mashSchema.parse(formData);
+  console.log(steps);
   const res = await prisma.mashProfile.update({
     where: { id: data.id },
-    data: { ...data, slug: slugify(data.name, { lower: true }) },
+    data: {
+      ...data,
+      slug: slugify(data.name, { lower: true }),
+      steps: {
+        deleteMany: {
+          mashProfileId: data.id,
+        },
+        createMany: { data: steps },
+      },
+    },
+    include: { steps: true },
   });
   redirect(`/profiles/mash/${res.slug}`);
 };

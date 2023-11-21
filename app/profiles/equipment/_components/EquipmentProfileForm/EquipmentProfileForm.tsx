@@ -40,7 +40,10 @@ export const EquipmentProfileForm = ({
 import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
 import { EquipmentProfile } from "@prisma/client";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createEquipmentProfile, updateEquipmentProfile } from "../../_actions";
+import {
+  createEquipmentProfile,
+  updateEquipmentProfile,
+} from "@/app/profiles/actions";
 //import { EquipmentProfileSteps } from "./EquipmentProfileSteps";
 //import { EquipmentProfileInput } from "../../equipment/types";
 import { NumberKeys } from "@/lib/types";
