@@ -1,1 +1,2 @@
-export * from "./_queries";
+export * from "./mash/queries";
+export * from "./equipment/queries";

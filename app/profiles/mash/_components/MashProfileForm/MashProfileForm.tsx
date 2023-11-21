@@ -6,40 +6,20 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
-import { MashProfile } from "@prisma/client";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { createMashProfile, updateMashProfile } from "@/app/profiles/actions";
 import { MashProfileSteps } from "./MashProfileSteps";
 import { MashProfileInput } from "@/app/profiles/mash/types";
-import { formData } from "zod-form-data";
 
 export type MashProfileFormProps = {
   src: MashProfileInput | null;
 };
 export const MashProfileForm = ({ src }: MashProfileFormProps) => {
-  const { control, register, handleSubmit, trigger, reset, setValue } =
-    useForm<MashProfileInput>({
-      defaultValues: { ...src, steps: src?.steps ?? [] },
-    });
-  const { fields, update, append, prepend, remove, swap, move, insert } =
-    useFieldArray({
-      control, // control props comes from useForm (optional: if you are using FormContext)
-      name: "steps", // unique name for your Field Array
-    });
-
+  const { control, register, trigger } = useForm<MashProfileInput>({
+    defaultValues: { ...src, steps: src?.steps ?? [] },
+  });
   const action = src?.id ? updateMashProfile : createMashProfile;
 
-  //const onSubmita: SubmitHandler<MashProfileInput> = (data) => {
-  //const body = new FormData();
-
-  //Object.entries(data).forEach(([key, value]) => {
-  //if (value !== null) {
-  //body.append(key, value?.toString());
-  //}
-  //});
-  //console.log(data);
-  //action(body);
-  //};
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
@@ -57,14 +37,7 @@ export const MashProfileForm = ({ src }: MashProfileFormProps) => {
           <TextField {...register("description")} label="Description" />
         </div>
         <div className="col-span-2">
-          <MashProfileSteps
-            src={src}
-            steps={fields}
-            control={control}
-            update={update}
-            append={append}
-            register={register}
-          />
+          <MashProfileSteps src={src} control={control} />
         </div>
 
         <div className="col-span-2">

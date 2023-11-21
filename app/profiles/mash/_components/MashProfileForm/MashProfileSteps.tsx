@@ -5,17 +5,17 @@ import { NumberField } from "@/components/Form/NumberField";
 import { TextField } from "@/components/Form/TextField";
 import { MashProfile } from "@prisma/client";
 type MashProfileStepsProps = {
-  src: MashProfile | null;
+  src: MashProfileInput | null;
   control: Control<MashProfileInput, any>;
 };
-export function MashProfileSteps({ src, control: c1, steps, update }: any) {
+export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
   const { register } = useForm({
     defaultValues: src || {},
-    context: { control: c1 },
+    context: { control },
   });
   const { fields, append, prepend, remove, swap, move, insert } =
     useFieldArray<MashProfileInput>({
-      control: c1, // control props comes from useForm (optional: if you are using FormContext)
+      control, // control props comes from useForm (optional: if you are using FormContext)
       name: "steps", // unique name for your Field Array
     });
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,11 +33,6 @@ export function MashProfileSteps({ src, control: c1, steps, update }: any) {
           className="grid gap-x-2 grid-cols-4"
         >
           <div>
-            <input
-              type="hidden"
-              {...register(`steps.${index}.mashProfileId`, { value: src.id })}
-            />
-
             <TextField
               {...register(`steps.${index}.name` as const)}
               label="Name"
