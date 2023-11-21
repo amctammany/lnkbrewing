@@ -16,12 +16,15 @@ import {
   ExtendedRecipe,
 } from "@/app/recipes/types";
 import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  updateFermentableIngredient,
+  addFermentableIngredientToRecipe,
+} from "@/app/recipes/actions";
 
 export type FermentableIngredientFormProps = {
   recipe?: ExtendedRecipe | null;
   fermentable?: ExtendedFermentableIngredient | null;
   fermentables: Fermentable[];
-  action: (data: FormData) => void;
 };
 
 type FermentableIngredientFormInput = {
@@ -38,12 +41,15 @@ export function FermentableIngredientForm({
   recipe,
   fermentable: src,
   fermentables,
-  action,
 }: FermentableIngredientFormProps) {
   const { register, handleSubmit, reset, setValue } =
     useForm<FermentableIngredientFormInput>({
       defaultValues: src || { recipeId: recipe?.id },
     });
+  const action = src?.id
+    ? updateFermentableIngredient
+    : addFermentableIngredientToRecipe;
+
   const onSubmit: SubmitHandler<FermentableIngredientFormInput> = (data) => {
     const body = new FormData();
 
@@ -100,10 +106,14 @@ export function FermentableIngredientForm({
           />
         </div>
         <div>
-          <NumberField {...register("potential")} label="Potential" />
+          <NumberField
+            {...register("potential")}
+            label="Potential"
+            step={0.001}
+          />
         </div>
         <div>
-          <NumberField {...register("color")} label="Color" />
+          <NumberField {...register("color")} label="Color" step={0.01} />
         </div>
 
         <div className="col-span-2">

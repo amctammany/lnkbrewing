@@ -26,15 +26,11 @@ export const FermentableIngredientModal: FC<
 > = async ({ recipe, fermentable, fermentableId, open }) => {
   const fermentables = await getFermentables();
 
-  const action = fermentableId
-    ? updateFermentableIngredient
-    : addFermentableIngredientToRecipe;
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
         <FermentableIngredientForm
           fermentable={fermentable}
-          action={action}
           fermentables={fermentables}
         />
       </div>
