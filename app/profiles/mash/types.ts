@@ -2,12 +2,12 @@ import { MashProfile, MashStep } from "@prisma/client";
 
 export type MashProfileStep = {
   name?: string | null;
-  type?: any;
+  //type?: any;
   temperature: number;
   time: number;
-  rampTime?: number;
-  mashProfileId: number;
+  rampTime: number;
 };
 export type MashProfileInput = MashProfile & {
-  steps: Exclude<MashStep, "mashProfileId">[];
+  steps: MashProfileStep[];
+  //steps: Exclude<MashStep, "mashProfileId" | "id">[];
 };

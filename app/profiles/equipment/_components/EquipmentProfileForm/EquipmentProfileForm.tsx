@@ -37,7 +37,13 @@ export const EquipmentProfileForm = ({
 };
 */
 "use client";
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
+import {
+  Form,
+  NumberField,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components/Form";
 import { EquipmentProfile } from "@prisma/client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {

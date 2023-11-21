@@ -1,5 +1,11 @@
 "use client";
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
+import {
+  Form,
+  NumberField,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components/Form";
 import { MashProfile } from "@prisma/client";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { createMashProfile, updateMashProfile } from "@/app/profiles/actions";
@@ -23,17 +29,17 @@ export const MashProfileForm = ({ src }: MashProfileFormProps) => {
 
   const action = src?.id ? updateMashProfile : createMashProfile;
 
-  const onSubmita: SubmitHandler<MashProfileInput> = (data) => {
-    const body = new FormData();
+  //const onSubmita: SubmitHandler<MashProfileInput> = (data) => {
+  //const body = new FormData();
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null) {
-        body.append(key, value?.toString());
-      }
-    });
-    console.log(data);
-    action(body);
-  };
+  //Object.entries(data).forEach(([key, value]) => {
+  //if (value !== null) {
+  //body.append(key, value?.toString());
+  //}
+  //});
+  //console.log(data);
+  //action(body);
+  //};
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;

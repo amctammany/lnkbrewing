@@ -370,7 +370,7 @@ model MashStep {
   name        String?
   temperature Int
   time        Int
-  rampTime    Int?    @default(0)
+  rampTime    Int     @default(0)
 
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?

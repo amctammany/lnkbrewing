@@ -1,5 +1,5 @@
 "use client";
-import { EquipmentProfileSelect } from "@/app/profiles/_components/EquipmentProfileSelect/EquipmentProfileSelect";
+import { EquipmentProfileSelect } from "@/app/profiles/equipment/_components/EquipmentProfileSelect/EquipmentProfileSelect";
 import { ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { Label } from "@/components/Form/Label";
@@ -30,9 +30,10 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
   action,
   profiles,
 }) => {
-  const { register, handleSubmit, reset } = useForm<EquipmentProfileFormInput>({
-    defaultValues: recipe || {},
-  });
+  const { register, handleSubmit, trigger, reset } =
+    useForm<EquipmentProfileFormInput>({
+      defaultValues: recipe || {},
+    });
   //<div className="col-span-2">
   //<EquipmentProfileSelect
   //name="equipmentProfileId"
@@ -46,32 +47,38 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
     return acc;
   }, {} as Record<string, string>);
 
-  const onSubmit: SubmitHandler<EquipmentProfileFormInput> = (data) => {
-    const body = new FormData();
-
-    Object.entries(data).forEach(([key, value]) => {
-      if (value) {
-        if (Array.isArray(value)) {
-          value.forEach((v, i) =>
-            Object.entries(v as MashProfileStep).forEach(
-              ([nestKey, nestValue]) => {
-                console.log({ nestKey, nestValue });
-                body.append(nestKey, nestValue.toString());
-              }
-            )
-          );
-        } else {
-          body.append(key, value?.toString());
-        }
-      }
-    });
-    action(body);
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    return action(data);
   };
-  const opts = Object.entries(options).map(([k, v]) => (
-    <option key={k} value={k}>
-      {v}
-    </option>
-  ));
+
+  //const onSubit: SubmitHandler<EquipmentProfileFormInput> = (data) => {
+  //const body = new FormData();
+
+  //Object.entries(data).forEach(([key, value]) => {
+  //if (value) {
+  //if (Array.isArray(value)) {
+  //value.forEach((v, i) =>
+  //Object.entries(v as MashProfileStep).forEach(
+  //([nestKey, nestValue]) => {
+  //console.log({ nestKey, nestValue });
+  //body.append(nestKey, nestValue.toString());
+  //}
+  //)
+  //);
+  //} else {
+  //body.append(key, value?.toString());
+  //}
+  //}
+  //});
+  //action(body);
+  //};
+  //const opts = Object.entries(options).map(([k, v]) => (
+  //<option key={k} value={k}>
+  //{v}
+  //</option>
+  //));
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { name, value } = e.currentTarget;
     const profile = profiles.find((p) => p.id === parseInt(value));
@@ -79,7 +86,7 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form action={onSubmit}>
       <Select
         label="Equipment Profile"
         {...register("equipmentProfileId")}

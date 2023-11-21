@@ -1,7 +1,8 @@
 "use client";
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { MashProfileInput } from "@/app/profiles/mash/types";
-import { NumberField, TextField } from "@/components";
+import { NumberField } from "@/components/Form/NumberField";
+import { TextField } from "@/components/Form/TextField";
 import { MashProfile } from "@prisma/client";
 type MashProfileStepsProps = {
   src: MashProfile | null;
@@ -18,7 +19,7 @@ export function MashProfileSteps({ src, control: c1, steps, update }: any) {
       name: "steps", // unique name for your Field Array
     });
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-    append({ mashProfileId: src.id, temperature: 120, time: 0, rampTime: 0 });
+    append({ name: "", temperature: 120, time: 0, rampTime: 0 });
     e.preventDefault();
     e.stopPropagation();
     return false;

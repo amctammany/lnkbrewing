@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/client";
-import { MashProfileForm } from "@/app/profiles/mash/_components";
+import { MashProfileForm } from "@/app/profiles/mash/_components/MashProfileForm";
 type MashProfileDisplayProps = {
   params: {
     slug: string;
