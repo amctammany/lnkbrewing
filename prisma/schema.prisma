@@ -366,8 +366,11 @@ model MashProfile {
 }
 
 model MashStep {
-  id   Int     @id @default(autoincrement())
-  name String?
+  id          Int     @id @default(autoincrement())
+  name        String?
+  temperature Int
+  time        Int
+  rampTime    Int?    @default(0)
 
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?

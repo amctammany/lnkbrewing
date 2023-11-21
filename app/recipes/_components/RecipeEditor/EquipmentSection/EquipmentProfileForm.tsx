@@ -10,6 +10,7 @@ import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { EquipmentSelect } from "./EquipmentSelect";
 import { Select } from "@/components/Form/Select";
+import { MashProfileStep } from "@/app/profiles/mash/types";
 
 interface EquipmentProfileFormProps {
   recipe?: ExtendedRecipe | null;
@@ -50,7 +51,18 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
 
     Object.entries(data).forEach(([key, value]) => {
       if (value) {
-        body.append(key, value?.toString());
+        if (Array.isArray(value)) {
+          value.forEach((v, i) =>
+            Object.entries(v as MashProfileStep).forEach(
+              ([nestKey, nestValue]) => {
+                console.log({ nestKey, nestValue });
+                body.append(nestKey, nestValue.toString());
+              }
+            )
+          );
+        } else {
+          body.append(key, value?.toString());
+        }
       }
     });
     action(body);

@@ -9,9 +9,18 @@ const mashSchema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
+  steps: z.array(
+    z.object({
+      name: zfd.text(z.string().optional()),
+      temperature: zfd.numeric(z.number().min(0).max(212)),
+      time: zfd.numeric(z.number().min(0)),
+      rampTime: zfd.numeric(z.number().min(0).default(0)),
+    })
+  ),
 });
 export const createMashProfile = async (formData: FormData) => {
   const data = mashSchema.parse(formData);
+  console.log(data);
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
@@ -21,6 +30,7 @@ export const createMashProfile = async (formData: FormData) => {
   redirect(`/profiles/mash/${res.slug}`);
 };
 export const updateMashProfile = async (formData: FormData) => {
+  console.log(formData);
   const data = mashSchema.parse(formData);
   const res = await prisma.mashProfile.update({
     where: { id: data.id },

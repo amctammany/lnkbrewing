@@ -2,7 +2,11 @@ import { prisma } from "@/lib/client";
 import { cache } from "react";
 
 export const getMashProfiles = cache(async () => {
-  const profiles = await prisma.mashProfile.findMany();
+  const profiles = await prisma.mashProfile.findMany({
+    include: {
+      steps: true,
+    },
+  });
   return profiles;
 });
 

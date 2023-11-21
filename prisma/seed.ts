@@ -15,6 +15,7 @@ import { prisma } from "../lib/client";
 async function main() {
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
+  await prisma.mashProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
@@ -88,6 +89,7 @@ async function main() {
       name: "Max Fermentability",
       slug: slugify("Max Fermentability", { lower: true }),
       description: "Maximum Fermentability",
+      steps: { create: [{ temperature: 152, time: 60 }] },
     },
   });
 

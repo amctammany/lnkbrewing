@@ -1,35 +1,29 @@
 "use client";
 import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
 import { MashProfile } from "@prisma/client";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { createMashProfile, updateMashProfile } from "../../_actions";
+import { MashProfileSteps } from "./MashProfileSteps";
+import { MashProfileInput } from "../../mash/types";
+import { formData } from "zod-form-data";
 
 export type MashProfileFormProps = {
-  src: MashProfile | null;
-  //action?: (formData: FormData) => void;
-};
-type MashProfileStep = {
-  name: string | null;
-  type: any;
-  temperature: number;
-  time: number;
-  rampTime: number;
-};
-type MashProfileInput = {
-  id: number;
-  name: string | null;
-  description: string | null;
-  steps: MashProfileStep[];
+  src: MashProfileInput | null;
 };
 export const MashProfileForm = ({ src }: MashProfileFormProps) => {
-  const { register, handleSubmit, reset, setValue } = useForm<MashProfileInput>(
-    {
-      defaultValues: src || {},
-    }
-  );
+  const { control, register, handleSubmit, trigger, reset, setValue } =
+    useForm<MashProfileInput>({
+      defaultValues: src || { steps: [] },
+    });
+  const { fields, update, append, prepend, remove, swap, move, insert } =
+    useFieldArray({
+      control, // control props comes from useForm (optional: if you are using FormContext)
+      name: "steps", // unique name for your Field Array
+    });
+
   const action = src?.id ? updateMashProfile : createMashProfile;
 
-  const onSubmit: SubmitHandler<MashProfileInput> = (data) => {
+  const onSubmita: SubmitHandler<MashProfileInput> = (data) => {
     const body = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
@@ -40,22 +34,14 @@ export const MashProfileForm = ({ src }: MashProfileFormProps) => {
     console.log(data);
     action(body);
   };
-
-  //const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-  //const { name, value } = e.currentTarget;
-  //const fermentable = fermentables.find((p) => p.id === parseInt(value));
-  //if (!fermentable) return;
-  //setValue("fermentableId", fermentable?.id);
-  //setValue("potential", fermentable?.potential);
-  //setValue("color", fermentable?.color);
-  //};
-  //const options = (fermentables || []).reduce((acc, hop) => {
-  //acc[hop.id] = hop.name;
-  //return acc;
-  //}, {} as Record<string, string>);
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    return action(data);
+  };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form action={onSubmit}>
       <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <div className="col-span-2">
@@ -63,6 +49,14 @@ export const MashProfileForm = ({ src }: MashProfileFormProps) => {
         </div>
         <div className="col-span-2">
           <TextField {...register("description")} label="Description" />
+        </div>
+        <div className="col-span-2">
+          <MashProfileSteps
+            steps={fields}
+            update={update}
+            append={append}
+            register={register}
+          />
         </div>
 
         <div className="col-span-2">
