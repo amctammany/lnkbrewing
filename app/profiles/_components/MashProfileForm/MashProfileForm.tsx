@@ -9,16 +9,16 @@ export type MashProfileFormProps = {
   //action?: (formData: FormData) => void;
 };
 type MashProfileStep = {
-  name?: string;
+  name: string | null;
   type: any;
   temperature: number;
   time: number;
-  rampTime?: number;
+  rampTime: number;
 };
 type MashProfileInput = {
   id: number;
-  name?: string;
-  description?: string;
+  name: string | null;
+  description: string | null;
   steps: MashProfileStep[];
 };
 export const MashProfileForm = ({ src }: MashProfileFormProps) => {

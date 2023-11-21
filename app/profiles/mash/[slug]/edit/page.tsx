@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/client";
 import { MashProfileForm } from "@/app/profiles/_components";
-import { updateMashProfile } from "@/app/profiles/actions";
 type MashProfileDisplayProps = {
   params: {
     slug: string;
@@ -24,7 +23,7 @@ export default async function MashProfileDisplay({
   console.log(mashProfile);
   return (
     <div className="m-5 p-0 min-w-full bg-slate-200">
-      <MashProfileForm src={mashProfile} action={updateMashProfile} />
+      <MashProfileForm src={mashProfile} />
     </div>
   );
 }
