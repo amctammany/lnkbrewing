@@ -1,7 +1,10 @@
 import { Section } from "@/components";
 import Link from "next/link";
 
-const links = [["Equipment", "/profiles/equipment"]];
+const links = [
+  ["Equipment", "/profiles/equipment"],
+  ["Mash", "/profiles/mash"],
+];
 export default function IngredientsIndex() {
   return (
     <Section header="Profiles Index">

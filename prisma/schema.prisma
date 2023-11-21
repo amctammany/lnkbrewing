@@ -97,6 +97,8 @@ model Recipe {
   og                 Float                   @default(0)
   fg                 Float                   @default(0)
   ibu                Float                   @default(0)
+  MashProfile        MashProfile?            @relation(fields: [mashProfileId], references: [id])
+  mashProfileId      Int?
 }
 
 enum MassUnit {
@@ -352,4 +354,21 @@ model EquipmentProfile {
   grainAbsorption Float?   @default(0.5)
   waterGrainRatio Float?   @default(1.5)
   Recipe          Recipe[]
+}
+
+model MashProfile {
+  id          Int        @id @default(autoincrement())
+  name        String
+  slug        String     @unique
+  description String?
+  steps       MashStep[]
+  Recipe      Recipe[]
+}
+
+model MashStep {
+  id   Int     @id @default(autoincrement())
+  name String?
+
+  MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
+  mashProfileId Int?
 }

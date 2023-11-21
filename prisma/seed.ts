@@ -83,6 +83,13 @@ async function main() {
       boilTime: 60,
     },
   });
+  await prisma.mashProfile.create({
+    data: {
+      name: "Max Fermentability",
+      slug: slugify("Max Fermentability", { lower: true }),
+      description: "Maximum Fermentability",
+    },
+  });
 
   await prisma.equipmentProfile.create({
     data: {
