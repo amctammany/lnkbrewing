@@ -2,7 +2,7 @@ import { ButtonLink, List, ListItemButton, Section } from "@/components";
 import { prisma } from "@/lib/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/authOptions";
 export const metadata: Metadata = {
   title: "LNK Recipes",
 };
