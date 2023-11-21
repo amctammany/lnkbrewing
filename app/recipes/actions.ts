@@ -84,6 +84,49 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${res.id}`);
 }
 **/
+const mashSchema = zfd.formData({
+  id: zfd.numeric(z.number()),
+  mashProfileId: zfd.numeric(z.number().optional()),
+});
+
+export async function changeRecipeMashProfile({
+  recipeId,
+  mashProfileId,
+}: {
+  recipeId: number;
+  mashProfileId: number;
+}) {
+  //const data = equipmentProfileSchema.parse(formData);
+  const profile = await prisma.mashProfile.findFirst({
+    where: {
+      id: mashProfileId,
+    },
+  });
+  //const { boilTime, batchVolume, preboilVolume } = profile || {};
+  const res = await prisma.recipe.update({
+    where: { id: recipeId },
+    data: {
+      mashProfileId,
+      //boilTime,
+      //batchVolume,
+      //preboilVolume,
+    },
+  });
+  redirect(`/recipes/${res.id}/edit/?equipment=1`);
+}
+export async function updateRecipeMash(formData: FormData) {
+  const { id, ...data } = mashSchema.parse(formData);
+  const res = await prisma.recipe.update({
+    where: {
+      id,
+    },
+    data,
+  });
+
+  await updateRecipeVitals(res.id);
+  redirect(`/recipes/${res.id}/edit`);
+}
+
 const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   equipmentProfileId: zfd.numeric(z.number().optional()),

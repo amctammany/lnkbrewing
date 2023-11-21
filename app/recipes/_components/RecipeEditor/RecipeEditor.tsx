@@ -8,6 +8,7 @@ import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSectio
 import { FermentableIngredientSection } from "./FermentableIngredientSection/FermentableIngredientSection";
 import { GeneralSection } from "./GeneralSection/GeneralSection";
 import { YeastIngredientSection } from "./YeastIngredientSection/YeastIngredientSection";
+import MashSection from "./MashSection";
 
 interface RecipeEditorProps {
   recipeId: number;
@@ -46,6 +47,7 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
             recipeId={recipeId}
           />
         </div>
+        <MashSection open={!!searchParams?.mash} recipeId={recipeId} />
       </div>
     </div>
   );
