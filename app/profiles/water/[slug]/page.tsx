@@ -13,7 +13,14 @@ type WaterProfileDisplayProps = {
   };
 };
 const fieldNames: (keyof WaterProfile)[] = ["name", "description"];
-const numberFieldNames: (keyof WaterProfile)[] = [];
+const numberFieldNames: (keyof WaterProfile)[] = [
+  "calcium",
+  "magnesium",
+  "sodium",
+  "chloride",
+  "sulfate",
+  "bicarbonate",
+];
 
 export function generateMetadata({ params }: WaterProfileDisplayProps) {
   return {

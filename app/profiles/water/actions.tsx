@@ -9,6 +9,12 @@ const waterSchema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
+  calcium: zfd.numeric(z.number().min(0).default(0)),
+  magnesium: zfd.numeric(z.number().min(0).default(0)),
+  sodium: zfd.numeric(z.number().min(0).default(0)),
+  chloride: zfd.numeric(z.number().min(0).default(0)),
+  sulfate: zfd.numeric(z.number().min(0).default(0)),
+  bicarbonate: zfd.numeric(z.number().min(0).default(0)),
 });
 export const createWaterProfile = async (formData: FormData) => {
   const data = waterSchema.parse(formData);

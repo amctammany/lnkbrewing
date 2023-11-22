@@ -90,6 +90,12 @@ async function main() {
       name: "Good",
       slug: slugify("Good", { lower: true }),
       description: "good",
+      calcium: 10,
+      magnesium: 20,
+      sulfate: 50,
+      chloride: 100,
+      bicarbonate: 6,
+      sodium: 15,
     },
   });
 

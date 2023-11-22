@@ -35,7 +35,25 @@ export const WaterProfileForm = ({ src }: WaterProfileFormProps) => {
         <div className="col-span-2">
           <TextField {...register("description")} label="Description" />
         </div>
+        <div className="">
+          <NumberField {...register("calcium")} label="Ca2+" />
+        </div>
 
+        <div className="">
+          <NumberField {...register("magnesium")} label="Mg2+" />
+        </div>
+        <div className="">
+          <NumberField {...register("sodium")} label="Na+" />
+        </div>
+        <div className="">
+          <NumberField {...register("chloride")} label="Cl-" />
+        </div>
+        <div className="">
+          <NumberField {...register("sulfate")} label="SO42-" />
+        </div>
+        <div className="">
+          <NumberField {...register("bicarbonate")} label="HCO3-" />
+        </div>
         <div className="col-span-2">
           <Submit>Save</Submit>
         </div>
