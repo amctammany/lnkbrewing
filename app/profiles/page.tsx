@@ -4,6 +4,7 @@ import Link from "next/link";
 const links = [
   ["Equipment", "/profiles/equipment"],
   ["Mash", "/profiles/mash"],
+  ["Water", "/profiles/water"],
 ];
 export default function IngredientsIndex() {
   return (

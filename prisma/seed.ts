@@ -16,6 +16,7 @@ async function main() {
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
   await prisma.mashProfile.deleteMany();
+  await prisma.waterProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
@@ -84,6 +85,14 @@ async function main() {
       boilTime: 60,
     },
   });
+  await prisma.waterProfile.create({
+    data: {
+      name: "Good",
+      slug: slugify("Good", { lower: true }),
+      description: "good",
+    },
+  });
+
   await prisma.mashProfile.create({
     data: {
       name: "Max Fermentability",
