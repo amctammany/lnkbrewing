@@ -86,6 +86,8 @@ export async function updateRecipe(formData: FormData) {
 **/
 const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number()),
+  name: zfd.text(z.string().optional()),
+  description: zfd.text(z.string().optional()),
   mashProfileId: zfd.numeric(z.number().optional()),
   waterProfileId: zfd.numeric(z.number().optional()),
   styleIdentifer: zfd.text(z.string().optional()),
@@ -99,49 +101,85 @@ const recipeSchema = zfd.formData({
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
 });
-export async function changeRecipeWaterProfile({
-  id,
-  waterProfileId,
-}: {
-  id: number;
-  waterProfileId: number;
-}) {
-  const res = await prisma.recipe.update({
-    where: { id },
-    data: {
-      waterProfileId,
-    },
-  });
-  redirect(`/recipes/${res.id}/edit/?mash=1`);
-}
+//export async function changeRecipeWaterProfile({
+//id,
+//waterProfileId,
+//}: {
+//id: number;
+//waterProfileId: number;
+//}) {
+//const res = await prisma.recipe.update({
+//where: { id },
+//data: {
+//waterProfileId,
+//},
+//});
+//redirect(`/recipes/${res.id}/edit/?mash=1`);
+//}
 
-export async function changeRecipeMashProfile({
-  recipeId,
-  mashProfileId,
-}: {
-  recipeId: number;
-  mashProfileId: number;
-}) {
-  const res = await prisma.recipe.update({
-    where: { id: recipeId },
-    data: {
-      mashProfileId,
-      //boilTime,
-      //batchVolume,
-      //preboilVolume,
-    },
-  });
-  redirect(`/recipes/${res.id}/edit/?mash=1`);
+//export async function changeRecipeMashProfile({
+//recipeId,
+//mashProfileId,
+//}: {
+//recipeId: number;
+//mashProfileId: number;
+//}) {
+//const res = await prisma.recipe.update({
+//where: { id: recipeId },
+//data: {
+//mashProfileId,
+////boilTime,
+////batchVolume,
+////preboilVolume,
+//},
+//});
+//redirect(`/recipes/${res.id}/edit/?mash=1`);
+//}
+function getObjectDifferences(obj1: any, obj2: any): any {
+  if (obj1 === null || obj2 === null) {
+    return obj1 !== obj2 ? [obj1, obj2] : undefined;
+  }
+  if (typeof obj1 !== "object" || typeof obj2 !== "object") {
+    return obj1 !== obj2 ? [obj1, obj2] : undefined;
+  }
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  const uniqueKeys = new Set([...keys1, ...keys2]);
+
+  const differences: any = {};
+  for (const key of uniqueKeys.keys()) {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+
+    if (typeof value1 === "object" && typeof value2 === "object") {
+      const nestedDifferences = getObjectDifferences(value1, value2);
+      if (nestedDifferences) {
+        differences[key] = nestedDifferences;
+      }
+    } else if (value1 !== value2) {
+      differences[key] = [value1, value2];
+    }
+  }
+
+  return Object.keys(differences).length === 0 ? undefined : differences;
 }
 export async function updateRecipe(formData: FormData) {
   const { id, ...data } = recipeSchema.parse(formData);
+
+  const old = await prisma.recipe.findFirst({
+    where: {
+      id,
+    },
+  });
   const res = await prisma.recipe.update({
     where: {
       id,
     },
     data,
   });
-
+  //console.log(old, res);
+  console.log(getObjectDifferences(old, res));
   await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}/edit`);
 }

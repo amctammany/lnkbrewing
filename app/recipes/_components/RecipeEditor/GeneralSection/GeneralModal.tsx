@@ -2,7 +2,7 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import { GeneralForm } from "./GeneralForm";
-import { updateRecipeGeneral } from "@/app/recipes/actions";
+import { updateRecipe } from "@/app/recipes/actions";
 
 interface GeneralProfileModalProps {
   recipe?: ExtendedRecipe | null;
@@ -16,7 +16,7 @@ export const GeneralModal: FC<GeneralProfileModalProps> = async ({
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
-        <GeneralForm recipe={recipe} action={updateRecipeGeneral} />
+        <GeneralForm recipe={recipe} action={updateRecipe} />
       </div>
     </RoutedModal>
   );

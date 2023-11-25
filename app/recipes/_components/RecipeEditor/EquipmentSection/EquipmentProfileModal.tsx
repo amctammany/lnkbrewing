@@ -2,15 +2,8 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import { EquipmentProfileForm } from "./EquipmentProfileForm";
-import {
-  changeRecipeEquipmentProfile,
-  updateRecipeEquipment,
-} from "@/app/recipes/actions";
-import {
-  getEquipmentProfileOptions,
-  getEquipmentProfiles,
-} from "@/app/profiles/queries";
-import { EquipmentSelect } from "./EquipmentSelect";
+import { updateRecipe } from "@/app/recipes/actions";
+import { getEquipmentProfiles } from "@/app/profiles/queries";
 
 interface EquipmentProfileModalProps {
   recipe?: ExtendedRecipe | null;
@@ -28,7 +21,7 @@ export const EquipmentProfileModal: FC<EquipmentProfileModalProps> = async ({
         <EquipmentProfileForm
           profiles={equipmentProfiles}
           recipe={recipe}
-          action={updateRecipeEquipment}
+          action={updateRecipe}
         />
       </div>
     </RoutedModal>

@@ -2,8 +2,8 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import { MashProfileForm } from "./MashProfileForm";
-import { changeRecipeMashProfile, updateRecipe } from "@/app/recipes/actions";
-import { getMashProfileOptions, getMashProfiles } from "@/app/profiles/queries";
+import { updateRecipe } from "@/app/recipes/actions";
+import { getMashProfiles } from "@/app/profiles/queries";
 import { MashSelect } from "./MashSelect";
 
 interface MashProfileModalProps {
