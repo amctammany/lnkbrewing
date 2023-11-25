@@ -1,0 +1,69 @@
+import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
+import { ButtonLink } from "@/components/Button/Button";
+import { Section } from "@/components/Section/Section";
+import React, { FC } from "react";
+//import { WaterProfileModal } from "./WaterProfileModal";
+import dynamic from "next/dynamic";
+import Prop from "@/components/Prop/Prop";
+import { List, ListItem } from "@/components/List";
+const WaterProfileModal = dynamic(() => import("./WaterProfileModal"), {
+  ssr: false,
+});
+
+interface WaterSectionProps {
+  recipeId: number;
+  open: boolean;
+}
+
+const WaterSectionActions = () => {
+  return (
+    <div>
+      <ButtonLink href="?water=1">Edit</ButtonLink>
+    </div>
+  );
+};
+export const WaterSection: FC<WaterSectionProps> = async ({
+  recipeId,
+  open,
+}) => {
+  const recipe = await getExtendedRecipe(recipeId);
+  const waterSectionProps = [
+    { label: "Profile", value: recipe?.water?.name },
+    {
+      label: "Ca2+",
+      value: recipe?.water?.calcium,
+    },
+    {
+      label: "Mg2+",
+      value: recipe?.water?.magnesium,
+    },
+    {
+      label: "Na+",
+      value: recipe?.water?.sodium,
+    },
+    {
+      label: "Cl-",
+      value: recipe?.water?.chloride,
+    },
+    {
+      label: "SO42-",
+      value: recipe?.water?.sulfate,
+    },
+    {
+      label: "HCO3-",
+      value: recipe?.water?.bicarbonate,
+    },
+  ];
+
+  return (
+    <Section header="Water" actions={<WaterSectionActions />}>
+      <div className="flex flex-col">
+        {waterSectionProps.map((p) => (
+          <Prop key={p.label} {...p} />
+        ))}
+      </div>
+      <div></div>
+      {open && <WaterProfileModal recipe={recipe} open={open} />}
+    </Section>
+  );
+};

@@ -2,10 +2,7 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import { MashProfileForm } from "./MashProfileForm";
-import {
-  changeRecipeMashProfile,
-  updateRecipeMash,
-} from "@/app/recipes/actions";
+import { changeRecipeMashProfile, updateRecipe } from "@/app/recipes/actions";
 import { getMashProfileOptions, getMashProfiles } from "@/app/profiles/queries";
 import { MashSelect } from "./MashSelect";
 
@@ -25,7 +22,7 @@ export const MashProfileModal: FC<MashProfileModalProps> = async ({
         <MashProfileForm
           profiles={mashProfiles}
           recipe={recipe}
-          action={updateRecipeMash}
+          action={updateRecipe}
         />
       </div>
     </RoutedModal>

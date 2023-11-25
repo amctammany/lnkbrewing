@@ -84,10 +84,26 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${res.id}`);
 }
 **/
-const mashSchema = zfd.formData({
+const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   mashProfileId: zfd.numeric(z.number().optional()),
+  waterProfileId: zfd.numeric(z.number().optional()),
 });
+export async function changeRecipeWaterProfile({
+  id,
+  waterProfileId,
+}: {
+  id: number;
+  waterProfileId: number;
+}) {
+  const res = await prisma.recipe.update({
+    where: { id },
+    data: {
+      waterProfileId,
+    },
+  });
+  redirect(`/recipes/${res.id}/edit/?mash=1`);
+}
 
 export async function changeRecipeMashProfile({
   recipeId,
@@ -96,13 +112,6 @@ export async function changeRecipeMashProfile({
   recipeId: number;
   mashProfileId: number;
 }) {
-  //const data = equipmentProfileSchema.parse(formData);
-  const profile = await prisma.mashProfile.findFirst({
-    where: {
-      id: mashProfileId,
-    },
-  });
-  //const { boilTime, batchVolume, preboilVolume } = profile || {};
   const res = await prisma.recipe.update({
     where: { id: recipeId },
     data: {
@@ -112,10 +121,10 @@ export async function changeRecipeMashProfile({
       //preboilVolume,
     },
   });
-  redirect(`/recipes/${res.id}/edit/?equipment=1`);
+  redirect(`/recipes/${res.id}/edit/?mash=1`);
 }
-export async function updateRecipeMash(formData: FormData) {
-  const { id, ...data } = mashSchema.parse(formData);
+export async function updateRecipe(formData: FormData) {
+  const { id, ...data } = recipeSchema.parse(formData);
   const res = await prisma.recipe.update({
     where: {
       id,
@@ -218,6 +227,8 @@ export async function updateRecipeVitals(id: number) {
     include: {
       author: true,
       style: true,
+      water: true,
+      mash: true,
       yeasts: { include: { yeast: true } },
       hops: { include: { hop: true } },
       fermentables: { include: { fermentable: true } },
@@ -226,8 +237,17 @@ export async function updateRecipeVitals(id: number) {
   });
   if (!recipe) return;
   const vitals = calculateVitals(recipe);
-  const { author, style, equipment, hops, yeasts, fermentables, ...data } =
-    recipe;
+  const {
+    author,
+    style,
+    equipment,
+    hops,
+    water,
+    mash,
+    yeasts,
+    fermentables,
+    ...data
+  } = recipe;
   return prisma.recipe.update({
     where: {
       id,
