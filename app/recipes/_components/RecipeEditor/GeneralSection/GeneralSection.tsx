@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 const GeneralModal = dynamic(() => import("./GeneralModal"), { ssr: false });
 import { RecipeVitals } from "../..";
 import Prop from "@/components/Prop/Prop";
+import { PencilIcon } from "@heroicons/react/24/solid";
 
 interface GeneralSectionProps {
   recipeId: number;
@@ -16,7 +17,9 @@ interface GeneralSectionProps {
 const GeneralSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?general=1">Edit</ButtonLink>
+      <ButtonLink href="?general=1">
+        <PencilIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

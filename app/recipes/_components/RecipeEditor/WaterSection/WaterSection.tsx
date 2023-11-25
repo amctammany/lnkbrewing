@@ -6,6 +6,7 @@ import React, { FC } from "react";
 import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
 import { List, ListItem } from "@/components/List";
+import { PencilIcon } from "@heroicons/react/24/solid";
 const WaterProfileModal = dynamic(() => import("./WaterProfileModal"), {
   ssr: false,
 });
@@ -18,7 +19,9 @@ interface WaterSectionProps {
 const WaterSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?water=1">Edit</ButtonLink>
+      <ButtonLink href="?water=1">
+        <PencilIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

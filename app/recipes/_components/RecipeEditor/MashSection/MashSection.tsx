@@ -6,6 +6,7 @@ import React, { FC } from "react";
 import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
 import { List, ListItem } from "@/components/List";
+import { PencilIcon } from "@heroicons/react/24/solid";
 const MashProfileModal = dynamic(() => import("./MashProfileModal"), {
   ssr: false,
 });
@@ -18,7 +19,9 @@ interface MashSectionProps {
 const MashSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?mash=1">Edit</ButtonLink>
+      <ButtonLink href="?mash=1">
+        <PencilIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

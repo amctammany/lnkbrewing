@@ -5,6 +5,7 @@ import React, { FC } from "react";
 //import { EquipmentProfileModal } from "./EquipmentProfileModal";
 import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
+import { PencilIcon } from "@heroicons/react/24/solid";
 const EquipmentProfileModal = dynamic(() => import("./EquipmentProfileModal"), {
   ssr: false,
 });
@@ -17,7 +18,9 @@ interface EquipmentSectionProps {
 const EquipmentSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?equipment=1">Edit</ButtonLink>
+      <ButtonLink href="?equipment=1">
+        <PencilIcon className="h-6 w-6 " />
+      </ButtonLink>
     </div>
   );
 };

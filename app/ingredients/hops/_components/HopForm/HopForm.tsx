@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Form,
   NumberField,
@@ -7,6 +9,7 @@ import {
   TextField,
 } from "@/components";
 import { Hop, HopUsage } from "@prisma/client";
+import { useForm } from "react-hook-form";
 
 export type HopFormProps = {
   src: Hop | null;
@@ -14,28 +17,29 @@ export type HopFormProps = {
 };
 
 export const HopForm = ({ src, action }: HopFormProps) => {
+  const { control, register, trigger } = useForm<Hop>({
+    defaultValues: src || {},
+  });
+
+  const onAction = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    if (action) action(data);
+  };
   return (
-    <Form action={action}>
-      <input type="hidden" name="id" value={src?.id} />
-      <TextField name="name" label="Name" defaultValue={src?.name} />
-      <TextArea
-        name="description"
-        label="description"
-        defaultValue={src?.description}
-      />
-      <Select name="usage" defaultValue={src?.usage} options={HopUsage} />
-      <TextArea name="flavor" label="flavor" defaultValue={src?.flavor} />
+    <Form action={onAction}>
+      <input type="hidden" {...register("id")} />
+      <TextField label="Name" {...register("name")} />
+      <TextArea label="description" {...register("description")} />
+      <Select {...register("usage")} options={HopUsage} />
+      <TextArea label="flavor" {...register("flavor")} />
       <div className="grid grid-cols-3 gap-4">
+        <NumberField label="Alpha Acids" {...register("alpha")} step={0.01} />
+        <NumberField label="Beta Acids" {...register("beta")} step={0.01} />
         <NumberField
-          name="alpha"
-          label="Alpha Acids"
-          defaultValue={src?.alpha}
-        />
-        <NumberField name="beta" label="Beta Acids" defaultValue={src?.beta} />
-        <NumberField
-          name="caryophyllene"
+          {...register("caryophyllene")}
           label="Caryophyllene"
-          defaultValue={src?.caryophyllene}
+          step={0.1}
         />
       </div>
 
