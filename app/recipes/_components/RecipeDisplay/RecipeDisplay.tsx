@@ -86,6 +86,43 @@ export const RecipeDisplay = ({ recipe }: RecipeDisplayProps) => {
             ))}
           </ul>
         </Section>
+
+        <Section header="Yeasts">
+          <ul>
+            {recipe?.yeasts.map((yeast) => (
+              <li key={yeast.id}>
+                <div className="bg-white flex items-center p-2">
+                  <h2 className="text-lg flex-shrink">
+                    {yeast.amount} {yeast.amountType}
+                  </h2>
+                  <p className="flex-grow px-2 m-0 text-lg">
+                    {yeast?.yeast.name?.toString()}
+                  </p>
+                  <p className="flex-shrink px-2 m-0 text-lg">
+                    {/**
+                    {fermentable?.duration} {fermentable?.durationType}
+                      */}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section header="Mash">
+          <Prop label="Mash Profile">{recipe?.mash?.name}</Prop>
+          <Prop label="Final Gravity">{recipe?.fg}</Prop>
+          <Prop label="ABV">{recipe?.abv}</Prop>
+        </Section>
+        <Section header="Water">
+          <Prop label="Water Profile">{recipe?.water?.name}</Prop>
+          <Prop label="Calcium">{recipe?.calcium}</Prop>
+          <Prop label="Magnesium">{recipe?.magnesium}</Prop>
+          <Prop label="Sodium">{recipe?.sodium}</Prop>
+          <Prop label="Chloride">{recipe?.chloride}</Prop>
+          <Prop label="Sulfate">{recipe?.sulfate}</Prop>
+          <Prop label="Bicarbonate">{recipe?.bicarbonate}</Prop>
+        </Section>
       </div>
     </Section>
   );
