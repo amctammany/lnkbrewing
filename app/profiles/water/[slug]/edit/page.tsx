@@ -1,20 +1,25 @@
 import { WaterProfileForm } from "@/app/profiles/water/_components/WaterProfileForm";
 import { getWaterProfile } from "../../queries";
-type WaterProfileDisplayProps = {
+import { authOptions } from "@/app/api/auth/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+type WaterProfileEditorProps = {
   params: {
     slug: string;
   };
 };
 
-export function generateMetadata({ params }: WaterProfileDisplayProps) {
+export function generateMetadata({ params }: WaterProfileEditorProps) {
   return {
     title: `LNK WaterProfile: ${params.slug}`,
   };
 }
 
-export default async function WaterProfileDisplay({
+export default async function WaterProfileEditor({
   params: { slug },
-}: WaterProfileDisplayProps) {
+}: WaterProfileEditorProps) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) redirect("/api/auth/signin");
   const waterProfile = await getWaterProfile(slug);
   console.log(waterProfile);
   return (

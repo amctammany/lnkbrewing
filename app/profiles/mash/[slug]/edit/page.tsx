@@ -1,20 +1,26 @@
 import { prisma } from "@/lib/client";
 import { MashProfileForm } from "@/app/profiles/mash/_components/MashProfileForm";
-type MashProfileDisplayProps = {
+import { authOptions } from "@/app/api/auth/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+type MashProfileEditorProps = {
   params: {
     slug: string;
   };
 };
 
-export function generateMetadata({ params }: MashProfileDisplayProps) {
+export function generateMetadata({ params }: MashProfileEditorProps) {
   return {
     title: `LNK MashProfile: ${params.slug}`,
   };
 }
 
-export default async function MashProfileDisplay({
+export default async function MashProfileEditor({
   params: { slug },
-}: MashProfileDisplayProps) {
+}: MashProfileEditorProps) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) redirect("/api/auth/signin");
+
   const mashProfile = await prisma.mashProfile.findFirst({
     where: {
       slug,

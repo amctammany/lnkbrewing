@@ -1,20 +1,25 @@
 import { prisma } from "@/lib/client";
 import { EquipmentProfileForm } from "@/app/profiles/equipment/_components";
-type EquipmentProfileDisplayProps = {
+import { authOptions } from "@/app/api/auth/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+type EquipmentProfileEditorProps = {
   params: {
     slug: string;
   };
 };
 
-export function generateMetadata({ params }: EquipmentProfileDisplayProps) {
+export function generateMetadata({ params }: EquipmentProfileEditorProps) {
   return {
     title: `LNK EquipmentProfile: ${params.slug}`,
   };
 }
 
-export default async function EquipmentProfileDisplay({
+export default async function EquipmentProfileEditor({
   params: { slug },
-}: EquipmentProfileDisplayProps) {
+}: EquipmentProfileEditorProps) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) redirect("/api/auth/signin");
   const equipmentProfile = await prisma.equipmentProfile.findFirst({
     where: {
       slug,
