@@ -25,7 +25,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
 }) => {
   const hops = await getHops();
 
-  const action = hopId ? updateHopIngredient : addHopIngredientToRecipe;
+  const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
