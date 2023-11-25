@@ -1,3 +1,4 @@
+import { VariantProps, cva } from "class-variance-authority";
 import {
   FieldValues,
   SubmitHandler,
@@ -8,10 +9,28 @@ export type FormProps<T extends FieldValues = {}> = {
   children?: React.ReactNode;
   action?: (data: FormData) => void;
   onSubmit?: any;
-};
-export const Form = ({ children, action, onSubmit }: FormProps) => {
+} & VariantProps<typeof formStyles>;
+const formStyles = cva(["relative", "flex-auto"], {
+  variants: {
+    variant: {
+      default: ["bg-white"],
+    },
+    size: {
+      default: ["w-full", "m-2", "p-2"],
+    },
+  },
+  defaultVariants: { size: "default", variant: "default" },
+});
+
+export const Form = ({
+  children,
+  action,
+  onSubmit,
+  variant,
+  size,
+}: FormProps) => {
   return (
-    <div className="relative flex-auto w-full m-2 p-2 bg-white">
+    <div className={formStyles({ size, variant })}>
       <form action={action} onSubmit={onSubmit}>
         {children}
       </form>

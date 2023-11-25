@@ -1,5 +1,6 @@
 import { SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
+import { VariantProps, cva } from "class-variance-authority";
 
 export type TextAreaProps = {
   name: string;
@@ -10,7 +11,24 @@ export type TextAreaProps = {
   onChange?: (e: SyntheticEvent) => void;
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
-};
+} & VariantProps<typeof textAreaStyles>;
+const textAreaStyles = cva(["block"], {
+  variants: {
+    variant: {
+      default: [
+        "disabled:bg-slate-50",
+        "disabled:text-slate-500",
+        "disabled:border-slate-200",
+        "disabled:shadow-none",
+      ],
+    },
+    size: {
+      default: ["w-full"],
+    },
+  },
+  defaultVariants: { size: "default", variant: "default" },
+});
+
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   function TextAreaComp(
     {
@@ -22,6 +40,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       onChange,
       onBlur,
       value,
+      variant,
+      size,
     }: TextAreaProps,
     ref
   ) {
@@ -33,7 +53,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           ref={ref}
           value={value}
           disabled={disabled}
-          className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          className={textAreaStyles({ variant, size })}
+          //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           name={name}
           rows={rows || 3}
         />

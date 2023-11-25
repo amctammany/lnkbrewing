@@ -1,5 +1,6 @@
 import { SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
+import { VariantProps, cva } from "class-variance-authority";
 
 export type NumberFieldProps = {
   name: string;
@@ -11,7 +12,25 @@ export type NumberFieldProps = {
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref: any;
-};
+} & VariantProps<typeof numberFieldStyles>;
+const numberFieldStyles = cva("input", {
+  variants: {
+    variant: {
+      default: [
+        "block",
+        "disabled:bg-slate-50",
+        "disabled:text-slate-500",
+        "disabled:border-slate-200",
+        "disabled:shadow-none",
+      ],
+    },
+    size: {
+      default: ["w-full"],
+    },
+  },
+  defaultVariants: { size: "default", variant: "default" },
+});
+
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
   function NumberField(
     {
@@ -23,6 +42,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       onBlur,
       onChange,
       value,
+      variant,
+      size,
     }: NumberFieldProps,
     ref
   ) {
@@ -30,7 +51,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       <Label label={label || name}>
         <input
           disabled={disabled || false}
-          className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          className={numberFieldStyles({ variant, size })}
           type="number"
           step={step || 1}
           name={name}

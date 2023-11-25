@@ -1,6 +1,7 @@
 "use client";
 import { SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
+import { VariantProps, cva } from "class-variance-authority";
 
 export type SelectProps = {
   name: string;
@@ -15,7 +16,25 @@ export type SelectProps = {
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref: any;
-};
+} & VariantProps<typeof selectStyles>;
+const selectStyles = cva("input", {
+  variants: {
+    variant: {
+      default: [
+        "block",
+        "disabled:bg-slate-50",
+        "disabled:text-slate-500",
+        "disabled:border-slate-200",
+        "disabled:shadow-none",
+      ],
+    },
+    size: {
+      default: ["w-full"],
+    },
+  },
+  defaultVariants: { size: "default", variant: "default" },
+});
+
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select(
     {
@@ -28,6 +47,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       value,
       onChange,
       onBlur,
+      variant,
+      size,
     }: SelectProps,
     ref
   ) {
@@ -42,7 +63,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <Label label={label || name}>
         <select
           disabled={disabled}
-          className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          className={selectStyles({ size, variant })}
+          //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           name={name}
           value={value}
           defaultValue={defaultValue}
