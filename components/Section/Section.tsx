@@ -4,6 +4,8 @@ const section = cva(["flex"], {
   variants: {
     variant: {
       primary: ["bg-slate-200"],
+      warning: ["bg-red-200"],
+      alert: ["bg-red-500"],
     },
     size: {
       small: ["te"],
@@ -20,6 +22,8 @@ const sectionHeader = cva("h4", {
   variants: {
     variant: {
       primary: ["border-red-300"],
+      warning: ["text-white"],
+      alert: ["text-white"],
     },
     size: {
       small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
@@ -35,6 +39,8 @@ const sectionBody = cva(["bg-white"], {
   variants: {
     variant: {
       primary: ["border-red-300"],
+      warning: [],
+      alert: [],
     },
     size: {
       small: ["p-1", "shadow-sm", "text-sm"],

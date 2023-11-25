@@ -18,7 +18,11 @@ const EquipmentProfilesActions = () => {
 export default async function EquipmentProfilesIndex() {
   const profiles = await getEquipmentProfiles();
   return (
-    <Section header="Profiles" actions={<EquipmentProfilesActions />}>
+    <Section
+      variant="alert"
+      header="Profiles"
+      actions={<EquipmentProfilesActions />}
+    >
       <List>
         {profiles.map((profile) => (
           <ListItemButton
