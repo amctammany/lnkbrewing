@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zfd } from "zod-form-data";
 
 const mashSchema = zfd.formData({
-  id: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   steps: z.array(

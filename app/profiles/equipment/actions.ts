@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zfd } from "zod-form-data";
 
 const equipmentSchema = zfd.formData({
-  id: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   boilTime: zfd.numeric(z.number().min(0).optional()),
@@ -15,8 +15,8 @@ const equipmentSchema = zfd.formData({
   trubLoss: zfd.numeric(z.number().min(0).optional()),
   mashLoss: zfd.numeric(z.number().min(0).optional()),
   fermenterLoss: zfd.numeric(z.number().min(0).optional()),
-  brewEfficiency: zfd.numeric(z.number().min(0).optional()),
-  mashEfficiency: zfd.numeric(z.number().min(0).optional()),
+  mashEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
+  brewEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
 });
 
 export const createEquipmentProfile = async (formData: FormData) => {

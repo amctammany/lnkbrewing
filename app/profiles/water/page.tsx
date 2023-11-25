@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "LNK Profiles",
 };
 
-const WaterSectionActions = () => {
+const WaterProfilesActions = () => {
   return (
     <div>
       <ButtonLink href="/profiles/water/new">New</ButtonLink>
@@ -19,7 +19,7 @@ const WaterSectionActions = () => {
 export default async function WaterProfilesIndex() {
   const profiles = await getWaterProfiles();
   return (
-    <Section header="Profiles" actions={<WaterSectionActions />}>
+    <Section header="Profiles" actions={<WaterProfilesActions />}>
       <List>
         {profiles.map((profile) => (
           <ListItemButton

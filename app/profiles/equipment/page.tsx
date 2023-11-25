@@ -3,13 +3,22 @@ import { getEquipmentProfiles } from "@/app/profiles/queries";
 import { ListItemButton } from "@/components/List/ListItemButton";
 import { Section } from "@/components/Section/Section";
 import { List } from "@/components/List/List";
+import { ButtonLink } from "@/components/Button";
 export const metadata: Metadata = {
   title: "LNK Profiles",
 };
+const EquipmentProfilesActions = () => {
+  return (
+    <div>
+      <ButtonLink href="/profiles/equipment/new">New</ButtonLink>
+    </div>
+  );
+};
+
 export default async function EquipmentProfilesIndex() {
   const profiles = await getEquipmentProfiles();
   return (
-    <Section header="Profiles">
+    <Section header="Profiles" actions={<EquipmentProfilesActions />}>
       <List>
         {profiles.map((profile) => (
           <ListItemButton
