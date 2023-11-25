@@ -88,6 +88,16 @@ const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   mashProfileId: zfd.numeric(z.number().optional()),
   waterProfileId: zfd.numeric(z.number().optional()),
+  styleIdentifer: zfd.text(z.string().optional()),
+  equipmentProfileId: zfd.numeric(z.number().optional()),
+  boilTime: zfd.numeric(z.number().optional()),
+  batchVolume: zfd.numeric(z.number().optional()),
+  calcium: zfd.numeric(z.number().optional()),
+  magnesium: zfd.numeric(z.number().optional()),
+  sodium: zfd.numeric(z.number().optional()),
+  chloride: zfd.numeric(z.number().optional()),
+  sulfate: zfd.numeric(z.number().optional()),
+  bicarbonate: zfd.numeric(z.number().optional()),
 });
 export async function changeRecipeWaterProfile({
   id,

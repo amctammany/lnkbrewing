@@ -3,13 +3,23 @@ import { getWaterProfiles } from "@/app/profiles/queries";
 import { ListItemButton } from "@/components/List/ListItemButton";
 import { Section } from "@/components/Section/Section";
 import { List } from "@/components/List/List";
+import { ButtonLink } from "@/components/Button";
 export const metadata: Metadata = {
   title: "LNK Profiles",
 };
+
+const WaterSectionActions = () => {
+  return (
+    <div>
+      <ButtonLink href="/profiles/water/new">New</ButtonLink>
+    </div>
+  );
+};
+
 export default async function WaterProfilesIndex() {
   const profiles = await getWaterProfiles();
   return (
-    <Section header="Profiles">
+    <Section header="Profiles" actions={<WaterSectionActions />}>
       <List>
         {profiles.map((profile) => (
           <ListItemButton

@@ -31,27 +31,27 @@ export const WaterSection: FC<WaterSectionProps> = async ({
     { label: "Profile", value: recipe?.water?.name },
     {
       label: "Ca2+",
-      value: recipe?.water?.calcium,
+      value: recipe?.calcium,
     },
     {
       label: "Mg2+",
-      value: recipe?.water?.magnesium,
+      value: recipe?.magnesium,
     },
     {
       label: "Na+",
-      value: recipe?.water?.sodium,
+      value: recipe?.sodium,
     },
     {
       label: "Cl-",
-      value: recipe?.water?.chloride,
+      value: recipe?.chloride,
     },
     {
       label: "SO42-",
-      value: recipe?.water?.sulfate,
+      value: recipe?.sulfate,
     },
     {
       label: "HCO3-",
-      value: recipe?.water?.bicarbonate,
+      value: recipe?.bicarbonate,
     },
   ];
 

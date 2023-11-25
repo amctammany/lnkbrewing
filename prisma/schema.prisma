@@ -103,6 +103,12 @@ model Recipe {
   mashProfileId      Int?
   water              WaterProfile?           @relation(fields: [waterProfileId], references: [id])
   waterProfileId     Int?
+  calcium            Int?
+  magnesium          Int?
+  sodium             Int?
+  chloride           Int?
+  sulfate            Int?
+  bicarbonate        Int?
 }
 
 enum MassUnit {

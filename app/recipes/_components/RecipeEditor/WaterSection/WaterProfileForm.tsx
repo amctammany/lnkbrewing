@@ -20,6 +20,12 @@ interface WaterProfileFormProps {
 type WaterProfileFormInput = {
   id: number;
   waterProfileId: number | null;
+  calcium: number | null;
+  magnesium: number | null;
+  sodium: number | null;
+  sulfate: number | null;
+  chloride: number | null;
+  bicarbonate: number | null;
 };
 export const WaterProfileForm: FC<WaterProfileFormProps> = ({
   recipe,
@@ -65,6 +71,13 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
 
       <input type="hidden" value={recipe?.id} {...register("id")} />
       <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
+        <NumberField step={1} {...register("calcium")} />
+        <NumberField step={1} {...register("magnesium")} />
+        <NumberField step={1} {...register("sodium")} />
+        <NumberField step={1} {...register("chloride")} />
+        <NumberField step={1} {...register("sulfate")} />
+        <NumberField step={1} {...register("bicarbonate")} />
+
         <Submit>Save</Submit>
       </div>
     </Form>

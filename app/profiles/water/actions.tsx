@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zfd } from "zod-form-data";
 
 const waterSchema = zfd.formData({
-  id: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   calcium: zfd.numeric(z.number().min(0).default(0)),
