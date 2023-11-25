@@ -10,7 +10,7 @@
     "lint": "next lint",
     "prepare": "husky install",
     "precommit": "pnpm lint && pnpm build",
-    "postinstall": "prisma generate ",
+    "postinstall": "prisma generate && prisma migrate deploy ",
     "db:generate": "prisma generate ",
     "db:seed": "prisma db seed"
   },
