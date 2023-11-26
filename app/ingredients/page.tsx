@@ -5,6 +5,7 @@ const links = [
   ["Hops", "/ingredients/hops"],
   ["Fermentables", "/ingredients/fermentables"],
   ["Yeasts", "/ingredients/yeasts"],
+  ["Other", "/ingredients/other"],
 ];
 export default function IngredientsIndex() {
   return (

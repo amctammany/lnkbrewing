@@ -18,6 +18,7 @@ async function main() {
   await prisma.mashProfile.deleteMany();
   await prisma.waterProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
+  await prisma.otherIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
   await prisma.hop.deleteMany();
@@ -157,7 +158,20 @@ async function main() {
       })
     ),
   });
-
+  await prisma.otherIngredient.createMany({
+    data: [
+      {
+        name: "Baking Soda (NaHCO3)",
+        slug: slugify("Baking Soda (NaHCO3)", { lower: true }),
+        type: "agent",
+      },
+      {
+        name: "Gypsum (CaSO4)",
+        slug: slugify("Gypsum (CaSO4)", { lower: true }),
+        type: "agent",
+      },
+    ],
+  });
   await prisma.hop.createMany({
     data: hops.map(({ usage, ...hop }) => ({
       ...hop,

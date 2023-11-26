@@ -80,6 +80,7 @@ model Recipe {
   yeasts             YeastIngredient[]
   hops               HopIngredient[]
   fermentables       FermentableIngredient[]
+  others             OtherIngredient[]
   equipment          EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
   equipmentProfileId Int?
   batchVolume        Float?
@@ -233,6 +234,25 @@ model Fermentable {
   potential             Float?
   stability             String?
   FermentableIngredient FermentableIngredient[]
+}
+
+enum OtherIngredientType {
+  fining
+  flavor
+  agent
+  spice
+  herbal
+  other
+}
+
+model OtherIngredient {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  slug        String              @unique
+  type        OtherIngredientType
+  description String?
+  Recipe      Recipe?             @relation(fields: [recipeId], references: [id])
+  recipeId    Int?
 }
 
 enum StyleCategory {
