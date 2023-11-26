@@ -80,7 +80,6 @@ model Recipe {
   yeasts             YeastIngredient[]
   hops               HopIngredient[]
   fermentables       FermentableIngredient[]
-  others             OtherIngredient[]
   equipment          EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
   equipmentProfileId Int?
   batchVolume        Float?
@@ -110,6 +109,7 @@ model Recipe {
   chloride           Int?
   sulfate            Int?
   bicarbonate        Int?
+  otherIngredients   RecipeOtherIngredient[]
 }
 
 enum MassUnit {
@@ -245,14 +245,34 @@ enum OtherIngredientType {
   other
 }
 
+enum IngredientUsage {
+  Mash
+  Boil
+  Whirlpool
+  DryHop
+  Primary
+  Secondary
+  Bottling
+}
+
+model RecipeOtherIngredient {
+  id                Int             @id @default(autoincrement())
+  recipeId          Int
+  recipe            Recipe          @relation(fields: [recipeId], references: [id])
+  amount            Float
+  amountType        MassUnit
+  otherIngredient   OtherIngredient @relation(fields: [otherIngredientId], references: [id])
+  usage             IngredientUsage
+  otherIngredientId Int
+}
+
 model OtherIngredient {
-  id          Int                 @id @default(autoincrement())
-  name        String
-  slug        String              @unique
-  type        OtherIngredientType
-  description String?
-  Recipe      Recipe?             @relation(fields: [recipeId], references: [id])
-  recipeId    Int?
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  slug                  String                  @unique
+  type                  OtherIngredientType
+  description           String?
+  RecipeOtherIngredient RecipeOtherIngredient[]
 }
 
 enum StyleCategory {

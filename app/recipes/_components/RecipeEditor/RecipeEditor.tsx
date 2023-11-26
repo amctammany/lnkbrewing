@@ -10,6 +10,7 @@ import { GeneralSection } from "./GeneralSection/GeneralSection";
 import { YeastIngredientSection } from "./YeastIngredientSection/YeastIngredientSection";
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
+import { OtherIngredientSection } from "./OtherIngredientSection/OtherIngredientSection";
 
 interface RecipeEditorProps {
   recipeId: number;
@@ -50,6 +51,10 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
         </div>
         <MashSection open={!!searchParams?.mash} recipeId={recipeId} />
         <WaterSection open={!!searchParams?.water} recipeId={recipeId} />
+        <OtherIngredientSection
+          otherId={searchParams?.otherId}
+          recipeId={recipeId}
+        />
       </div>
     </div>
   );
