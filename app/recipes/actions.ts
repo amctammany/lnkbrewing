@@ -12,78 +12,8 @@ import { zfd } from "zod-form-data";
 import { z } from "zod";
 import slugify from "slugify";
 import { ExtendedRecipe } from "./types";
-/**
-const recipeSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
-  name: zfd.text(),
-  description: zfd.text(z.string().optional()),
-  authorEmail: zfd.text(z.string().optional()),
-  styleIdentifer: zfd.text(z.string().optional()),
-  equipmentProfileId: zfd.numeric(z.number().optional()),
-  boilTime: zfd.numeric(z.number().optional()),
-  batchVolume: zfd.numeric(z.number().optional()),
-  //fermentables: z
-  //.object({
-  ////recipeId: zfd.numeric(z.number()),
-  //fermentableId: zfd.numeric(z.number().optional().default(1078)),
-  //amount: zfd.numeric(z.number().min(0)),
-  //amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
-  //})
-  //.array()
-  //.optional(),
-  //hops: z
-  //.object({
-  ////recipeId: zfd.numeric(z.number()),
-  //hopId: zfd.numeric(z.number().optional().default(1078)),
-  //amount: zfd.numeric(z.number().min(0)),
-  //amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
-  //duration: zfd.numeric(z.number().min(0)),
-  //durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
-  ////amountType: z.enum(["kg", "g", "oz", "lb"]).default("kg"),
-  //})
-  //.array()
-  //.optional(),
-});
-export async function createRecipe(formData: FormData) {
-  const { id, equipmentProfileId, authorEmail, styleIdentifer, ...data } =
-    recipeSchema.parse(formData);
+import { getObjectDifferences } from "@/lib/utils";
 
-  const res = await prisma.recipe.create({
-    data: {
-      ...data,
-      equipment: { connect: { id: equipmentProfileId } },
-      style: { connect: { identifier: styleIdentifer } },
-      author: {
-        connect: {
-          email: authorEmail,
-        },
-      },
-
-      slug: slugify(data.name || "", { lower: true }),
-      //fermentables: { createMany: { data: data.fermentables || [] } },
-      //hops: { createMany: { data: data.hops || [] } },
-    },
-  });
-  redirect(`/recipes/${res.id}`);
-}
-export async function updateRecipe(formData: FormData) {
-  const { id, authorEmail, styleIdentifer, equipmentProfileId, ...data } =
-    recipeSchema.parse(formData);
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
-    data: {
-      ...data,
-      style: { connect: { identifier: styleIdentifer } },
-      author: { connect: { email: authorEmail } },
-      slug: slugify(data.name || "", { lower: true }),
-    },
-  });
-  await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}`);
-}
-**/
 const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   name: zfd.text(z.string().optional()),
@@ -101,71 +31,15 @@ const recipeSchema = zfd.formData({
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
 });
-//export async function changeRecipeWaterProfile({
-//id,
-//waterProfileId,
-//}: {
-//id: number;
-//waterProfileId: number;
-//}) {
-//const res = await prisma.recipe.update({
-//where: { id },
-//data: {
-//waterProfileId,
-//},
-//});
-//redirect(`/recipes/${res.id}/edit/?mash=1`);
-//}
-
-//export async function changeRecipeMashProfile({
-//recipeId,
-//mashProfileId,
-//}: {
-//recipeId: number;
-//mashProfileId: number;
-//}) {
-//const res = await prisma.recipe.update({
-//where: { id: recipeId },
-//data: {
-//mashProfileId,
-////boilTime,
-////batchVolume,
-////preboilVolume,
-//},
-//});
-//redirect(`/recipes/${res.id}/edit/?mash=1`);
-//}
-function getObjectDifferences(obj1: any, obj2: any): any {
-  if (obj1 === null || obj2 === null) {
-    return obj1 !== obj2 ? [obj1, obj2] : undefined;
-  }
-  if (typeof obj1 !== "object" || typeof obj2 !== "object") {
-    return obj1 !== obj2 ? [obj1, obj2] : undefined;
-  }
-
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-  const uniqueKeys = new Set([...keys1, ...keys2]);
-
-  const differences: any = {};
-  for (const key of uniqueKeys.keys()) {
-    const value1 = obj1[key];
-    const value2 = obj2[key];
-
-    if (typeof value1 === "object" && typeof value2 === "object") {
-      const nestedDifferences = getObjectDifferences(value1, value2);
-      if (nestedDifferences) {
-        differences[key] = nestedDifferences;
-      }
-    } else if (value1 !== value2) {
-      differences[key] = [value1, value2];
-    }
-  }
-
-  return Object.keys(differences).length === 0 ? undefined : differences;
-}
 export async function updateRecipe(formData: FormData) {
-  const { id, styleIdentifer, ...data } = recipeSchema.parse(formData);
+  const {
+    id,
+    mashProfileId,
+    waterProfileId,
+    equipmentProfileId,
+    styleIdentifer,
+    ...data
+  } = recipeSchema.parse(formData);
 
   const old = await prisma.recipe.findFirst({
     where: {
@@ -176,30 +50,25 @@ export async function updateRecipe(formData: FormData) {
     where: {
       id,
     },
-    data,
-  });
-  //console.log(old, res);
-  console.log(getObjectDifferences(old, res));
-  await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}/edit`);
-}
-
-const recipeStyleSchema = zfd.formData({
-  id: zfd.numeric(z.number()),
-  styleIdentifer: zfd.text(),
-});
-export async function updateRecipeStyle(formData: FormData) {
-  const { id, styleIdentifer } = recipeStyleSchema.parse(formData);
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
     data: {
+      ...data,
+      ...(data.name
+        ? { name: data.name, slug: slugify(data.name, { lower: true }) }
+        : {}),
+      ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
+      ...(waterProfileId ? { water: { connect: { id: waterProfileId } } } : {}),
+      ...(equipmentProfileId
+        ? { equipment: { connect: { id: equipmentProfileId } } }
+        : {}),
       style: {
-        connect: { identifier: styleIdentifer },
+        connect: {
+          identifier: styleIdentifer,
+        },
       },
     },
   });
+  console.log(getObjectDifferences(old, res));
+  await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}/edit`);
 }
 export async function updateRecipeVitals(id: number) {

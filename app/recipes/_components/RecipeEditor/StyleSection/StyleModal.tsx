@@ -2,7 +2,7 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import { StyleForm } from "./StyleForm";
-import { updateRecipeStyle } from "@/app/recipes/actions";
+import { updateRecipe } from "@/app/recipes/actions";
 import { getStyleOptions } from "@/app/styles/queries";
 
 interface StyleProfileModalProps {
@@ -18,7 +18,7 @@ export const StyleModal: FC<StyleProfileModalProps> = async ({
   return (
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
-        <StyleForm recipe={recipe} action={updateRecipeStyle} styles={styles} />
+        <StyleForm recipe={recipe} action={updateRecipe} styles={styles} />
       </div>
     </RoutedModal>
   );
