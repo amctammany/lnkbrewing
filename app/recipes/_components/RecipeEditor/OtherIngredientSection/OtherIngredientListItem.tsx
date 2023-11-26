@@ -41,12 +41,12 @@ export const OtherIngredientListItem = ({
           <div className="col-span-4">
             <div className="">
               <div className="text-lg">{other.otherIngredient.name}</div>
-              <div className="text-xs">IBU: {other.otherIngredient.id}</div>
+              <div className="text-xs">{other.otherIngredient.type}</div>
             </div>
           </div>
           <div className="">
-            <div className="text-lg">{other.amount}</div>
-            <div className="text-xs">{other.amountType}</div>
+            <div className="text-lg">{other.usage}</div>
+            <div className="text-xs"></div>
           </div>
         </Link>
         <div className="m-auto">

@@ -28,7 +28,7 @@ export type ExtendedHopIngredient = HopIngredient & {
   hop: Pick<Hop, "id" | "name" | "alpha">;
 };
 export type ExtendedOtherIngredient = RecipeOtherIngredient & {
-  otherIngredient: Pick<OtherIngredient, "id" | "name">;
+  otherIngredient: Pick<OtherIngredient, "id" | "name" | "type" | "slug">;
 };
 export type ExtendedRecipe = Recipe & {
   author: Pick<User, "name" | "email" | "id"> | null;
