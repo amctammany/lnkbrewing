@@ -26,10 +26,11 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, action, styles }) => {
   //value={recipe?.styleId}
   ///>
   //</div>;
-  const { register, handleSubmit } = useForm<StyleFormInput>({
+  const { register, trigger, handleSubmit } = useForm<StyleFormInput>({
     defaultValues: recipe || {},
   });
-  const onSubmit: SubmitHandler<StyleFormInput> = (data) => {
+  console.log(recipe);
+  const onSubmit1: SubmitHandler<StyleFormInput> = (data) => {
     const body = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
@@ -39,10 +40,15 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, action, styles }) => {
     });
     action(body);
   };
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    return action(data);
+  };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <input type="hidden" name="id" value={recipe?.id} />
+    <Form action={onSubmit}>
+      <input type="hidden" {...register("id")} />
       <div className="flex flex-row gap-2">
         <Select
           label="Style"

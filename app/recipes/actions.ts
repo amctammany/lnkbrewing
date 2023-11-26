@@ -165,7 +165,7 @@ function getObjectDifferences(obj1: any, obj2: any): any {
   return Object.keys(differences).length === 0 ? undefined : differences;
 }
 export async function updateRecipe(formData: FormData) {
-  const { id, ...data } = recipeSchema.parse(formData);
+  const { id, styleIdentifer, ...data } = recipeSchema.parse(formData);
 
   const old = await prisma.recipe.findFirst({
     where: {
@@ -184,53 +184,6 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${res.id}/edit`);
 }
 
-const equipmentSchema = zfd.formData({
-  id: zfd.numeric(z.number()),
-  equipmentProfileId: zfd.numeric(z.number().optional()),
-  boilTime: zfd.numeric(z.number().optional()),
-  batchVolume: zfd.numeric(z.number().optional()),
-  boilVolume: zfd.numeric(z.number().optional()),
-  mashEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
-  brewEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
-});
-
-export async function changeRecipeEquipmentProfile({
-  recipeId,
-  equipmentProfileId,
-}: {
-  recipeId: number;
-  equipmentProfileId: number;
-}) {
-  //const data = equipmentProfileSchema.parse(formData);
-  const profile = await prisma.equipmentProfile.findFirst({
-    where: {
-      id: equipmentProfileId,
-    },
-  });
-  const { boilTime, batchVolume, preboilVolume } = profile || {};
-  const res = await prisma.recipe.update({
-    where: { id: recipeId },
-    data: {
-      equipmentProfileId,
-      boilTime,
-      batchVolume,
-      preboilVolume,
-    },
-  });
-  redirect(`/recipes/${res.id}/edit/?equipment=1`);
-}
-export async function updateRecipeEquipment(formData: FormData) {
-  const { id, ...data } = equipmentSchema.parse(formData);
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
-    data,
-  });
-
-  await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}/edit`);
-}
 const recipeStyleSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   styleIdentifer: zfd.text(),
@@ -245,26 +198,6 @@ export async function updateRecipeStyle(formData: FormData) {
       style: {
         connect: { identifier: styleIdentifer },
       },
-    },
-  });
-  redirect(`/recipes/${res.id}/edit`);
-}
-const recipeGeneralSchema = zfd.formData({
-  id: zfd.numeric(z.number()),
-  name: zfd.text(),
-  description: zfd.text(),
-});
-
-export async function updateRecipeGeneral(formData: FormData) {
-  const { id, name, description } = recipeGeneralSchema.parse(formData);
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
-    data: {
-      name,
-      description,
-      slug: slugify(name, { lower: true }),
     },
   });
   redirect(`/recipes/${res.id}/edit`);
