@@ -14,6 +14,9 @@ import { z } from "zod";
 import slugify from "slugify";
 import { ExtendedRecipe } from "./types";
 import { getObjectDifferences } from "@/lib/utils";
+const removeSchema = zfd.formData({
+  id: zfd.numeric(),
+});
 
 const recipeSchema = zfd.formData({
   id: zfd.numeric(z.number()),
@@ -34,6 +37,14 @@ const recipeSchema = zfd.formData({
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
 });
+export async function removeRecipe(formData: FormData) {
+  const { id } = removeSchema.parse(formData);
+  const res = await prisma.recipe.delete({
+    where: { id },
+  });
+  redirect("/recipes");
+}
+
 export async function updateRecipe(formData: FormData) {
   const {
     id,
@@ -163,9 +174,6 @@ export async function updateYeastIngredient(formData: FormData) {
   await updateRecipeVitals(res.recipeId);
   redirect(`/recipes/${res.recipeId}/edit`);
 }
-const removeSchema = zfd.formData({
-  id: zfd.numeric(),
-});
 export async function removeYeastIngredient(formData: FormData) {
   const { id } = removeSchema.parse(formData);
   const res = await prisma.yeastIngredient.delete({
