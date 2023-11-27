@@ -17,12 +17,14 @@ interface AdminPreferencesFormProps {
   src?: UserPreferences | null;
   equipmentProfiles: any; //EquipmentProfile[];
   waterProfiles: any;
+  mashProfiles: any;
   action: any;
 }
 
 export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
   src,
   action,
+  mashProfiles,
   equipmentProfiles,
   waterProfiles,
 }) => {
@@ -50,6 +52,7 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
       />
       <Select {...register("gravityUnit")} options={UserGravityPreference} />
       <Select {...register("equipmentProfileId")} options={equipmentProfiles} />
+      <Select {...register("mashProfileId")} options={mashProfiles} />
       <Select {...register("sourceWaterProfileId")} options={waterProfiles} />
       <Select {...register("targetWaterProfileId")} options={waterProfiles} />
       <Submit>Save</Submit>

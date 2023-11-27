@@ -92,11 +92,13 @@ model UserPreferences {
   gravityUnit          UserGravityPreference     @default(SG)
   temperatureUnit      UserTemperaturePreference @default(F)
   defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
+  defaultMashProfile   MashProfile?              @relation(fields: [mashProfileId], references: [id])
   defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
   defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
   equipmentProfileId   Int?
   sourceWaterProfileId Int?
   targetWaterProfileId Int?
+  mashProfileId        Int?
 }
 
 model VerificationToken {
@@ -465,12 +467,13 @@ model WaterProfile {
 }
 
 model MashProfile {
-  id          Int        @id @default(autoincrement())
-  name        String
-  slug        String     @unique
-  description String?
-  steps       MashStep[]
-  Recipe      Recipe[]
+  id              Int               @id @default(autoincrement())
+  name            String
+  slug            String            @unique
+  description     String?
+  steps           MashStep[]
+  Recipe          Recipe[]
+  UserPreferences UserPreferences[]
 }
 
 model MashStep {

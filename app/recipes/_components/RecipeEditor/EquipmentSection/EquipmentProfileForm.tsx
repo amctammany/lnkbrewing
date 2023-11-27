@@ -32,14 +32,17 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
 }) => {
   const { register, handleSubmit, trigger, reset } =
     useForm<EquipmentProfileFormInput>({
-      defaultValues: recipe || {},
+      defaultValues: {
+        id: recipe?.id,
+        boilTime: recipe?.boilTime ?? (recipe?.equipment?.boilTime || 0),
+        mashEfficiency:
+          recipe?.mashEfficiency ?? (recipe?.equipment?.mashEfficiency || 0),
+        brewEfficiency:
+          recipe?.brewEfficiency ?? (recipe?.equipment?.brewEfficiency || 0),
+        batchVolume:
+          recipe?.batchVolume ?? (recipe?.equipment?.batchVolume || 0),
+      },
     });
-  //<div className="col-span-2">
-  //<EquipmentProfileSelect
-  //name="equipmentProfileId"
-  //value={recipe?.equipmentProfileId}
-  ///>
-  //</div>;
   const options = profiles.reduce((acc, profile) => {
     acc[
       profile.id

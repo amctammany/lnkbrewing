@@ -8,6 +8,7 @@ import { AdminPreferencesForm } from "./AdminPreferencesForm";
 import { UserPreferences } from "@prisma/client";
 import {
   getEquipmentProfileOptions,
+  getMashProfileOptions,
   getWaterProfileOptions,
 } from "@/app/profiles/queries";
 
@@ -20,12 +21,14 @@ export default async function AdminSettingsPage() {
       UserPreferences: true,
     },
   });
+  const mashProfiles = await getMashProfileOptions();
   const equipmentProfiles = await getEquipmentProfileOptions();
   const waterProfiles = await getWaterProfileOptions();
   console.log(user);
   return (
     <div className="p-3 max-w-2xl">
       <AdminPreferencesForm
+        mashProfiles={mashProfiles}
         equipmentProfiles={equipmentProfiles}
         waterProfiles={waterProfiles}
         src={user?.UserPreferences || ({ userId: user?.id } as UserPreferences)}

@@ -33,22 +33,26 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
     { label: "Profile", value: recipe?.equipment?.name },
     {
       label: "Boil Time",
-      value: recipe?.boilTime,
+      value: recipe?.boilTime ?? recipe?.equipment?.boilTime,
       unit: "min",
     },
     {
       label: "Batch Volume",
-      value: recipe?.batchVolume,
+      value: recipe?.batchVolume ?? recipe?.equipment?.batchVolume,
       unit: "gal",
     },
     {
       label: "Mash Efficiency",
-      value: (recipe?.mashEfficiency || 0) * 100,
+      value:
+        ((recipe?.mashEfficiency ?? recipe?.equipment?.mashEfficiency) || 0) *
+        100,
       unit: "%",
     },
     {
       label: "Brew Efficiency",
-      value: (recipe?.brewEfficiency || 0) * 100,
+      value:
+        ((recipe?.brewEfficiency ?? recipe?.equipment?.brewEfficiency) || 0) *
+        100,
       unit: "%",
     },
   ];

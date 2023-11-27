@@ -16,6 +16,10 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
   const recipe = await prisma.recipe.create({
     data: {
       authorEmail: session.user.email,
+      mashProfileId: session.preferences.mashProfileId,
+      equipmentProfileId: session.preferences.equipmentProfileId,
+      waterProfileId: session.preferences.sourceWaterProfileId,
+
       name: "New Recipe",
       slug: "new-recipe",
     },
