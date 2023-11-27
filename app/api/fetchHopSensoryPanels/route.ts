@@ -1,6 +1,3 @@
-import { NextResponse } from "next/server";
-
-/**
 import * as cheerio from "cheerio";
 import { prisma } from "@/lib/client";
 import { NextResponse } from "next/server";
@@ -78,8 +75,4 @@ export async function GET() {
     .filter((f) => f !== null);
   await prisma.hopSensoryPanel.createMany({ data });
   return NextResponse.json(data);
-}
-*/
-export function GET() {
-  return NextResponse.json({ body: "body" });
 }
