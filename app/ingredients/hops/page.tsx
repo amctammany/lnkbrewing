@@ -18,11 +18,20 @@ const columns = [
   { name: "alpha" },
   { name: "beta" },
 ];
-export default async function HopsIndex() {
+export default async function HopsIndex({
+  searchParams,
+}: {
+  searchParams?: Record<string, string>;
+}) {
   const hops = await prisma.hop.findMany();
   return (
     <Section header="Hops">
-      <Table src={hops} columns={columns} />
+      <Table
+        src={hops}
+        columns={columns}
+        sort={searchParams?.sort as keyof Hop}
+        direction={searchParams?.direction}
+      />
     </Section>
   );
   /**
