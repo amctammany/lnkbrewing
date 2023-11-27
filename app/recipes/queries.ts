@@ -33,6 +33,7 @@ export const getRecipes = cache(async () =>
       id: true,
       name: true,
       slug: true,
+      styleIdentifer: true,
       authorEmail: true,
     },
   })

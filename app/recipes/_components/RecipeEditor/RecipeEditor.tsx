@@ -49,12 +49,14 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
             recipeId={recipeId}
           />
         </div>
+        <div className="col-span-2">
+          <OtherIngredientSection
+            otherId={searchParams?.otherId}
+            recipeId={recipeId}
+          />
+        </div>
         <MashSection open={!!searchParams?.mash} recipeId={recipeId} />
         <WaterSection open={!!searchParams?.water} recipeId={recipeId} />
-        <OtherIngredientSection
-          otherId={searchParams?.otherId}
-          recipeId={recipeId}
-        />
       </div>
     </div>
   );

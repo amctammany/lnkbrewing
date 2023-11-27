@@ -3,11 +3,12 @@ import { prisma } from "@/lib/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/authOptions";
+import { getRecipes } from "./queries";
 export const metadata: Metadata = {
   title: "LNK Recipes",
 };
 export default async function RecipesIndex() {
-  const recipes = await prisma.recipe.findMany();
+  const recipes = await getRecipes();
   return (
     <Section
       header="RecipesIndex"
