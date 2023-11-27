@@ -46,16 +46,55 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
+  id              String           @id @default(cuid())
+  name            String?
   //username      String    @unique
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  recipes       Recipe[]
-  createdAt     DateTime  @default(now())
+  email           String?          @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  recipes         Recipe[]
+  createdAt       DateTime         @default(now())
+  UserPreferences UserPreferences?
+}
+
+enum UserVolumePreference {
+  gal
+  L
+  bbl
+}
+
+enum UserMassPreference {
+  LbOz
+  Lb
+  Oz
+  Kg
+  g
+}
+
+enum UserTemperaturePreference {
+  F
+  C
+}
+
+enum UserGravityPreference {
+  SG
+  P
+}
+
+model UserPreferences {
+  userId              String                    @id @unique @default(cuid())
+  user                User                      @relation(fields: [userId], references: [id])
+  volumeUnit          UserVolumePreference      @default(gal)
+  hopMassUnit         UserMassPreference        @default(Oz)
+  fermentableMassUnit UserMassPreference        @default(LbOz)
+  gravityUnit         UserGravityPreference     @default(SG)
+  temperatureUnit     UserTemperaturePreference @default(F)
+  defaultEquipment    EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
+  defaultSourceWater  WaterProfile?             @relation(fields: [waterProfileId], references: [id])
+  equipmentProfileId  Int?
+  waterProfileId      Int?
 }
 
 model VerificationToken {
@@ -387,9 +426,9 @@ model HopSensoryPanel {
 }
 
 model EquipmentProfile {
-  id              Int      @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   name            String
-  slug            String   @unique
+  slug            String            @unique
   description     String?
   batchVolume     Float?
   boilVolume      Float?
@@ -398,26 +437,28 @@ model EquipmentProfile {
   brewEfficiency  Float?
   mashEfficiency  Float?
   boilOffRate     Float?
-  trubLoss        Float?   @default(0)
-  mashLoss        Float?   @default(0)
-  fermenterLoss   Float?   @default(0)
-  grainAbsorption Float?   @default(0.5)
-  waterGrainRatio Float?   @default(1.5)
+  trubLoss        Float?            @default(0)
+  mashLoss        Float?            @default(0)
+  fermenterLoss   Float?            @default(0)
+  grainAbsorption Float?            @default(0.5)
+  waterGrainRatio Float?            @default(1.5)
   Recipe          Recipe[]
+  UserPreferences UserPreferences[]
 }
 
 model WaterProfile {
-  id          Int      @id @default(autoincrement())
-  name        String
-  slug        String   @unique
-  calcium     Int
-  magnesium   Int
-  sodium      Int
-  chloride    Int
-  sulfate     Int
-  bicarbonate Int
-  description String?
-  Recipe      Recipe[]
+  id              Int               @id @default(autoincrement())
+  name            String
+  slug            String            @unique
+  calcium         Int
+  magnesium       Int
+  sodium          Int
+  chloride        Int
+  sulfate         Int
+  bicarbonate     Int
+  description     String?
+  Recipe          Recipe[]
+  UserPreferences UserPreferences[]
 }
 
 model MashProfile {

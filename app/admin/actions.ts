@@ -3,6 +3,7 @@ import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
 import { z } from "zod";
+import { UserMassPreference, UserVolumePreference } from "@prisma/client";
 
 const schema = zfd.formData({
   id: zfd.text(),
@@ -15,6 +16,26 @@ export async function updateUser(formData: FormData) {
       id: data.id,
     },
     data,
+  });
+  redirect("/admin");
+}
+const preferenceSchema = zfd.formData({
+  userId: zfd.text(),
+  volumeUnit: zfd.text(z.nativeEnum(UserVolumePreference)),
+  hopMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
+  fermentableMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
+});
+export async function updateUserPreferences(formData: FormData) {
+  const { userId, ...data } = preferenceSchema.parse(formData);
+  const res = await prisma.userPreferences.upsert({
+    where: {
+      userId,
+    },
+    update: { ...data },
+    create: {
+      userId,
+      ...data,
+    },
   });
   redirect("/admin");
 }

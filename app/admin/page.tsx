@@ -25,7 +25,8 @@ export default async function Page() {
   const AdminSettingsActions = () => {
     return (
       <div>
-        <ButtonLink href="/admin/settings">Edit</ButtonLink>
+        <ButtonLink href="/admin/settings">Settings</ButtonLink>
+        <ButtonLink href="/admin/preferences">Preferences</ButtonLink>
       </div>
     );
   };
