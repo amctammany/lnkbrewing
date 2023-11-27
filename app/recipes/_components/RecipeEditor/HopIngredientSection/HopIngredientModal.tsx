@@ -8,12 +8,13 @@ import {
 } from "@/app/recipes/actions";
 import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
 import { prisma } from "@/lib/client";
-import { HopIngredient } from "@prisma/client";
+import { HopIngredient, UserMassPreference } from "@prisma/client";
 
 interface HopIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
   hop?: ExtendedHopIngredient | null;
   hopId?: string;
+  massUnit: UserMassPreference;
   open: boolean;
 }
 
@@ -22,6 +23,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
   hop,
   hopId,
   open,
+  massUnit,
 }) => {
   const hops = await getHops();
 
@@ -30,6 +32,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
     <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
       <div>
         <HopIngredientForm
+          massUnit={massUnit}
           hopId={hopId}
           hop={hop}
           recipe={recipe}

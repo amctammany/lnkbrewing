@@ -21,13 +21,11 @@ export const authOptions: AuthOptions = {
   //},
   callbacks: {
     async session({ session, token, user }) {
-      console.log({ token, user });
       session.preferences = (token.user as any).UserPreferences as any;
       session.user = token.user as any;
       return session;
     },
     async jwt({ token, user, account, profile }) {
-      console.log({ token, user, profile, account });
       const currentUser = await prisma.user.findFirst({
         where: {
           email: token.email,
@@ -35,7 +33,6 @@ export const authOptions: AuthOptions = {
         include: { UserPreferences: true },
       });
       token.user = currentUser;
-      console.log(token, currentUser);
       return token;
     },
   },

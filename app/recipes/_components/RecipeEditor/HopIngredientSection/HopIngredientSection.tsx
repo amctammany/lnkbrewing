@@ -12,9 +12,11 @@ import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
 import { prisma } from "@/lib/client";
 import { PlusIcon } from "@heroicons/react/24/solid";
+import { UserMassPreference } from "@prisma/client";
 
 interface HopIngredientSectionProps {
   recipeId: number;
+  massUnit: UserMassPreference;
   hopId?: string | null;
 }
 
@@ -29,6 +31,7 @@ const HopIngredientSectionActions = () => {
 };
 export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
   recipeId,
+  massUnit,
   hopId,
 }) => {
   const open = !!hopId;
@@ -54,6 +57,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
           hop={hopIngredient}
           hopId={hopId}
           recipe={recipe}
+          massUnit={massUnit}
           open={open}
         />
       )}

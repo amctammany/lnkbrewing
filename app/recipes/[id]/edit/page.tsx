@@ -7,8 +7,10 @@
 ////import { ClickAwayRouter } from "@/components/";
 ////import { EquipmentProfileForm } from "@/app/profiles/_components";
 //import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
+import { getServerSession } from "next-auth";
 import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
 import { getExtendedRecipe } from "../../queries";
+import { authOptions } from "@/app/api/auth/authOptions";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -27,8 +29,10 @@ export default async function RecipeEditorPage({
   searchParams,
 }: RecipeEditorPageProps) {
   const recipe = await getExtendedRecipe(parseInt(id));
+  const session = await getServerSession(authOptions);
   return (
     <RecipeEditor
+      preferences={session?.preferences}
       src={recipe}
       recipeId={parseInt(id)}
       searchParams={searchParams}

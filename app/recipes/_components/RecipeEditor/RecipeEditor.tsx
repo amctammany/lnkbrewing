@@ -11,14 +11,16 @@ import { YeastIngredientSection } from "./YeastIngredientSection/YeastIngredient
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
 import { OtherIngredientSection } from "./OtherIngredientSection/OtherIngredientSection";
+import { UserMassPreference, UserPreferences } from "@prisma/client";
 
 interface RecipeEditorProps {
   recipeId: number;
+  preferences?: UserPreferences;
   searchParams?: Record<string, string>;
   src?: ExtendedRecipe | null;
 }
 export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
-  const { src, searchParams, recipeId } = props;
+  const { src, searchParams, preferences, recipeId } = props;
 
   return (
     <div className="w-full">
@@ -33,6 +35,7 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
         <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
         <div className="col-span-2">
           <HopIngredientSection
+            massUnit={preferences?.hopMassUnit ?? UserMassPreference.Oz}
             hopId={searchParams?.hopId}
             recipeId={recipeId}
           />

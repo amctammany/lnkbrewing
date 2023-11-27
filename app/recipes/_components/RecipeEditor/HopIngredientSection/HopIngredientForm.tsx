@@ -10,6 +10,7 @@ import {
   HopIngredientUsage,
   MassUnit,
   TimeUnit,
+  UserMassPreference,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,6 +21,7 @@ interface HopIngredientFormProps {
   hopId?: string;
   action?: any;
   hops: Hop[]; //Record<string, string>;
+  massUnit: UserMassPreference;
 }
 
 type HopIngredientFormInput = {
@@ -34,13 +36,14 @@ type HopIngredientFormInput = {
   durationType: TimeUnit | null;
 };
 export const HopIngredientForm: FC<HopIngredientFormProps> = ({
+  massUnit,
   recipe,
   action,
   hopId,
   hop,
   hops,
 }) => {
-  console.log(hop);
+  console.log({ massUnit });
   const src =
     hopId === "new" ? ({ recipeId: recipe?.id } as ExtendedHopIngredient) : hop;
   const { register, handleSubmit, reset, setValue } =
