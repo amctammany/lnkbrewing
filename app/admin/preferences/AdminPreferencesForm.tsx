@@ -1,13 +1,9 @@
 "use client";
-import { EquipmentProfileSelect } from "@/app/profiles/equipment/_components";
-import { EquipmentSelect } from "@/app/recipes/_components/RecipeEditor/EquipmentSection/EquipmentSelect";
 import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
 import { TextField } from "@/components/Form/TextField";
 import {
-  EquipmentProfile,
-  User,
   UserGravityPreference,
   UserMassPreference,
   UserPreferences,
@@ -20,6 +16,7 @@ import { useForm } from "react-hook-form";
 interface AdminPreferencesFormProps {
   src?: UserPreferences | null;
   equipmentProfiles: any; //EquipmentProfile[];
+  waterProfiles: any;
   action: any;
 }
 
@@ -27,6 +24,7 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
   src,
   action,
   equipmentProfiles,
+  waterProfiles,
 }) => {
   const { register, trigger } = useForm<UserPreferences>({
     defaultValues: src || {},
@@ -52,6 +50,8 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
       />
       <Select {...register("gravityUnit")} options={UserGravityPreference} />
       <Select {...register("equipmentProfileId")} options={equipmentProfiles} />
+      <Select {...register("sourceWaterProfileId")} options={waterProfiles} />
+      <Select {...register("targetWaterProfileId")} options={waterProfiles} />
       <Submit>Save</Submit>
     </Form>
   );

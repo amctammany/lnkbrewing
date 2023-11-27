@@ -32,6 +32,8 @@ const preferenceSchema = zfd.formData({
   gravityUnit: zfd.text(z.nativeEnum(UserGravityPreference)),
   temperatureUnit: zfd.text(z.nativeEnum(UserTemperaturePreference)),
   equipmentProfileId: zfd.numeric(z.number().optional()),
+  sourceWaterProfileId: zfd.numeric(z.number().optional()),
+  targetWaterProfileId: zfd.numeric(z.number().optional()),
 });
 export async function updateUserPreferences(formData: FormData) {
   const { userId, ...data } = preferenceSchema.parse(formData);

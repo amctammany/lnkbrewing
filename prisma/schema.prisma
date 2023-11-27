@@ -84,17 +84,19 @@ enum UserGravityPreference {
 }
 
 model UserPreferences {
-  userId              String                    @id @unique @default(cuid())
-  user                User                      @relation(fields: [userId], references: [id])
-  volumeUnit          UserVolumePreference      @default(gal)
-  hopMassUnit         UserMassPreference        @default(Oz)
-  fermentableMassUnit UserMassPreference        @default(LbOz)
-  gravityUnit         UserGravityPreference     @default(SG)
-  temperatureUnit     UserTemperaturePreference @default(F)
-  defaultEquipment    EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
-  defaultSourceWater  WaterProfile?             @relation(fields: [waterProfileId], references: [id])
-  equipmentProfileId  Int?
-  waterProfileId      Int?
+  userId               String                    @id @unique @default(cuid())
+  user                 User                      @relation(fields: [userId], references: [id])
+  volumeUnit           UserVolumePreference      @default(gal)
+  hopMassUnit          UserMassPreference        @default(Oz)
+  fermentableMassUnit  UserMassPreference        @default(LbOz)
+  gravityUnit          UserGravityPreference     @default(SG)
+  temperatureUnit      UserTemperaturePreference @default(F)
+  defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
+  defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
+  defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
+  equipmentProfileId   Int?
+  sourceWaterProfileId Int?
+  targetWaterProfileId Int?
 }
 
 model VerificationToken {
@@ -447,18 +449,19 @@ model EquipmentProfile {
 }
 
 model WaterProfile {
-  id              Int               @id @default(autoincrement())
-  name            String
-  slug            String            @unique
-  calcium         Int
-  magnesium       Int
-  sodium          Int
-  chloride        Int
-  sulfate         Int
-  bicarbonate     Int
-  description     String?
-  Recipe          Recipe[]
-  UserPreferences UserPreferences[]
+  id             Int               @id @default(autoincrement())
+  name           String
+  slug           String            @unique
+  calcium        Int
+  magnesium      Int
+  sodium         Int
+  chloride       Int
+  sulfate        Int
+  bicarbonate    Int
+  description    String?
+  Recipe         Recipe[]
+  DefaultSources UserPreferences[] @relation("SourceWater")
+  TargetSources  UserPreferences[] @relation("TargetWater")
 }
 
 model MashProfile {

@@ -6,7 +6,10 @@ import { updateUserPreferences } from "../actions";
 import { ButtonLink } from "@/components/Button/Button";
 import { AdminPreferencesForm } from "./AdminPreferencesForm";
 import { UserPreferences } from "@prisma/client";
-import { getEquipmentProfileOptions } from "@/app/profiles/queries";
+import {
+  getEquipmentProfileOptions,
+  getWaterProfileOptions,
+} from "@/app/profiles/queries";
 
 export default async function AdminSettingsPage() {
   const session = await getServerSession(authOptions);
@@ -18,11 +21,13 @@ export default async function AdminSettingsPage() {
     },
   });
   const equipmentProfiles = await getEquipmentProfileOptions();
+  const waterProfiles = await getWaterProfileOptions();
   console.log(user);
   return (
     <div className="p-3 max-w-2xl">
       <AdminPreferencesForm
         equipmentProfiles={equipmentProfiles}
+        waterProfiles={waterProfiles}
         src={user?.UserPreferences || ({ userId: user?.id } as UserPreferences)}
         action={updateUserPreferences}
       />
