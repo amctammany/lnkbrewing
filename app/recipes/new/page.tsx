@@ -2,6 +2,7 @@ import { prisma } from "@/lib/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/authOptions";
 import { redirect } from "next/navigation";
+import { updateRecipeVitals } from "../actions";
 type RecipeCreatorProps = {};
 
 //export function generateMetadata({ params }: RecipeCreatorProps) {
@@ -24,5 +25,7 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
       slug: "new-recipe",
     },
   });
+  const r = await updateRecipeVitals(recipe.id);
+  console.log(r);
   return redirect(`/recipes/${recipe.id}/edit`);
 }

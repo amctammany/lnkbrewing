@@ -105,6 +105,16 @@ export async function updateRecipeVitals(id: number) {
     yeasts,
     otherIngredients,
     fermentables,
+    batchVolume,
+    boilTime,
+    mashEfficiency,
+    brewEfficiency,
+    calcium,
+    magnesium,
+    sodium,
+    chloride,
+    sulfate,
+    bicarbonate,
     ...data
   } = recipe;
   return prisma.recipe.update({
@@ -112,6 +122,16 @@ export async function updateRecipeVitals(id: number) {
       id,
     },
     data: {
+      batchVolume: batchVolume ?? equipment?.batchVolume,
+      boilTime: boilTime ?? equipment?.boilTime,
+      mashEfficiency: mashEfficiency ?? equipment?.mashEfficiency,
+      brewEfficiency: brewEfficiency ?? equipment?.brewEfficiency,
+      calcium: calcium ?? water?.calcium,
+      magnesium: magnesium ?? water?.magnesium,
+      sodium: sodium ?? water?.sodium,
+      chloride: chloride ?? water?.chloride,
+      sulfate: sulfate ?? water?.sulfate,
+      bicarbonate: bicarbonate ?? water?.bicarbonate,
       ...data,
       ...vitals,
     },
