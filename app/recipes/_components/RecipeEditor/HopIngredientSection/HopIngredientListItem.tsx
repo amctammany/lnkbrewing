@@ -1,25 +1,11 @@
-import { TrashIcon } from "@heroicons/react/24/solid";
-
 import { ExtendedHopIngredient } from "../../../types";
 import { removeHopIngredient } from "../../../actions";
 import Link from "next/link";
 import { ListItem } from "@/components/List/ListItem";
+import { RemoveButton } from "@/components/RemoveButton";
 
 export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
-};
-type RemoveHopButtonProps = {
-  id: number;
-};
-const RemoveHopButton = ({ id }: RemoveHopButtonProps) => {
-  return (
-    <form action={removeHopIngredient}>
-      <input type="hidden" name="id" value={id} />
-      <button type="submit" className="border-red-300 border rounded-md p-2">
-        <TrashIcon className="h-6 w-6 text-red-500 " />
-      </button>
-    </form>
-  );
 };
 export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
   return (
@@ -48,7 +34,7 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
           </div>
         </Link>
         <div className="m-auto">
-          <RemoveHopButton id={hop.id} />
+          <RemoveButton action={removeHopIngredient} id={hop.id} />
         </div>
       </div>
     </ListItem>

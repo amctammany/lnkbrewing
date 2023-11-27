@@ -1,22 +1,8 @@
 import Link from "next/link";
 import { ListItem } from "@/components/List";
 import { removeRecipe } from "../../actions";
-import { TrashIcon } from "@heroicons/react/24/solid";
 import { Recipe } from "@prisma/client";
-type RemoveRecipeButtonProps = {
-  id?: number;
-};
-const RemoveRecipeButton = ({ id }: RemoveRecipeButtonProps) => {
-  return (
-    <form action={removeRecipe}>
-      <input type="hidden" name="id" value={id} />
-      <button type="submit" className="border-red-300 border rounded-md p-2">
-        <TrashIcon className="h-6 w-6 text-red-500 " />
-      </button>
-    </form>
-  );
-};
-
+import { RemoveButton } from "@/components/RemoveButton";
 type RecipeListItemProps = {
   recipe?: Partial<Recipe>;
 };
@@ -43,7 +29,7 @@ export const RecipeListItem = ({ recipe }: RecipeListItemProps) => (
         </div>
       </Link>
       <div className="m-auto">
-        <RemoveRecipeButton id={recipe?.id} />
+        <RemoveButton id={recipe?.id} action={removeRecipe} />
       </div>
     </div>
   </ListItem>
