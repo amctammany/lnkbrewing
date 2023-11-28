@@ -21,23 +21,30 @@ const numberFields: NumberKeys<Fermentable>[] = [
 ];
 export const FermentableForm = ({ src, action }: FermentableFormProps) => {
   return (
-    <Form action={action}>
-      <input type="hidden" name="id" value={src?.id} />
-      <TextField name="name" label="Name" defaultValue={src?.name} />
-      <TextArea
-        name="description"
-        rows={3}
-        label="Description"
-        defaultValue={src?.description}
-      />
-      <TextArea name="notes" rows={3} label="Notes" defaultValue={src?.notes} />
+    <div className="m-5 p-0 min-w-full bg-slate-200">
+      <Form action={action}>
+        <input type="hidden" name="id" value={src?.id} />
+        <TextField name="name" label="Name" defaultValue={src?.name} />
+        <TextArea
+          name="description"
+          rows={3}
+          label="Description"
+          defaultValue={src?.description}
+        />
+        <TextArea
+          name="notes"
+          rows={3}
+          label="Notes"
+          defaultValue={src?.notes}
+        />
 
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-        {numberFields.map((f) => (
-          <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
-        ))}
-      </div>
-      <Submit>Save</Submit>
-    </Form>
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+          {numberFields.map((f) => (
+            <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
+          ))}
+        </div>
+        <Submit>Save</Submit>
+      </Form>
+    </div>
   );
 };

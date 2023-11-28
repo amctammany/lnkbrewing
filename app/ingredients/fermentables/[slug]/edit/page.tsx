@@ -1,29 +1,25 @@
 import { prisma } from "@/lib/client";
 import { FermentableForm } from "../../_components";
 import { updateFermentable } from "../../actions";
-type FermentableDisplayProps = {
+type FermentableEditorProps = {
   params: {
     slug: string;
   };
 };
 
-export function generateMetadata({ params }: FermentableDisplayProps) {
+export function generateMetadata({ params }: FermentableEditorProps) {
   return {
     title: `LNK Fermentable: ${params.slug}`,
   };
 }
 
-export default async function FermentableDisplay({
+export default async function FermentableEditor({
   params: { slug },
-}: FermentableDisplayProps) {
+}: FermentableEditorProps) {
   const fermentable = await prisma.fermentable.findFirst({
     where: {
       slug,
     },
   });
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <FermentableForm src={fermentable} action={updateFermentable} />
-    </div>
-  );
+  return <FermentableForm src={fermentable} action={updateFermentable} />;
 }

@@ -22,9 +22,5 @@ export default async function HopDisplay({
     },
   });
   console.log(hop);
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <HopForm src={hop} action={updateHop} />
-    </div>
-  );
+  return <HopForm src={hop} action={updateHop} />;
 }
