@@ -1,23 +1,10 @@
-import {
-  List,
-  ListItemButton,
-  Section,
-  Table,
-  TableColumn,
-} from "@/components";
 import { prisma } from "@/lib/client";
 import { Hop } from "@prisma/client";
 import { Metadata } from "next";
+import { HopsTable } from "./_components";
 export const metadata: Metadata = {
   title: "LNK Hops",
 };
-const columns = [
-  { name: "name", href: (src: Hop) => `/ingredients/hops/${src.slug}` },
-  { name: "country" },
-  { name: "usage" },
-  { name: "alpha" },
-  { name: "beta" },
-];
 export default async function HopsIndex({
   searchParams,
 }: {
@@ -25,14 +12,11 @@ export default async function HopsIndex({
 }) {
   const hops = await prisma.hop.findMany();
   return (
-    <Section header="Hops">
-      <Table
-        src={hops}
-        columns={columns}
-        sort={searchParams?.sort as keyof Hop}
-        direction={searchParams?.direction}
-      />
-    </Section>
+    <HopsTable
+      sort={searchParams?.sort as keyof Hop}
+      direction={searchParams?.direction}
+      hops={hops || []}
+    />
   );
   /**
   return (
