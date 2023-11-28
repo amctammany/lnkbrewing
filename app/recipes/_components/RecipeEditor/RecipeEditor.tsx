@@ -24,8 +24,8 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-row md:grid md:grid-cols-4 gap-4">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-4 md:gap-4">
+        <div className="md:col-span-2">
           <GeneralSection open={!!searchParams?.general} recipeId={recipeId} />
         </div>
         <EquipmentSection
@@ -33,26 +33,26 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
           recipeId={recipeId}
         />
         <StyleSection open={!!searchParams?.style} recipeId={recipeId} />
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <HopIngredientSection
             massUnit={preferences?.hopMassUnit ?? UserMassPreference.Oz}
             hopId={searchParams?.hopId}
             recipeId={recipeId}
           />
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <FermentableIngredientSection
             fermentableId={searchParams?.fermentableId}
             recipeId={recipeId}
           />
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <YeastIngredientSection
             yeastId={searchParams?.yeastId}
             recipeId={recipeId}
           />
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <OtherIngredientSection
             otherId={searchParams?.otherId}
             recipeId={recipeId}

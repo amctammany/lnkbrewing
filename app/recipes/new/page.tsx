@@ -26,6 +26,5 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
     },
   });
   const r = await updateRecipeVitals(recipe.id);
-  console.log(r);
   return redirect(`/recipes/${recipe.id}/edit`);
 }

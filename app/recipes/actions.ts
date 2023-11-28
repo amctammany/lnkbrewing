@@ -85,7 +85,7 @@ export async function updateRecipe(formData: FormData) {
         : {}),
     },
   });
-  console.log(getObjectDifferences(old, res));
+  //console.log(getObjectDifferences(old, res));
   await updateRecipeVitals(res.id);
   redirect(`/recipes/${res.id}/edit`);
 }
