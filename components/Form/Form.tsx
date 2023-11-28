@@ -10,13 +10,13 @@ export type FormProps<T extends FieldValues = {}> = {
   action?: (data: FormData) => void;
   onSubmit?: any;
 } & VariantProps<typeof formStyles>;
-const formStyles = cva(["relative", "flex-auto"], {
+const formStyles = cva(["flex-autao"], {
   variants: {
     variant: {
       default: ["bg-white"],
     },
     size: {
-      default: ["w-full", "m-2", "p-2"],
+      default: ["w-full", "m-0", "p-2"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
