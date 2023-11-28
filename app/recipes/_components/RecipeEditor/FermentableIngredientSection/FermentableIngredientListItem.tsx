@@ -1,21 +1,8 @@
 import { removeFermentableIngredient } from "@/app/recipes/actions";
 import { ExtendedFermentableIngredient } from "@/app/recipes/types";
 import { ListItem } from "@/components/List/ListItem";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { RemoveButton } from "@/components/RemoveButton";
 import Link from "next/link";
-type RemoveFermentableButtonProps = {
-  id: number;
-};
-const RemoveFermentableButton = ({ id }: RemoveFermentableButtonProps) => {
-  return (
-    <form action={removeFermentableIngredient}>
-      <input type="hidden" name="id" value={id} />
-      <button type="submit" className="border-red-300 border rounded-md p-2">
-        <TrashIcon className="h-6 w-6 text-red-500 " />
-      </button>
-    </form>
-  );
-};
 
 export type FermentableIngredientListItemProps = {
   fermentable: ExtendedFermentableIngredient;
@@ -52,7 +39,10 @@ export const FermentableIngredientListItem = ({
           </div>
         </Link>
         <div className="m-auto">
-          <RemoveFermentableButton id={fermentable.id} />
+          <RemoveButton
+            action={removeFermentableIngredient}
+            id={fermentable.id}
+          />
         </div>
       </div>
     </ListItem>

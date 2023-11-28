@@ -1,25 +1,11 @@
-import { TrashIcon } from "@heroicons/react/24/solid";
-
 import { ExtendedYeastIngredient } from "../../../types";
 import { removeYeastIngredient } from "../../../actions";
 import Link from "next/link";
 import { ListItem } from "@/components/List/ListItem";
+import { RemoveButton } from "@/components/RemoveButton";
 
 export type YeastIngredientListItemProps = {
   yeast: ExtendedYeastIngredient;
-};
-type RemoveYeastButtonProps = {
-  id: number;
-};
-const RemoveYeastButton = ({ id }: RemoveYeastButtonProps) => {
-  return (
-    <form action={removeYeastIngredient}>
-      <input type="hidden" name="id" value={id} />
-      <button type="submit" className="border-red-300 border rounded-md p-2">
-        <TrashIcon className="h-6 w-6 text-red-500 " />
-      </button>
-    </form>
-  );
 };
 export const YeastIngredientListItem = ({
   yeast,
@@ -54,7 +40,7 @@ export const YeastIngredientListItem = ({
           </div>
         </Link>
         <div className="m-auto">
-          <RemoveYeastButton id={yeast.id} />
+          <RemoveButton action={removeYeastIngredient} id={yeast.id} />
         </div>
       </div>
     </ListItem>

@@ -1,25 +1,11 @@
-import { TrashIcon } from "@heroicons/react/24/solid";
-
 import { ExtendedOtherIngredient } from "../../../types";
 import { removeRecipeOtherIngredient } from "../../../actions";
 import Link from "next/link";
 import { ListItem } from "@/components/List/ListItem";
+import { RemoveButton } from "@/components/RemoveButton";
 
 export type OtherIngredientListItemProps = {
   other: ExtendedOtherIngredient;
-};
-type RemoveOtherButtonProps = {
-  id: number;
-};
-const RemoveOtherButton = ({ id }: RemoveOtherButtonProps) => {
-  return (
-    <form action={removeRecipeOtherIngredient}>
-      <input type="hidden" name="id" value={id} />
-      <button type="submit" className="border-red-300 border rounded-md p-2">
-        <TrashIcon className="h-6 w-6 text-red-500 " />
-      </button>
-    </form>
-  );
 };
 export const OtherIngredientListItem = ({
   other,
@@ -50,7 +36,7 @@ export const OtherIngredientListItem = ({
           </div>
         </Link>
         <div className="m-auto">
-          <RemoveOtherButton id={other.id} />
+          <RemoveButton action={removeRecipeOtherIngredient} id={other.id} />
         </div>
       </div>
     </ListItem>
