@@ -7,16 +7,29 @@ export type AdminPageProps = {
   action?: any;
   //children: React.ReactNode;
 };
+
+const AdminSettingsActions = () => {
+  return (
+    <div className="grid grid-flow-col">
+      <ButtonLink href="/admin/settings">Settings</ButtonLink>
+      <ButtonLink href="/admin/preferences">Preferences</ButtonLink>
+      <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
+    </div>
+  );
+};
+
 export const AdminPage = ({ src, action }: AdminPageProps) => {
   return (
-    <div>
-      <div>
-        <Prop label="Name" value={src.name} />
-        <Prop label="Email" value={src.email} />
-      </div>
-      <div>
-        <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
-      </div>
+    <div className="mx-auto w-10/12">
+      <Section header="Admin" actions={<AdminSettingsActions />}>
+        <div>
+          <Prop label="Name" value={src.name} />
+          <Prop label="Email" value={src.email} />
+        </div>
+        <div>
+          <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
+        </div>
+      </Section>
     </div>
   );
 };
