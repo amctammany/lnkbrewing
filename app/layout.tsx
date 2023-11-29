@@ -2,6 +2,7 @@ import { Nav, NavLink } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Nunito_Sans } from "next/font/google";
+import { Dialog, DialogProvider } from "@/components/Dialog";
 
 const inter = Nunito_Sans({ subsets: ["latin"] });
 
@@ -24,9 +25,12 @@ export default function RootLayout({
           <NavLink href="/profiles">Profiles</NavLink>
           <NavLink href="/styles">Styles</NavLink>
         </Nav>
-        <main className="top-16 min-h-screen min-w-full left-2 right-2 flex flex-col items-center justify-between p-2">
-          {children}
-        </main>
+        <DialogProvider>
+          <Dialog />
+          <main className="top-16 min-h-screen min-w-full left-2 right-2 flex flex-col items-center justify-between p-2">
+            {children}
+          </main>
+        </DialogProvider>
       </body>
     </html>
   );

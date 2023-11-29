@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/Button/Button";
+import { DialogButton } from "@/components/Dialog";
 import Prop from "@/components/Prop/Prop";
 import { Section } from "@/components/Section/Section";
 
@@ -14,6 +15,9 @@ const AdminSettingsActions = () => {
       <ButtonLink href="/admin/settings">Settings</ButtonLink>
       <ButtonLink href="/admin/preferences">Preferences</ButtonLink>
       <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
+      <DialogButton title="dialogContext" message="foo">
+        Dialog
+      </DialogButton>
     </div>
   );
 };
