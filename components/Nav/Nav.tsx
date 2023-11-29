@@ -10,9 +10,7 @@ export const Nav = ({ children }: NavProps) => {
   return (
     <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">
       <div className="md:hidden">
-        <Menu label="Open">
-          <ul className="bg-black mr-10">{children}</ul>
-        </Menu>
+        <Menu label="Open">{children}</Menu>
       </div>
 
       <div className="flex items-center flex-shrink-0 mr-6 lg:mr-16">

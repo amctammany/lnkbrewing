@@ -12,9 +12,12 @@ export const Menu = ({ label, children }: MenuProps) => {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((v) => !v);
   const ref = useClickAway(() => setOpen(false));
-  const menuClass = clsx("absolute list-none float-left z-[1000] shadow-lg", {
-    hidden: !open,
-  });
+  const menuClass = clsx(
+    "absolute bg-gray-700 list-none float-left z-[1000] shadow-lg",
+    {
+      hidden: !open,
+    }
+  );
   return (
     <div ref={ref} className="relative">
       <button
@@ -37,7 +40,9 @@ export const Menu = ({ label, children }: MenuProps) => {
           </svg>
         </span>
       </button>
-      <ul className={menuClass}>{children}</ul>
+      <ul onClick={toggleOpen} className={menuClass}>
+        {children}
+      </ul>
     </div>
   );
 };
