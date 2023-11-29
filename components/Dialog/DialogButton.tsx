@@ -1,6 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { DialogContext } from "./DialogContext";
+import { Button } from "../Button";
 
 export type DialogButtonProps = {
   title?: string;
@@ -20,5 +21,5 @@ export const DialogButton = ({
     if (ctx.openDialog) ctx.openDialog({ title, message, action });
   };
 
-  return <button onClick={onClick}>{children}</button>;
+  return <Button onClick={onClick}>{children}</Button>;
 };
