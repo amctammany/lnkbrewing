@@ -1,9 +1,9 @@
 "use client";
 import { useContext } from "react";
 import { DialogContext } from "./DialogContext";
-import { Button } from "../Button";
+import { Button, ButtonType } from "../Button";
 
-export type DialogButtonProps = {
+export type DialogButtonProps = ButtonType & {
   title?: string;
   message?: string;
   action?: string;
@@ -14,6 +14,7 @@ export const DialogButton = ({
   message,
   action,
   children,
+  ...props
 }: DialogButtonProps) => {
   const ctx = useContext(DialogContext);
   if (!ctx) throw new Error("DialogButton must be used within DialogContext");
@@ -21,5 +22,9 @@ export const DialogButton = ({
     if (ctx.openDialog) ctx.openDialog({ title, message, action });
   };
 
-  return <Button onClick={onClick}>{children}</Button>;
+  return (
+    <Button {...props} onClick={onClick}>
+      {children}
+    </Button>
+  );
 };

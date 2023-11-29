@@ -15,7 +15,7 @@ const AdminSettingsActions = () => {
       <ButtonLink href="/admin/settings">Settings</ButtonLink>
       <ButtonLink href="/admin/preferences">Preferences</ButtonLink>
       <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
-      <DialogButton title="dialogContext" message="foo">
+      <DialogButton variant="success" title="dialogContext" message="foo">
         Dialog
       </DialogButton>
     </div>
