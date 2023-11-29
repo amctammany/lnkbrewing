@@ -5,16 +5,57 @@ import { useDialog } from "./useDialog";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Button } from "../Button";
 import { useClickAway } from "@/hooks/useClickAway";
+import { VariantProps, cva } from "class-variance-authority";
+import { ComponentProps } from "react";
+import { twMerge } from "tailwind-merge";
 
-export const Dialog = () => {
+const dialogStyles = cva(
+  ["inset-0 bg-opacity-50 overflow-y-auto h-full w-full"],
+  {
+    variants: {
+      variant: {
+        default: ["bg-gray-400"],
+        warning: ["bg-red-700"],
+      },
+      open: {
+        open: ["fixed"],
+        closed: ["hidden"],
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      open: "closed",
+    },
+  }
+);
+const dialogHeaderStyles = cva(["w-full flex flex-row-reverse rounded-t-md"], {
+  variants: {
+    variant: {
+      default: ["bg-slate-400 "],
+      warning: ["bg-red-800 "],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+const dialogFooterStyles = cva(["mx-auto text-center rounded-b-lg"], {
+  variants: {
+    variant: {
+      default: ["bg-slate-200 "],
+      warning: ["bg-red-200 "],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export type DialogProps = VariantProps<typeof dialogStyles> &
+  ComponentProps<"div">;
+export const Dialog = ({ className, variant }: DialogProps) => {
   const { content, closeDialog } = useDialog();
-  const cn = clsx(
-    "inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full",
-    {
-      hidden: !content?.open,
-      fixed: content?.open,
-    }
-  );
   const onConfirm = () => {
     if (content?.action) content.action();
     if (closeDialog) closeDialog();
@@ -22,14 +63,18 @@ export const Dialog = () => {
   const ref = useClickAway(() => {
     if (closeDialog) closeDialog();
   });
+  const styleProps: VariantProps<typeof dialogStyles> = {
+    variant,
+    open: content?.open ? "open" : "closed",
+  };
   return (
-    <div className={cn}>
+    <div className={twMerge(dialogStyles(styleProps), className)}>
       <div
         ref={ref}
         className="relative mx-auto max-w-2xl border-slate-200 rounded-lg bg-white mt-12"
       >
         <div className="relative p-0 rounded-lg border-2 border-black">
-          <div className="w-full bg-red-400 flex flex-row-reverse rounded-t-md">
+          <div className={dialogHeaderStyles(styleProps)}>
             <Button onClick={closeDialog}>
               <XMarkIcon className="h-6 w-6 text-black font-bold " />
             </Button>
@@ -38,8 +83,8 @@ export const Dialog = () => {
             </div>
           </div>
 
-          <div className="p-4">Message: {content?.message}</div>
-          <div className="mx-auto text-center bg-slate-200  rounded-b-lg">
+          <div className="p-4 text-lg">{content?.message}</div>
+          <div className={dialogFooterStyles(styleProps)}>
             <div className="m-0 p-0 inline-flex flex-row justify-items-center">
               <Button variant="dark" onClick={onConfirm}>
                 Confirm
