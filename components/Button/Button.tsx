@@ -19,8 +19,34 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-const buttonStyles = cva(
-  ["flex", "items-center", "justify-center", "transition-colors"],
+const buttonStyles = cva(["flex items-center  text-bold justify-center"], {
+  variants: {
+    variant: {
+      default: ["bg-gray-500", "hover:bg-gray-100", "border-2", "border-black"],
+      success: ["bg-blue-500", "hover:bg-blue-100", "border-2", "border-black"],
+      warning: [
+        "bg-red-700",
+        "hover:bg-red-200",
+        "text-black",
+        "hover:text-red-800",
+        "border-2",
+        "border-black",
+      ],
+      dark: ["bg-green-900", "hover:bg-slate-800", "text-white"],
+    },
+    size: {
+      default: ["rounded", "m-2", "px-2", "py-1"],
+      button: ["rounded", "h-10", "w-32"],
+      icon: ["rounded-full", "w-20", "h-20", "p-2.5"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+const buttonStyles1 = cva(
+  ["flex items-center  text-bold justify-center transition-colors"],
   {
     variants: {
       variant: {
@@ -29,6 +55,13 @@ const buttonStyles = cva(
           "hover:bg-gray-100",
           "border-2",
           "border-black",
+        ],
+        warning: [
+          "bg-red-700",
+          "hover:bg-red-200",
+          "text-black",
+          "hover:text-red-800",
+          "border-2",
         ],
         hover: ["hover:bg-green-200"],
         dark: ["bg-green-900", "hover:bg-slate-800", "text-white"],
@@ -73,7 +106,7 @@ export const Button = ({ variant, size, className, ...props }: ButtonType) => {
 };
 
 export default Button;
-export type ButtonLinkProps = ButtonProps & { scroll?: boolean; href: string };
+export type ButtonLinkProps = ButtonType & { scroll?: boolean; href: string };
 export const ButtonLink = ({ href, scroll, ...props }: ButtonLinkProps) => {
   return (
     <Link href={href} scroll={scroll}>

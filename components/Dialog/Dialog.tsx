@@ -86,10 +86,10 @@ export const Dialog = ({ className, variant }: DialogProps) => {
           <div className="p-4 text-lg">{content?.message}</div>
           <div className={dialogFooterStyles(styleProps)}>
             <div className="m-0 p-0 inline-flex flex-row justify-items-center">
-              <Button variant="dark" onClick={onConfirm}>
+              <Button variant="success" onClick={onConfirm}>
                 Confirm
               </Button>
-              <Button variant="gradient" onClick={closeDialog}>
+              <Button variant="warning" onClick={closeDialog}>
                 Close
               </Button>
             </div>
