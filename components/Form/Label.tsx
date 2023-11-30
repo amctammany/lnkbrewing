@@ -2,7 +2,7 @@ import { VariantProps, cva } from "class-variance-authority";
 
 export type LabelProps = {
   children?: React.ReactNode;
-  label: string;
+  label?: string;
 } & VariantProps<typeof labelStyles>;
 const labelStyles = cva(["block"], {
   variants: {
