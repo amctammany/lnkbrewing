@@ -1,5 +1,5 @@
 "use client";
-import { Autocomplete } from "@/components";
+import { Autocomplete } from "@/components/Form/Autocomplete";
 import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
