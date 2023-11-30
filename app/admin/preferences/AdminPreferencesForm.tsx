@@ -53,7 +53,7 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
       />
       <Autocomplete
         {...register("equipmentProfileId")}
-        value={src?.equipmentProfileId}
+        value={src?.equipmentProfileId ?? undefined}
         options={
           Object.entries(equipmentProfiles).map(([a, b]) => [
             b,

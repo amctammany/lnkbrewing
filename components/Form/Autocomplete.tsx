@@ -3,6 +3,7 @@ import {
   ChangeEventHandler,
   ComponentProps,
   KeyboardEventHandler,
+  MouseEventHandler,
   forwardRef,
   useState,
 } from "react";
@@ -12,7 +13,7 @@ import { VariantProps, cva } from "class-variance-authority";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
-    value?: any;
+    value?: number;
     label?: string;
     options: Option[];
   };
@@ -68,11 +69,6 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     }: AutocompleteProps,
     ref
   ) {
-    console.log(
-      value,
-      options,
-      value ? options.find((op) => op[1] === value) : ""
-    );
     const [query, setQuery] = useState(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );
@@ -83,7 +79,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       const value = e.target.value;
       setFilteredOptions(
         options.filter(
-          ([opt, id]) => opt.toLowerCase().indexOf(value.toLowerCase()) > -1
+          ([opt]) => opt.toLowerCase().indexOf(value.toLowerCase()) > -1
         )
       );
       setQuery(value);
@@ -91,9 +87,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       if (onChange) onChange(e);
     };
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-      console.log(e.code);
       if (e.code === "Enter") {
-        console.log("return");
         setQuery(filteredOptions[activeOption][0]);
         //ref()?.current.value = options[activeOption][0];
         setHidden(filteredOptions[activeOption][1]);
@@ -104,6 +98,12 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         setActiveOption((o) => (o <= 0 ? filteredOptions.length - 1 : o - 1));
       }
     };
+    const onOptionClick: MouseEventHandler<HTMLLIElement> = (e) => {
+      const id = parseInt(e.currentTarget.dataset.id || "");
+      const label = e.currentTarget.innerText;
+      setQuery(label);
+      setHidden(id);
+    };
     return (
       <>
         <input
@@ -112,7 +112,6 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           value={hidden}
           defaultValue={defaultValue}
           onChange={onChange}
-          onBlur={onBlur}
           ref={ref}
         />
         <Label label={label || name}>
@@ -123,6 +122,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
             value={query?.toString()}
             onKeyDown={onKeyDown}
+            onBlur={onBlur}
             onChange={handleChange}
           />
         </Label>
@@ -131,14 +131,16 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             open: query && query.length > 0 ? "open" : "closed",
           })}
         >
-          {filteredOptions.map((opt: any, index) => (
+          {filteredOptions.map((opt, index) => (
             <li
-              key={opt}
+              key={opt[1]}
+              data-id={opt[1]}
               className={optionStyles({
                 selected: index === activeOption ? "active" : "default",
               })}
+              onClick={onOptionClick}
             >
-              {opt}
+              {opt[0]}
             </li>
           ))}
         </ul>
