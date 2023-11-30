@@ -78,11 +78,13 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const [query, setQuery] = useState(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );
+    const [displayOptions, setDisplayOptions] = useState(false);
     const [hidden, setHidden] = useState(value);
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [activeOption, setActiveOption] = useState(-1);
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       const value = e.target.value;
+      setDisplayOptions(value.length > 0);
       setFilteredOptions(
         options.filter(
           ([opt]) => opt.toLowerCase().indexOf(value.toLowerCase()) > -1
@@ -97,6 +99,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         setQuery(filteredOptions[activeOption][0]);
         //ref()?.current.value = options[activeOption][0];
         setHidden(filteredOptions[activeOption][1]);
+        setDisplayOptions(false);
         e.preventDefault();
       } else if (e.code === "ArrowDown") {
         setActiveOption((o) => (o >= filteredOptions.length - 1 ? 0 : o + 1));
@@ -108,6 +111,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       const id = parseInt(e.currentTarget.dataset.id || "");
       const label = e.currentTarget.innerText;
       setQuery(label);
+      setDisplayOptions(false);
       setHidden(id);
     };
     return (
@@ -134,7 +138,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         </Label>
         <ul
           className={optionListStyles({
-            open: query && query.length > 0 ? "open" : "closed",
+            open: displayOptions ? "open" : "closed",
           })}
         >
           {filteredOptions.map((opt, index) => (
