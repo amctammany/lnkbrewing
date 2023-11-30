@@ -1,4 +1,4 @@
-import { Form, Submit, TextArea, TextField } from "@/components";
+import { Form, Submit, TextArea, TextField } from "@/components/Form";
 import { prisma } from "@/lib/client";
 import { update } from "../../actions";
 import { Style } from "@prisma/client";

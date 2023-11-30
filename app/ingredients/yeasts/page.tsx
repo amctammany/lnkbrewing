@@ -1,10 +1,5 @@
-import {
-  List,
-  ListItemButton,
-  Section,
-  Table,
-  TableColumn,
-} from "@/components";
+import { Section } from "@/components/Section";
+import { Table } from "@/components/Table";
 import { prisma } from "@/lib/client";
 import { Yeast } from "@prisma/client";
 import { Metadata } from "next";

@@ -1,10 +1,5 @@
-import {
-  Button,
-  ButtonLink,
-  List,
-  ListItemButton,
-  Section,
-} from "@/components";
+import { ButtonLink } from "@/components/Button";
+import { Section } from "@/components/Section";
 import { prisma } from "@/lib/client";
 import { Style } from "@prisma/client";
 import Link from "next/link";

@@ -1,4 +1,5 @@
-import { List, ListItemButton, Section } from "@/components";
+import { List, ListItemButton } from "@/components/List";
+import { Section } from "@/components/Section";
 import { Metadata } from "next";
 import { getStyles } from "./queries";
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import { Section } from "@/components";
+import { Section } from "@/components/Section";
 import Link from "next/link";
 
 const links = [
