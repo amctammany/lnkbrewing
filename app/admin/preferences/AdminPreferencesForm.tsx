@@ -54,12 +54,7 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
       <Autocomplete
         {...register("equipmentProfileId")}
         value={src?.equipmentProfileId ?? undefined}
-        options={
-          Object.entries(equipmentProfiles).map(([a, b]) => [
-            b,
-            parseInt(a),
-          ]) as any
-        }
+        options={equipmentProfiles}
       />
       <Select {...register("gravityUnit")} options={UserGravityPreference} />
       <Select {...register("mashProfileId")} options={mashProfiles} />

@@ -5,6 +5,7 @@ import {
   KeyboardEventHandler,
   MouseEventHandler,
   forwardRef,
+  useMemo,
   useState,
 } from "react";
 import { TextField } from "./TextField";
@@ -15,7 +16,8 @@ export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
     value?: number;
     label?: string;
-    options: Option[];
+    options: Record<number, string>;
+    //options: Option[];
   };
 const optionStyles = cva([""], {
   variants: {
@@ -58,7 +60,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     {
       name,
       label,
-      options,
+      options: ops,
       disabled,
       defaultValue,
       value,
@@ -69,6 +71,10 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     }: AutocompleteProps,
     ref
   ) {
+    const options: Option[] = useMemo(
+      () => Object.entries(ops).map(([k, v]) => [v, parseInt(k)]),
+      [ops]
+    );
     const [query, setQuery] = useState(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );

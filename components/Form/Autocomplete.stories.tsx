@@ -2,11 +2,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Autocomplete, Option } from "./Autocomplete";
-const options: Option[] = [
-  ["first", 0],
-  ["second", 1],
-  ["third", 2],
-];
+const options: Record<number, string> = {
+  0: "hi",
+  1: "you",
+  2: "guys",
+};
 const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
 };
