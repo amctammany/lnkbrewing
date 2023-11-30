@@ -10,11 +10,12 @@ import { TextField } from "./TextField";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 export type Option<T = string, ID = number> = [T, ID];
-export type AutocompleteProps = {
-  label?: string;
-  options: Option[];
-} & VariantProps<typeof autocompleteStyles> &
-  ComponentProps<"input">;
+export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
+  ComponentProps<"input"> & {
+    value?: any;
+    label?: string;
+    options: Option[];
+  };
 const optionStyles = cva([""], {
   variants: {
     selected: {
@@ -30,7 +31,7 @@ const optionListStyles = cva([""], {
   variants: {
     open: {
       open: ["block"],
-      closed: ["hdden"],
+      closed: ["hidden"],
     },
   },
   defaultVariants: {
@@ -67,7 +68,14 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     }: AutocompleteProps,
     ref
   ) {
-    const [query, setQuery] = useState("");
+    console.log(
+      value,
+      options,
+      value ? options.find((op) => op[1] === value) : ""
+    );
+    const [query, setQuery] = useState(
+      value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
+    );
     const [hidden, setHidden] = useState(value);
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [activeOption, setActiveOption] = useState(-1);
@@ -86,9 +94,10 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       console.log(e.code);
       if (e.code === "Enter") {
         console.log("return");
-        setQuery(options[activeOption][0]);
+        setQuery(filteredOptions[activeOption][0]);
         //ref()?.current.value = options[activeOption][0];
-        setHidden(options[activeOption][1]);
+        setHidden(filteredOptions[activeOption][1]);
+        e.preventDefault();
       } else if (e.code === "ArrowDown") {
         setActiveOption((o) => (o >= filteredOptions.length - 1 ? 0 : o + 1));
       } else if (e.code === "ArrowUp") {
@@ -112,14 +121,14 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             disabled={disabled}
             className={autocompleteStyles({ size, variant })}
             //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-            value={query}
+            value={query?.toString()}
             onKeyDown={onKeyDown}
             onChange={handleChange}
           />
         </Label>
         <ul
           className={optionListStyles({
-            open: query.length > 0 ? "open" : "closed",
+            open: query && query.length > 0 ? "open" : "closed",
           })}
         >
           {filteredOptions.map((opt: any, index) => (
@@ -133,7 +142,6 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             </li>
           ))}
         </ul>
-        <b>{value}</b>
       </>
     );
   }

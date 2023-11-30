@@ -1,4 +1,5 @@
 "use client";
+import { Autocomplete } from "@/components";
 import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
@@ -50,8 +51,17 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
         {...register("temperatureUnit")}
         options={UserTemperaturePreference}
       />
+      <Autocomplete
+        {...register("equipmentProfileId")}
+        value={src?.equipmentProfileId}
+        options={
+          Object.entries(equipmentProfiles).map(([a, b]) => [
+            b,
+            parseInt(a),
+          ]) as any
+        }
+      />
       <Select {...register("gravityUnit")} options={UserGravityPreference} />
-      <Select {...register("equipmentProfileId")} options={equipmentProfiles} />
       <Select {...register("mashProfileId")} options={mashProfiles} />
       <Select {...register("sourceWaterProfileId")} options={waterProfiles} />
       <Select {...register("targetWaterProfileId")} options={waterProfiles} />
