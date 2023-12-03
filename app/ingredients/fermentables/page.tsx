@@ -1,8 +1,7 @@
-import { Section } from "@/components/Section";
-import { prisma } from "@/lib/client";
 import { Fermentable } from "@prisma/client";
 import { Metadata } from "next";
 import { FermentablesTable } from "./_components";
+import { getFermentables } from "./queries";
 export const metadata: Metadata = {
   title: "LNK Fermentables",
 };
@@ -11,7 +10,7 @@ export default async function FermentablesIndex({
 }: {
   searchParams?: Record<string, string>;
 }) {
-  const fermentables = await prisma.fermentable.findMany();
+  const fermentables = await getFermentables();
   return (
     <FermentablesTable
       sort={searchParams?.sort as keyof Fermentable}

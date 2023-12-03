@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/client";
 import { Yeast } from "@prisma/client";
 import { Metadata } from "next";
 import { YeastsTable } from "./_components";
+import { getYeasts } from "./queries";
 export const metadata: Metadata = {
   title: "LNK Yeasts",
 };
@@ -10,7 +10,7 @@ export default async function YeastsIndex({
 }: {
   searchParams?: Record<string, string>;
 }) {
-  const yeasts = await prisma.yeast.findMany();
+  const yeasts = await getYeasts();
   return (
     <YeastsTable
       sort={searchParams?.sort as keyof Yeast}
