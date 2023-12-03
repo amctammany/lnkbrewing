@@ -39,14 +39,14 @@ export function Table<T extends Record<string, any>>({
                 >
                   <div className="flex">
                     <b className="flex-grow">{label || name}</b>
-                    <i>
+                    <span className="flex-shrink">
                       {sort === name &&
                         (direction === "ASC" ? (
                           <D.ArrowUpIcon className="h-6 w-6" />
                         ) : (
                           <D.ArrowDownIcon className="h-6 w-6" />
                         ))}
-                    </i>
+                    </span>
                   </div>
                 </Link>
               </th>

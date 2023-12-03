@@ -1,4 +1,5 @@
 "use client";
+import { Section } from "@/components/Section";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
@@ -39,28 +40,41 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
   };
   console.log(equipmentProfiles);
   return (
-    <Form action={onSubmit}>
-      <input type="hidden" {...register("userId")} />
-      <Select {...register("volumeUnit")} options={UserVolumePreference} />
-      <Select {...register("hopMassUnit")} options={UserMassPreference} />
-      <Select
-        {...register("fermentableMassUnit")}
-        options={UserMassPreference}
-      />
-      <Select
-        {...register("temperatureUnit")}
-        options={UserTemperaturePreference}
-      />
-      <Autocomplete
-        {...register("equipmentProfileId")}
-        value={src?.equipmentProfileId ?? undefined}
-        options={equipmentProfiles}
-      />
-      <Select {...register("gravityUnit")} options={UserGravityPreference} />
-      <Select {...register("mashProfileId")} options={mashProfiles} />
-      <Select {...register("sourceWaterProfileId")} options={waterProfiles} />
-      <Select {...register("targetWaterProfileId")} options={waterProfiles} />
-      <Submit>Save</Submit>
-    </Form>
+    <div className="max-w-lg mx-auto">
+      <Section header="Preferences">
+        <Form action={onSubmit}>
+          <input type="hidden" {...register("userId")} />
+          <Select {...register("volumeUnit")} options={UserVolumePreference} />
+          <Select {...register("hopMassUnit")} options={UserMassPreference} />
+          <Select
+            {...register("fermentableMassUnit")}
+            options={UserMassPreference}
+          />
+          <Select
+            {...register("temperatureUnit")}
+            options={UserTemperaturePreference}
+          />
+          <Autocomplete
+            {...register("equipmentProfileId")}
+            value={src?.equipmentProfileId ?? undefined}
+            options={equipmentProfiles}
+          />
+          <Select
+            {...register("gravityUnit")}
+            options={UserGravityPreference}
+          />
+          <Select {...register("mashProfileId")} options={mashProfiles} />
+          <Select
+            {...register("sourceWaterProfileId")}
+            options={waterProfiles}
+          />
+          <Select
+            {...register("targetWaterProfileId")}
+            options={waterProfiles}
+          />
+          <Submit>Save</Submit>
+        </Form>
+      </Section>
+    </div>
   );
 };

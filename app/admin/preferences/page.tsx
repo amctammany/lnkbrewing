@@ -26,14 +26,12 @@ export default async function AdminSettingsPage() {
   const waterProfiles = await getWaterProfileOptions();
   console.log(user);
   return (
-    <div className="p-3 max-w-2xl">
-      <AdminPreferencesForm
-        mashProfiles={mashProfiles}
-        equipmentProfiles={equipmentProfiles}
-        waterProfiles={waterProfiles}
-        src={user?.UserPreferences || ({ userId: user?.id } as UserPreferences)}
-        action={updateUserPreferences}
-      />
-    </div>
+    <AdminPreferencesForm
+      mashProfiles={mashProfiles}
+      equipmentProfiles={equipmentProfiles}
+      waterProfiles={waterProfiles}
+      src={user?.UserPreferences || ({ userId: user?.id } as UserPreferences)}
+      action={updateUserPreferences}
+    />
   );
 }
