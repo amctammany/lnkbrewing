@@ -14,6 +14,7 @@ import {
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Autocomplete } from "@/components/Form/Autocomplete";
 
 interface HopIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -46,7 +47,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   console.log({ massUnit });
   const src =
     hopId === "new" ? ({ recipeId: recipe?.id } as ExtendedHopIngredient) : hop;
-  const { register, handleSubmit, reset, setValue } =
+  const { register, getValues, handleSubmit, reset, setValue } =
     useForm<HopIngredientFormInput>({
       defaultValues: src || { recipeId: recipe?.id },
     });
@@ -62,9 +63,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     action(body);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const { name, value } = e.currentTarget;
-    const hop = hops.find((p) => p.id === parseInt(value));
+  const handleChange = (value: number) => {
+    const hop = hops.find((p) => p.id === value);
+    console.log(value);
     if (!hop) return;
     setValue("hopId", hop?.id);
     setValue("alpha", hop?.alpha);
@@ -79,11 +80,12 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
       <div className="flex flex-row gap-2 md:grid md:grid-cols-2">
-        <Select
+        <Autocomplete
           label="Hop"
           {...register("hopId")}
+          defaultValue={getValues("hopId") as any}
           options={options}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
         <div className="grid grid-cols-2 gap-2">
           <div className="">

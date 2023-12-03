@@ -14,9 +14,10 @@ import { VariantProps, cva } from "class-variance-authority";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
-    value?: number;
+    value?: number | null;
     label?: string;
     options: Record<number, string>;
+    handleChange?: (id: number) => void;
     //options: Option[];
   };
 const optionStyles = cva([""], {
@@ -65,6 +66,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       defaultValue,
       value,
       onChange,
+      handleChange,
       onBlur,
       variant,
       size,
@@ -75,14 +77,15 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       () => Object.entries(ops).map(([k, v]) => [v, parseInt(k)]),
       [ops]
     );
+    console.log(value);
     const [query, setQuery] = useState(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );
     const [displayOptions, setDisplayOptions] = useState(false);
-    const [hidden, setHidden] = useState(value);
+    const [hidden, setHidden] = useState(value || defaultValue);
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [activeOption, setActiveOption] = useState(-1);
-    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleChangeListener: ChangeEventHandler<HTMLInputElement> = (e) => {
       const value = e.target.value;
       setDisplayOptions(value.length > 0);
       setFilteredOptions(
@@ -94,11 +97,15 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       setActiveOption(0);
       if (onChange) onChange(e);
     };
+    const changeValue = (val: number) => {
+      setHidden(val);
+      if (handleChange) handleChange(val);
+    };
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.code === "Enter") {
         setQuery(filteredOptions[activeOption][0]);
         //ref()?.current.value = options[activeOption][0];
-        setHidden(filteredOptions[activeOption][1]);
+        changeValue(filteredOptions[activeOption][1]);
         setDisplayOptions(false);
         e.preventDefault();
       } else if (e.code === "ArrowDown") {
@@ -112,7 +119,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       const label = e.currentTarget.innerText;
       setQuery(label);
       setDisplayOptions(false);
-      setHidden(id);
+      changeValue(id);
     };
     return (
       <>
@@ -120,7 +127,6 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           type="hidden"
           name={name}
           value={hidden}
-          defaultValue={defaultValue}
           onChange={onChange}
           ref={ref}
         />
@@ -133,27 +139,27 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             value={query?.toString()}
             onKeyDown={onKeyDown}
             onBlur={onBlur}
-            onChange={handleChange}
+            onChange={handleChangeListener}
           />
+          <ul
+            className={optionListStyles({
+              open: displayOptions ? "open" : "closed",
+            })}
+          >
+            {filteredOptions.map((opt, index) => (
+              <li
+                key={opt[1]}
+                data-id={opt[1]}
+                className={optionStyles({
+                  selected: index === activeOption ? "active" : "default",
+                })}
+                onClick={onOptionClick}
+              >
+                {opt[0]}
+              </li>
+            ))}
+          </ul>
         </Label>
-        <ul
-          className={optionListStyles({
-            open: displayOptions ? "open" : "closed",
-          })}
-        >
-          {filteredOptions.map((opt, index) => (
-            <li
-              key={opt[1]}
-              data-id={opt[1]}
-              className={optionStyles({
-                selected: index === activeOption ? "active" : "default",
-              })}
-              onClick={onOptionClick}
-            >
-              {opt[0]}
-            </li>
-          ))}
-        </ul>
       </>
     );
   }

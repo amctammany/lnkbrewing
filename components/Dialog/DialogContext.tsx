@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const DialogContext = createContext<{
   content?: DialogContent;
