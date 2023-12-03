@@ -2,13 +2,27 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Autocomplete, Option } from "./Autocomplete";
-const options: Record<number, string> = {
-  0: "hi",
-  1: "you",
-  2: "guys",
-};
+const options: Record<number, string> = Object.fromEntries(
+  Object.entries([
+    "hey",
+    "hi",
+    "you",
+    "your",
+    "heere",
+    "guys",
+    "girls",
+    "gurls",
+  ])
+);
 const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
+  decorators: [
+    (Story) => (
+      <div className="flex justify-center h-screen">
+        <Story />
+      </div>
+    ),
+  ],
 };
 export default meta;
 

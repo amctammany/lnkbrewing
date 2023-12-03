@@ -20,7 +20,7 @@ export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
     handleChange?: (id: number) => void;
     //options: Option[];
   };
-const optionStyles = cva([""], {
+const optionStyles = cva(["px-4 py-2 hover:bg-slate-300 hover:text-white"], {
   variants: {
     selected: {
       active: ["bg-slate-400", "text-white"],
@@ -31,18 +31,23 @@ const optionStyles = cva([""], {
     selected: "default",
   },
 });
-const optionListStyles = cva([""], {
-  variants: {
-    open: {
-      open: ["block"],
-      closed: ["hidden"],
+const optionListStyles = cva(
+  [
+    "absolute right-0 left-0 py-0 mt-0 max-h-64 overflow-y-scroll bg-white shadow-lg z-20 p-2 border border-blue-200",
+  ],
+  {
+    variants: {
+      open: {
+        open: [""],
+        closed: ["hidden"],
+      },
     },
-  },
-  defaultVariants: {
-    open: "closed",
-  },
-});
-const autocompleteStyles = cva("input", {
+    defaultVariants: {
+      open: "closed",
+    },
+  }
+);
+const autocompleteStyles = cva("input overflow-hidden", {
   variants: {
     variant: {
       default: ["block"],
@@ -122,7 +127,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       changeValue(id);
     };
     return (
-      <>
+      <div className="relative ">
         <input
           type="hidden"
           name={name}
@@ -130,7 +135,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           onChange={onChange}
           ref={ref}
         />
-        <Label label={label || name}>
+        <Label className="relative m-0" label={label || name}>
           <input
             type="text"
             disabled={disabled}
@@ -160,7 +165,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             ))}
           </ul>
         </Label>
-      </>
+      </div>
     );
   }
 );
