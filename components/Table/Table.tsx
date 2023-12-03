@@ -1,23 +1,47 @@
-import React from "react";
-import * as D from "@heroicons/react/20/solid";
+import React, { ComponentProps } from "react";
 import { TableRow, makeTableRow } from "./TableRow";
-import Link from "next/link";
-export type TableProps<T extends Record<string, any>> = {
-  sort?: keyof T;
-  direction?: string; //"ASC" | "DESC";
-  src: T[];
-  columns: {
-    name: string;
-    label?: string;
-    width?: number;
-  }[];
-};
+import { TableHeader } from "./TableHeader";
+import { VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
+export type TableProps<T extends Record<string, any>> = VariantProps<
+  typeof tableStyles
+> &
+  ComponentProps<"table"> & {
+    sort?: keyof T;
+    direction?: string; //"ASC" | "DESC";
+    src: T[];
+    columns: {
+      name: string;
+      label?: string;
+      width?: number;
+    }[];
+  };
+const tableStyles = cva(
+  ["w-full table table-auto border border-collapse border-slate-400"],
+  {
+    variants: {
+      variant: {
+        default: [""],
+      },
+      active: {
+        ASC: ["underline"],
+        DESC: ["underline"],
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
 export function Table<T extends Record<string, any>>({
   src,
   columns,
   sort,
   direction,
+  variant,
+  className,
+  ...props
 }: TableProps<T>) {
   const Row = makeTableRow(columns);
   const filtered = sort
@@ -27,29 +51,23 @@ export function Table<T extends Record<string, any>>({
     : src;
   return (
     <div className="max-w-full overflow-auto">
-      <table className="w-full table table-auto border border-collapse border-slate-400">
+      <table className={clsx(tableStyles({ variant }), className)} {...props}>
         <thead>
           <tr>
             {columns.map(({ name, label }) => (
-              <th key={name} className="border border-slate-400">
-                <Link
-                  href={`?sort=${name}&direction=${
-                    direction === "ASC" ? "DESC" : "ASC"
-                  }`}
-                >
-                  <div className="flex">
-                    <b className="flex-grow">{label || name}</b>
-                    <span className="flex-shrink">
-                      {sort === name &&
-                        (direction === "ASC" ? (
-                          <D.ArrowUpIcon className="h-6 w-6" />
-                        ) : (
-                          <D.ArrowDownIcon className="h-6 w-6" />
-                        ))}
-                    </span>
-                  </div>
-                </Link>
-              </th>
+              <TableHeader
+                key={name}
+                variant={variant}
+                name={name}
+                label={label}
+                active={
+                  sort === name
+                    ? direction === "DESC"
+                      ? "DESC"
+                      : "ASC"
+                    : undefined
+                }
+              />
             ))}
           </tr>
         </thead>

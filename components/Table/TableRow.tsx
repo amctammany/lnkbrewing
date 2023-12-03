@@ -1,18 +1,37 @@
 import Link from "next/link";
 import { DataColumnProps } from "./DataColumn";
+import { VariantProps, cva } from "class-variance-authority";
+import { ComponentProps } from "react";
 
 export type TableRowProps<T extends Record<string, any> = Record<string, any>> =
-  {
-    data: T;
-    columns: DataColumnProps<T>[];
-  };
+  VariantProps<typeof tableRowStyles> &
+    ComponentProps<"tr"> & {
+      data: T;
+      columns: DataColumnProps<T>[];
+    };
+const tableRowStyles = cva([""], {
+  variants: {
+    variant: {
+      default: [""],
+    },
+    active: {
+      ASC: ["underline"],
+      DESC: ["underline"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 export function TableRow<T extends Record<string, any> = Record<string, any>>({
   data,
   columns,
+  variant,
+  ...props
 }: TableRowProps<T>) {
   return (
-    <tr className="" key={data.id}>
+    <tr className={tableRowStyles({ variant })} key={data.id} {...props}>
       {columns.map(({ name, href }) => (
         <td
           className="border border-slate-400"
