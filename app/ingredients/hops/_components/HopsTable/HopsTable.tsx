@@ -17,8 +17,6 @@ const columns = [
 
 export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <Section header="Hops">
-    <div className="min-w-full">
-      <Table src={hops} columns={columns} sort={sort} direction={direction} />
-    </div>
+    <Table src={hops} columns={columns} sort={sort} direction={direction} />
   </Section>
 );
