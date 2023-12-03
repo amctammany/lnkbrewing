@@ -10,7 +10,9 @@ export const Nav = ({ children }: NavProps) => {
   return (
     <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">
       <div className="md:hidden">
-        <Menu label="Open">{children}</Menu>
+        <Menu variant="dark" label="Open">
+          {children}
+        </Menu>
       </div>
 
       <div className="flex items-center flex-shrink-0 mr-6 lg:mr-16">
@@ -29,9 +31,9 @@ export const Nav = ({ children }: NavProps) => {
         </Link>
       </div>
       <div className="hidden w-full flex-grow md:flex lg:items-center lg:w-auto">
-        <ul className="flex flex-grow items-center flex-row font-medium p-2 md:p-0  md:space-x-8">
+        <div className="flex flex-grow items-center flex-row font-medium p-2 md:p-0  md:space-x-8">
           {children}
-        </ul>
+        </div>
         <AuthenticationNav />
       </div>
     </nav>

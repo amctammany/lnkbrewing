@@ -10,13 +10,17 @@ export type MenuProps = VariantProps<typeof menuStyles> & {
 };
 const menuStyles = cva(
   [
-    "absolute right-0 mt-0 py-0 w-48 bg-white rounded-lg shadow-xl z-20 border border-blue-500 [&>*:first-child)]:rounded-t-md [&>*:last-child]:rounded-b-md",
+    "absolute list-none right-0 mt-0 py-0 w-48 rounded-lg shadow-xl z-20 border border-blue-500 [&>*:first-child)]:rounded-t-md [&>*:last-child]:rounded-b-md",
   ],
-  //["absolute  bg-gray-700 list-none float-left z-[1000] shadow-lg"],
   {
     variants: {
       variant: {
-        default: [],
+        default: ["bg-white"],
+        dark: ["bg-slate-400"],
+      },
+      anchor: {
+        left: ["left-0"],
+        right: ["right-0"],
       },
       open: {
         open: [],
@@ -24,7 +28,8 @@ const menuStyles = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "dark",
+      anchor: "left",
       open: "closed",
     },
   }
@@ -40,7 +45,7 @@ const menuButtonStyles = cva(
   }
 );
 
-export const Menu = ({ label, children, variant }: MenuProps) => {
+export const Menu = ({ label, children, variant, anchor }: MenuProps) => {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((v) => !v);
   const ref = useClickAway(() => setOpen(false));
@@ -71,7 +76,11 @@ export const Menu = ({ label, children, variant }: MenuProps) => {
       </button>
       <div
         onClick={toggleOpen}
-        className={menuStyles({ open: open ? "open" : "closed", variant })}
+        className={menuStyles({
+          open: open ? "open" : "closed",
+          variant,
+          anchor,
+        })}
       >
         {children}
       </div>

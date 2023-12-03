@@ -16,10 +16,8 @@ export const NavLink = ({ children, href }: NavLinkProps) => {
     active ? "text-yellow-200 " : "text-white"
   );
   return (
-    <li>
-      <Link href={href} className={c}>
-        {children}
-      </Link>
-    </li>
+    <Link href={href} className={c}>
+      {children}
+    </Link>
   );
 };
