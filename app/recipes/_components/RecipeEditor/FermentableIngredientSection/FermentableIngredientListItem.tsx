@@ -18,9 +18,9 @@ export const FermentableIngredientListItem = ({
           scroll={false}
           href={`?fermentableId=${fermentable.id}`}
         >
-          <div className="">
-            <div className="">
-              <div className="text-lg ">{fermentable.usage}</div>
+          <div className="h-full grid ">
+            <div className="my-auto">
+              <span className="text-lg ">{fermentable.usage}</span>
             </div>
           </div>
           <div className="col-span-4">

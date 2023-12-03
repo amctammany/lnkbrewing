@@ -16,7 +16,7 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
           scroll={false}
           href={`?hopId=${hop.id}`}
         >
-          <div className="">
+          <div className="my-auto">
             <div className="text-lg ">
               {hop.duration} {hop.durationType}
             </div>

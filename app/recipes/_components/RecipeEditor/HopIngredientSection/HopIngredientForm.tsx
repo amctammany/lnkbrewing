@@ -83,7 +83,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         <Autocomplete
           label="Hop"
           {...register("hopId")}
-          defaultValue={getValues("hopId") as any}
+          value={getValues("hopId") as any}
           options={options}
           handleChange={handleChange}
         />
