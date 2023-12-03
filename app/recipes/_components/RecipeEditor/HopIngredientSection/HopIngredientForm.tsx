@@ -79,7 +79,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     <Form onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
-      <div className="flex flex-row gap-2 md:grid md:grid-cols-2">
+      <div className="gap-2 md:grid md:grid-cols-2">
         <Autocomplete
           label="Hop"
           {...register("hopId")}
