@@ -1,27 +1,21 @@
-import { Section } from "@/components/Section";
-import { Table } from "@/components/Table";
 import { prisma } from "@/lib/client";
 import { Yeast } from "@prisma/client";
 import { Metadata } from "next";
+import { YeastsTable } from "./_components";
 export const metadata: Metadata = {
   title: "LNK Yeasts",
 };
-const columns = [
-  { name: "name", href: (src: Yeast) => `/ingredients/yeasts/${src.slug}` },
-  { name: "manufacturer" },
-  { name: "type" },
-  { name: "form" },
-  { name: "tempLow" },
-  { name: "tempHigh" },
-  { name: "attenuation" },
-  { name: "flocculation" },
-  { name: "usage" },
-];
-export default async function YeastsIndex() {
+export default async function YeastsIndex({
+  searchParams,
+}: {
+  searchParams?: Record<string, string>;
+}) {
   const yeasts = await prisma.yeast.findMany();
   return (
-    <Section header="Yeasts">
-      <Table src={yeasts} columns={columns} />
-    </Section>
+    <YeastsTable
+      sort={searchParams?.sort as keyof Yeast}
+      direction={searchParams?.direction}
+      yeasts={yeasts || []}
+    />
   );
 }
