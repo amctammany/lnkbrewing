@@ -23,26 +23,28 @@ export function Table<T extends Record<string, any>>({
     ? src.sort((a, b) => (a[sort] < b[sort] ? -1 : 1))
     : src;
   return (
-    <table className="min-w-full table-auto border border-collapse border-slate-400">
-      <thead>
-        <tr>
-          {columns.map(({ name, label }) => (
-            <th key={name} className="border border-slate-400">
-              <Link href={`?sort=${name}`}>
-                <>
-                  <b>{label || name}</b>
-                  <i>{sort === name && <b> selected</b>}</i>
-                </>
-              </Link>
-            </th>
+    <div className="max-w-full overflow-auto">
+      <table className="w-full table table-auto border border-collapse border-slate-400">
+        <thead>
+          <tr>
+            {columns.map(({ name, label }) => (
+              <th key={name} className="border border-slate-400">
+                <Link href={`?sort=${name}`}>
+                  <>
+                    <b>{label || name}</b>
+                    <i>{sort === name && <b> selected</b>}</i>
+                  </>
+                </Link>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((row) => (
+            <Row key={row.id} data={row} />
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {filtered.map((row) => (
-          <Row key={row.id} data={row} />
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   );
 }

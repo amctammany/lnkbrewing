@@ -27,7 +27,7 @@ export default function RootLayout({
         </Nav>
         <DialogProvider>
           <Dialog />
-          <main className="top-16 min-h-screen min-w-full left-2 right-2 flex flex-col items-center justify-between p-2">
+          <main className="top-16 min-h-screen min-w-full left-2 right-2 items-center justify-between p-2 md:p-4">
             {children}
           </main>
         </DialogProvider>

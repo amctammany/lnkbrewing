@@ -44,7 +44,7 @@ const sectionBody = cva(["bg-white"], {
     },
     size: {
       small: ["p-1", "shadow-sm", "text-sm"],
-      default: ["p-2", "shadow-lg", "text-lg"],
+      default: ["flex-grow", "p-2", "shadow-lg", "text-lg"],
     },
   },
   defaultVariants: {
