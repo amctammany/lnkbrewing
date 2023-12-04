@@ -58,8 +58,12 @@ export const RecipeEditor: FC<RecipeEditorProps> = (props) => {
             recipeId={recipeId}
           />
         </div>
-        <MashSection open={!!searchParams?.mash} recipeId={recipeId} />
-        <WaterSection open={!!searchParams?.water} recipeId={recipeId} />
+        <div>
+          <MashSection open={!!searchParams?.mash} recipeId={recipeId} />
+        </div>
+        <div>
+          <WaterSection open={!!searchParams?.water} recipeId={recipeId} />
+        </div>
       </div>
     </div>
   );

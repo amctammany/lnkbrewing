@@ -14,17 +14,18 @@ export const RoutedModal = ({
 }: RoutedModalProps) => {
   //const handleClose = () => router.back();
   const cn = clsx(
-    "inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full",
+    "inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20",
     {
       hidden: hidden,
       fixed: !hidden,
+      RoutedModal,
     }
   );
   return (
     <div className={cn}>
       <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white mt-3">
         <ClickAwayRouter url={returnUrl}>
-          <div className="relative p-0">
+          <div className="relative p-0 z-50">
             <div className="w-full bg-slate-500 flex flex-row-reverse">
               <ButtonLink scroll={false} href={returnUrl}>
                 <XMarkIcon className="h-6 w-6 text-black font-bold " />

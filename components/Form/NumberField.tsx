@@ -23,6 +23,7 @@ const numberFieldStyles = cva("input", {
         "disabled:border-slate-200",
         "disabled:shadow-none",
       ],
+      error: ["bg-error-200"],
     },
     size: {
       default: ["w-full"],

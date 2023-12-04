@@ -46,12 +46,14 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
   });
 
   return (
-    <Section header="Hops" actions={<HopIngredientSectionActions />}>
-      <List>
-        {(recipe?.hops || []).map((hop) => (
-          <HopIngredientListItem key={hop.id} hop={hop} />
-        ))}
-      </List>
+    <>
+      <Section header="Hops" actions={<HopIngredientSectionActions />}>
+        <List>
+          {(recipe?.hops || []).map((hop) => (
+            <HopIngredientListItem key={hop.id} hop={hop} />
+          ))}
+        </List>
+      </Section>
       {open && (
         <HopIngredientModal
           hop={hopIngredient}
@@ -61,6 +63,6 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
           open={open}
         />
       )}
-    </Section>
+    </>
   );
 };

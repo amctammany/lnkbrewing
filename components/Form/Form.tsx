@@ -1,6 +1,8 @@
 import { VariantProps, cva } from "class-variance-authority";
+import { ComponentProps } from "react";
 import {
   FieldValues,
+  Form as HookForm,
   SubmitHandler,
   UseFormHandleSubmit,
 } from "react-hook-form";
@@ -9,7 +11,8 @@ export type FormProps<T extends FieldValues = {}> = {
   children?: React.ReactNode;
   action?: (data: FormData) => void;
   onSubmit?: any;
-} & VariantProps<typeof formStyles>;
+} & VariantProps<typeof formStyles> &
+  ComponentProps<"form">;
 const formStyles = cva(["flex-autao"], {
   variants: {
     variant: {
@@ -28,12 +31,11 @@ export const Form = ({
   onSubmit,
   variant,
   size,
+  ...props
 }: FormProps) => {
   return (
-    <div className={formStyles({ size, variant })}>
-      <form action={action} onSubmit={onSubmit}>
-        {children}
-      </form>
-    </div>
+    <form action={action} onSubmit={onSubmit} {...props}>
+      <div className={formStyles({ size, variant })}>{children}</div>
+    </form>
   );
 };
