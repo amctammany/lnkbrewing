@@ -28,19 +28,18 @@ export const ListItem = ({
   href,
   secondaryAction,
 }: ListItemProps) => {
+  const cn = clsx(listItemStyles({ variant }), className);
   const child = href ? (
     <Link
       //{...props}
       href={href || ""}
       scroll={scroll ?? false}
-      className={clsx(listItemStyles({ variant }), className)}
+      className={cn}
     >
       {children}
     </Link>
   ) : (
-    <div className={clsx(listItemStyles({ variant }), className)}>
-      {children}
-    </div>
+    <div className={cn}>{children}</div>
   );
 
   return (
