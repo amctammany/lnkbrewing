@@ -3,12 +3,12 @@ import clsx from "clsx";
 import { ComponentProps } from "react";
 
 const listItemIconStyles = cva(
-  ["flex items-center  text-bold justify-center  border-2 border-black"],
+  ["flex items-center text-center text-bold justify-center  "],
   {
     variants: {
       variant: {
-        //default: ["h-6 w-6"],
-        default: ["rounded-full", "w-12", "h-12", "p-1.5"],
+        default: [],
+        icon: ["rounded-full w-12 h-12 p-1 border-2 border-black"], // "w-12", "h-12", "p-1.5"],
       },
     },
     defaultVariants: {

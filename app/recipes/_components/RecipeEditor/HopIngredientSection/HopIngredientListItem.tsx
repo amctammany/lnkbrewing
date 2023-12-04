@@ -3,11 +3,31 @@ import { removeHopIngredient } from "../../../actions";
 import Link from "next/link";
 import { ListItem } from "@/components/List/ListItem";
 import { RemoveButton } from "@/components/RemoveButton";
+import { ListItemIcon } from "@/components/List/ListItemIcon";
+import { ListItemText } from "@/components/List/ListItemText";
+import { ListItemButton } from "@/components";
 
 export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
 };
 export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
+  return (
+    <ListItem
+      href={`?hopId=${hop.id}`}
+      secondaryAction={
+        <RemoveButton id={hop.id} action={removeHopIngredient} />
+      }
+    >
+      <ListItemIcon>
+        <div className="text-lg ">
+          {hop.duration} {hop.durationType}
+        </div>
+        <div className="text-xs">{hop.usage}</div>
+      </ListItemIcon>
+      <ListItemText primary={hop.hop.name} secondary={`IBU: ${hop.alpha}`} />
+    </ListItem>
+  );
+  /**
   return (
     <ListItem>
       <div className="flex group-hover:bg-slate-500/10">
@@ -41,4 +61,5 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
       </div>
     </ListItem>
   );
+   */
 };
