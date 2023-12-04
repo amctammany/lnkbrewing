@@ -2,11 +2,29 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 
-const section = cva(["flex z-10"], {
+const section = cva(["min-w-full z-10"], {
   variants: {
     variant: {
-      primary: ["bg-slate-200"],
-      warning: ["bg-red-200"],
+      primary: ["bg-white"],
+      warning: ["bg-warning-200"],
+      alert: ["bg-red-500"],
+    },
+    size: {
+      small: ["te"],
+      default: [""],
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
+    size: "default",
+  },
+});
+
+const sectionHeader = cva(["flex z-10"], {
+  variants: {
+    variant: {
+      primary: ["bg-primary-200"],
+      warning: ["bg-warning-200"],
       alert: ["bg-red-500"],
     },
     size: {
@@ -20,7 +38,7 @@ const section = cva(["flex z-10"], {
   },
 });
 
-const sectionHeader = cva("h4", {
+const sectionTitle = cva("h4", {
   variants: {
     variant: {
       primary: ["border-red-300"],
@@ -37,11 +55,12 @@ const sectionHeader = cva("h4", {
     size: "default",
   },
 });
-const sectionBody = cva(["bg-paper"], {
+const sectionBody = cva([""], {
   variants: {
     variant: {
-      primary: ["border-red-300"],
-      warning: [],
+      primary: ["bg-white border-red-300"],
+      paper: ["bg-paper"],
+      warning: ["bg-warning-200"],
       alert: [],
     },
     size: {
@@ -64,7 +83,7 @@ export type SectionProps = VariantProps<typeof section> &
   };
 
 export const Section = ({
-  header,
+  header: title,
   icon,
   actions,
   children,
@@ -73,10 +92,10 @@ export const Section = ({
   className,
 }: SectionProps) => {
   return (
-    <div className={clsx("min-w-full ", className)}>
-      <div className={section({ size, variant })}>
+    <div className={clsx(section({ size, variant }), className)}>
+      <div className={sectionHeader({ size, variant })}>
         <div className="flex-shrink">{icon}</div>
-        <h4 className={sectionHeader({ size, variant })}>{header}</h4>
+        <h4 className={sectionTitle({ size, variant })}>{title}</h4>
         <div>{actions}</div>
       </div>
 

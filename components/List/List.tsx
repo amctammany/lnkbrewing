@@ -8,7 +8,7 @@ export type ListProps = VariantProps<typeof listStyles> &
 const listStyles = cva(["flex w-full"], {
   variants: {
     variant: {
-      default: ["bg-default-500"],
+      default: ["bg-white"],
       warning: ["bg-warning-500"],
     },
   },
