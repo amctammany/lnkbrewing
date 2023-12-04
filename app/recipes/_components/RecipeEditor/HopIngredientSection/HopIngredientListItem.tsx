@@ -29,11 +29,13 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
             </div>
           </div>
           <div className="">
-            <div className="text-lg">{hop.amount}</div>
+            <div className="text-lg">
+              {hop.amount} {hop.amountType}
+            </div>
             <div className="text-xs">{hop.amountType}</div>
           </div>
         </Link>
-        <div className="m-auto">
+        <div className="m-auto hidden sm:block">
           <RemoveButton action={removeHopIngredient} id={hop.id} />
         </div>
       </div>
