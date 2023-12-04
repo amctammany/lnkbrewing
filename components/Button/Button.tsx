@@ -19,66 +19,33 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-const buttonStyles = cva(["flex items-center  text-bold justify-center"], {
-  variants: {
-    variant: {
-      default: ["bg-gray-500", "hover:bg-gray-100", "border-2", "border-black"],
-      success: ["bg-blue-500", "hover:bg-blue-100", "border-2", "border-black"],
-      warning: [
-        "bg-red-700",
-        "hover:bg-red-200",
-        "text-black",
-        "hover:text-red-800",
-        "border-2",
-        "border-black",
-      ],
-      dark: ["bg-green-900", "hover:bg-slate-800", "text-white"],
-    },
-    size: {
-      default: ["rounded", "m-2", "px-2", "py-1"],
-      button: ["rounded", "h-10", "w-32"],
-      icon: ["rounded-full", "w-20", "h-20", "p-2.5"],
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-    size: "default",
-  },
-});
-const buttonStyles1 = cva(
-  ["flex items-center  text-bold justify-center transition-colors"],
+const buttonStyles = cva(
+  ["flex items-center  text-bold justify-center border-2 border-black"],
   {
     variants: {
       variant: {
         default: [
-          "bg-gray-400",
-          "hover:bg-gray-100",
-          "border-2",
-          "border-black",
+          "bg-default-500",
+          //"bg-default-button",
+          "hover:bg-default-200",
+          "text-contrast-default",
+          "hover:text-default-900",
         ],
+        primary: [
+          "bg-primary-500",
+          //"bg-primary-button",
+          "hover:bg-primary-200",
+          "text-contrast-primary",
+          "hover:text-primary-900",
+        ],
+        success: ["bg-success-500", "hover:bg-success-100"],
         warning: [
-          "bg-red-700",
-          "hover:bg-red-200",
+          "bg-warning-700",
+          "hover:bg-warning-200",
           "text-black",
-          "hover:text-red-800",
-          "border-2",
+          "hover:text-warning-800",
         ],
-        hover: ["hover:bg-green-200"],
         dark: ["bg-green-900", "hover:bg-slate-800", "text-white"],
-        gradient: [
-          "bg-gradient-to-br from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500",
-        ],
-        hoverBorder: ["hover:border-4", "rounded-full", "p-2", "border-black"],
-        border: [
-          "border-4",
-          "rounded-full",
-          "p-2",
-          "border-black",
-          "hover:bg-gradient-to-br",
-          "hover:from-indigo-500",
-          "hover:via-purple-500",
-          "hover:to-pink-500",
-        ],
       },
       size: {
         default: ["rounded", "m-2", "px-2", "py-1"],
