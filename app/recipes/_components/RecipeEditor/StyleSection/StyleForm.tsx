@@ -49,7 +49,7 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, action, styles }) => {
   return (
     <Form action={onSubmit}>
       <input type="hidden" {...register("id")} />
-      <div className="flex flex-row gap-2">
+      <div className="grid gap-2">
         <Select
           label="Style"
           {...register("styleIdentifer")}
