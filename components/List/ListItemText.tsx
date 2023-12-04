@@ -2,7 +2,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 
-const listItemTextStyles = cva(["flex-auto grid px-2"], {
+const listItemTextStyles = cva(["grid px-2 pr-12"], {
   variants: {
     variant: {
       default: [],

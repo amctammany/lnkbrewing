@@ -24,7 +24,15 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
         </div>
         <div className="text-xs">{hop.usage}</div>
       </ListItemIcon>
-      <ListItemText primary={hop.hop.name} secondary={`IBU: ${hop.alpha}`} />
+      <ListItemText
+        className="flex-grow"
+        primary={hop.hop.name}
+        secondary={`IBU: ${hop.alpha}`}
+      />
+      <ListItemText
+        //className="flex-shrink"
+        primary={`${hop.amount.toString()} ${hop.amountType}`}
+      />
     </ListItem>
   );
   /**

@@ -27,13 +27,14 @@ export const FermentableIngredientListItem = ({
         <div className="text-xs">{fermentable.usage}</div>
       </ListItemIcon>
       <ListItemText
+        className="flex-grow "
         primary={fermentable.fermentable.name}
         secondary={`IBU: ${fermentable.fermentable.potential}`}
       />
-      <div>
-        <div className="text-lg">{fermentable.amount}</div>
-        <div className="text-xs">{fermentable.amountType}</div>
-      </div>
+      <ListItemText
+        //className="flex-shrink"
+        primary={`${fermentable.amount.toString()} ${fermentable.amountType}`}
+      />
     </ListItem>
   );
 };
