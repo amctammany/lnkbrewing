@@ -5,7 +5,7 @@ import React, { FC } from "react";
 //import { HopIngredientModal } from "./HopIngredientModal";
 import dynamic from "next/dynamic";
 const HopIngredientModal = dynamic(() => import("./HopIngredientModal"), {
-  ssr: false,
+  ssr: true,
 });
 import { RecipeVitals } from "../..";
 import { List } from "@/components/List/List";

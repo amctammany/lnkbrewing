@@ -8,8 +8,8 @@ import { HopIngredientSection } from "./HopIngredientSection/HopIngredientSectio
 import { FermentableIngredientSection } from "./FermentableIngredientSection/FermentableIngredientSection";
 import { GeneralSection } from "./GeneralSection/GeneralSection";
 import { YeastIngredientSection } from "./YeastIngredientSection/YeastIngredientSection";
-import MashSection from "./MashSection";
-import WaterSection from "./WaterSection";
+import { MashSection } from "./MashSection/MashSection";
+import { WaterSection } from "./WaterSection/WaterSection";
 import { OtherIngredientSection } from "./OtherIngredientSection/OtherIngredientSection";
 import { UserMassPreference, UserPreferences } from "@prisma/client";
 

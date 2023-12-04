@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const FermentableIngredientModal = dynamic(
   () => import("./FermentableIngredientModal"),
   {
-    ssr: false,
+    ssr: true,
   }
 );
 import { List } from "@/components/List/List";
