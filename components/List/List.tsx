@@ -1,9 +1,24 @@
-export type ListProps = {
-  children?: React.ReactNode;
-};
-export const List = ({ children }: ListProps) => {
+import { VariantProps, cva } from "class-variance-authority";
+import { ComponentProps } from "react";
+
+export type ListProps = VariantProps<typeof listStyles> &
+  ComponentProps<"ul"> & {
+    children?: React.ReactNode;
+  };
+const listStyles = cva(["flex w-full"], {
+  variants: {
+    variant: {
+      default: ["bg-default-500"],
+      warning: ["bg-warning-500"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+export const List = ({ children, variant }: ListProps) => {
   return (
-    <div className="flex w-full m-2 p-2 bg-white">
+    <div className={listStyles({ variant })}>
       <ul className="flex-grow ">{children}</ul>
     </div>
   );
