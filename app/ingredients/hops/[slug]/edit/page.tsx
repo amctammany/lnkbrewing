@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/client";
-import { HopForm } from "../../_components";
+import { HopForm } from "../../_components/HopForm";
 import { updateHop } from "../../actions";
 type HopDisplayProps = {
   params: {
