@@ -70,7 +70,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     <Form action={onSubmit}>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
-      <div className="flex flex-row gap-2 md:grid md:grid-cols-2">
+      <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
         <Select
           label="Other"
           {...register("otherIngredientId")}

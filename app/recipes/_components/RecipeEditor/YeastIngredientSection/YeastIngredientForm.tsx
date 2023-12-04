@@ -72,8 +72,8 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
 
-      <div className="flex flex-row gap-2 md:grid md:grid-cols-2">
-        <div className="col-span-2">
+      <div className="gap-2 grid grid-cols-1 md:grid-cols-2">
+        <div className="md:col-span-2">
           <Select
             label="Yeast"
             {...register("yeastId")}
@@ -81,19 +81,21 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
             onChange={handleChange}
           />
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="">
-            <NumberField label="Amount" {...register("amount")} />
-          </div>
-          <div className="">
-            <Select
-              {...register("amountType")}
-              label="Unit"
-              options={YeastAmountType}
-            />
+        <div className="md:col-span-1">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="">
+              <NumberField label="Amount" {...register("amount")} />
+            </div>
+            <div className="">
+              <Select
+                {...register("amountType")}
+                label="Unit"
+                options={YeastAmountType}
+              />
+            </div>
           </div>
         </div>
-        <div className="">
+        <div className="md:col-span-1">
           <NumberField
             {...register("attenuation")}
             step={0.001}
@@ -101,7 +103,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <Submit>Save</Submit>
         </div>
       </div>
