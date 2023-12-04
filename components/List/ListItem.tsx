@@ -28,16 +28,24 @@ export const ListItem = ({
   href,
   secondaryAction,
 }: ListItemProps) => {
-  const Comp = href ? Link : "div";
+  const child = href ? (
+    <Link
+      //{...props}
+      href={href || ""}
+      scroll={scroll ?? false}
+      className={clsx(listItemStyles({ variant }), className)}
+    >
+      {children}
+    </Link>
+  ) : (
+    <div className={clsx(listItemStyles({ variant }), className)}>
+      {children}
+    </div>
+  );
+
   return (
     <li className="group relative flex flex-col">
-      <Comp
-        href={href || ""}
-        scroll={scroll || false}
-        className={clsx(listItemStyles({ variant }), className)}
-      >
-        {children}
-      </Comp>
+      {child}
       <div className="absolute right-2 top-1/2 -translate-y-1/2">
         {secondaryAction}
       </div>
