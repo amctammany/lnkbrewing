@@ -3,10 +3,10 @@ import clsx from "clsx";
 import Link from "next/link";
 import { ComponentProps } from "react";
 
-const listItemStyles = cva(["flex px-2 pb-1 items-center"], {
+const listItemStyles = cva(["flex px-2 py-1 items-center"], {
   variants: {
     variant: {
-      default: ["group-hover:bg-red-500/10"],
+      default: ["group-hover:bg-primary-500/10"],
     },
   },
   defaultVariants: {
@@ -38,7 +38,7 @@ export const ListItem = ({
       >
         {children}
       </Comp>
-      <div className="absolute right-0 top-1/2 -translate-y-1/2">
+      <div className="absolute right-2 top-1/2 -translate-y-1/2">
         {secondaryAction}
       </div>
     </li>
