@@ -90,12 +90,13 @@ export const Section = ({
   size,
   variant,
   className,
+  title: _title,
 }: SectionProps) => {
   return (
     <div className={clsx(section({ size, variant }), className)}>
       <div className={sectionHeader({ size, variant })}>
         <div className="flex-shrink">{icon}</div>
-        <h4 className={sectionTitle({ size, variant })}>{title}</h4>
+        <h4 className={sectionTitle({ size, variant })}>{_title || title}</h4>
         <div>{actions}</div>
       </div>
 

@@ -4,6 +4,7 @@ export type ButtonProps = {
   onClick?: React.MouseEventHandler;
   className?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
 };
 //export const Button = ({ onClick, className, children }: ButtonProps) => {
 //return (
@@ -20,20 +21,20 @@ import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
 const buttonStyles = cva(
-  ["flex items-center  text-bold justify-center border-2 border-black"],
+  [
+    "flex items-center  text-bold justify-center border-2 border-black disabled:bg-red-900",
+  ],
   {
     variants: {
       variant: {
         default: [
           "bg-default-500",
-          //"bg-default-button",
           "hover:bg-default-200",
           "text-contrast-default",
           "hover:text-default-900",
         ],
         primary: [
           "bg-primary-500",
-          //"bg-primary-button",
           "hover:bg-primary-200",
           "text-contrast-primary",
           "hover:text-primary-900",
@@ -61,19 +62,37 @@ const buttonStyles = cva(
 );
 
 export type ButtonType = VariantProps<typeof buttonStyles> &
-  ComponentProps<"button">;
+  ComponentProps<"button"> & { disabled?: boolean };
 
-export const Button = ({ variant, size, className, ...props }: ButtonType) => {
+//"bg-primary-button",
+export const Button = ({
+  variant,
+  disabled,
+  size,
+  className,
+  ...props
+}: ButtonType) => {
   return (
     <button
       {...props}
-      className={twMerge(buttonStyles({ variant, size }), className)}
+      disabled={disabled}
+      className={twMerge(
+        buttonStyles({
+          variant,
+          size,
+          //disabled: disabled ? "disabled" : "default",
+        }),
+        className
+      )}
     />
   );
 };
 
 export default Button;
-export type ButtonLinkProps = ButtonType & { scroll?: boolean; href: string };
+export type ButtonLinkProps = ButtonType & {
+  scroll?: boolean;
+  href: string;
+};
 export const ButtonLink = ({ href, scroll, ...props }: ButtonLinkProps) => {
   return (
     <Link href={href} scroll={scroll}>
