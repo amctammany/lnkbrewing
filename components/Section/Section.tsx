@@ -1,4 +1,6 @@
 import { VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
+import { ComponentProps } from "react";
 
 const section = cva(["flex"], {
   variants: {
@@ -53,12 +55,13 @@ const sectionBody = cva(["bg-white"], {
   },
 });
 
-export interface SectionProps extends VariantProps<typeof section> {
-  header?: string;
-  icon?: string;
-  actions?: React.ReactNode | React.ReactNode[];
-  children?: React.ReactNode | React.ReactNode[];
-}
+export type SectionProps = VariantProps<typeof section> &
+  ComponentProps<"div"> & {
+    header?: string;
+    icon?: string;
+    actions?: React.ReactNode | React.ReactNode[];
+    children?: React.ReactNode | React.ReactNode[];
+  };
 
 export const Section = ({
   header,
@@ -67,9 +70,10 @@ export const Section = ({
   children,
   size,
   variant,
+  className,
 }: SectionProps) => {
   return (
-    <div className="min-w-full ">
+    <div className={clsx("min-w-full ", className)}>
       <div className={section({ size, variant })}>
         <div className="flex-shrink">{icon}</div>
         <h4 className={sectionHeader({ size, variant })}>{header}</h4>

@@ -23,6 +23,7 @@ const sectionBody = (
 export const Basic: Story = {
   args: {
     header: "Basic",
+    //className: "",
     children: sectionBody,
   },
 };
