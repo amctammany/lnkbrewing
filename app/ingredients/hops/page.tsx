@@ -2,6 +2,7 @@ import { Hop } from "@prisma/client";
 import { Metadata } from "next";
 import { HopsTable } from "./_components";
 import { getHops } from "./queries";
+import { Direction } from "@/components/Table";
 export const metadata: Metadata = {
   title: "LNK Hops",
 };
@@ -14,7 +15,7 @@ export default async function HopsIndex({
   return (
     <HopsTable
       sort={searchParams?.sort as keyof Hop}
-      direction={searchParams?.direction}
+      direction={searchParams?.direction as Direction}
       hops={hops || []}
     />
   );

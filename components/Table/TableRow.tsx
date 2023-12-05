@@ -3,12 +3,13 @@ import { DataColumnProps } from "./DataColumn";
 import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps } from "react";
 
-export type TableRowProps<T extends Record<string, any> = Record<string, any>> =
-  VariantProps<typeof tableRowStyles> &
-    ComponentProps<"tr"> & {
-      data: T;
-      columns: DataColumnProps<T>[];
-    };
+export type TableRowProps<T extends Record<string, any>> = VariantProps<
+  typeof tableRowStyles
+> &
+  ComponentProps<"tr"> & {
+    data: T;
+    columns: DataColumnProps<T>[];
+  };
 const tableRowStyles = cva([""], {
   variants: {
     variant: {
@@ -53,8 +54,10 @@ export function TableRow<T extends Record<string, any> = Record<string, any>>({
   );
 }
 
-export function makeTableRow(columns: DataColumnProps[]) {
-  return function CustomTableRow(props: Omit<TableRowProps, "columns">) {
+export function makeTableRow<T extends Record<string, any>>(
+  columns: DataColumnProps<T>[]
+) {
+  return function CustomTableRow(props: Omit<TableRowProps<T>, "columns">) {
     return <TableRow columns={columns} {...props} />;
   };
 }

@@ -1,7 +1,8 @@
 import { Section } from "@/components/Section";
-import { Table } from "@/components/Table";
+import { Direction, Table } from "@/components/Table";
+import { DataColumnProps } from "@/components/Table/DataColumn";
 import { Yeast } from "@prisma/client";
-const columns = [
+const columns: DataColumnProps<Yeast>[] = [
   { name: "name", href: (src: Yeast) => `/ingredients/yeasts/${src.slug}` },
   { name: "manufacturer" },
   { name: "type" },
@@ -16,7 +17,7 @@ const columns = [
 export type YeastsTableProps = {
   yeasts: Yeast[];
   sort?: keyof Yeast;
-  direction?: string;
+  direction?: Direction;
 };
 export const YeastsTable = ({ yeasts, sort, direction }: YeastsTableProps) => (
   <Section header="Yeasts">

@@ -1,13 +1,14 @@
 import { Section } from "@/components/Section";
-import { Table } from "@/components/Table";
+import { Direction, Table } from "@/components/Table";
+import { DataColumnProps } from "@/components/Table/DataColumn";
 import { OtherIngredient as Other } from "@prisma/client";
 
 export type OthersTableProps = {
   others: Other[];
   sort?: keyof Other;
-  direction?: string;
+  direction?: Direction;
 };
-const columns = [
+const columns: DataColumnProps<Other>[] = [
   { name: "name", href: (src: Other) => `/ingredients/others/${src.slug}` },
 ];
 

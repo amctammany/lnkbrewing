@@ -3,19 +3,17 @@ import { TableRow, makeTableRow } from "./TableRow";
 import { TableHeader } from "./TableHeader";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
+import { DataColumnProps } from "./DataColumn";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &
   ComponentProps<"table"> & {
-    sort?: keyof T;
-    direction?: string; //"ASC" | "DESC";
+    sort?: string;
+    direction?: Direction; //string; //"ASC" | "DESC";
     src: T[];
-    columns: {
-      name: string;
-      label?: string;
-      width?: number;
-    }[];
+    columns: DataColumnProps<T>[];
   };
+export type Direction = "ASC" | "DESC";
 const tableStyles = cva(
   ["w-full table table-auto border border-collapse border-slate-400"],
   {
@@ -23,10 +21,10 @@ const tableStyles = cva(
       variant: {
         default: [""],
       },
-      active: {
-        ASC: ["underline"],
-        DESC: ["underline"],
-      },
+      //active: {
+      //ASC: ["underline"],
+      //DESC: ["underline"],
+      //},
     },
     defaultVariants: {
       variant: "default",
@@ -56,16 +54,16 @@ export function Table<T extends Record<string, any>>({
           <tr>
             {columns.map(({ name, label }) => (
               <TableHeader
-                key={name}
+                key={name.toString()}
                 variant={variant}
-                name={name}
+                name={name.toString()}
                 label={label}
                 active={
-                  sort === name
+                  (sort === name
                     ? direction === "DESC"
                       ? "DESC"
                       : "ASC"
-                    : undefined
+                    : undefined) as Direction
                 }
               />
             ))}

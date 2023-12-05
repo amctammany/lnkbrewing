@@ -1,13 +1,14 @@
 import { Section } from "@/components/Section";
-import { Table } from "@/components/Table";
+import { Table, Direction } from "@/components/Table";
+import { DataColumnProps } from "@/components/Table/DataColumn";
 import { Fermentable } from "@prisma/client";
 
 export type FermentablesTableProps = {
   fermentables: Fermentable[];
   sort?: keyof Fermentable;
-  direction?: string;
+  direction?: Direction;
 };
-const columns = [
+const columns: DataColumnProps<Fermentable>[] = [
   {
     name: "name",
     href: (src: Fermentable) => `/ingredients/fermentables/${src.slug}`,

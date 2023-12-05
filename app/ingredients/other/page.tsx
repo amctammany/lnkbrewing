@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "LNK Other Ingredients",
 };
 import { OthersTable } from "./_components";
+import { Direction } from "@/components/Table";
 export default async function OthersIndex({
   searchParams,
 }: {
@@ -14,7 +15,7 @@ export default async function OthersIndex({
   return (
     <OthersTable
       sort={searchParams?.sort as keyof OtherIngredient}
-      direction={searchParams?.direction}
+      direction={searchParams?.direction as Direction}
       others={others || []}
     />
   );

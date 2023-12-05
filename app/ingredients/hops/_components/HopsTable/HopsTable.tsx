@@ -1,13 +1,14 @@
 import { Section } from "@/components/Section";
-import { Table } from "@/components/Table";
+import { Direction, Table } from "@/components/Table";
+import { DataColumnProps } from "@/components/Table/DataColumn";
 import { Hop } from "@prisma/client";
 
 export type HopsTableProps = {
   hops: Hop[];
   sort?: keyof Hop;
-  direction?: string;
+  direction?: Direction;
 };
-const columns = [
+const columns: DataColumnProps<Hop>[] = [
   { name: "name", href: (src: Hop) => `/ingredients/hops/${src.slug}` },
   { name: "country" },
   { name: "usage" },
