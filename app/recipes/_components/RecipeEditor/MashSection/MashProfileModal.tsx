@@ -17,7 +17,11 @@ export const MashProfileModal: FC<MashProfileModalProps> = async ({
 }) => {
   const mashProfiles = await getMashProfiles();
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Mash"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <MashProfileForm
           profiles={mashProfiles}

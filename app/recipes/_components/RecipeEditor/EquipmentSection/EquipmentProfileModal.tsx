@@ -16,7 +16,11 @@ export const EquipmentProfileModal: FC<EquipmentProfileModalProps> = async ({
 }) => {
   const equipmentProfiles = await getEquipmentProfiles();
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Equipment"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <EquipmentProfileForm
           profiles={equipmentProfiles}

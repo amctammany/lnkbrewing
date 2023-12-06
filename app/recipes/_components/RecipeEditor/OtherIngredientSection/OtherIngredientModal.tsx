@@ -29,7 +29,11 @@ export const OtherIngredientModal: FC<
     ? updateRecipeOtherIngredient
     : addRecipeOtherIngredientToRecipe;
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Other"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <OtherIngredientForm
           otherId={otherId}

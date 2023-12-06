@@ -7,7 +7,6 @@ import {
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
-import { prisma } from "@/lib/client";
 import { HopIngredient, UserMassPreference } from "@prisma/client";
 
 interface HopIngredientProfileModalProps {
@@ -29,7 +28,11 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
 
   const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Hop"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <HopIngredientForm
           massUnit={massUnit}

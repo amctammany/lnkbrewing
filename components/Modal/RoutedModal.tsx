@@ -4,11 +4,13 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export type RoutedModalProps = {
   hidden?: boolean;
+  title?: string;
   returnUrl: string;
   children?: any;
 };
 export const RoutedModal = ({
   hidden,
+  title,
   returnUrl,
   children,
 }: RoutedModalProps) => {
@@ -26,10 +28,15 @@ export const RoutedModal = ({
       <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white mt-3">
         <ClickAwayRouter url={returnUrl}>
           <div className="relative p-0 z-50">
-            <div className="w-full bg-slate-500 flex flex-row-reverse">
-              <ButtonLink scroll={false} href={returnUrl}>
-                <XMarkIcon className="h-6 w-6 text-black font-bold " />
-              </ButtonLink>
+            <div className="w-full bg-primary-500 flex ">
+              <div className="flex-grow m-1 py-2 px-4 text-lg font-bold">
+                {title}
+              </div>
+              <div className="flex-shrink-0">
+                <ButtonLink scroll={false} href={returnUrl}>
+                  <XMarkIcon className="h-6 w-6 text-black font-bold " />
+                </ButtonLink>
+              </div>
             </div>
             {children}
           </div>

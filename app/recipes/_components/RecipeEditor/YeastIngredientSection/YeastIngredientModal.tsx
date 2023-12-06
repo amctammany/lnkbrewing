@@ -25,7 +25,11 @@ export const YeastIngredientModal: FC<
   const action =
     yeastId !== "new" ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Yeast"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <YeastIngredientForm
           yeastId={yeastId}

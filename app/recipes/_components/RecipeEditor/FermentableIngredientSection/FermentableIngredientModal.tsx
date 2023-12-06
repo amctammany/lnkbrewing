@@ -27,7 +27,11 @@ export const FermentableIngredientModal: FC<
   const fermentables = await getFermentables();
 
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Fermentable"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <FermentableIngredientForm
           fermentable={fermentable}

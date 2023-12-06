@@ -20,7 +20,11 @@ export const WaterProfileModal: FC<WaterProfileModalProps> = async ({
 }) => {
   const waterProfiles = await getWaterProfiles();
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Water Profile"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <WaterProfileForm
           profiles={waterProfiles}

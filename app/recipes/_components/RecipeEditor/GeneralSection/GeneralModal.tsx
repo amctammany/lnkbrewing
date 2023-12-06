@@ -14,7 +14,11 @@ export const GeneralModal: FC<GeneralProfileModalProps> = async ({
   open,
 }) => {
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="General"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <GeneralForm recipe={recipe} action={updateRecipe} />
       </div>

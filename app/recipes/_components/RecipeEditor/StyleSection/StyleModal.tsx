@@ -16,7 +16,11 @@ export const StyleModal: FC<StyleProfileModalProps> = async ({
 }) => {
   const styles = await getStyleOptions();
   return (
-    <RoutedModal hidden={!open} returnUrl={`/recipes/${recipe?.id}/edit`}>
+    <RoutedModal
+      title="Edit Style"
+      hidden={!open}
+      returnUrl={`/recipes/${recipe?.id}/edit`}
+    >
       <div>
         <StyleForm recipe={recipe} action={updateRecipe} styles={styles} />
       </div>
