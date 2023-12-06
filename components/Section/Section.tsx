@@ -2,12 +2,12 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 
-const section = cva(["min-w-full z-10"], {
+const section = cva(["min-w-full bg-white z-10"], {
   variants: {
     variant: {
-      primary: ["bg-white"],
-      warning: ["bg-warning-200"],
-      alert: ["bg-red-500"],
+      primary: [""],
+      warning: [""],
+      alert: [""],
     },
     size: {
       small: ["te"],
@@ -60,7 +60,7 @@ const sectionBody = cva([""], {
     variant: {
       primary: ["bg-white border-red-300"],
       paper: ["bg-paper"],
-      warning: ["bg-warning-200"],
+      warning: [""],
       alert: [],
     },
     size: {
