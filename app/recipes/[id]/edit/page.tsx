@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth";
 import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
 import { getExtendedRecipe } from "../../queries";
 import { authOptions } from "@/app/api/auth/authOptions";
+import { redirect } from "next/navigation";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -30,6 +31,10 @@ export default async function RecipeEditorPage({
 }: RecipeEditorPageProps) {
   const recipe = await getExtendedRecipe(parseInt(id));
   const session = await getServerSession(authOptions);
+  if (recipe?.authorEmail !== session?.user.email) {
+    console.error("Unauthorized User");
+    redirect(`/recipes/${recipe?.id}`);
+  }
   return (
     <RecipeEditor
       preferences={session?.preferences}
