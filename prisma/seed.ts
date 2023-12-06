@@ -194,11 +194,12 @@ async function main() {
         update: {
           ...hop,
           HopSensoryPanel: {
-            update: {
+            upsert: {
               where: {
                 slug: hop.slug,
               },
-              data: {
+              update: { ...flavorMap },
+              create: {
                 ...flavorMap,
               },
             },
@@ -218,6 +219,7 @@ async function main() {
       });
     })
   );
+  console.log(data);
 
   await prisma.fermentable.createMany({
     data: grains.map((grain) => ({
