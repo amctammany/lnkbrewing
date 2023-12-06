@@ -22,7 +22,7 @@ import {
 } from "@/app/recipes/actions";
 import { Toolbar } from "@/components/Toolbar/Toolbar";
 import { Button } from "@/components/Button";
-import { Autocomplete } from "@/components";
+import { Autocomplete } from "@/components/Form/Autocomplete";
 
 export type FermentableIngredientFormProps = {
   recipe?: ExtendedRecipe | null;
