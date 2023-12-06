@@ -121,27 +121,53 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
       <div className="gap-2 md:grid md:grid-cols-2">
-        <Autocomplete
-          label="Hop"
-          {...register("hopId")}
-          value={getValues("hopId") as any}
-          options={options}
-          handleChange={handleChange}
-        />
-        <div className="grid grid-cols-2 gap-2">
-          <div className="">
+        <div className="md:col-span-2">
+          <Autocomplete
+            label="Hop"
+            {...register("hopId")}
+            value={getValues("hopId") as any}
+            options={options}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="flex">
+          <div className="flex-grow">
             <NumberField
               label="Amount"
               {...register("amount", { valueAsNumber: true })}
             />
           </div>
-          <div className="">
-            <Select
-              {...register("amountType")}
-              label="Unit"
-              options={MassUnit}
+          <div className="flex-shrink-0">
+            <Select {...register("amountType")} label="" options={MassUnit} />
+          </div>
+        </div>
+        <div>
+          <Select
+            name="type"
+            label="Type"
+            options={{ pellet: "Pellet", cryo: "CryoHop" }}
+          />
+        </div>
+
+        <div className="flex">
+          <div className="flex-grow">
+            <NumberField
+              variant={errors?.duration ? "error" : "default"}
+              {...register("duration", { valueAsNumber: true })}
+              name="duration"
+              label="Time"
             />
           </div>
+          <div className="flex-shrink-0">
+            <Select {...register("durationType")} label="" options={TimeUnit} />
+          </div>
+        </div>
+        <div>
+          <Select
+            {...register("usage")}
+            label="Usage"
+            options={HopIngredientUsage}
+          />
         </div>
         <div className="">
           <NumberField
@@ -151,33 +177,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           />
         </div>
 
-        <div className="">
-          <Select
-            {...register("usage")}
-            label="Usage"
-            options={HopIngredientUsage}
-          />
+        <div className="md:col-span-2">
+          <Submit>Save</Submit>
         </div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <div className="">
-            <NumberField
-              variant={errors?.duration ? "error" : "default"}
-              {...register("duration", { valueAsNumber: true })}
-              name="duration"
-              label="Time"
-            />
-          </div>
-          <div className="">
-            <Select
-              {...register("durationType")}
-              label="Time Unit"
-              options={TimeUnit}
-            />
-          </div>
-        </div>
-
-        <Submit>Save</Submit>
       </div>
     </Form>
   );

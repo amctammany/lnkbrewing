@@ -24,7 +24,7 @@ const labelLabelStyles = cva(["block"], {
       default: ["text-gray-600", "capitalize"],
     },
     size: {
-      default: ["block"],
+      default: ["h-6"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },

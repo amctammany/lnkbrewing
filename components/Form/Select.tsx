@@ -60,11 +60,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         ))
       : children;
     return (
-      <Label label={label || name}>
+      <Label label={label === undefined ? name : label}>
         <select
           disabled={disabled}
           className={selectStyles({ size, variant })}
-          //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           name={name}
           value={value}
           defaultValue={defaultValue}
