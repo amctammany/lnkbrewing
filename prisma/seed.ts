@@ -8,6 +8,7 @@ import {
 } from "@prisma/client";
 import slugify from "slugify";
 import hops from "../data/hops.json";
+import yakima from "../data/yakima.json";
 import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
 import styles from "../data/styles.json";
@@ -175,10 +176,12 @@ async function main() {
     ],
   });
   await prisma.hop.createMany({
-    data: hops.map(({ usage, ...hop }) => ({
+    data: hops.map(({ aromas, usage, flavorMap, ...hop }: any) => ({
+      flavor: aromas,
       ...hop,
-      //slug: slugify(hop.name, { lower: true }),
-      usage: HopUsage[usage?.toLowerCase() as HopUsage],
+
+      slug: slugify(hop.name, { lower: true }),
+      usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
     })),
   });
 

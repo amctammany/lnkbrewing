@@ -366,9 +366,9 @@ enum HopUsage {
 }
 
 model Hop {
-  id                Int               @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   name              String
-  slug              String            @unique
+  slug              String    @unique
   description       String?
   characteristics   String?
   country           String?
@@ -397,6 +397,15 @@ model Hop {
   totalOil          Float?
   totalOilLow       Float?
   totalOilHigh      Float?
+  geraniolLow       Float?
+  geraniolHigh      Float?
+  otherLow          Float?
+  otherHigh         Float?
+  linaloolLow       Float?
+  linaloolHigh      Float?
+
+  bPineneLow        Float?
+  bPineneHigh       Float?
   purpose           String?
   flavor            String?
   notes             String?
