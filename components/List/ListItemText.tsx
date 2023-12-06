@@ -5,7 +5,7 @@ import { ComponentProps } from "react";
 const listItemTextStyles = cva(["grid px-2 pr-12"], {
   variants: {
     variant: {
-      default: [],
+      default: [""],
     },
   },
   defaultVariants: {
@@ -27,8 +27,12 @@ export const ListItemText = ({
 }: ListItemTextProps) => {
   return (
     <div className={clsx(listItemTextStyles({ variant }), className)}>
-      <div className="text-lg">{primary || children}</div>
-      <div className="text-xs">{secondary}</div>
+      <div className="block text-lg whitespace-nowrap">
+        {primary || children}
+      </div>
+      {secondary && (
+        <div className="block text-xs whitespace-nowrap">{secondary}</div>
+      )}
     </div>
   );
 };

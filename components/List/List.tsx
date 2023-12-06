@@ -5,7 +5,7 @@ export type ListProps = VariantProps<typeof listStyles> &
   ComponentProps<"ul"> & {
     children?: React.ReactNode;
   };
-const listStyles = cva(["flex w-full"], {
+const listStyles = cva(["w-full"], {
   variants: {
     variant: {
       default: ["bg-white"],
@@ -19,7 +19,7 @@ const listStyles = cva(["flex w-full"], {
 export const List = ({ children, variant }: ListProps) => {
   return (
     <div className={listStyles({ variant })}>
-      <ul className="flex-grow ">{children}</ul>
+      <ul className="">{children}</ul>
     </div>
   );
 };

@@ -7,6 +7,8 @@ import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
 import { List, ListItem } from "@/components/List";
 import { PencilIcon } from "@heroicons/react/24/solid";
+import { ListItemIcon } from "@/components/List/ListItemIcon";
+import { ListItemText } from "@/components/List/ListItemText";
 const MashProfileModal = dynamic(() => import("./MashProfileModal"), {
   ssr: false,
 });
@@ -32,10 +34,12 @@ export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
     {
       label: "Final Gravity",
       value: recipe?.fg.toFixed(3),
+      unit: "SG",
     },
     {
       label: "Alcohol By Volume",
       value: recipe?.abv.toFixed(2),
+      unit: "%",
     },
   ];
 
@@ -50,11 +54,9 @@ export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
         <List>
           {(recipe?.mash?.steps || []).map((step, index) => (
             <ListItem key={index}>
-              <div className="grid grid-cols-4">
-                <div className="col-span-2">Temperature</div>
-                <div className="">{step.temperature} F</div>
-                <div className="">{step.time} min</div>
-              </div>
+              <ListItemText className="">Temperature</ListItemText>
+              <ListItemText primary={`${step.temperature.toString()} F`} />
+              <ListItemText className="" primary={`${step.time} min`} />
             </ListItem>
           ))}
         </List>
