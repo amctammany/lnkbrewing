@@ -13,7 +13,7 @@ const labelStyles = cva(["block"], {
       default: ["m-0"],
     },
     size: {
-      default: ["mx-2 mb-2"],
+      default: ["mx-0 mb-2"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },

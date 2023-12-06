@@ -14,6 +14,7 @@ import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
+import { Autocomplete } from "@/components/Form/Autocomplete";
 
 interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -43,25 +44,19 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     otherId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
       : other;
-  const { register, trigger, handleSubmit, reset, setValue } =
+  const { register, trigger, setValue, getValues } =
     useForm<OtherIngredientFormInput>({
       defaultValues: src || { recipeId: recipe?.id },
     });
-  const onSubmiti: SubmitHandler<OtherIngredientFormInput> = (data) => {
-    const body = new FormData();
-
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null) {
-        body.append(key, value?.toString());
-      }
-    });
-    console.log(data);
-    action(body);
-  };
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
     return action(data);
+  };
+  const handleChange = (value: number) => {
+    const other = others.find((o) => o.id === value);
+    if (!other) return;
+    setValue("otherIngredientId", other?.id);
   };
   const options = (others || []).reduce((acc, other) => {
     acc[other.id] = other.name;
@@ -72,17 +67,21 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     <Form action={onSubmit}>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
-      <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
-        <Select
-          label="Other"
-          {...register("otherIngredientId")}
-          options={options}
-        />
-        <div className="grid grid-cols-2 gap-2">
-          <div className="">
+      <div className="flex flex-col gap-2 md:grid md:grid-cols-2 m-2">
+        <div className="col-span-2">
+          <Autocomplete
+            label="Other"
+            {...register("otherIngredientId")}
+            value={getValues("otherIngredientId") as any}
+            options={options}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="flex">
+          <div className="flex-grow">
             <NumberField label="Amount" {...register("amount")} />
           </div>
-          <div className="">
+          <div className="flex-shrink-0">
             <Select
               {...register("amountType")}
               label="Unit"
@@ -98,11 +97,10 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
             options={IngredientUsage}
           />
         </div>
-
-        <Toolbar className="col-span-2 md:col-span-2">
-          <Button type="submit">Save</Button>
-        </Toolbar>
       </div>
+      <Toolbar className="col-span-2 md:col-span-2">
+        <Button type="submit">Save</Button>
+      </Toolbar>
     </Form>
   );
 };

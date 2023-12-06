@@ -10,6 +10,7 @@ import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
+import { Autocomplete } from "@/components/Form/Autocomplete";
 
 interface YeastIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -41,25 +42,18 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     yeastId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
       : yeast;
-  const { register, handleSubmit, reset, setValue } =
+  const { register, trigger, getValues, setValue } =
     useForm<YeastIngredientFormInput>({
       defaultValues: src || { recipeId: recipe?.id },
     });
-  const onSubmit: SubmitHandler<YeastIngredientFormInput> = (data) => {
-    const body = new FormData();
-
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null) {
-        body.append(key, value?.toString());
-      }
-    });
-    console.log(data);
-    action(body);
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    action(data);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const { name, value } = e.currentTarget;
-    const yeast = yeasts.find((p) => p.id === parseInt(value));
+  const handleChange = (value: number) => {
+    const yeast = yeasts.find((p) => p.id === value);
     if (!yeast) return;
     setValue("yeastId", yeast?.id);
     setValue("attenuation", yeast?.attenuation);
@@ -70,31 +64,30 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   }, {} as Record<string, string>);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form action={onSubmit}>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
 
-      <div className="gap-2 grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 m-2">
         <div className="md:col-span-2">
-          <Select
+          <Autocomplete
             label="Yeast"
             {...register("yeastId")}
+            value={getValues("yeastId") as any}
             options={options}
-            onChange={handleChange}
+            handleChange={handleChange}
           />
         </div>
-        <div className="md:col-span-1">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="">
-              <NumberField label="Amount" {...register("amount")} />
-            </div>
-            <div className="">
-              <Select
-                {...register("amountType")}
-                label="Unit"
-                options={YeastAmountType}
-              />
-            </div>
+        <div className="flex">
+          <div className="flex-grow">
+            <NumberField label="Amount" {...register("amount")} />
+          </div>
+          <div className="flex-shrink-0">
+            <Select
+              {...register("amountType")}
+              label="Unit"
+              options={YeastAmountType}
+            />
           </div>
         </div>
         <div className="md:col-span-1">
@@ -104,11 +97,10 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
             label="Attenuation (%)"
           />
         </div>
-
-        <Toolbar className="col-span-2 md:col-span-2">
-          <Button type="submit">Save</Button>
-        </Toolbar>
       </div>
+      <Toolbar className="col-span-2 md:col-span-2">
+        <Button type="submit">Save</Button>
+      </Toolbar>
     </Form>
   );
 };

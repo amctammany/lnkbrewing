@@ -22,6 +22,7 @@ import {
 } from "@/app/recipes/actions";
 import { Toolbar } from "@/components/Toolbar/Toolbar";
 import { Button } from "@/components/Button";
+import { Autocomplete } from "@/components";
 
 export type FermentableIngredientFormProps = {
   recipe?: ExtendedRecipe | null;
@@ -44,9 +45,14 @@ export function FermentableIngredientForm({
   fermentable: src,
   fermentables,
 }: FermentableIngredientFormProps) {
-  const { register, handleSubmit, reset, setValue } =
+  const { register, getValues, handleSubmit, reset, setValue } =
     useForm<FermentableIngredientFormInput>({
-      defaultValues: src || { recipeId: recipe?.id },
+      defaultValues: {
+        ...src,
+        fermentableId: src?.fermentable.id,
+        potential: src?.fermentable.potential,
+        color: src?.fermentable.color,
+      } || { recipeId: recipe?.id },
     });
   const action = src?.id
     ? updateFermentableIngredient
@@ -72,6 +78,13 @@ export function FermentableIngredientForm({
     setValue("potential", fermentable?.potential);
     setValue("color", fermentable?.color);
   };
+  const autoChange = (value: number) => {
+    const fermentable = fermentables.find((p) => p.id === value);
+    if (!fermentable) return;
+    setValue("fermentableId", fermentable?.id);
+    setValue("potential", fermentable?.potential);
+    setValue("color", fermentable?.color);
+  };
   const options = (fermentables || []).reduce((acc, hop) => {
     acc[hop.id] = hop.name;
     return acc;
@@ -79,26 +92,25 @@ export function FermentableIngredientForm({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-0 md:gap-0 items-center grid-cols-1 md:grid-cols-2">
+      <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
-          <Select
+          <Autocomplete
             label="Fermentable"
-            {...register("fermentableId")}
             options={options}
-            onChange={handleChange}
+            value={getValues("fermentableId") as any}
+            {...register("fermentableId")}
+            handleChange={autoChange}
           />
         </div>
-        <div>
-          <NumberField {...register("amount")} label="Amount" />
-        </div>
-        <div>
-          <Select
-            {...register("amountType")}
-            label="Amount Unit"
-            options={MassUnit}
-          />
+        <div className="flex">
+          <div className="flex-grow">
+            <NumberField {...register("amount")} label="Amount" />
+          </div>
+          <div className="flex-shrink-0">
+            <Select {...register("amountType")} label="" options={MassUnit} />
+          </div>
         </div>
         <div className="">
           <Select
@@ -117,11 +129,10 @@ export function FermentableIngredientForm({
         <div>
           <NumberField {...register("color")} label="Color" step={0.01} />
         </div>
-
-        <Toolbar className="col-span-2">
-          <Button type="submit">Submit</Button>
-        </Toolbar>
       </div>
+      <Toolbar className="col-span-2">
+        <Button type="submit">Submit</Button>
+      </Toolbar>
     </Form>
   );
 }

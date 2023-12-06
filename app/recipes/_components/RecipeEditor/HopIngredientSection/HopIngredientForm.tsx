@@ -75,7 +75,6 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   hop,
   hops,
 }) => {
-  console.log({ massUnit });
   const src =
     hopId === "new" ? ({ recipeId: recipe?.id } as ExtendedHopIngredient) : hop;
   const {
