@@ -6,7 +6,7 @@ import React, { FC } from "react";
 import dynamic from "next/dynamic";
 import Prop from "@/components/Prop/Prop";
 //import { PencilIcon } from "@heroicons/react/24/solid";
-import { Icon } from "@/components/Icon";
+import { EditIcon } from "@/components/Icon";
 const EquipmentProfileModal = dynamic(() => import("./EquipmentProfileModal"), {
   ssr: false,
 });
@@ -20,7 +20,7 @@ const EquipmentSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?equipment=1" scroll={false}>
-        <Icon icon="edit" />
+        <EditIcon />
       </ButtonLink>
     </div>
   );

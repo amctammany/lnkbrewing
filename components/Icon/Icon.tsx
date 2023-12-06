@@ -1,6 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import React, { ComponentProps } from "react";
+/**
 import {
   BackwardIcon,
   ForwardIcon,
@@ -10,18 +11,10 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/solid";
 
-const IconMap = {
-  edit: PencilIcon,
-  add: PlusIcon,
-  delete: TrashIcon,
-  save: CheckIcon,
-  undo: BackwardIcon,
-  redo: ForwardIcon,
-};
+*/
 
-export type IconProps = ComponentProps<"div"> &
-  VariantProps<typeof iconStyles> & { icon: keyof typeof IconMap };
-const iconStyles = cva("", {
+export type IconProps = ComponentProps<"div"> & VariantProps<typeof iconStyles>;
+export const iconStyles = cva("", {
   variants: {
     variant: {
       default: [""],
@@ -36,10 +29,11 @@ const iconStyles = cva("", {
     size: "default",
   },
 });
-export function Icon({ variant, size, className, icon }: IconProps) {
-  const IconComp = IconMap[icon];
+export function Icon({ variant, size, className, children }: IconProps) {
   return (
-    <IconComp className={clsx(iconStyles({ variant, size }), className)} />
+    <div className={clsx(iconStyles({ variant, size }), className)}>
+      {children}
+    </div>
   );
 }
 export default Icon;

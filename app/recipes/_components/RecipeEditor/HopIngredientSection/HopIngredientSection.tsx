@@ -10,9 +10,8 @@ const HopIngredientModal = dynamic(() => import("./HopIngredientModal"), {
 //import { RecipeVitals } from "../..";
 import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
-import { PlusIcon } from "@heroicons/react/24/solid";
 import { UserMassPreference } from "@prisma/client";
-import { Icon } from "@/components/Icon";
+import { AddIcon, Icon } from "@/components/Icon";
 import { ExtendedHopIngredient } from "@/app/recipes/types";
 
 interface HopIngredientSectionProps {
@@ -25,7 +24,7 @@ const HopIngredientSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?hopId=new" scroll={false}>
-        <Icon icon="add" />
+        <AddIcon />
       </ButtonLink>
     </div>
   );

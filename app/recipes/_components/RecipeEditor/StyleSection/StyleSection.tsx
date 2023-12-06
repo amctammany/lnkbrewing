@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 const StyleModal = dynamic(() => import("./StyleModal"), { ssr: false });
 import { RecipeVitals } from "../..";
 import { PencilIcon } from "@heroicons/react/24/solid";
+import { EditIcon } from "@/components/Icon";
 
 interface StyleSectionProps {
   recipeId: number;
@@ -17,7 +18,7 @@ const StyleSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?style=1" scroll={false}>
-        <PencilIcon className="h-6 w-6 " />
+        <EditIcon />
       </ButtonLink>
     </div>
   );

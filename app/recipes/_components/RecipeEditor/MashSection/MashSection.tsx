@@ -9,7 +9,7 @@ import { List, ListItem } from "@/components/List";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
-import { Icon } from "@/components/Icon";
+import { EditIcon, Icon } from "@/components/Icon";
 const MashProfileModal = dynamic(() => import("./MashProfileModal"), {
   ssr: false,
 });
@@ -23,7 +23,7 @@ const MashSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?mash=1" scroll={false}>
-        <Icon icon="edit" />
+        <EditIcon />
       </ButtonLink>
     </div>
   );

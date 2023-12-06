@@ -5,9 +5,9 @@ import React, { FC } from "react";
 //import { GeneralModal } from "./GeneralModal";
 import dynamic from "next/dynamic";
 const GeneralModal = dynamic(() => import("./GeneralModal"), { ssr: false });
-import { RecipeVitals } from "../..";
+//import { RecipeVitals } from "../..";
 import Prop from "@/components/Prop/Prop";
-import { PencilIcon } from "@heroicons/react/24/solid";
+import { EditIcon } from "@/components/Icon";
 
 interface GeneralSectionProps {
   recipeId: number;
@@ -17,8 +17,8 @@ interface GeneralSectionProps {
 const GeneralSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?general=1">
-        <PencilIcon className="h-6 w-6 " />
+      <ButtonLink href="?general=1" scroll={false}>
+        <EditIcon />
       </ButtonLink>
     </div>
   );
