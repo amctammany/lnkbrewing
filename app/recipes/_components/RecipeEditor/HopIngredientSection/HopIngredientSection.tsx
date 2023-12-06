@@ -24,7 +24,7 @@ interface HopIngredientSectionProps {
 const HopIngredientSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?hopId=new">
+      <ButtonLink href="?hopId=new" scroll={false}>
         <Icon icon="add" />
       </ButtonLink>
     </div>

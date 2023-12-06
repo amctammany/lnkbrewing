@@ -82,7 +82,6 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       () => Object.entries(ops).map(([k, v]) => [v, parseInt(k)]),
       [ops]
     );
-    console.log(value);
     const [query, setQuery] = useState(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );

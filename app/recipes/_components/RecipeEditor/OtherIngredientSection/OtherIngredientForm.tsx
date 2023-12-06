@@ -39,7 +39,6 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
   other,
   others,
 }) => {
-  console.log(other, recipe);
   const src =
     otherId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
