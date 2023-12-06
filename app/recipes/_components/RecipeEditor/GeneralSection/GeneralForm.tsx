@@ -21,27 +21,24 @@ type GeneralFormInput = {
 };
 
 export const GeneralForm: FC<GeneralFormProps> = ({ recipe, action }) => {
-  const { register, handleSubmit } = useForm<GeneralFormInput>({
+  const { register, trigger } = useForm<GeneralFormInput>({
     defaultValues: recipe || {},
   });
-  const onSubmit: SubmitHandler<GeneralFormInput> = (data) => {
-    const body = new FormData();
-
-    Object.entries(data).forEach(([key, value]) => {
-      if (value) {
-        body.append(key, value?.toString());
-      }
-    });
-    action(body);
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    action(data);
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form action={onSubmit}>
       <input type="hidden" {...register("id")} />
       <TextField {...register("name")} />
       <TextArea {...register("description")} />
       <Toolbar>
-        <Button type="submit">Save</Button>
+        <Button type="submit" size="toolbar">
+          Save
+        </Button>
       </Toolbar>
     </Form>
   );

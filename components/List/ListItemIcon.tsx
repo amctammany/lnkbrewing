@@ -11,7 +11,7 @@ const listItemIconStyles = cva(
         icon: ["rounded-full w-12 h-12 p-1 border-2 border-black"], // "w-12", "h-12", "p-1.5"],
       },
       color: {
-        default: ["bg-white"],
+        default: [""],
         primary: ["bg-primary-200"],
         secondary: ["bg-secondary-200"],
       },
