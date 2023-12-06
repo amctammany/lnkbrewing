@@ -46,54 +46,48 @@ export async function removeRecipe(formData: FormData) {
 }
 
 export async function updateRecipe(formData: FormData) {
-  try {
-    const {
-      id,
-      mashProfileId,
-      waterProfileId,
-      equipmentProfileId,
-      styleIdentifer,
-      ...data
-    } = recipeSchema.parse(formData);
+  const {
+    id,
+    mashProfileId,
+    waterProfileId,
+    equipmentProfileId,
+    styleIdentifer,
+    ...data
+  } = recipeSchema.parse(formData);
 
-    const old = await prisma.recipe.findFirst({
-      where: {
-        id,
-      },
-    });
-    const res = await prisma.recipe.update({
-      where: {
-        id,
-      },
-      data: {
-        ...data,
-        ...(data.name
-          ? { name: data.name, slug: slugify(data.name, { lower: true }) }
-          : {}),
-        ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
-        ...(waterProfileId
-          ? { water: { connect: { id: waterProfileId } } }
-          : {}),
-        ...(equipmentProfileId
-          ? { equipment: { connect: { id: equipmentProfileId } } }
-          : {}),
-        ...(styleIdentifer
-          ? {
-              style: {
-                connect: {
-                  identifier: styleIdentifer,
-                },
+  const old = await prisma.recipe.findFirst({
+    where: {
+      id,
+    },
+  });
+  const res = await prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      ...data,
+      ...(data.name
+        ? { name: data.name, slug: slugify(data.name, { lower: true }) }
+        : {}),
+      ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
+      ...(waterProfileId ? { water: { connect: { id: waterProfileId } } } : {}),
+      ...(equipmentProfileId
+        ? { equipment: { connect: { id: equipmentProfileId } } }
+        : {}),
+      ...(styleIdentifer
+        ? {
+            style: {
+              connect: {
+                identifier: styleIdentifer,
               },
-            }
-          : {}),
-      },
-    });
-    //console.log(getObjectDifferences(old, res));
-    await updateRecipeVitals(res.id);
-    redirect(`/recipes/${res.id}/edit`);
-  } catch (e) {
-    console.error(e);
-  }
+            },
+          }
+        : {}),
+    },
+  });
+  //console.log(getObjectDifferences(old, res));
+  await updateRecipeVitals(res.id);
+  redirect(`/recipes/${res.id}/edit`);
 }
 export async function updateRecipeVitals(id: number) {
   const recipe = await prisma.recipe.findFirst({

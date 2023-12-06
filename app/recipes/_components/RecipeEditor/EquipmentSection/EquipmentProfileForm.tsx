@@ -54,8 +54,11 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
 
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
+    console.log({ valid });
     if (!valid) return;
-    return action(data);
+    const d = await action(data);
+    console.log(d);
+    return d;
   };
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { name, value } = e.currentTarget;

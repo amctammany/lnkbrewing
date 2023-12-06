@@ -45,7 +45,7 @@ export const ListItem = ({
   return (
     <li className="group relative flex flex-col">
       {child}
-      <div className="z-10 absolute right-1 top-1/2 -translate-y-1/2">
+      <div className="absolute right-1 top-1/2 -translate-y-1/2">
         {secondaryAction}
       </div>
     </li>

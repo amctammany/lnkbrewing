@@ -16,7 +16,7 @@ export const RoutedModal = ({
 }: RoutedModalProps) => {
   //const handleClose = () => router.back();
   const cn = clsx(
-    "inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20",
+    "inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-40",
     {
       hidden: hidden,
       fixed: !hidden,
