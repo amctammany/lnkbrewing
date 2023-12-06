@@ -31,6 +31,9 @@ export default async function RecipeEditorPage({
 }: RecipeEditorPageProps) {
   const recipe = await getExtendedRecipe(parseInt(id));
   const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
   if (recipe?.authorEmail !== session?.user.email) {
     console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
