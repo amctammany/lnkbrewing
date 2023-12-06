@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
+import { Range } from "@/components/Range";
 import { Hop, HopSensoryPanel } from "@prisma/client";
 
 const fieldNames: (keyof Hop)[] = ["name", "description", "country", "usage"];
@@ -61,6 +62,7 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
         </div>
       </div>
       <div className="p-2 shadow-lg">
+        <Range min={0} max={40} value={[hop?.alphaLow!, hop?.alphaHigh!]} />
         <RangeProp
           label="Alpha Acids"
           low={hop?.alphaLow}

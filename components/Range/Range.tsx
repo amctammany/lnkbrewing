@@ -1,13 +1,17 @@
 export type RangeProps = {
   min?: number;
   max?: number;
-  value: [number, number];
+  value: [number?, number?];
 };
 
-export function Range({ min, max, value }: RangeProps) {
+export function Range({ min: _min, max: _max, value }: RangeProps) {
+  const min = _min ?? 0;
+  const max = _max ?? 100;
+  const v0 = value[0] ?? 0;
+  const v1 = value[1] ?? 100;
   const range = (max ?? 100) - (min ?? 0);
-  const left = (100 * value[0]) / range;
-  const width = (100 * (value[1] - value[0])) / range;
+  const left = (100 * (v0 - min)) / range;
+  const width = (100 * (v1 - v0)) / range;
   return (
     <div className="block relative w-full h-5 bg-paper m-1 box-border">
       <div className="box-border absolute top-1/2 left-0 right-0 h-[1px] w-full bg-black before:h-4 before:w-[1px] before:top-0 before:left-3 before:bg-black before:absolute after:h-4 after:w-[1px] after:bg-black after:absolute after:top-0 after:right-3"></div>
