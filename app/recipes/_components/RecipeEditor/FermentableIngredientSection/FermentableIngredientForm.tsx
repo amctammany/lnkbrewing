@@ -49,9 +49,9 @@ export function FermentableIngredientForm({
     useForm<FermentableIngredientFormInput>({
       defaultValues: {
         ...src,
-        fermentableId: src?.fermentable.id,
-        potential: src?.fermentable.potential,
-        color: src?.fermentable.color,
+        fermentableId: src?.fermentable?.id,
+        potential: src?.fermentable?.potential,
+        color: src?.fermentable?.color,
       } || { recipeId: recipe?.id },
     });
   const action = src?.id

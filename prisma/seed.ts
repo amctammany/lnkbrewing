@@ -18,11 +18,13 @@ async function main() {
   await prisma.mashProfile.deleteMany();
   await prisma.waterProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
+
+  await prisma.recipeOtherIngredient.deleteMany();
   await prisma.otherIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
+  await prisma.hopSensoryPanel.deleteMany();
   await prisma.hop.deleteMany();
-  //await prisma.hopSensoryPanel.deleteMany();
   await prisma.yeast.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.recipe.deleteMany();

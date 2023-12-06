@@ -11,6 +11,7 @@ import { List } from "@/components/List/List";
 import { YeastIngredientListItem } from "./YeastIngredientListItem";
 import { prisma } from "@/lib/client";
 import { Icon } from "@/components/Icon";
+import { ExtendedYeastIngredient } from "@/app/recipes/types";
 
 interface YeastIngredientSectionProps {
   recipeId: number;
@@ -33,9 +34,10 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
   const open = !!yeastId;
   const recipe = await getExtendedRecipe(recipeId);
   const yid = parseInt(yeastId || "");
-  const yeastIngredient = yeastId
-    ? recipe?.yeasts.find((y) => y.id === yid)
-    : null;
+  const yeastIngredient =
+    yeastId === "new"
+      ? ({ recipeId } as ExtendedYeastIngredient)
+      : recipe?.yeasts.find((y) => y.id === yid);
 
   return (
     <Section header="Yeasts" actions={<YeastIngredientSectionActions />}>

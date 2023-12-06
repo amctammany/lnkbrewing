@@ -13,6 +13,7 @@ import { HopIngredientListItem } from "./HopIngredientListItem";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { UserMassPreference } from "@prisma/client";
 import { Icon } from "@/components/Icon";
+import { ExtendedHopIngredient } from "@/app/recipes/types";
 
 interface HopIngredientSectionProps {
   recipeId: number;
@@ -37,7 +38,9 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
   const open = !!hopId;
   const recipe = await getExtendedRecipe(recipeId);
   const hopIngredient =
-    hopId && recipe?.hops.find((h) => h.id === parseInt(hopId));
+    hopId === "new"
+      ? ({ recipeId } as ExtendedHopIngredient)
+      : recipe?.hops.find((h) => h.id === parseInt(hopId!));
   /**
     (await prisma.hopIngredient.findFirst({
       where: {
@@ -61,7 +64,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
       {hopIngredient && (
         <HopIngredientModal
           hop={hopIngredient}
-          hopId={hopId}
+          hopId={hopId!}
           recipe={recipe}
           massUnit={massUnit}
           open={open}

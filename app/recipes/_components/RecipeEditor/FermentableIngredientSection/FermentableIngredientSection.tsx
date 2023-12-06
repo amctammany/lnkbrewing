@@ -36,9 +36,10 @@ export const FermentableIngredientSection: FC<
   const open = !!fermentableId;
   const recipe = await getExtendedRecipe(recipeId);
   const fid = parseInt(fermentableId || "");
-  const fermentableIngredient = fermentableId
-    ? recipe?.fermentables.find((f) => f.id === fid)
-    : null;
+  const fermentableIngredient =
+    fermentableId === "new"
+      ? ({ recipeId } as ExtendedFermentableIngredient)
+      : recipe?.fermentables.find((f) => f.id === fid);
   //(await prisma.fermentableIngredient.findFirst({
   //where: {
   //id: parseInt(fermentableId || "") || 0,

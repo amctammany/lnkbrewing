@@ -29,9 +29,10 @@ export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({
   const open = !!otherId;
   const recipe = await getExtendedRecipe(recipeId);
   const oid = parseInt(otherId || "");
-  const otherIngredient = otherId
-    ? recipe?.otherIngredients.find((o) => o.id === oid)
-    : null;
+  const otherIngredient =
+    otherId === "new"
+      ? ({ recipeId } as any)
+      : recipe?.otherIngredients.find((o) => o.id === oid);
 
   return (
     <Section header="Others" actions={<OtherIngredientSectionActions />}>
