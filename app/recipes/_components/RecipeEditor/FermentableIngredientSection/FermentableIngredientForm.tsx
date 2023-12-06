@@ -45,7 +45,7 @@ export function FermentableIngredientForm({
   fermentable: src,
   fermentables,
 }: FermentableIngredientFormProps) {
-  const { register, getValues, handleSubmit, reset, setValue } =
+  const { register, getValues, trigger, reset, setValue } =
     useForm<FermentableIngredientFormInput>({
       defaultValues: {
         ...src,
@@ -58,26 +58,12 @@ export function FermentableIngredientForm({
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
 
-  const onSubmit: SubmitHandler<FermentableIngredientFormInput> = (data) => {
-    const body = new FormData();
-
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null) {
-        body.append(key, value?.toString());
-      }
-    });
-    console.log(data);
-    action(body);
+  const onSubmit = async (data: FormData) => {
+    const valid = await trigger();
+    if (!valid) return;
+    action(data);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const { name, value } = e.currentTarget;
-    const fermentable = fermentables.find((p) => p.id === parseInt(value));
-    if (!fermentable) return;
-    setValue("fermentableId", fermentable?.id);
-    setValue("potential", fermentable?.potential);
-    setValue("color", fermentable?.color);
-  };
   const autoChange = (value: number) => {
     const fermentable = fermentables.find((p) => p.id === value);
     if (!fermentable) return;
@@ -91,7 +77,7 @@ export function FermentableIngredientForm({
   }, {} as Record<string, string>);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form action={onSubmit}>
       <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("recipeId")} />
