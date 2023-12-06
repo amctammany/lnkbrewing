@@ -76,7 +76,7 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
       />
 
       <input type="hidden" value={recipe?.id} {...register("id")} />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="m-2 grid grid-cols-2 md:grid-cols-4 gap-2">
         <NumberField step={1} {...register("boilTime")} />
         <NumberField step={0.01} {...register("batchVolume")} />
         <NumberField step={0.01} {...register("mashEfficiency")} />

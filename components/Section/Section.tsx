@@ -2,7 +2,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 
-const section = cva(["min-w-full bg-white z-10"], {
+const section = cva(["min-w-full bg-white "], {
   variants: {
     variant: {
       primary: [""],
@@ -20,7 +20,7 @@ const section = cva(["min-w-full bg-white z-10"], {
   },
 });
 
-const sectionHeader = cva(["flex z-10"], {
+const sectionHeader = cva(["flex "], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
