@@ -32,14 +32,10 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
 }) => {
   const open = !!yeastId;
   const recipe = await getExtendedRecipe(recipeId);
-  const yeastIngredient = await prisma.yeastIngredient.findFirst({
-    where: {
-      id: parseInt(yeastId || "") || 0,
-    },
-    include: {
-      yeast: true,
-    },
-  });
+  const yid = parseInt(yeastId || "");
+  const yeastIngredient = yeastId
+    ? recipe?.yeasts.find((y) => y.id === yid)
+    : null;
 
   return (
     <Section header="Yeasts" actions={<YeastIngredientSectionActions />}>
