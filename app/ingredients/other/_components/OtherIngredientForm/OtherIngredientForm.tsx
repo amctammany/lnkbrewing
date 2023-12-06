@@ -13,14 +13,14 @@ import { useForm } from "react-hook-form";
 
 export type OtherIngredientFormProps = {
   src: OtherIngredient | null;
-  action: (formData: FormData) => void;
+  action?: (formData: FormData) => void;
   options: any;
 };
 const numberFields: NumberKeys<OtherIngredient>[] = [];
 export const OtherIngredientForm = ({
   src,
-  action,
   options,
+  action,
 }: OtherIngredientFormProps) => {
   const { control, register, trigger } = useForm<OtherIngredient>({
     defaultValues: src || {},
@@ -29,7 +29,7 @@ export const OtherIngredientForm = ({
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
-    return action(data);
+    if (action) action(data);
   };
 
   return (
