@@ -19,7 +19,7 @@ const formStyles = cva(["flex-autao"], {
       default: ["bg-white"],
     },
     size: {
-      default: ["w-full", "m-0", "p-2"],
+      default: ["w-full", "m-0", "p-0"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },

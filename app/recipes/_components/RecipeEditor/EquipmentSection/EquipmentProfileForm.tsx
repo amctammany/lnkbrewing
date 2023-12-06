@@ -11,6 +11,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { EquipmentSelect } from "./EquipmentSelect";
 import { Select } from "@/components/Form/Select";
 import { MashProfileStep } from "@/app/profiles/mash/types";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
 
 interface EquipmentProfileFormProps {
   recipe?: ExtendedRecipe | null;
@@ -77,7 +79,9 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
         <NumberField step={0.01} {...register("mashEfficiency")} />
         <NumberField step={0.01} {...register("brewEfficiency")} />
 
-        <Submit>Save</Submit>
+        <Toolbar className="col-span-2 md:col-span-4">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );

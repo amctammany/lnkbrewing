@@ -1,17 +1,14 @@
 "use client";
-import { MashProfileSelect } from "@/app/profiles/mash/_components/MashProfileSelect/MashProfileSelect";
 import { ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
-import { Label } from "@/components/Form/Label";
-import { NumberField } from "@/components/Form/NumberField";
-import { Submit } from "@/components/Form/Submit";
+//import { Submit } from "@/components/Form/Submit";
 import { MashProfile } from "@prisma/client";
 import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { MashSelect } from "./MashSelect";
 import { Select } from "@/components/Form/Select";
-import { MashProfileStep } from "@/app/profiles/mash/types";
-import { TextField } from "@/components";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 interface MashProfileFormProps {
   recipe?: ExtendedRecipe | null;
@@ -90,9 +87,13 @@ export const MashProfileForm: FC<MashProfileFormProps> = ({
       />
 
       <input type="hidden" value={recipe?.id} {...register("id")} />
-      <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
-        <Submit>Save</Submit>
-      </div>
+      <Toolbar>
+        <Button type="submit" size="toolbar">
+          <CheckIcon className="h-5 w-5" />
+        </Button>
+      </Toolbar>
     </Form>
   );
 };
+//<div className="flex flex-row md:grid md:grid-cols-2 gap-2">
+//</div>

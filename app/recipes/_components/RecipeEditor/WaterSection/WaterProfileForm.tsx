@@ -2,15 +2,17 @@
 import { WaterProfileSelect } from "@/app/profiles/water/_components/WaterProfileSelect/WaterProfileSelect";
 import { ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
-import { Label } from "@/components/Form/Label";
+import { Button } from "@/components/Button";
+//import { Label } from "@/components/Form/Label";
 import { NumberField } from "@/components/Form/NumberField";
-import { Submit } from "@/components/Form/Submit";
+//import { Submit } from "@/components/Form/Submit";
 import { WaterProfile } from "@prisma/client";
 import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { WaterSelect } from "./WaterSelect";
+//import { WaterSelect } from "./WaterSelect";
 import { Select } from "@/components/Form/Select";
-import { TextField } from "@/components";
+//import { TextField } from "@/components";
+import { Toolbar } from "@/components/Toolbar";
 
 interface WaterProfileFormProps {
   recipe?: ExtendedRecipe | null;
@@ -78,7 +80,9 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
         <NumberField step={1} {...register("sulfate")} />
         <NumberField step={1} {...register("bicarbonate")} />
 
-        <Submit>Save</Submit>
+        <Toolbar className="col-span-2 md:col-span-2">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );

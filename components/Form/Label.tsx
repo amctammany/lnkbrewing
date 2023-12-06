@@ -10,10 +10,10 @@ export type LabelProps = {
 const labelStyles = cva(["block"], {
   variants: {
     variant: {
-      default: [],
+      default: ["m-0"],
     },
     size: {
-      default: ["mb-4"],
+      default: ["mx-2 mb-2"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },

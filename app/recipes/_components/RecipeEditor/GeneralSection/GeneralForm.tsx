@@ -1,9 +1,11 @@
 "use client";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form/Form";
 import { Label } from "@/components/Form/Label";
 import { Submit } from "@/components/Form/Submit";
 import { TextArea } from "@/components/Form/TextArea";
 import { TextField } from "@/components/Form/TextField";
+import { Toolbar } from "@/components/Toolbar";
 import { Recipe } from "@prisma/client";
 import React, { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -38,7 +40,9 @@ export const GeneralForm: FC<GeneralFormProps> = ({ recipe, action }) => {
       <input type="hidden" {...register("id")} />
       <TextField {...register("name")} />
       <TextArea {...register("description")} />
-      <Submit>Save</Submit>
+      <Toolbar>
+        <Button type="submit">Save</Button>
+      </Toolbar>
     </Form>
   );
 };

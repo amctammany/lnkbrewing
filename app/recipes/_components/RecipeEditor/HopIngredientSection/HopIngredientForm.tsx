@@ -19,6 +19,8 @@ import { Autocomplete } from "@/components/Form/Autocomplete";
 //import { hopIngredientSchema } from "@/app/recipes/actions";
 import * as z from "zod";
 import { zfd } from "zod-form-data";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
 const hopIngredientSchema = z.object({
   id: z.number().optional(),
   recipeId: z.number(),
@@ -177,9 +179,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           />
         </div>
 
-        <div className="md:col-span-2">
-          <Submit>Save</Submit>
-        </div>
+        <Toolbar className="md:col-span-2">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );

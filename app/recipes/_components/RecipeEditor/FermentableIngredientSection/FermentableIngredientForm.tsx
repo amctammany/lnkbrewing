@@ -20,6 +20,8 @@ import {
   updateFermentableIngredient,
   addFermentableIngredientToRecipe,
 } from "@/app/recipes/actions";
+import { Toolbar } from "@/components/Toolbar/Toolbar";
+import { Button } from "@/components/Button";
 
 export type FermentableIngredientFormProps = {
   recipe?: ExtendedRecipe | null;
@@ -77,7 +79,7 @@ export function FermentableIngredientForm({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
+      <div className="grid gap-0 md:gap-0 items-center grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
@@ -116,9 +118,9 @@ export function FermentableIngredientForm({
           <NumberField {...register("color")} label="Color" step={0.01} />
         </div>
 
-        <div className="col-span-2">
-          <Submit>Save</Submit>
-        </div>
+        <Toolbar className="col-span-2">
+          <Button type="submit">Submit</Button>
+        </Toolbar>
       </div>
     </Form>
   );

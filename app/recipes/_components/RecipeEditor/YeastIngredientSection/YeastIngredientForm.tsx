@@ -8,6 +8,8 @@ import React, { FC } from "react";
 import { MassUnit, TimeUnit, Yeast, YeastAmountType } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
 
 interface YeastIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -103,9 +105,9 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
           />
         </div>
 
-        <div className="md:col-span-2">
-          <Submit>Save</Submit>
-        </div>
+        <Toolbar className="col-span-2 md:col-span-2">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );

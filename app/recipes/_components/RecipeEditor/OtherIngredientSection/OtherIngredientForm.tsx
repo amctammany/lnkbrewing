@@ -12,6 +12,8 @@ import {
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
 
 interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -97,7 +99,9 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
           />
         </div>
 
-        <Submit>Save</Submit>
+        <Toolbar className="col-span-2 md:col-span-2">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );

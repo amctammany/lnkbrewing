@@ -8,6 +8,8 @@ import { StyleSelect } from "./StyleSelect";
 import { Style } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
 
 interface StyleFormProps {
   recipe?: ExtendedRecipe | null;
@@ -55,7 +57,9 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, action, styles }) => {
           {...register("styleIdentifer")}
           options={styles}
         />
-        <Submit>Save</Submit>
+        <Toolbar className="col-span-2 md:col-span-2">
+          <Button type="submit">Save</Button>
+        </Toolbar>
       </div>
     </Form>
   );
