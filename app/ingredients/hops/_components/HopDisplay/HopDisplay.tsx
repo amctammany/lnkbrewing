@@ -68,60 +68,47 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
           max={40}
           value={[hop?.alphaLow!, hop?.alphaHigh!]}
         />
-        <RangeProp
-          label="Alpha Acids"
-          low={hop?.alphaLow}
-          high={hop?.alphaHigh}
-          avg={hop?.alpha}
-        />
-        <RangeProp
+        <Range
           label="Beta Acids"
-          low={hop?.betaLow}
-          high={hop?.betaHigh}
-          avg={hop?.beta}
+          min={0}
+          max={40}
+          value={[hop?.betaLow!, hop?.betaHigh!]}
         />
-        <RangeProp
+        <Range
           label="Cohumulone"
-          low={hop?.cohumuloneLow}
-          high={hop?.cohumuloneHigh}
-          avg={hop?.cohumulone}
+          min={0}
+          max={50}
+          value={[hop?.cohumuloneLow!, hop?.cohumuloneHigh!]}
         />
-        <RangeProp
+        <Range
           label="Caryophyllene"
-          low={hop?.caryophylleneLow}
-          high={hop?.caryophylleneHigh}
-          avg={hop?.caryophyllene}
+          min={0}
+          max={25}
+          value={[hop?.caryophylleneLow!, hop?.caryophylleneHigh!]}
         />
-        <RangeProp
+        <Range
           label="Farnesene"
-          low={hop?.farneseneLow}
-          high={hop?.farneseneHigh}
-          avg={hop?.farnesene}
+          min={0}
+          max={25}
+          value={[hop?.farneseneLow!, hop?.farneseneHigh!]}
         />
-        <RangeProp
+        <Range
           label="Humulene"
-          low={hop?.humuleneLow}
-          high={hop?.humuleneHigh}
-          avg={hop?.humulene}
+          min={0}
+          max={50}
+          value={[hop?.humuleneLow!, hop?.humuleneHigh!]}
         />
-        <RangeProp
-          label="Farnesene"
-          low={hop?.farneseneLow}
-          high={hop?.farneseneHigh}
-          avg={hop?.farnesene}
-        />
-        <RangeProp
+        <Range
           label="Myrcene"
-          low={hop?.myrceneLow}
-          high={hop?.myrceneHigh}
-          avg={hop?.myrcene}
+          min={0}
+          max={65}
+          value={[hop?.myrceneLow!, hop?.myrceneHigh!]}
         />
-
-        <RangeProp
+        <Range
           label="Total Oils"
-          low={hop?.totalOilLow}
-          high={hop?.totalOilHigh}
-          avg={hop?.totalOil}
+          min={0}
+          max={25}
+          value={[hop?.totalOilLow!, hop?.totalOilHigh!]}
         />
       </div>
       <div>

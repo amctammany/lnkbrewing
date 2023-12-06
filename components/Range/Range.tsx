@@ -8,9 +8,9 @@ export type RangeProps = {
 export function Range({ label, min: _min, max: _max, value }: RangeProps) {
   const min = _min ?? 0;
   const max = _max ?? 100;
-  const v0 = value[0] ?? 0;
-  const v1 = value[1] ?? 100;
-  const range = (max ?? 100) - (min ?? 0);
+  const v0 = value[0] ?? min;
+  const v1 = value[1] ?? min;
+  const range = max - min;
   const left = (100 * (v0 - min)) / range;
   const width = (100 * (v1 - v0)) / range;
   return (
