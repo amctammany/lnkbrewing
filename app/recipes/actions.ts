@@ -26,10 +26,10 @@ const recipeSchema = zfd.formData({
   waterProfileId: zfd.numeric(z.number().optional()),
   styleIdentifer: zfd.text(z.string().optional()),
   equipmentProfileId: zfd.numeric(z.number().optional()),
-  boilTime: zfd.numeric(z.number().optional()),
-  batchVolume: zfd.numeric(z.number().optional()),
-  mashEfficiency: zfd.numeric(z.number().optional()),
-  brewEfficiency: zfd.numeric(z.number().optional()),
+  boilTime: zfd.numeric(z.number().min(0).optional()),
+  batchVolume: zfd.numeric(z.number().min(0).optional()),
+  mashEfficiency: zfd.numeric(z.number().min(0).optional()),
+  brewEfficiency: zfd.numeric(z.number().min(0).optional()),
   calcium: zfd.numeric(z.number().optional()),
   magnesium: zfd.numeric(z.number().optional()),
   sodium: zfd.numeric(z.number().optional()),
@@ -46,48 +46,54 @@ export async function removeRecipe(formData: FormData) {
 }
 
 export async function updateRecipe(formData: FormData) {
-  const {
-    id,
-    mashProfileId,
-    waterProfileId,
-    equipmentProfileId,
-    styleIdentifer,
-    ...data
-  } = recipeSchema.parse(formData);
+  try {
+    const {
+      id,
+      mashProfileId,
+      waterProfileId,
+      equipmentProfileId,
+      styleIdentifer,
+      ...data
+    } = recipeSchema.parse(formData);
 
-  const old = await prisma.recipe.findFirst({
-    where: {
-      id,
-    },
-  });
-  const res = await prisma.recipe.update({
-    where: {
-      id,
-    },
-    data: {
-      ...data,
-      ...(data.name
-        ? { name: data.name, slug: slugify(data.name, { lower: true }) }
-        : {}),
-      ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
-      ...(waterProfileId ? { water: { connect: { id: waterProfileId } } } : {}),
-      ...(equipmentProfileId
-        ? { equipment: { connect: { id: equipmentProfileId } } }
-        : {}),
-      ...(styleIdentifer
-        ? {
-            style: {
-              connect: {
-                identifier: styleIdentifer,
+    const old = await prisma.recipe.findFirst({
+      where: {
+        id,
+      },
+    });
+    const res = await prisma.recipe.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+        ...(data.name
+          ? { name: data.name, slug: slugify(data.name, { lower: true }) }
+          : {}),
+        ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
+        ...(waterProfileId
+          ? { water: { connect: { id: waterProfileId } } }
+          : {}),
+        ...(equipmentProfileId
+          ? { equipment: { connect: { id: equipmentProfileId } } }
+          : {}),
+        ...(styleIdentifer
+          ? {
+              style: {
+                connect: {
+                  identifier: styleIdentifer,
+                },
               },
-            },
-          }
-        : {}),
-    },
-  });
-  //console.log(getObjectDifferences(old, res));
-  await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}/edit`);
+            }
+          : {}),
+      },
+    });
+    //console.log(getObjectDifferences(old, res));
+    await updateRecipeVitals(res.id);
+    redirect(`/recipes/${res.id}/edit`);
+  } catch (e) {
+    console.error(e);
+  }
 }
 export async function updateRecipeVitals(id: number) {
   const recipe = await prisma.recipe.findFirst({
@@ -126,6 +132,7 @@ export async function updateRecipeVitals(id: number) {
     chloride,
     sulfate,
     bicarbonate,
+    id: _id,
     ...data
   } = recipe;
   return prisma.recipe.update({
@@ -143,7 +150,7 @@ export async function updateRecipeVitals(id: number) {
       chloride: chloride ?? water?.chloride,
       sulfate: sulfate ?? water?.sulfate,
       bicarbonate: bicarbonate ?? water?.bicarbonate,
-      ...data,
+      //...data,
       ...vitals,
     },
   });

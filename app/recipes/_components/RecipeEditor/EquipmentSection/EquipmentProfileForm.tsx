@@ -64,7 +64,7 @@ export const EquipmentProfileForm: FC<EquipmentProfileFormProps> = ({
   };
 
   return (
-    <Form action={onSubmit}>
+    <Form action={onSubmit} onError={(e) => console.error(e)}>
       <Select
         label="Equipment Profile"
         {...register("equipmentProfileId")}
