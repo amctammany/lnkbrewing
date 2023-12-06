@@ -10,7 +10,7 @@ export function Range({ min, max, value }: RangeProps) {
   const width = (100 * (value[1] - value[0])) / range;
   return (
     <div className="block relative w-full h-5 bg-paper m-1 box-border">
-      <div className="box-border absolute top-1/2 left-0 right-0 h-1 w-full bg-black before:h-4 before:w-1 before:top-0 before:left-3 before:bg-black before:absolute after:h-4 after:w-1 after:bg-black after:absolute after:top-0 after:right-3"></div>
+      <div className="box-border absolute top-1/2 left-0 right-0 h-[1px] w-full bg-black before:h-4 before:w-[1px] before:top-0 before:left-3 before:bg-black before:absolute after:h-4 after:w-[1px] after:bg-black after:absolute after:top-0 after:right-3"></div>
       <div className="w-[100%] h-5 block m-auto relative">
         <span className="block absolute top-full left-[14px] text-center -translate-x-1/2">
           {min}
@@ -20,7 +20,7 @@ export function Range({ min, max, value }: RangeProps) {
         </span>
         <div
           style={{ width: `${width}%`, left: `${left}%` }}
-          className="absolute top-0 bottom-0 block h-full bg-purple-300 "
+          className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2"
         >
           <div className="absolute flex w-full my-2 h-full">
             <div className="absolute block top-full left-0 w-full ">
