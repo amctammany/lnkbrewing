@@ -417,8 +417,9 @@ model Hop {
 
 model HopSensoryPanel {
   id            Int     @id @default(autoincrement())
-  hopId         Int
-  hop           Hop     @relation(fields: [hopId], references: [id])
+  hopId         Int?
+  slug          String  @unique
+  hop           Hop     @relation(fields: [slug], references: [slug])
   sweetAromatic Float
   berry         Float
   stoneFruit    Float

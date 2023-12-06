@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 import { prisma } from "@/lib/client";
 import { NextResponse } from "next/server";
 import axios from "axios";
+import slugify from "slugify";
 const categories = [
   "sweetAromatic",
   "berry",
@@ -24,9 +25,9 @@ const origin: Point = [310, 310];
 const dist = (p1: Point, p2: Point) =>
   Math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2);
 
-const fetchSensoryData = async (path: string, hopId: number) =>
+const fetchSensoryData = async (slug: string, hopId: number) =>
   new Promise((resolve, reject) => {
-    axios(path)
+    axios(getHopUrl(slug))
       .then((res) => {
         if (!res) return reject();
         if (res.status == 404) return reject();
@@ -43,12 +44,16 @@ const fetchSensoryData = async (path: string, hopId: number) =>
           (dist(p, origin) / 226.3).toPrecision(2)
         );
 
+        const name = $(".page-title .base").text();
         const flavorMap = dists.reduce(
           (acc, d, i) => {
             acc[categories[i]] = parseFloat(d);
             return acc;
           },
-          { hopId } as Record<any, number>
+          {
+            hopId,
+            slug: slugify(name, { lower: true, remove: /['":@()]/g }),
+          } as Record<any, any>
         );
 
         return resolve(flavorMap);

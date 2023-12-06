@@ -5,6 +5,7 @@ import {
   YeastForm,
   YeastType,
   YeastFlocculation,
+  HopSensoryPanel,
 } from "@prisma/client";
 import slugify from "slugify";
 import hops from "../data/hops.json";
@@ -184,6 +185,39 @@ async function main() {
       usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
     })),
   });
+  const data = await Promise.allSettled(
+    yakima.map(async ({ flavorMap, aromas, ...hop }) => {
+      return await prisma.hop.upsert({
+        where: {
+          slug: hop.slug,
+        },
+        update: {
+          ...hop,
+          HopSensoryPanel: {
+            update: {
+              where: {
+                slug: hop.slug,
+              },
+              data: {
+                ...flavorMap,
+              },
+            },
+          },
+          flavor: aromas,
+        },
+        create: {
+          ...hop,
+          flavor: aromas,
+          HopSensoryPanel: {
+            create: flavorMap,
+          },
+        },
+        include: {
+          HopSensoryPanel: true,
+        },
+      });
+    })
+  );
 
   await prisma.fermentable.createMany({
     data: grains.map((grain) => ({
