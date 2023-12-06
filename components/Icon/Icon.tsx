@@ -1,10 +1,22 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import React, { ComponentProps } from "react";
-import { PencilIcon } from "@heroicons/react/24/solid";
+import {
+  BackwardIcon,
+  ForwardIcon,
+  CheckIcon,
+  PlusIcon,
+  TrashIcon,
+  PencilIcon,
+} from "@heroicons/react/24/solid";
 
 const IconMap = {
   edit: PencilIcon,
+  add: PlusIcon,
+  delete: TrashIcon,
+  save: CheckIcon,
+  undo: BackwardIcon,
+  redo: ForwardIcon,
 };
 
 export type IconProps = ComponentProps<"div"> &

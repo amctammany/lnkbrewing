@@ -7,6 +7,7 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 import { FC } from "react";
 import { OtherIngredientListItem } from "./OtherIngredientListItem";
 import OtherIngredientModal from "./OtherIngredientModal";
+import { Icon } from "@/components/Icon";
 
 interface OtherIngredientSectionProps {
   recipeId: number;
@@ -17,7 +18,7 @@ const OtherIngredientSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?otherId=new">
-        <PlusIcon className="h-6 w-6 " />
+        <Icon icon="add" />
       </ButtonLink>
     </div>
   );

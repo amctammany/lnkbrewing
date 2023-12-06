@@ -14,7 +14,7 @@ import { List } from "@/components/List/List";
 import { FermentableIngredientListItem } from "./FermentableIngredientListItem";
 import { prisma } from "@/lib/client";
 import { ExtendedFermentableIngredient } from "@/app/recipes/types";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { Icon } from "@/components/Icon";
 
 interface FermentableIngredientSectionProps {
   recipeId: number;
@@ -25,7 +25,7 @@ const FermentableIngredientSectionActions = () => {
   return (
     <div>
       <ButtonLink href="?fermentableId=new" scroll={false}>
-        <PlusIcon className="h-6 w-6 " />
+        <Icon icon="add" />
       </ButtonLink>
     </div>
   );
