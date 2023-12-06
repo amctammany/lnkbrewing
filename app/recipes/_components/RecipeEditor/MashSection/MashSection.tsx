@@ -21,7 +21,7 @@ interface MashSectionProps {
 const MashSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?mash=1">
+      <ButtonLink href="?mash=1" scroll={false}>
         <PencilIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

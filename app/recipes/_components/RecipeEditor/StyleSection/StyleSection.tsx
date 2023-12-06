@@ -16,7 +16,7 @@ interface StyleSectionProps {
 const StyleSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?style=1">
+      <ButtonLink href="?style=1" scroll={false}>
         <PencilIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

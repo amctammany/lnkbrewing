@@ -19,7 +19,7 @@ interface WaterSectionProps {
 const WaterSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?water=1">
+      <ButtonLink href="?water=1" scroll={false}>
         <PencilIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

@@ -20,7 +20,7 @@ interface YeastIngredientSectionProps {
 const YeastIngredientSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?yeastId=new">
+      <ButtonLink href="?yeastId=new" scroll={false}>
         <PlusIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

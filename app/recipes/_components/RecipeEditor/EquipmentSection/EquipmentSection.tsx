@@ -18,7 +18,7 @@ interface EquipmentSectionProps {
 const EquipmentSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?equipment=1">
+      <ButtonLink href="?equipment=1" scroll={false}>
         <PencilIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

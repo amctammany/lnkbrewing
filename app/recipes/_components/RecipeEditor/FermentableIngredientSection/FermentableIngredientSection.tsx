@@ -24,7 +24,7 @@ interface FermentableIngredientSectionProps {
 const FermentableIngredientSectionActions = () => {
   return (
     <div>
-      <ButtonLink href="?fermentableId=new">
+      <ButtonLink href="?fermentableId=new" scroll={false}>
         <PlusIcon className="h-6 w-6 " />
       </ButtonLink>
     </div>

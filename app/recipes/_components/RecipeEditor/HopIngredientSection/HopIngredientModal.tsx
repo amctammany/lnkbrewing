@@ -1,13 +1,18 @@
 import { ExtendedHopIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
-import { HopIngredientForm } from "./HopIngredientForm";
+//import { HopIngredientForm } from "./HopIngredientForm";
+const HopIngredientForm = dynamic(() => import("./HopIngredientForm"), {
+  ssr: false,
+});
+
 import {
   addHopIngredientToRecipe,
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
 import { HopIngredient, UserMassPreference } from "@prisma/client";
+import dynamic from "next/dynamic";
 
 interface HopIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;

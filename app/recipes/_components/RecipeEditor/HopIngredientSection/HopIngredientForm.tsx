@@ -186,3 +186,4 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     </Form>
   );
 };
+export default HopIngredientForm;
