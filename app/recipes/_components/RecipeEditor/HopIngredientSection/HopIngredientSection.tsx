@@ -7,10 +7,9 @@ import dynamic from "next/dynamic";
 const HopIngredientModal = dynamic(() => import("./HopIngredientModal"), {
   ssr: true,
 });
-import { RecipeVitals } from "../..";
+//import { RecipeVitals } from "../..";
 import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
-import { prisma } from "@/lib/client";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { UserMassPreference } from "@prisma/client";
 import { Icon } from "@/components/Icon";
@@ -37,14 +36,18 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
 }) => {
   const open = !!hopId;
   const recipe = await getExtendedRecipe(recipeId);
-  const hopIngredient = await prisma.hopIngredient.findFirst({
-    where: {
-      id: parseInt(hopId || "") || 0,
-    },
-    include: {
-      hop: true,
-    },
-  });
+  const hopIngredient =
+    hopId && recipe?.hops.find((h) => h.id === parseInt(hopId));
+  /**
+    (await prisma.hopIngredient.findFirst({
+      where: {
+        id: parseInt(hopId || "") || 0,
+      },
+      include: {
+        hop: true,
+      },
+    }));
+     */
 
   return (
     <>
@@ -55,7 +58,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
           ))}
         </List>
       </Section>
-      {open && (
+      {hopIngredient && (
         <HopIngredientModal
           hop={hopIngredient}
           hopId={hopId}
