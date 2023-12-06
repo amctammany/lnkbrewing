@@ -62,7 +62,12 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
         </div>
       </div>
       <div className="p-2 shadow-lg">
-        <Range min={0} max={40} value={[hop?.alphaLow!, hop?.alphaHigh!]} />
+        <Range
+          label="Alpha Acids"
+          min={0}
+          max={40}
+          value={[hop?.alphaLow!, hop?.alphaHigh!]}
+        />
         <RangeProp
           label="Alpha Acids"
           low={hop?.alphaLow}
