@@ -11,6 +11,7 @@ const labelStyles = cva(["block"], {
   variants: {
     variant: {
       default: ["m-0"],
+      error: [""],
     },
     size: {
       default: ["mx-0 mb-2"],
@@ -18,10 +19,11 @@ const labelStyles = cva(["block"], {
   },
   defaultVariants: { size: "default", variant: "default" },
 });
-const labelLabelStyles = cva(["block"], {
+const labelLabelStyles = cva(["block capitalize"], {
   variants: {
     variant: {
-      default: ["text-gray-600", "capitalize"],
+      default: ["text-gray-600"],
+      error: ["text-warning-400"],
     },
     size: {
       default: ["h-6"],
