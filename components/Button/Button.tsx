@@ -71,12 +71,14 @@ export const Button = ({
   variant,
   disabled,
   size,
+  onClick,
   className,
   ...props
 }: ButtonType) => {
   return (
     <button
       {...props}
+      onClick={onClick}
       disabled={disabled}
       className={twMerge(
         buttonStyles({

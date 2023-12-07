@@ -9,9 +9,12 @@
 //import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
 import { getServerSession } from "next-auth";
 import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
+import { RecEditor } from "../../_components/RecEditor/RecEditor";
 import { getExtendedRecipe } from "../../queries";
 import { authOptions } from "@/app/api/auth/authOptions";
 import { redirect } from "next/navigation";
+import { getHops } from "@/app/ingredients/hops/queries";
+import { HopIngredientSection } from "../../_components/RecEditor/HopIngredientSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -26,10 +29,11 @@ export function generateMetadata({ params }: RecipeEditorPageProps) {
 }
 
 export default async function RecipeEditorPage({
-  params: { id },
+  params: { id: _id },
   searchParams,
 }: RecipeEditorPageProps) {
-  const recipe = await getExtendedRecipe(parseInt(id));
+  const id = parseInt(_id);
+  const recipe = await getExtendedRecipe(id);
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/api/auth/signin");
@@ -38,12 +42,19 @@ export default async function RecipeEditorPage({
     console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
+  //const hops = await getHops();
   return (
-    <RecipeEditor
-      preferences={session?.preferences}
-      src={recipe}
-      recipeId={parseInt(id)}
-      searchParams={searchParams}
-    />
+    <RecEditor
+      //preferences={session?.preferences}
+      //hops={hops}
+      recipe={recipe}
+      recipeId={id}
+      //searchParams={searchParams}
+    >
+      <HopIngredientSection
+        recipeId={id}
+        massUnit={session.preferences.hopMassUnit}
+      />
+    </RecEditor>
   );
 }
