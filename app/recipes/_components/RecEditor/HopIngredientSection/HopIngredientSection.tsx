@@ -38,6 +38,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
     hopId === "new"
       ? ({ recipeId } as ExtendedHopIngredient)
       : recipe?.hops.find((h) => h.id === parseInt(hopId!));
+  console.log({ hopIngredient, hopId });
   const action = hopIngredient?.id
     ? updateHopIngredient
     : addHopIngredientToRecipe;
@@ -115,8 +116,8 @@ export default HopIngredientModal;
         //hop={hopIngredient}
         action={action}
         hops={hops}
-        hopId={hopId!}
-        recipe={recipe}
+        //hopId={hopId!}
+        //recipe={recipe}
         massUnit={massUnit}
         //open={open}
       />

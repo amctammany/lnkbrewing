@@ -26,6 +26,7 @@ export const ListItem = ({
   className,
   scroll,
   href,
+  onClick,
   secondaryAction,
 }: ListItemProps) => {
   const cn = clsx(listItemStyles({ variant }), className);
@@ -43,7 +44,7 @@ export const ListItem = ({
   );
 
   return (
-    <li className="group relative flex flex-col">
+    <li onClick={onClick} className="group relative flex flex-col">
       {child}
       <div className="absolute right-1 top-1/2 -translate-y-1/2">
         {secondaryAction}

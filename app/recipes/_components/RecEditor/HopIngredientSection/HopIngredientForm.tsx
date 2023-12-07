@@ -22,6 +22,10 @@ import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
+import {
+  addHopIngredientToRecipe,
+  updateHopIngredient,
+} from "@/app/recipes/actions";
 const hopIngredientSchema = z.object({
   id: z.number().optional(),
   recipeId: z.number(),
@@ -71,7 +75,7 @@ type Schema = z.infer<typeof hopIngredientSchema1>;
 export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   massUnit,
   //recipe,
-  action,
+  //action,
   //hopId,
   //hop,
   hops,
@@ -80,6 +84,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   const hop = recipe?.hops.find((h) => h.id === hopId);
   const src =
     hopId === "new" ? ({ recipeId: recipe?.id } as ExtendedHopIngredient) : hop;
+  const action = src?.id ? updateHopIngredient : addHopIngredientToRecipe;
   const {
     register,
     getValues,
