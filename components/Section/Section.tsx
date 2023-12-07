@@ -47,7 +47,7 @@ const sectionTitle = cva("h4", {
     },
     size: {
       small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
-      default: ["flex-grow", "m-1", "py-2", "px-4", "text-lg", "font-bold"],
+      default: ["flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
     },
   },
   defaultVariants: {
@@ -97,7 +97,7 @@ export const Section = ({
       <div className={sectionHeader({ size, variant })}>
         <div className="flex-shrink">{icon}</div>
         <h4 className={sectionTitle({ size, variant })}>{_title || title}</h4>
-        <div>{actions}</div>
+        <div className="grid">{actions}</div>
       </div>
 
       <div className={sectionBody({ size, variant })}>{children}</div>

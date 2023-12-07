@@ -1,8 +1,7 @@
-import { AddIcon } from "@/components/Icon";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { ListItem } from "@/components/List/ListItem";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
-import { ChartBarSquareIcon } from "@heroicons/react/20/solid";
 import { WaterProfile } from "@prisma/client";
 
 export type WaterProfileListItemProps = {
@@ -14,7 +13,7 @@ export const WaterProfileListItem = ({
   return (
     <ListItem key={profile?.id} href={`/profiles/water/${profile?.slug}`}>
       <ListItemIcon>
-        <ChartBarSquareIcon className="w-5 h-5" />
+        <WaterProfileIcon />
       </ListItemIcon>
       <ListItemText primary={profile?.name} secondary={profile?.description!} />
     </ListItem>

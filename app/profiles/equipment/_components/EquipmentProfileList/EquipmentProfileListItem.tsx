@@ -1,7 +1,7 @@
+import { EquipmentProfileIcon } from "@/components/Icon";
 import { ListItem } from "@/components/List/ListItem";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
-import { EyeDropperIcon } from "@heroicons/react/20/solid";
 import { EquipmentProfile } from "@prisma/client";
 
 export type EquipmentProfileListItemProps = {
@@ -13,7 +13,7 @@ export const EquipmentProfileListItem = ({
   return (
     <ListItem key={profile?.id} href={`/profiles/equipment/${profile?.slug}`}>
       <ListItemIcon>
-        <EyeDropperIcon className="w-5 h-5" />
+        <EquipmentProfileIcon />
       </ListItemIcon>
       <ListItemText
         primary={profile?.name}

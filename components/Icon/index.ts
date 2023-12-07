@@ -5,3 +5,6 @@ export * from "./EditIcon";
 export * from "./RedoIcon";
 export * from "./UndoIcon";
 export * from "./SaveIcon";
+export * from "./MashProfileIcon";
+export * from "./EquipmentProfileIcon";
+export * from "./WaterProfileIcon";
