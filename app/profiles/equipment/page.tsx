@@ -1,22 +1,14 @@
 import { Metadata } from "next";
 import { getEquipmentProfiles } from "@/app/profiles/queries";
-import { ListItemButton } from "@/components/List/ListItemButton";
-import { Section } from "@/components/Section/Section";
-import { List } from "@/components/List/List";
-import { ButtonLink } from "@/components/Button";
+import { EquipmentProfileList } from "./_components/EquipmentProfileList";
 export const metadata: Metadata = {
   title: "LNK Profiles",
-};
-const EquipmentProfilesActions = () => {
-  return (
-    <div>
-      <ButtonLink href="/profiles/equipment/new">New</ButtonLink>
-    </div>
-  );
 };
 
 export default async function EquipmentProfilesIndex() {
   const profiles = await getEquipmentProfiles();
+  return <EquipmentProfileList profiles={profiles} />;
+  /**
   return (
     <Section
       variant="alert"
@@ -49,4 +41,5 @@ export default async function EquipmentProfilesIndex() {
       </List>
     </Section>
   );
+     */
 }

@@ -1,22 +1,14 @@
 import { Metadata } from "next";
 import { getMashProfiles } from "@/app/profiles/queries";
-import { ListItemButton } from "@/components/List/ListItemButton";
-import { Section } from "@/components/Section/Section";
-import { List } from "@/components/List/List";
-import { ButtonLink } from "@/components/Button/";
+import { MashProfileList } from "./_components/MashProfileList";
 export const metadata: Metadata = {
   title: "LNK Profiles",
-};
-const MashProfilesActions = () => {
-  return (
-    <div>
-      <ButtonLink href="/profiles/mash/new">New</ButtonLink>
-    </div>
-  );
 };
 
 export default async function MashProfilesIndex() {
   const profiles = await getMashProfiles();
+  return <MashProfileList profiles={profiles} />;
+  /**
   return (
     <Section header="Profiles" actions={<MashProfilesActions />}>
       <List>
@@ -44,4 +36,5 @@ export default async function MashProfilesIndex() {
       </List>
     </Section>
   );
+     */
 }
