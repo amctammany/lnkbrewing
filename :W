@@ -9,7 +9,6 @@ import { UserMassPreference } from "@prisma/client";
 import { WaterProfileSectionActions } from "./WaterProfileSectionActions";
 import { Prop } from "@/components/Prop";
 import { getWaterProfile, getWaterProfiles } from "@/app/profiles/queries";
-import { PropSet } from "@/components/PropSet/PropSet";
 
 interface WaterProfileSectionProps {
   recipeId: number;
@@ -23,7 +22,7 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({
   const recipe = await getExtendedRecipe(recipeId);
   const profiles = await getWaterProfiles();
   const waterSectionProps = [
-    //{ label: "Profile", value: recipe?.water?.name },
+    { label: "Profile", value: recipe?.water?.name },
     {
       label: "Ca2+",
       value: recipe?.calcium,
@@ -53,10 +52,12 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({
   return (
     <div className="md:col-span-2">
       <Section header="WaterProfile" actions={<WaterProfileSectionActions />}>
-        <PropSet label="Profile" value={recipe?.water?.name} />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
           {waterSectionProps.map((p) => (
-            <PropSet label={p.label} value={p.value} key={p.label} />
+            <fieldset className="p-0 border-2 border-black " key={p.label}>
+              <legend className="ml-4 px-2">{p.label}</legend>
+              <div className="px-2 text-center">{p.value}</div>
+            </fieldset>
           ))}
         </div>
       </Section>
