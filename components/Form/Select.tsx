@@ -1,5 +1,5 @@
 "use client";
-import { SyntheticEvent, forwardRef } from "react";
+import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 
@@ -16,7 +16,8 @@ export type SelectProps = {
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref: any;
-} & VariantProps<typeof selectStyles>;
+} & VariantProps<typeof selectStyles> &
+  ComponentProps<"select">;
 const selectStyles = cva("input", {
   variants: {
     variant: {
@@ -48,6 +49,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       onChange,
       onBlur,
       variant,
+      className,
       size,
     }: SelectProps,
     ref
@@ -60,7 +62,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         ))
       : children;
     return (
-      <Label label={label === undefined ? name : label}>
+      <Label className={className} label={label === undefined ? name : label}>
         <select
           disabled={disabled}
           className={selectStyles({ size, variant })}
