@@ -35,33 +35,34 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
   massUnit,
   hops,
 }) => {
-  const { recipe, hopId, openHop, closeHop } = useRecipe();
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
   const hop =
-    hopId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
-      : recipe?.hops.find((h) => h.id === hopId);
-  console.log({ action, hop, hopId });
+      : recipe?.hops.find((h) => h.id === modalId);
   //const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   return (
-    <Modal
-      //title="Edit Hop"
-      close={closeHop}
-      hidden={hopId === undefined}
-    >
-      <div>
-        {hop && (
-          <HopIngredientForm
-            massUnit={massUnit}
-            //hopId={hopId}
-            //hop={hop}
-            //recipe={recipe}
-            action={action}
-            hops={hops}
-          />
-        )}
-      </div>
-    </Modal>
+    modalType === "hops" && (
+      <Modal
+        //title="Edit Hop"
+        close={closeModal}
+        hidden={modalType !== "hops" || modalId === undefined}
+      >
+        <div>
+          {hop && (
+            <HopIngredientForm
+              massUnit={massUnit}
+              //hopId={hopId}
+              //hop={hop}
+              //recipe={recipe}
+              //action={action}
+              hops={hops}
+            />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default HopIngredientModal;

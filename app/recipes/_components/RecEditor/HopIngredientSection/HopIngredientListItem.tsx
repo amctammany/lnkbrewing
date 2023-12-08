@@ -11,11 +11,10 @@ export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
 };
 export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
-  const { openHop } = useRecipe();
-  console.log(hop);
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      onClick={() => openHop(hop.id)}
+      onClick={() => openModal("hops", hop.id)}
       secondaryAction={
         <RemoveButton id={hop.id} action={removeHopIngredient} />
       }

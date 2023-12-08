@@ -42,39 +42,38 @@ export const FermentableIngredientModal: FC<
   FermentableIngredientProfileModalProps
 > = ({
   //recipe,
-  action,
+  //action,
   //fermentable,
   massUnit,
   fermentables,
 }) => {
-  const { recipe, fermentableId, openFermentable, closeFermentable } =
-    useRecipe();
+  const { recipe, modalId, openModal, modalType, closeModal } = useRecipe();
 
   const fermentable =
-    fermentableId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
-      : recipe?.fermentables.find((h) => h.id === fermentableId);
-  console.log({ action, fermentable, fermentableId });
-  //const action = fermentable?.id ? updateFermentableIngredient : addFermentableIngredientToRecipe;
+      : recipe?.fermentables.find((h) => h.id === modalId);
   return (
-    <Modal
-      //title="Edit Fermentable"
-      close={closeFermentable}
-      hidden={fermentableId === undefined}
-    >
-      <div>
-        {fermentable && (
-          <FermentableIngredientForm
-            massUnit={massUnit}
-            //fermentableId={fermentableId}
-            //fermentable={fermentable}
-            //recipe={recipe}
-            action={action}
-            fermentables={fermentables}
-          />
-        )}
-      </div>
-    </Modal>
+    modalType === "fermentables" && (
+      <Modal
+        //title="Edit Fermentable"
+        close={closeModal}
+        hidden={modalType !== "fermentables" || modalId === undefined}
+      >
+        <div>
+          {fermentable && (
+            <FermentableIngredientForm
+              massUnit={massUnit}
+              //fermentableId={fermentableId}
+              //fermentable={fermentable}
+              //recipe={recipe}
+              //action={action}
+              fermentables={fermentables}
+            />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default FermentableIngredientModal;

@@ -53,10 +53,10 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   //yeast,
   yeasts,
 }) => {
-  const { recipe, yeastId, closeYeast } = useRecipe();
-  const yeast = recipe?.yeasts.find((h) => h.id === yeastId);
+  const { recipe, modalId, closeModal } = useRecipe();
+  const yeast = recipe?.yeasts.find((h) => h.id === modalId);
   const src =
-    yeastId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
       : yeast;
   const action = src?.id ? updateYeastIngredient : addYeastIngredientToRecipe;

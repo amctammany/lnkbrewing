@@ -5,10 +5,10 @@ import { AddIcon } from "@/components/Icon/AddIcon";
 import { useRecipe } from "../useRecipe";
 
 export const FermentableIngredientSectionActions = () => {
-  const { openFermentable } = useRecipe();
+  const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openFermentable("new")}>
+      <Button onClick={() => openModal("fermentables", "new")}>
         <AddIcon />
       </Button>
     </div>

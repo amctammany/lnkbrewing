@@ -80,10 +80,12 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   //hop,
   hops,
 }) => {
-  const { recipe, hopId, closeHop } = useRecipe();
-  const hop = recipe?.hops.find((h) => h.id === hopId);
+  const { recipe, modalId, closeModal } = useRecipe();
+  const hop = recipe?.hops.find((h) => h.id === modalId);
   const src =
-    hopId === "new" ? ({ recipeId: recipe?.id } as ExtendedHopIngredient) : hop;
+    modalId === "new"
+      ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
+      : hop;
   const action = src?.id ? updateHopIngredient : addHopIngredientToRecipe;
   const {
     register,
@@ -110,7 +112,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     const valid = await trigger();
     if (!valid) return;
     action(data);
-    closeHop();
+    closeModal();
   };
 
   const handleChange = (value: number) => {

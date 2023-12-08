@@ -13,11 +13,10 @@ export type YeastIngredientListItemProps = {
 export const YeastIngredientListItem = ({
   yeast,
 }: YeastIngredientListItemProps) => {
-  const { openYeast } = useRecipe();
-  console.log(yeast);
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      onClick={() => openYeast(yeast.id)}
+      onClick={() => openModal("yeasts", yeast.id)}
       secondaryAction={
         <RemoveButton id={yeast.id} action={removeYeastIngredient} />
       }

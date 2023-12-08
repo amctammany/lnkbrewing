@@ -5,10 +5,10 @@ import { AddIcon } from "@/components/Icon/AddIcon";
 import { useRecipe } from "../useRecipe";
 
 export const OtherIngredientSectionActions = () => {
-  const { openOther } = useRecipe();
+  const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openOther("new")}>
+      <Button onClick={() => openModal("others", "new")}>
         <AddIcon />
       </Button>
     </div>

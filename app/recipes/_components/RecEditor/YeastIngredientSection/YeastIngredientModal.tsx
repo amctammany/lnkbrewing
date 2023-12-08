@@ -35,34 +35,34 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
   massUnit,
   yeasts,
 }) => {
-  const { recipe, yeastId, openYeast, closeYeast } = useRecipe();
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
   const yeast =
-    yeastId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
-      : recipe?.yeasts.find((h) => h.id === yeastId);
-  console.log({ action, yeast, yeastId });
+      : recipe?.yeasts.find((h) => h.id === modalId);
   //const action = yeast?.id ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (
-    <Modal
-      //title="Edit Yeast"
-      close={closeYeast}
-      menu={<Button onClick={closeYeast}>Close</Button>}
-      hidden={yeastId === undefined}
-    >
-      <div>
-        {yeastId !== undefined && (
-          <YeastIngredientForm
-            massUnit={massUnit}
-            //yeastId={yeastId}
-            //yeast={yeast}
-            //recipe={recipe}
-            action={action}
-            yeasts={yeasts}
-          />
-        )}
-      </div>
-    </Modal>
+    modalType === "yeasts" && (
+      <Modal
+        //title="Edit Yeast"
+        close={closeModal}
+        hidden={modalType !== "yeasts" || modalId === undefined}
+      >
+        <div>
+          {modalId !== undefined && (
+            <YeastIngredientForm
+              massUnit={massUnit}
+              //yeastId={yeastId}
+              //yeast={yeast}
+              //recipe={recipe}
+              action={action}
+              yeasts={yeasts}
+            />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default YeastIngredientModal;

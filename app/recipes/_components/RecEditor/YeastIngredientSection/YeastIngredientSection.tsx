@@ -42,67 +42,6 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
   const action = yeastIngredient?.id
     ? updateYeastIngredient
     : addYeastIngredientToRecipe;
-  /**
-    (await prisma.yeastIngredient.findFirst({
-      where: {
-        id: parseInt(yeastId || "") || 0,
-      },import { ExtendedYeastIngredient, ExtendedRecipe } from "@/app/recipes/types";
-import { Modal } from "@/components/Modal/Modal";
-import React, { FC } from "react";
-//import { YeastIngredientForm } from "./YeastIngredientForm";
-import dynamic from "next/dynamic";
-const YeastIngredientForm = dynamic(() => import("./YeastIngredientForm"), {
-  ssr: false,
-});
-
-import {
-  addYeastIngredientToRecipe,
-  updateYeastIngredient,
-} from "@/app/recipes/actions";
-//import { getYeastOptions, getYeasts } from "@/app/ingredients/yeasts/queries";
-import { YeastIngredient, UserMassPreference } from "@prisma/client";
-
-interface YeastIngredientProfileModalProps {
-  recipe?: ExtendedRecipe | null;
-  yeast?: ExtendedYeastIngredient | null;
-  yeastId?: string;
-  massUnit: UserMassPreference;
-  open: boolean;
-}
-
-export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = async ({
-  recipe,
-  yeast,
-  yeastId,
-  open,
-  massUnit,
-}) => {
-  const action = yeast?.id ? updateYeastIngredient : addYeastIngredientToRecipe;
-  return (
-    <Modal
-      //title="Edit Yeast"
-      hidden={!open}
-    >
-      <div>
-        <YeastIngredientForm
-          massUnit={massUnit}
-          yeastId={yeastId}
-          yeast={yeast}
-          recipe={recipe}
-          action={action}
-          yeasts={yeasts}
-        />
-      </div>
-    </Modal>
-  );
-};
-export default YeastIngredientModal;
-      include: {
-        yeast: true,
-      },
-    }));
-     */
-
   return (
     <>
       <Section header="Yeasts" actions={<YeastIngredientSectionActions />}>

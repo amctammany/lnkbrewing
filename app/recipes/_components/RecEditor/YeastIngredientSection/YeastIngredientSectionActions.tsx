@@ -5,10 +5,10 @@ import { AddIcon } from "@/components/Icon/AddIcon";
 import { useRecipe } from "../useRecipe";
 
 export const YeastIngredientSectionActions = () => {
-  const { openYeast } = useRecipe();
+  const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openYeast("new")}>
+      <Button onClick={() => openModal("yeasts", "new")}>
         <AddIcon />
       </Button>
     </div>

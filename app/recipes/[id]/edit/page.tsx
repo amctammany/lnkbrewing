@@ -18,6 +18,7 @@ import { HopIngredientSection } from "../../_components/RecEditor/HopIngredientS
 import { FermentableIngredientSection } from "../../_components/RecEditor/FermentableIngredientSection";
 import { YeastIngredientSection } from "../../_components/RecEditor/YeastIngredientSection/YeastIngredientSection";
 import { OtherIngredientSection } from "../../_components/RecEditor/OtherIngredientSection/OtherIngredientSection";
+import { GeneralSection } from "../../_components/RecEditor/GeneralSection/GeneralSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -54,6 +55,10 @@ export default async function RecipeEditorPage({
       recipeId={id}
       //searchParams={searchParams}
     >
+      <GeneralSection
+        recipeId={id}
+        massUnit={session.preferences.hopMassUnit}
+      />
       <HopIngredientSection
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}

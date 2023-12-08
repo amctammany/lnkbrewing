@@ -37,7 +37,6 @@ export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({
     otherId === "new"
       ? ({ recipeId } as ExtendedOtherIngredient)
       : recipe?.otherIngredients.find((h) => h.id === parseInt(otherId!));
-  console.log({ otherIngredient, otherId });
   const action = otherIngredient?.id
     ? updateRecipeOtherIngredient
     : addRecipeOtherIngredientToRecipe;
@@ -52,7 +51,7 @@ export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({
       </Section>
       <OtherIngredientModal
         //other={otherIngredient}
-        action={action}
+        //action={action}
         others={others}
         //otherId={otherId!}
         //recipe={recipe}

@@ -23,46 +23,46 @@ interface OtherIngredientProfileModalProps {
   others: OtherIngredient[];
   otherId?: string;
   massUnit: UserMassPreference;
-  action: any;
+  //action: any;
   //open: boolean;
   //close: () => void;
 }
 
 export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
   //recipe,
-  action,
+  //action,
   //other,
   massUnit,
   others,
 }) => {
-  const { recipe, otherId, openOther, closeOther } = useRecipe();
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
   const other =
-    otherId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
-      : recipe?.otherIngredients.find((h) => h.id === otherId);
-  console.log({ action, other, otherId });
+      : recipe?.otherIngredients.find((h) => h.id === modalId);
   //const action = other?.id ? updateOtherIngredient : addOtherIngredientToRecipe;
   return (
-    <Modal
-      //title="Edit Other"
-      close={closeOther}
-      menu={<Button onClick={closeOther}>Close</Button>}
-      hidden={otherId === undefined}
-    >
-      <div>
-        {other && (
-          <OtherIngredientForm
-            massUnit={massUnit}
-            //otherId={otherId}
-            //other={other}
-            //recipe={recipe}
-            action={action}
-            others={others}
-          />
-        )}
-      </div>
-    </Modal>
+    modalType === "others" && (
+      <Modal
+        //title="Edit Other"
+        close={closeModal}
+        hidden={modalType !== "others" || modalId === undefined}
+      >
+        <div>
+          {other && (
+            <OtherIngredientForm
+              massUnit={massUnit}
+              //otherId={otherId}
+              //other={other}
+              //recipe={recipe}
+              //action={action}
+              others={others}
+            />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default OtherIngredientModal;

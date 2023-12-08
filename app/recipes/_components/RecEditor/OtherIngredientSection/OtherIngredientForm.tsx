@@ -51,10 +51,10 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
   //other,
   others,
 }) => {
-  const { recipe, otherId, closeOther } = useRecipe();
-  const other = recipe?.otherIngredients.find((h) => h.id === otherId);
+  const { recipe, modalId, closeModal } = useRecipe();
+  const other = recipe?.otherIngredients.find((h) => h.id === modalId);
   const src =
-    otherId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
       : other;
   const action = src?.id
@@ -94,7 +94,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     const valid = await trigger();
     if (!valid) return;
     action(data);
-    closeOther();
+    closeModal();
   };
 
   const autoChange = (value: number) => {

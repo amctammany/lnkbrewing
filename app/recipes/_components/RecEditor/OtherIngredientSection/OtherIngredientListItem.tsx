@@ -13,11 +13,10 @@ export type OtherIngredientListItemProps = {
 export const OtherIngredientListItem = ({
   other,
 }: OtherIngredientListItemProps) => {
-  const { openOther } = useRecipe();
-  console.log(other);
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      onClick={() => openOther(other.id)}
+      onClick={() => openModal("others", other.id)}
       secondaryAction={
         <RemoveButton id={other.id} action={removeRecipeOtherIngredient} />
       }

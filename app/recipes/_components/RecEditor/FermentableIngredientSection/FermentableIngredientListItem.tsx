@@ -13,11 +13,10 @@ export type FermentableIngredientListItemProps = {
 export const FermentableIngredientListItem = ({
   fermentable,
 }: FermentableIngredientListItemProps) => {
-  const { openFermentable } = useRecipe();
-  console.log(fermentable);
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      onClick={() => openFermentable(fermentable.id)}
+      onClick={() => openModal("fermentables", fermentable.id)}
       secondaryAction={
         <RemoveButton
           id={fermentable.id}

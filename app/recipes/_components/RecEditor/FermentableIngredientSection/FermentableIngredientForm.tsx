@@ -72,10 +72,10 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
   //fermentable,
   fermentables,
 }) => {
-  const { recipe, fermentableId, closeFermentable } = useRecipe();
-  const fermentable = recipe?.fermentables.find((h) => h.id === fermentableId);
+  const { recipe, modalId, closeModal } = useRecipe();
+  const fermentable = recipe?.fermentables.find((h) => h.id === modalId);
   const src =
-    fermentableId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
       : fermentable;
   const action = src?.id
@@ -117,7 +117,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     const valid = await trigger();
     if (!valid) return;
     action(data);
-    closeFermentable();
+    closeModal();
   };
 
   const autoChange = (value: number) => {
