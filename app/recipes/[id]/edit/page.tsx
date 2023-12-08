@@ -15,6 +15,7 @@ import { authOptions } from "@/app/api/auth/authOptions";
 import { redirect } from "next/navigation";
 import { getHops } from "@/app/ingredients/hops/queries";
 import { HopIngredientSection } from "../../_components/RecEditor/HopIngredientSection";
+import { FermentableIngredientSection } from "../../_components/RecEditor/FermentableIngredientSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -52,6 +53,10 @@ export default async function RecipeEditorPage({
       //searchParams={searchParams}
     >
       <HopIngredientSection
+        recipeId={id}
+        massUnit={session.preferences.hopMassUnit}
+      />
+      <FermentableIngredientSection
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
       />

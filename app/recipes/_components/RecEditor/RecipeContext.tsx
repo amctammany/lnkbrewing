@@ -4,12 +4,20 @@ import { ExtendedRecipe } from "../../types";
 import { HopIngredient } from "@prisma/client";
 
 export const RecipeContext = createContext<{
-  hopId?: number | "new";
   recipe?: ExtendedRecipe;
+  hopId?: number | "new";
   openHop: (data: number | "new") => void;
   closeHop: () => void;
+  fermentableId?: number | "new";
+  openFermentable: (data: number | "new") => void;
+  closeFermentable: () => void;
   //openRecipe?: (data: Omit<RecipeContent, "open">) => void;
-}>({ openHop: () => null, closeHop: () => null });
+}>({
+  openHop: () => null,
+  closeHop: () => null,
+  openFermentable: () => null,
+  closeFermentable: () => null,
+});
 
 type RecipeContent = {
   open: boolean;
@@ -23,9 +31,17 @@ export const RecipeProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ recipe: _recipe, children }) => {
   const [hopId, setHopId] = useState<number | "new">();
+  const [fermentableId, setFermentableId] = useState<number | "new">();
   //const [message, setMessage] = useState<string>();
   //const [modal, setModal] = useState<string>();
   const [recipe, setRecipe] = useState<ExtendedRecipe>(_recipe!);
+  const openFermentable = (data: number | "new") => {
+    setFermentableId(data);
+  };
+  const closeFermentable = () => {
+    setFermentableId(undefined);
+  };
+
   const openHop = (data: number | "new") => {
     setHopId(data);
   };
@@ -33,7 +49,17 @@ export const RecipeProvider: React.FC<{
     setHopId(undefined);
   };
   return (
-    <RecipeContext.Provider value={{ recipe, openHop, closeHop, hopId }}>
+    <RecipeContext.Provider
+      value={{
+        recipe,
+        openHop,
+        closeHop,
+        hopId,
+        fermentableId,
+        openFermentable,
+        closeFermentable,
+      }}
+    >
       {children}
     </RecipeContext.Provider>
   );
