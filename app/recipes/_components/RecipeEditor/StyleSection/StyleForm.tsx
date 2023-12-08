@@ -57,7 +57,7 @@ export const StyleForm: FC<StyleFormProps> = ({ massUnit, styles }) => {
     closeModal();
   };
   const options = styles.reduce((acc, profile) => {
-    acc[profile.id] = `${profile.name}`;
+    acc[profile.identifier] = `${profile.name}`;
     return acc;
   }, {} as Record<string, string>);
 
