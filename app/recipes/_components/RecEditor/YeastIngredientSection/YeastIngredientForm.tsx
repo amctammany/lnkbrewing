@@ -47,10 +47,6 @@ type Schema = z.infer<typeof yeastIngredientSchema>;
 
 export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   massUnit,
-  //recipe,
-  //action,
-  //yeastId,
-  //yeast,
   yeasts,
 }) => {
   const { recipe, modalId, closeModal } = useRecipe();
@@ -95,7 +91,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     const valid = await trigger();
     if (!valid) return;
     action(data);
-    closeYeast();
+    closeModal();
   };
 
   const autoChange = (value: number) => {

@@ -25,7 +25,7 @@ export const RecEditor = ({
       <FormProvider {...methods}>
         <div className="w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-            <div className="md:col-span-2">{children}</div>
+            {children}
           </div>
         </div>
       </FormProvider>

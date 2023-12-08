@@ -7,31 +7,17 @@ import dynamic from "next/dynamic";
 const HopIngredientForm = dynamic(() => import("./HopIngredientForm"), {
   ssr: false,
 });
-
-import {
-  addHopIngredientToRecipe,
-  updateHopIngredient,
-} from "@/app/recipes/actions";
 //import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
-import { Hop, HopIngredient, UserMassPreference } from "@prisma/client";
-import { Button } from "@/components/Button";
+import { Hop, UserMassPreference } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
 
 interface HopIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  hop?: ExtendedHopIngredient | null;
   hops: Hop[];
-  hopId?: string;
   massUnit: UserMassPreference;
-  action: any;
-  //open: boolean;
-  //close: () => void;
 }
 
 export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
-  //recipe,
-  action,
-  //hop,
   massUnit,
   hops,
 }) => {
@@ -41,11 +27,10 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
       : recipe?.hops.find((h) => h.id === modalId);
-  //const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
   return (
     modalType === "hops" && (
       <Modal
-        //title="Edit Hop"
+        title="Edit Hop"
         close={closeModal}
         hidden={modalType !== "hops" || modalId === undefined}
       >

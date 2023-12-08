@@ -20,7 +20,7 @@ const section = cva(["min-w-full bg-white "], {
   },
 });
 
-const sectionHeader = cva(["flex "], {
+const sectionHeader = cva(["flex items-center "], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],

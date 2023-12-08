@@ -1,8 +1,5 @@
 "use client";
-import {
-  ExtendedFermentableIngredient,
-  ExtendedRecipe,
-} from "@/app/recipes/types";
+import { ExtendedFermentableIngredient } from "@/app/recipes/types";
 import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
 //import { FermentableIngredientForm } from "./FermentableIngredientForm";
@@ -14,40 +11,18 @@ const FermentableIngredientForm = dynamic(
   }
 );
 
-import {
-  addFermentableIngredientToRecipe,
-  updateFermentableIngredient,
-} from "@/app/recipes/actions";
-//import { getFermentableOptions, getFermentables } from "@/app/ingredients/fermentables/queries";
-import {
-  Fermentable,
-  FermentableIngredient,
-  UserMassPreference,
-} from "@prisma/client";
-import { Button } from "@/components/Button";
+import { Fermentable, UserMassPreference } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
 
 interface FermentableIngredientProfileModalProps {
-  recipe?: ExtendedRecipe | null;
-  fermentable?: ExtendedFermentableIngredient | null;
   fermentables: Fermentable[];
-  fermentableId?: string;
   massUnit: UserMassPreference;
-  action: any;
-  //open: boolean;
-  //close: () => void;
 }
 
 export const FermentableIngredientModal: FC<
   FermentableIngredientProfileModalProps
-> = ({
-  //recipe,
-  //action,
-  //fermentable,
-  massUnit,
-  fermentables,
-}) => {
-  const { recipe, modalId, openModal, modalType, closeModal } = useRecipe();
+> = ({ massUnit, fermentables }) => {
+  const { recipe, modalId, modalType, closeModal } = useRecipe();
 
   const fermentable =
     modalId === "new"
@@ -56,7 +31,7 @@ export const FermentableIngredientModal: FC<
   return (
     modalType === "fermentables" && (
       <Modal
-        //title="Edit Fermentable"
+        title="Edit Fermentable"
         close={closeModal}
         hidden={modalType !== "fermentables" || modalId === undefined}
       >
@@ -64,10 +39,6 @@ export const FermentableIngredientModal: FC<
           {fermentable && (
             <FermentableIngredientForm
               massUnit={massUnit}
-              //fermentableId={fermentableId}
-              //fermentable={fermentable}
-              //recipe={recipe}
-              //action={action}
               fermentables={fermentables}
             />
           )}

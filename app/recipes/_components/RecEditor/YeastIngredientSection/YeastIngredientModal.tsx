@@ -19,19 +19,11 @@ import { useRecipe } from "../useRecipe";
 
 interface YeastIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  yeast?: ExtendedYeastIngredient | null;
   yeasts: Yeast[];
-  yeastId?: string;
   massUnit: UserMassPreference;
-  action: any;
-  //open: boolean;
-  //close: () => void;
 }
 
 export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
-  //recipe,
-  action,
-  //yeast,
   massUnit,
   yeasts,
 }) => {
@@ -51,14 +43,7 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
       >
         <div>
           {modalId !== undefined && (
-            <YeastIngredientForm
-              massUnit={massUnit}
-              //yeastId={yeastId}
-              //yeast={yeast}
-              //recipe={recipe}
-              action={action}
-              yeasts={yeasts}
-            />
+            <YeastIngredientForm massUnit={massUnit} yeasts={yeasts} />
           )}
         </div>
       </Modal>
