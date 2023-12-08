@@ -46,7 +46,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
   return (
     <Modal
       //title="Edit Hop"
-      menu={<Button onClick={closeHop}>Close</Button>}
+      close={closeHop}
       hidden={hopId === undefined}
     >
       <div>

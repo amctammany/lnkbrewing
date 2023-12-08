@@ -46,6 +46,7 @@ export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
   return (
     <Modal
       //title="Edit Other"
+      close={closeOther}
       menu={<Button onClick={closeOther}>Close</Button>}
       hidden={otherId === undefined}
     >

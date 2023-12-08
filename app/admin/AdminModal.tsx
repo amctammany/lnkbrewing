@@ -14,10 +14,7 @@ export const AdminModal = ({ children }: AdminModalProps) => {
   return (
     <>
       <Button onClick={handleToggle}>Open</Button>
-      <Modal
-        hidden={!open}
-        menu={<Button onClick={() => setOpen(false)}>Close</Button>}
-      >
+      <Modal hidden={!open} close={() => setOpen(false)}>
         <div ref={ref}>{children}</div>
       </Modal>
     </>

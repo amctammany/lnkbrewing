@@ -59,7 +59,7 @@ export const FermentableIngredientModal: FC<
   return (
     <Modal
       //title="Edit Fermentable"
-      menu={<Button onClick={closeFermentable}>Close</Button>}
+      close={closeFermentable}
       hidden={fermentableId === undefined}
     >
       <div>

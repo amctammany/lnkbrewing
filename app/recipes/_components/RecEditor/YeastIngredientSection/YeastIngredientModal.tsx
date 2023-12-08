@@ -46,6 +46,7 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
   return (
     <Modal
       //title="Edit Yeast"
+      close={closeYeast}
       menu={<Button onClick={closeYeast}>Close</Button>}
       hidden={yeastId === undefined}
     >
