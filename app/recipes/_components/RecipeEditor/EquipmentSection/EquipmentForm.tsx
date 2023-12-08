@@ -88,7 +88,6 @@ export const EquipmentForm: FC<EquipmentFormProps> = ({
           options={options}
         />
 
-        <input type="hidden" value={recipe?.id} {...register("id")} />
         <NumberField step={1} {...register("boilTime")} />
         <NumberField step={0.01} {...register("batchVolume")} />
         <NumberField step={0.01} {...register("mashEfficiency")} />
