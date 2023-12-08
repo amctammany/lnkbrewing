@@ -50,7 +50,7 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
       hidden={yeastId === undefined}
     >
       <div>
-        {yeast && (
+        {yeastId !== undefined && (
           <YeastIngredientForm
             massUnit={massUnit}
             //yeastId={yeastId}

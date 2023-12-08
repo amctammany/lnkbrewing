@@ -11,6 +11,9 @@ export const RecipeContext = createContext<{
   yeastId?: number | "new";
   openYeast: (data: number | "new") => void;
   closeYeast: () => void;
+  otherId?: number | "new";
+  openOther: (data: number | "new") => void;
+  closeOther: () => void;
   fermentableId?: number | "new";
   openFermentable: (data: number | "new") => void;
   closeFermentable: () => void;
@@ -18,6 +21,8 @@ export const RecipeContext = createContext<{
 }>({
   openYeast: () => null,
   closeYeast: () => null,
+  openOther: () => null,
+  closeOther: () => null,
   openHop: () => null,
   closeHop: () => null,
   openFermentable: () => null,
@@ -37,6 +42,7 @@ export const RecipeProvider: React.FC<{
 }> = ({ recipe: _recipe, children }) => {
   const [hopId, setHopId] = useState<number | "new">();
   const [yeastId, setYeastId] = useState<number | "new">();
+  const [otherId, setOtherId] = useState<number | "new">();
   const [fermentableId, setFermentableId] = useState<number | "new">();
   //const [message, setMessage] = useState<string>();
   //const [modal, setModal] = useState<string>();
@@ -53,6 +59,13 @@ export const RecipeProvider: React.FC<{
   const closeYeast = () => {
     setYeastId(undefined);
   };
+  const openOther = (data: number | "new") => {
+    setOtherId(data);
+  };
+  const closeOther = () => {
+    setOtherId(undefined);
+  };
+
   const openHop = (data: number | "new") => {
     setHopId(data);
   };
@@ -70,6 +83,9 @@ export const RecipeProvider: React.FC<{
         yeastId,
         openYeast,
         closeYeast,
+        otherId,
+        openOther,
+        closeOther,
         openFermentable,
         closeFermentable,
       }}

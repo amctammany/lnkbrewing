@@ -1,65 +1,65 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ExtendedYeastIngredient, ExtendedRecipe } from "@/app/recipes/types";
+import { ExtendedOtherIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
 import { Submit } from "@/components/Form/Submit";
 import React, { FC } from "react";
 import {
-  Yeast,
-  YeastIngredient,
+  OtherIngredient,
   MassUnit,
   TimeUnit,
   UserMassPreference,
-  YeastAmountType,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
-//import { yeastIngredientSchema } from "@/app/recipes/actions";
+//import { otherIngredientSchema } from "@/app/recipes/actions";
 import * as z from "zod";
 import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import {
-  addYeastIngredientToRecipe,
-  updateYeastIngredient,
+  addRecipeOtherIngredientToRecipe,
+  updateRecipeOtherIngredient,
 } from "@/app/recipes/actions";
-const yeastIngredientSchema = zfd.formData({
+const otherIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  yeastId: zfd.numeric(z.number().optional().default(1078)),
+  otherIngredientId: zfd.numeric(z.number().optional().default(1078)),
   attenuation: zfd.numeric(z.number().min(0).optional()),
   amount: zfd.numeric(z.number().min(0)),
-  amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
+  amountType: z.nativeEnum(MassUnit).default(MassUnit.g),
 });
 
-interface YeastIngredientFormProps {
+interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
-  yeast?: ExtendedYeastIngredient | null;
-  yeastId?: string;
+  other?: ExtendedOtherIngredient | null;
+  otherId?: string;
   action?: any;
-  yeasts: Yeast[]; //Record<string, string>;
+  others: OtherIngredient[]; //Record<string, string>;
   massUnit: UserMassPreference;
 }
-type Schema = z.infer<typeof yeastIngredientSchema>;
+type Schema = z.infer<typeof otherIngredientSchema>;
 
-export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
+export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
   massUnit,
   //recipe,
   //action,
-  //yeastId,
-  //yeast,
-  yeasts,
+  //otherId,
+  //other,
+  others,
 }) => {
-  const { recipe, yeastId, closeYeast } = useRecipe();
-  const yeast = recipe?.yeasts.find((h) => h.id === yeastId);
+  const { recipe, otherId, closeOther } = useRecipe();
+  const other = recipe?.otherIngredients.find((h) => h.id === otherId);
   const src =
-    yeastId === "new"
-      ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
-      : yeast;
-  const action = src?.id ? updateYeastIngredient : addYeastIngredientToRecipe;
+    otherId === "new"
+      ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
+      : other;
+  const action = src?.id
+    ? updateRecipeOtherIngredient
+    : addRecipeOtherIngredientToRecipe;
   const {
     register,
     getValues,
@@ -73,13 +73,12 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     defaultValues: (src
       ? {
           ...src,
-          yeastId: src?.yeast?.id,
-          attenuation: src?.yeast?.attenuation,
+          otherId: src?.otherIngredient?.id,
         }
       : { recipeId: recipe?.id }) as any,
     resolver: async (data, context, options) => {
       //console.log({ data, context, options });
-      const r = await zodResolver(yeastIngredientSchema)(
+      const r = await zodResolver(otherIngredientSchema)(
         data,
         context,
         options
@@ -87,7 +86,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
       return r;
     },
 
-    //resolver: zodResolver(yeastIngredientSchema, {
+    //resolver: zodResolver(otherIngredientSchema, {
 
     //}),
   });
@@ -95,18 +94,17 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     const valid = await trigger();
     if (!valid) return;
     action(data);
-    closeYeast();
+    closeOther();
   };
 
   const autoChange = (value: number) => {
-    const yeast = yeasts.find((p) => p.id === value);
-    if (!yeast) return;
-    setValue("yeastId", yeast?.id);
-    setValue("attenuation", yeast?.attenuation!);
+    const other = others.find((p) => p.id === value);
+    if (!other) return;
+    setValue("otherIngredientId", other?.id);
   };
 
-  const options = (yeasts || []).reduce((acc, yeast) => {
-    acc[yeast.id] = yeast.name;
+  const options = (others || []).reduce((acc, other) => {
+    acc[other.id] = other.name;
     return acc;
   }, {} as Record<string, string>);
   const handleError = (e: any) => console.log(e);
@@ -118,10 +116,10 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
           <Autocomplete
-            label="Yeast"
+            label="Other"
             options={options}
-            value={getValues("yeastId") as any}
-            {...register("yeastId")}
+            value={getValues("otherIngredientId") as any}
+            {...register("otherIngredientId")}
             handleChange={autoChange}
           />
         </div>
@@ -130,19 +128,8 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
             <NumberField {...register("amount")} label="Amount" />
           </div>
           <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              label=""
-              options={YeastAmountType}
-            />
+            <Select {...register("amountType")} label="" options={MassUnit} />
           </div>
-        </div>
-        <div>
-          <NumberField
-            {...register("attenuation")}
-            label="Potential"
-            step={0.001}
-          />
         </div>
       </div>
       <Toolbar className="col-span-2">
@@ -151,4 +138,4 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     </Form>
   );
 };
-export default YeastIngredientForm;
+export default OtherIngredientForm;
