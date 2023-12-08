@@ -1,35 +1,29 @@
 import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-//import { MashProfileModal } from "./MashProfileModal";
 import dynamic from "next/dynamic";
-import Prop from "@/components/Prop/Prop";
-import { List, ListItem } from "@/components/List";
-import { PencilIcon } from "@heroicons/react/24/solid";
-import { ListItemIcon } from "@/components/List/ListItemIcon";
-import { ListItemText } from "@/components/List/ListItemText";
-import { EditIcon, Icon } from "@/components/Icon";
-const MashProfileModal = dynamic(() => import("./MashProfileModal"), {
-  ssr: false,
+const MashModal = dynamic(() => import("./MashModal"), {
+  ssr: true,
 });
+import { UserMassPreference } from "@prisma/client";
+import { MashSectionActions } from "./MashSectionActions";
+import { Prop } from "@/components/Prop";
+import { getMashProfiles } from "@/app/profiles/queries";
+import { List } from "@/components/List/List";
+import { ListItem } from "@/components/List/ListItem";
+import { ListItemText } from "@/components/List/ListItemText";
 
 interface MashSectionProps {
   recipeId: number;
-  open: boolean;
+  massUnit: UserMassPreference;
 }
 
-const MashSectionActions = () => {
-  return (
-    <div>
-      <ButtonLink href="?mash=1" scroll={false}>
-        <EditIcon />
-      </ButtonLink>
-    </div>
-  );
-};
-export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
+export const MashSection: FC<MashSectionProps> = async ({
+  recipeId,
+  massUnit,
+}) => {
   const recipe = await getExtendedRecipe(recipeId);
+  const profiles = await getMashProfiles();
   const mashSectionProps = [
     { label: "Profile", value: recipe?.mash?.name },
     {
@@ -45,24 +39,26 @@ export const MashSection: FC<MashSectionProps> = async ({ recipeId, open }) => {
   ];
 
   return (
-    <Section header="Mash" actions={<MashSectionActions />}>
-      <div className="flex flex-col ">
-        {mashSectionProps.map((p) => (
-          <Prop key={p.label} {...p} />
-        ))}
-      </div>
-      <div>
-        <List>
-          {(recipe?.mash?.steps || []).map((step, index) => (
-            <ListItem key={index}>
-              <ListItemText className="">Temperature</ListItemText>
-              <ListItemText primary={`${step.temperature.toString()} F`} />
-              <ListItemText className="" primary={`${step.time} min`} />
-            </ListItem>
+    <div className="md:col-span-2">
+      <Section header="Mash" actions={<MashSectionActions />}>
+        <div className="flex flex-col ">
+          {mashSectionProps.map((p) => (
+            <Prop key={p.label} {...p} />
           ))}
-        </List>
-      </div>
-      {open && <MashProfileModal recipe={recipe} open={open} />}
-    </Section>
+        </div>
+        <div>
+          <List>
+            {(recipe?.mash?.steps || []).map((step, index) => (
+              <ListItem key={index}>
+                <ListItemText className="">Temperature</ListItemText>
+                <ListItemText primary={`${step.temperature.toString()} F`} />
+                <ListItemText className="" primary={`${step.time} min`} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </Section>
+      <MashModal massUnit={massUnit} profiles={profiles} />
+    </div>
   );
 };

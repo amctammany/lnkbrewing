@@ -9,21 +9,18 @@
 //import { EquipmentProfileModal } from "../../_components/RecipeForm/EquipmentProfileModal";
 import { getServerSession } from "next-auth";
 import { RecipeEditor } from "../../_components/RecipeEditor/RecipeEditor";
-import { RecEditor } from "../../_components/RecEditor/RecEditor";
 import { getExtendedRecipe } from "../../queries";
 import { authOptions } from "@/app/api/auth/authOptions";
 import { redirect } from "next/navigation";
-import { getHops } from "@/app/ingredients/hops/queries";
-import { HopIngredientSection } from "../../_components/RecEditor/HopIngredientSection";
-import { FermentableIngredientSection } from "../../_components/RecEditor/FermentableIngredientSection";
-import { YeastIngredientSection } from "../../_components/RecEditor/YeastIngredientSection/YeastIngredientSection";
-import { OtherIngredientSection } from "../../_components/RecEditor/OtherIngredientSection/OtherIngredientSection";
-import { GeneralSection } from "../../_components/RecEditor/GeneralSection/GeneralSection";
-import { WaterProfileSection } from "../../_components/RecEditor/WaterProfileSection/WaterProfileSection";
-import { StyleSection } from "../../_components/RecEditor/StyleSection/StyleSection";
-import { MashProfileForm } from "@/app/profiles/mash/_components";
-import { MashSection } from "../../_components/RecEditor/MashSection/MashSection";
-import { EquipmentSection } from "../../_components/RecEditor/EquipmentSection/EquipmentSection";
+import { HopIngredientSection } from "../../_components/RecipeEditor/HopIngredientSection";
+import { FermentableIngredientSection } from "../../_components/RecipeEditor/FermentableIngredientSection";
+import { YeastIngredientSection } from "../../_components/RecipeEditor/YeastIngredientSection/YeastIngredientSection";
+import { OtherIngredientSection } from "../../_components/RecipeEditor/OtherIngredientSection/OtherIngredientSection";
+import { GeneralSection } from "../../_components/RecipeEditor/GeneralSection/GeneralSection";
+import { WaterProfileSection } from "../../_components/RecipeEditor/WaterProfileSection/WaterProfileSection";
+import { StyleSection } from "../../_components/RecipeEditor/StyleSection/StyleSection";
+import { MashSection } from "../../_components/RecipeEditor/MashSection/MashSection";
+import { EquipmentSection } from "../../_components/RecipeEditor/EquipmentSection/EquipmentSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -51,15 +48,8 @@ export default async function RecipeEditorPage({
     console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
-  //const hops = await getHops();
   return (
-    <RecEditor
-      //preferences={session?.preferences}
-      //hops={hops}
-      recipe={recipe}
-      recipeId={id}
-      //searchParams={searchParams}
-    >
+    <RecipeEditor recipe={recipe} recipeId={id}>
       <GeneralSection
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
@@ -90,6 +80,6 @@ export default async function RecipeEditorPage({
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
       />
-    </RecEditor>
+    </RecipeEditor>
   );
 }

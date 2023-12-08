@@ -1,30 +1,39 @@
-import { ExtendedRecipe } from "@/app/recipes/types";
-import { RoutedModal } from "@/components/Modal/RoutedModal";
+"use client";
+import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
-import { StyleForm } from "./StyleForm";
-import { updateRecipe } from "@/app/recipes/actions";
-import { getStyleOptions } from "@/app/styles/queries";
+import dynamic from "next/dynamic";
+const StyleForm = dynamic(() => import("./StyleForm"), {
+  ssr: false,
+});
+
+import { UserMassPreference, Style } from "@prisma/client";
+import { useRecipe } from "../useRecipe";
 
 interface StyleProfileModalProps {
-  recipe?: ExtendedRecipe | null;
-  open: boolean;
+  massUnit: UserMassPreference;
+  styles: Style[];
 }
 
-export const StyleModal: FC<StyleProfileModalProps> = async ({
-  recipe,
-  open,
+export const StyleModal: FC<StyleProfileModalProps> = ({
+  styles,
+  massUnit,
 }) => {
-  const styles = await getStyleOptions();
+  const { recipe, modalType, openModal, closeModal } = useRecipe();
+
   return (
-    <RoutedModal
-      title="Edit Style"
-      hidden={!open}
-      returnUrl={`/recipes/${recipe?.id}/edit`}
-    >
-      <div>
-        <StyleForm recipe={recipe} action={updateRecipe} styles={styles} />
-      </div>
-    </RoutedModal>
+    modalType === "style" && (
+      <Modal
+        title="Edit Style"
+        close={closeModal}
+        hidden={modalType !== "style"}
+      >
+        <div>
+          {modalType === "style" && (
+            <StyleForm massUnit={massUnit} styles={styles} />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default StyleModal;

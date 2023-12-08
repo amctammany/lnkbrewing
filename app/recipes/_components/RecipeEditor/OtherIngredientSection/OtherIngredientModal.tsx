@@ -1,49 +1,43 @@
+"use client";
 import { ExtendedOtherIngredient, ExtendedRecipe } from "@/app/recipes/types";
-import { RoutedModal } from "@/components/Modal/RoutedModal";
+import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
-import { OtherIngredientForm } from "./OtherIngredientForm";
-import {
-  addRecipeOtherIngredientToRecipe,
-  updateRecipeOtherIngredient,
-} from "@/app/recipes/actions";
-import {
-  getOtherIngredients,
-  getOtherIngredientOptions,
-} from "@/app/ingredients/other/queries";
-//import { prisma } from "@/lib/client";
-//import { OtherIngredient } from "@prisma/client";
+import dynamic from "next/dynamic";
+const OtherIngredientForm = dynamic(() => import("./OtherIngredientForm"), {
+  ssr: false,
+});
+
+import { OtherIngredient, UserMassPreference } from "@prisma/client";
+import { useRecipe } from "../useRecipe";
 
 interface OtherIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  other?: ExtendedOtherIngredient | null;
-  otherId?: string;
-  open: boolean;
+  massUnit: UserMassPreference;
+  others: OtherIngredient[];
 }
 
-export const OtherIngredientModal: FC<
-  OtherIngredientProfileModalProps
-> = async ({ recipe, other, otherId, open }) => {
-  const others = await getOtherIngredients();
+export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
+  massUnit,
+  others,
+}) => {
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
-  const action = other?.id
-    ? updateRecipeOtherIngredient
-    : addRecipeOtherIngredientToRecipe;
+  const other =
+    modalId === "new"
+      ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
+      : recipe?.otherIngredients.find((h) => h.id === modalId);
   return (
-    <RoutedModal
-      title="Edit Other"
-      hidden={!open}
-      returnUrl={`/recipes/${recipe?.id}/edit`}
-    >
-      <div>
-        <OtherIngredientForm
-          otherId={otherId}
-          other={other}
-          recipe={recipe}
-          action={action}
-          others={others}
-        />
-      </div>
-    </RoutedModal>
+    modalType === "others" && (
+      <Modal
+        title="Edit Other"
+        close={closeModal}
+        hidden={modalType !== "others" || modalId === undefined}
+      >
+        <div>
+          {other && <OtherIngredientForm massUnit={massUnit} others={others} />}
+        </div>
+      </Modal>
+    )
   );
 };
 export default OtherIngredientModal;

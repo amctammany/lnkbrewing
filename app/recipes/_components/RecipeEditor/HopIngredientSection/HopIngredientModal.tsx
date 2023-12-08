@@ -1,54 +1,53 @@
+"use client";
 import { ExtendedHopIngredient, ExtendedRecipe } from "@/app/recipes/types";
-import { RoutedModal } from "@/components/Modal/RoutedModal";
+import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
 //import { HopIngredientForm } from "./HopIngredientForm";
+import dynamic from "next/dynamic";
 const HopIngredientForm = dynamic(() => import("./HopIngredientForm"), {
   ssr: false,
 });
-
-import {
-  addHopIngredientToRecipe,
-  updateHopIngredient,
-} from "@/app/recipes/actions";
-import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
-import { HopIngredient, UserMassPreference } from "@prisma/client";
-import dynamic from "next/dynamic";
+//import { getHopOptions, getHops } from "@/app/ingredients/hops/queries";
+import { Hop, UserMassPreference } from "@prisma/client";
+import { useRecipe } from "../useRecipe";
 
 interface HopIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  hop?: ExtendedHopIngredient | null;
-  hopId?: string;
+  hops: Hop[];
   massUnit: UserMassPreference;
-  open: boolean;
 }
 
-export const HopIngredientModal: FC<HopIngredientProfileModalProps> = async ({
-  recipe,
-  hop,
-  hopId,
-  open,
+export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
   massUnit,
+  hops,
 }) => {
-  const hops = await getHops();
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
-  const action = hop?.id ? updateHopIngredient : addHopIngredientToRecipe;
+  const hop =
+    modalId === "new"
+      ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
+      : recipe?.hops.find((h) => h.id === modalId);
   return (
-    <RoutedModal
-      title="Edit Hop"
-      hidden={!open}
-      returnUrl={`/recipes/${recipe?.id}/edit`}
-    >
-      <div>
-        <HopIngredientForm
-          massUnit={massUnit}
-          hopId={hopId}
-          hop={hop}
-          recipe={recipe}
-          action={action}
-          hops={hops}
-        />
-      </div>
-    </RoutedModal>
+    modalType === "hops" && (
+      <Modal
+        title="Edit Hop"
+        close={closeModal}
+        hidden={modalType !== "hops" || modalId === undefined}
+      >
+        <div>
+          {hop && (
+            <HopIngredientForm
+              massUnit={massUnit}
+              //hopId={hopId}
+              //hop={hop}
+              //recipe={recipe}
+              //action={action}
+              hops={hops}
+            />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default HopIngredientModal;

@@ -1,59 +1,46 @@
 import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
 //import { YeastIngredientModal } from "./YeastIngredientModal";
 import dynamic from "next/dynamic";
 const YeastIngredientModal = dynamic(() => import("./YeastIngredientModal"), {
-  ssr: false,
+  ssr: true,
 });
+//import { RecipeVitals } from "../..";
 import { List } from "@/components/List/List";
 import { YeastIngredientListItem } from "./YeastIngredientListItem";
-import { prisma } from "@/lib/client";
-import { AddIcon, Icon } from "@/components/Icon";
+import { UserMassPreference } from "@prisma/client";
 import { ExtendedYeastIngredient } from "@/app/recipes/types";
+//import YeastIngredientModalContainer from "./YeastIngredientModalContainer";
+import { getYeasts } from "@/app/ingredients/yeasts/queries";
+import { YeastIngredientSectionActions } from "./YeastIngredientSectionActions";
 
 interface YeastIngredientSectionProps {
   recipeId: number;
-  yeastId?: string | null;
+  massUnit: UserMassPreference;
 }
 
-const YeastIngredientSectionActions = () => {
-  return (
-    <div>
-      <ButtonLink href="?yeastId=new" scroll={false}>
-        <AddIcon />
-      </ButtonLink>
-    </div>
-  );
-};
 export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
   recipeId,
-  yeastId,
+  massUnit,
 }) => {
-  const open = !!yeastId;
+  //const open = !!yeastId;
   const recipe = await getExtendedRecipe(recipeId);
-  const yid = parseInt(yeastId || "");
-  const yeastIngredient =
-    yeastId === "new"
-      ? ({ recipeId } as ExtendedYeastIngredient)
-      : recipe?.yeasts.find((y) => y.id === yid);
-
+  const yeasts = await getYeasts();
   return (
-    <Section header="Yeasts" actions={<YeastIngredientSectionActions />}>
-      <List>
-        {(recipe?.yeasts || []).map((yeast) => (
-          <YeastIngredientListItem key={yeast.id} yeast={yeast} />
-        ))}
-      </List>
-      {open && (
-        <YeastIngredientModal
-          yeast={yeastIngredient}
-          yeastId={yeastId}
-          recipe={recipe}
-          open={open}
-        />
-      )}
-    </Section>
+    <>
+      <Section
+        className="md:col-span-2"
+        header="Yeasts"
+        actions={<YeastIngredientSectionActions />}
+      >
+        <List>
+          {(recipe?.yeasts || []).map((yeast) => (
+            <YeastIngredientListItem key={yeast.id} yeast={yeast} />
+          ))}
+        </List>
+      </Section>
+      <YeastIngredientModal yeasts={yeasts} massUnit={massUnit} />
+    </>
   );
 };

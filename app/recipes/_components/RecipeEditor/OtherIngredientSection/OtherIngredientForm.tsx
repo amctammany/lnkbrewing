@@ -1,4 +1,5 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedOtherIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
@@ -6,15 +7,31 @@ import { Submit } from "@/components/Form/Submit";
 import React, { FC } from "react";
 import {
   OtherIngredient,
-  IngredientUsage,
   MassUnit,
   TimeUnit,
+  UserMassPreference,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Autocomplete } from "@/components/Form/Autocomplete";
+//import { otherIngredientSchema } from "@/app/recipes/actions";
+import * as z from "zod";
+import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
-import { Autocomplete } from "@/components/Form/Autocomplete";
+import { useRecipe } from "../useRecipe";
+import {
+  addRecipeOtherIngredientToRecipe,
+  updateRecipeOtherIngredient,
+} from "@/app/recipes/actions";
+const otherIngredientSchema = zfd.formData({
+  id: zfd.numeric(z.number().optional()),
+  recipeId: zfd.numeric(z.number()),
+  otherIngredientId: zfd.numeric(z.number().optional().default(1078)),
+  attenuation: zfd.numeric(z.number().min(0).optional()),
+  amount: zfd.numeric(z.number().min(0)),
+  amountType: z.nativeEnum(MassUnit).default(MassUnit.g),
+});
 
 interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -22,84 +39,103 @@ interface OtherIngredientFormProps {
   otherId?: string;
   action?: any;
   others: OtherIngredient[]; //Record<string, string>;
+  massUnit: UserMassPreference;
 }
+type Schema = z.infer<typeof otherIngredientSchema>;
 
-type OtherIngredientFormInput = {
-  id: number;
-  recipeId: number;
-  otherIngredientId: number | null;
-  amount: number | null;
-  amountType: MassUnit | null;
-  usage: IngredientUsage | null;
-};
 export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
-  recipe,
-  action,
-  otherId,
-  other,
+  massUnit,
+  //recipe,
+  //action,
+  //otherId,
+  //other,
   others,
 }) => {
+  const { recipe, modalId, closeModal } = useRecipe();
+  const other = recipe?.otherIngredients.find((h) => h.id === modalId);
   const src =
-    otherId === "new"
+    modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
       : other;
-  const { register, trigger, setValue, getValues } =
-    useForm<OtherIngredientFormInput>({
-      defaultValues: src || { recipeId: recipe?.id },
-    });
+  const action = src?.id
+    ? updateRecipeOtherIngredient
+    : addRecipeOtherIngredientToRecipe;
+  const {
+    register,
+    getValues,
+    control,
+    trigger,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setValue,
+  } = useForm<Schema>({
+    defaultValues: (src
+      ? {
+          ...src,
+          otherId: src?.otherIngredient?.id,
+        }
+      : { recipeId: recipe?.id }) as any,
+    resolver: async (data, context, options) => {
+      //console.log({ data, context, options });
+      const r = await zodResolver(otherIngredientSchema)(
+        data,
+        context,
+        options
+      );
+      return r;
+    },
+
+    //resolver: zodResolver(otherIngredientSchema, {
+
+    //}),
+  });
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
-    return action(data);
+    action(data);
+    closeModal();
   };
-  const handleChange = (value: number) => {
-    const other = others.find((o) => o.id === value);
+
+  const autoChange = (value: number) => {
+    const other = others.find((p) => p.id === value);
     if (!other) return;
     setValue("otherIngredientId", other?.id);
   };
+
   const options = (others || []).reduce((acc, other) => {
     acc[other.id] = other.name;
     return acc;
   }, {} as Record<string, string>);
+  const handleError = (e: any) => console.log(e);
 
   return (
     <Form action={onSubmit}>
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("recipeId")} />
-      <div className="flex flex-col gap-2 md:grid md:grid-cols-2 m-2">
+      <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
           <Autocomplete
             label="Other"
-            {...register("otherIngredientId")}
-            value={getValues("otherIngredientId") as any}
             options={options}
-            handleChange={handleChange}
+            value={getValues("otherIngredientId") as any}
+            {...register("otherIngredientId")}
+            handleChange={autoChange}
           />
         </div>
         <div className="flex">
           <div className="flex-grow">
-            <NumberField label="Amount" {...register("amount")} />
+            <NumberField {...register("amount")} label="Amount" />
           </div>
           <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              label="Unit"
-              options={MassUnit}
-            />
+            <Select {...register("amountType")} label="" options={MassUnit} />
           </div>
         </div>
-
-        <div className="">
-          <Select
-            {...register("usage")}
-            label="Usage"
-            options={IngredientUsage}
-          />
-        </div>
       </div>
-      <Toolbar className="col-span-2 md:col-span-2">
-        <Button type="submit">Save</Button>
+      <Toolbar className="col-span-2">
+        <Button type="submit">Submit</Button>
       </Toolbar>
     </Form>
   );
 };
+export default OtherIngredientForm;

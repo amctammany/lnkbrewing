@@ -1,10 +1,11 @@
-import { removeFermentableIngredient } from "@/app/recipes/actions";
-import { ExtendedFermentableIngredient } from "@/app/recipes/types";
+"use client";
+import { ExtendedFermentableIngredient } from "../../../types";
+import { removeFermentableIngredient } from "../../../actions";
 import { ListItem } from "@/components/List/ListItem";
+import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
-import { RemoveButton } from "@/components/RemoveButton";
-import Link from "next/link";
+import { useRecipe } from "../useRecipe";
 
 export type FermentableIngredientListItemProps = {
   fermentable: ExtendedFermentableIngredient;
@@ -12,9 +13,10 @@ export type FermentableIngredientListItemProps = {
 export const FermentableIngredientListItem = ({
   fermentable,
 }: FermentableIngredientListItemProps) => {
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      href={`?fermentableId=${fermentable.id}`}
+      onClick={() => openModal("fermentables", fermentable.id)}
       secondaryAction={
         <RemoveButton
           id={fermentable.id}
@@ -27,9 +29,9 @@ export const FermentableIngredientListItem = ({
         <div className="text-xs">{fermentable.usage}</div>
       </ListItemIcon>
       <ListItemText
-        className="flex-grow "
+        className="flex-grow"
         primary={fermentable.fermentable.name}
-        secondary={`IBU: ${fermentable.fermentable.potential}`}
+        secondary={`Potential: ${fermentable.fermentable.potential}`}
       />
       <ListItemText
         //className="flex-shrink"

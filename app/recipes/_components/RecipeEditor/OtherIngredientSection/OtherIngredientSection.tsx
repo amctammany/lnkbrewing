@@ -1,54 +1,41 @@
 import { getExtendedRecipe } from "@/app/recipes/queries";
-import { ButtonLink } from "@/components/Button";
-import { List } from "@/components/List";
-import { Section } from "@/components/Section";
-import { PlusIcon } from "@heroicons/react/24/solid";
-import { FC } from "react";
+import { Section } from "@/components/Section/Section";
+import React, { FC } from "react";
+import dynamic from "next/dynamic";
+const OtherIngredientModal = dynamic(() => import("./OtherIngredientModal"), {
+  ssr: true,
+});
+import { List } from "@/components/List/List";
 import { OtherIngredientListItem } from "./OtherIngredientListItem";
-import OtherIngredientModal from "./OtherIngredientModal";
-import { AddIcon, Icon } from "@/components/Icon";
+import { UserMassPreference } from "@prisma/client";
+import { OtherIngredientSectionActions } from "./OtherIngredientSectionActions";
+import { getOtherIngredients } from "@/app/ingredients/other/queries";
 
 interface OtherIngredientSectionProps {
   recipeId: number;
-  otherId?: string | null;
+  massUnit: UserMassPreference;
 }
 
-const OtherIngredientSectionActions = () => {
-  return (
-    <div>
-      <ButtonLink href="?otherId=new" scroll={false}>
-        <AddIcon />
-      </ButtonLink>
-    </div>
-  );
-};
 export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({
   recipeId,
-  otherId,
+  massUnit,
 }) => {
-  const open = !!otherId;
   const recipe = await getExtendedRecipe(recipeId);
-  const oid = parseInt(otherId || "");
-  const otherIngredient =
-    otherId === "new"
-      ? ({ recipeId } as any)
-      : recipe?.otherIngredients.find((o) => o.id === oid);
-
+  const others = await getOtherIngredients();
   return (
-    <Section header="Others" actions={<OtherIngredientSectionActions />}>
-      <List>
-        {(recipe?.otherIngredients || []).map((other) => (
-          <OtherIngredientListItem key={other.id} other={other} />
-        ))}
-      </List>
-      {open && (
-        <OtherIngredientModal
-          other={otherIngredient}
-          otherId={otherId}
-          recipe={recipe}
-          open={open}
-        />
-      )}
-    </Section>
+    <>
+      <Section
+        className="md:col-span-2"
+        header="Others"
+        actions={<OtherIngredientSectionActions />}
+      >
+        <List>
+          {(recipe?.otherIngredients || []).map((other) => (
+            <OtherIngredientListItem key={other.id} other={other} />
+          ))}
+        </List>
+      </Section>
+      <OtherIngredientModal others={others} massUnit={massUnit} />
+    </>
   );
 };

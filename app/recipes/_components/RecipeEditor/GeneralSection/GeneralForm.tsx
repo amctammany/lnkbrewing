@@ -1,45 +1,78 @@
 "use client";
-import { Button } from "@/components/Button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
-import { Label } from "@/components/Form/Label";
-import { Submit } from "@/components/Form/Submit";
-import { TextArea } from "@/components/Form/TextArea";
-import { TextField } from "@/components/Form/TextField";
-import { Toolbar } from "@/components/Toolbar";
-import { Recipe } from "@prisma/client";
 import React, { FC } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { UserMassPreference } from "@prisma/client";
+import { useForm, SubmitHandler } from "react-hook-form";
+//import { generalSchema } from "@/app/recipes/actions";
+import * as z from "zod";
+import { zfd } from "zod-form-data";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
+import { useRecipe } from "../useRecipe";
+import { updateRecipe } from "@/app/recipes/actions";
+import { TextField } from "@/components";
+const generalSchema = zfd.formData({
+  id: zfd.numeric(z.number()),
+  name: zfd.text(z.string()),
+});
 
 interface GeneralFormProps {
-  recipe?: Recipe | null;
-  action: any;
+  recipe?: ExtendedRecipe | null;
+  action?: any;
+  massUnit: UserMassPreference;
 }
-type GeneralFormInput = {
-  id: number;
-  name: string | null;
-  description?: string | null;
-};
+type Schema = z.infer<typeof generalSchema>;
 
-export const GeneralForm: FC<GeneralFormProps> = ({ recipe, action }) => {
-  const { register, trigger } = useForm<GeneralFormInput>({
-    defaultValues: recipe || {},
+export const GeneralForm: FC<GeneralFormProps> = ({
+  massUnit,
+  //recipe,
+  //action,
+  //otherId,
+  //other,
+}) => {
+  const { recipe, modalId, openModal, closeModal } = useRecipe();
+  const {
+    register,
+    getValues,
+    control,
+    trigger,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setValue,
+  } = useForm<Schema>({
+    defaultValues: recipe as any,
+    resolver: async (data, context, options) => {
+      //console.log({ data, context, options });
+      const r = await zodResolver(generalSchema)(data, context, options);
+      return r;
+    },
+
+    //resolver: zodResolver(generalSchema, {
+
+    //}),
   });
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
-    action(data);
+    updateRecipe(data);
+    closeModal();
   };
 
   return (
     <Form action={onSubmit}>
-      <input type="hidden" {...register("id")} />
-      <TextField {...register("name")} />
-      <TextArea {...register("description")} />
-      <Toolbar>
-        <Button type="submit" size="toolbar">
-          Save
-        </Button>
+      <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
+        <input type="hidden" {...register("id")} />
+        <div className="col-span-2">
+          <TextField {...register("name")} />
+        </div>
+      </div>
+      <Toolbar className="col-span-2">
+        <Button type="submit">Submit</Button>
       </Toolbar>
     </Form>
   );
 };
+export default GeneralForm;

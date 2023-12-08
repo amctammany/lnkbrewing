@@ -1,8 +1,6 @@
-import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { ButtonLink } from "@/components/Button/Button";
+import { getExtendedRecipe } from "@/app/recipes/queries";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-//import { FermentableIngredientModal } from "./FermentableIngredientModal";
 import dynamic from "next/dynamic";
 const FermentableIngredientModal = dynamic(
   () => import("./FermentableIngredientModal"),
@@ -12,64 +10,40 @@ const FermentableIngredientModal = dynamic(
 );
 import { List } from "@/components/List/List";
 import { FermentableIngredientListItem } from "./FermentableIngredientListItem";
-import { prisma } from "@/lib/client";
-import { ExtendedFermentableIngredient } from "@/app/recipes/types";
-import { AddIcon } from "@/components/Icon";
+import { UserMassPreference } from "@prisma/client";
+import { getFermentables } from "@/app/ingredients/fermentables/queries";
+import { FermentableIngredientSectionActions } from "./FermentableIngredientSectionActions";
 
 interface FermentableIngredientSectionProps {
   recipeId: number;
-  fermentableId?: string | null;
+  massUnit: UserMassPreference;
 }
 
-const FermentableIngredientSectionActions = () => {
-  return (
-    <div>
-      <ButtonLink href="?fermentableId=new" scroll={false}>
-        <AddIcon />
-      </ButtonLink>
-    </div>
-  );
-};
 export const FermentableIngredientSection: FC<
   FermentableIngredientSectionProps
-> = async ({ recipeId, fermentableId }) => {
-  const open = !!fermentableId;
+> = async ({ recipeId, massUnit }) => {
   const recipe = await getExtendedRecipe(recipeId);
-  const fid = parseInt(fermentableId || "");
-  const fermentableIngredient =
-    fermentableId === "new"
-      ? ({ recipeId } as ExtendedFermentableIngredient)
-      : recipe?.fermentables.find((f) => f.id === fid);
-  //(await prisma.fermentableIngredient.findFirst({
-  //where: {
-  //id: parseInt(fermentableId || "") || 0,
-  //},
-  //include: {
-  //fermentable: true,
-  //},
-  //})) || ({ recipeId } as ExtendedFermentableIngredient);
-
+  const fermentables = await getFermentables();
   return (
-    <Section
-      header="Fermentables"
-      actions={<FermentableIngredientSectionActions />}
-    >
-      <List>
-        {(recipe?.fermentables || []).map((fermentable) => (
-          <FermentableIngredientListItem
-            key={fermentable.id}
-            fermentable={fermentable}
-          />
-        ))}
-      </List>
-      {open && (
-        <FermentableIngredientModal
-          fermentable={fermentableIngredient}
-          fermentableId={fermentableId}
-          recipe={recipe}
-          open={open}
-        />
-      )}
-    </Section>
+    <>
+      <Section
+        className="md:col-span-2"
+        header="Fermentables"
+        actions={<FermentableIngredientSectionActions />}
+      >
+        <List>
+          {(recipe?.fermentables || []).map((fermentable) => (
+            <FermentableIngredientListItem
+              key={fermentable.id}
+              fermentable={fermentable}
+            />
+          ))}
+        </List>
+      </Section>
+      <FermentableIngredientModal
+        fermentables={fermentables}
+        massUnit={massUnit}
+      />
+    </>
   );
 };

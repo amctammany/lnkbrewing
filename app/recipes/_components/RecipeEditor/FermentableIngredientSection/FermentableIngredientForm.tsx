@@ -1,80 +1,137 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ExtendedFermentableIngredient,
+  ExtendedRecipe,
+} from "@/app/recipes/types";
+import { Form } from "@/components/Form/Form";
+import { NumberField } from "@/components/Form/NumberField";
+import { Submit } from "@/components/Form/Submit";
+import React, { FC } from "react";
 import {
   Fermentable,
   FermentableIngredient,
   FermentableIngredientUsage,
   MassUnit,
   TimeUnit,
+  UserMassPreference,
 } from "@prisma/client";
-//import { FermentableSelect } from "./FermentableSelect";
-import { Form } from "@/components/Form/Form";
-import { NumberField } from "@/components/Form/NumberField";
 import { Select } from "@/components/Form/Select";
-import { Submit } from "@/components/Form/Submit";
-import {
-  ExtendedFermentableIngredient,
-  ExtendedRecipe,
-} from "@/app/recipes/types";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  updateFermentableIngredient,
-  addFermentableIngredientToRecipe,
-} from "@/app/recipes/actions";
-import { Toolbar } from "@/components/Toolbar/Toolbar";
-import { Button } from "@/components/Button";
 import { Autocomplete } from "@/components/Form/Autocomplete";
+//import { fermentableIngredientSchema } from "@/app/recipes/actions";
+import * as z from "zod";
+import { zfd } from "zod-form-data";
+import { Toolbar } from "@/components/Toolbar";
+import { Button } from "@/components/Button";
+import { useRecipe } from "../useRecipe";
+import {
+  addFermentableIngredientToRecipe,
+  updateFermentableIngredient,
+} from "@/app/recipes/actions";
+const fermentableIngredientSchema = zfd.formData({
+  id: zfd.numeric(z.number().optional()),
+  recipeId: zfd.numeric(z.number()),
+  fermentableId: zfd.numeric(z.number().optional().default(1078)),
+  color: zfd.numeric(z.number().optional()),
+  potential: zfd.numeric(z.number().optional()),
+  usage: z
+    .nativeEnum(FermentableIngredientUsage)
+    .default(FermentableIngredientUsage.Mash),
+  amount: zfd.numeric(z.number().min(0)),
+  amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
+});
 
-export type FermentableIngredientFormProps = {
+interface FermentableIngredientFormProps {
   recipe?: ExtendedRecipe | null;
   fermentable?: ExtendedFermentableIngredient | null;
-  fermentables: Fermentable[];
-};
+  fermentableId?: string;
+  action?: any;
+  fermentables: Fermentable[]; //Record<string, string>;
+  massUnit: UserMassPreference;
+}
 
 type FermentableIngredientFormInput = {
   id: number;
   recipeId: number;
   fermentableId: number | null;
-  color: number | null;
-  potential: number | null;
   amount: number | null;
   amountType: MassUnit | null;
-  usage: FermentableIngredientUsage;
+  alpha: number | null;
+  usage: FermentableIngredientUsage | null;
+  duration: number | null;
+  durationType: TimeUnit | null;
 };
-export function FermentableIngredientForm({
-  recipe,
-  fermentable: src,
+type Schema = z.infer<typeof fermentableIngredientSchema>;
+
+export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
+  massUnit,
+  //recipe,
+  //action,
+  //fermentableId,
+  //fermentable,
   fermentables,
-}: FermentableIngredientFormProps) {
-  const { register, getValues, trigger, reset, setValue } =
-    useForm<FermentableIngredientFormInput>({
-      defaultValues: {
-        ...src,
-        fermentableId: src?.fermentable?.id,
-        potential: src?.fermentable?.potential,
-        color: src?.fermentable?.color,
-      } || { recipeId: recipe?.id },
-    });
+}) => {
+  const { recipe, modalId, closeModal } = useRecipe();
+  const fermentable = recipe?.fermentables.find((h) => h.id === modalId);
+  const src =
+    modalId === "new"
+      ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
+      : fermentable;
   const action = src?.id
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
+  const {
+    register,
+    getValues,
+    control,
+    trigger,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setValue,
+  } = useForm<Schema>({
+    defaultValues: (src
+      ? {
+          ...src,
+          fermentableId: src?.fermentable?.id,
+          potential: src?.fermentable?.potential,
+          color: src?.fermentable?.color,
+        }
+      : { recipeId: recipe?.id }) as any,
+    resolver: async (data, context, options) => {
+      //console.log({ data, context, options });
+      const r = await zodResolver(fermentableIngredientSchema)(
+        data,
+        context,
+        options
+      );
+      return r;
+    },
 
+    //resolver: zodResolver(fermentableIngredientSchema, {
+
+    //}),
+  });
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
     action(data);
+    closeModal();
   };
 
   const autoChange = (value: number) => {
     const fermentable = fermentables.find((p) => p.id === value);
     if (!fermentable) return;
     setValue("fermentableId", fermentable?.id);
-    setValue("potential", fermentable?.potential);
-    setValue("color", fermentable?.color);
+    setValue("potential", fermentable?.potential!);
+    setValue("color", fermentable?.color!);
   };
-  const options = (fermentables || []).reduce((acc, hop) => {
-    acc[hop.id] = hop.name;
+  const options = (fermentables || []).reduce((acc, fermentable) => {
+    acc[fermentable.id] = fermentable.name;
     return acc;
   }, {} as Record<string, string>);
+  const handleError = (e: any) => console.log(e);
 
   return (
     <Form action={onSubmit}>
@@ -121,4 +178,5 @@ export function FermentableIngredientForm({
       </Toolbar>
     </Form>
   );
-}
+};
+export default FermentableIngredientForm;

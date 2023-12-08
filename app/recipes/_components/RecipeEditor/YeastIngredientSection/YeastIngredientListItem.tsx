@@ -1,10 +1,11 @@
+"use client";
 import { ExtendedYeastIngredient } from "../../../types";
 import { removeYeastIngredient } from "../../../actions";
-import Link from "next/link";
 import { ListItem } from "@/components/List/ListItem";
 import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
+import { useRecipe } from "../useRecipe";
 
 export type YeastIngredientListItemProps = {
   yeast: ExtendedYeastIngredient;
@@ -12,14 +13,15 @@ export type YeastIngredientListItemProps = {
 export const YeastIngredientListItem = ({
   yeast,
 }: YeastIngredientListItemProps) => {
+  const { openModal } = useRecipe();
   return (
     <ListItem
-      href={`?yeastId=${yeast.id}`}
+      onClick={() => openModal("yeasts", yeast.id)}
       secondaryAction={
         <RemoveButton id={yeast.id} action={removeYeastIngredient} />
       }
     >
-      <ListItemIcon></ListItemIcon>
+      <ListItemIcon>Yeast</ListItemIcon>
       <ListItemText
         className="flex-grow"
         primary={yeast.yeast.name}

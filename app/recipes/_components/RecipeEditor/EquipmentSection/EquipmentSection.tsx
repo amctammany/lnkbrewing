@@ -1,35 +1,29 @@
 import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-//import { EquipmentProfileModal } from "./EquipmentProfileModal";
 import dynamic from "next/dynamic";
-import Prop from "@/components/Prop/Prop";
-//import { PencilIcon } from "@heroicons/react/24/solid";
-import { EditIcon } from "@/components/Icon";
-const EquipmentProfileModal = dynamic(() => import("./EquipmentProfileModal"), {
-  ssr: false,
+const EquipmentModal = dynamic(() => import("./EquipmentModal"), {
+  ssr: true,
 });
+import { UserMassPreference } from "@prisma/client";
+import { EquipmentSectionActions } from "./EquipmentSectionActions";
+import { Prop } from "@/components/Prop";
+import { getEquipmentProfiles } from "@/app/profiles/queries";
+import { List } from "@/components/List/List";
+import { ListItem } from "@/components/List/ListItem";
+import { ListItemText } from "@/components/List/ListItemText";
 
 interface EquipmentSectionProps {
   recipeId: number;
-  open: boolean;
+  massUnit: UserMassPreference;
 }
 
-const EquipmentSectionActions = () => {
-  return (
-    <div>
-      <ButtonLink href="?equipment=1" scroll={false}>
-        <EditIcon />
-      </ButtonLink>
-    </div>
-  );
-};
 export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   recipeId,
-  open,
+  massUnit,
 }) => {
   const recipe = await getExtendedRecipe(recipeId);
+  const profiles = await getEquipmentProfiles();
   const equipmentSectionProps = [
     { label: "Profile", value: recipe?.equipment?.name },
     {
@@ -59,13 +53,15 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   ];
 
   return (
-    <Section header="Equipment" actions={<EquipmentSectionActions />}>
-      <div className="flex flex-col ">
-        {equipmentSectionProps.map((p) => (
-          <Prop key={p.label} {...p} />
-        ))}
-      </div>
-      {open && <EquipmentProfileModal recipe={recipe} open={open} />}
-    </Section>
+    <div className="md:col-span-2">
+      <Section header="Equipment" actions={<EquipmentSectionActions />}>
+        <div className="flex flex-col ">
+          {equipmentSectionProps.map((p) => (
+            <Prop key={p.label} {...p} />
+          ))}
+        </div>
+      </Section>
+      <EquipmentModal massUnit={massUnit} profiles={profiles} />
+    </div>
   );
 };

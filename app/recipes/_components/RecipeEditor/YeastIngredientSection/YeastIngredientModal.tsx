@@ -1,45 +1,48 @@
+"use client";
 import { ExtendedYeastIngredient, ExtendedRecipe } from "@/app/recipes/types";
-import { RoutedModal } from "@/components/Modal/RoutedModal";
+import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
-import { YeastIngredientForm } from "./YeastIngredientForm";
+//import { YeastIngredientForm } from "./YeastIngredientForm";
+import dynamic from "next/dynamic";
+const YeastIngredientForm = dynamic(() => import("./YeastIngredientForm"), {
+  ssr: false,
+});
+
 import {
   addYeastIngredientToRecipe,
   updateYeastIngredient,
 } from "@/app/recipes/actions";
-import { getYeastOptions, getYeasts } from "@/app/ingredients/yeasts/queries";
-import { prisma } from "@/lib/client";
-import { YeastIngredient } from "@prisma/client";
+//import { getYeastOptions, getYeasts } from "@/app/ingredients/yeasts/queries";
+import { Yeast, YeastIngredient, UserMassPreference } from "@prisma/client";
+import { Button } from "@/components/Button";
+import { useRecipe } from "../useRecipe";
 
 interface YeastIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  yeast?: ExtendedYeastIngredient | null;
-  yeastId?: string;
-  open: boolean;
+  yeasts: Yeast[];
+  massUnit: UserMassPreference;
 }
 
-export const YeastIngredientModal: FC<
-  YeastIngredientProfileModalProps
-> = async ({ recipe, yeast, yeastId, open }) => {
-  const yeasts = await getYeasts();
+export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
+  massUnit,
+  yeasts,
+}) => {
+  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
-  const action =
-    yeastId !== "new" ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (
-    <RoutedModal
-      title="Edit Yeast"
-      hidden={!open}
-      returnUrl={`/recipes/${recipe?.id}/edit`}
-    >
-      <div>
-        <YeastIngredientForm
-          yeastId={yeastId}
-          yeast={yeast}
-          recipe={recipe}
-          action={action}
-          yeasts={yeasts}
-        />
-      </div>
-    </RoutedModal>
+    modalType === "yeasts" && (
+      <Modal
+        title="Edit Yeast"
+        close={closeModal}
+        hidden={modalType !== "yeasts" || modalId === undefined}
+      >
+        <div>
+          {modalId !== undefined && (
+            <YeastIngredientForm massUnit={massUnit} yeasts={yeasts} />
+          )}
+        </div>
+      </Modal>
+    )
   );
 };
 export default YeastIngredientModal;

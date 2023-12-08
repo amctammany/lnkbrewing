@@ -1,28 +1,33 @@
-import { ExtendedRecipe } from "@/app/recipes/types";
-import { RoutedModal } from "@/components/Modal/RoutedModal";
+"use client";
+import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
-import { GeneralForm } from "./GeneralForm";
-import { updateRecipe } from "@/app/recipes/actions";
+import dynamic from "next/dynamic";
+const GeneralForm = dynamic(() => import("./GeneralForm"), {
+  ssr: false,
+});
+
+import { UserMassPreference } from "@prisma/client";
+import { useRecipe } from "../useRecipe";
 
 interface GeneralProfileModalProps {
-  recipe?: ExtendedRecipe | null;
-  open: boolean;
+  massUnit: UserMassPreference;
 }
 
-export const GeneralModal: FC<GeneralProfileModalProps> = async ({
-  recipe,
-  open,
-}) => {
+export const GeneralModal: FC<GeneralProfileModalProps> = ({ massUnit }) => {
+  const { recipe, modalType, openModal, closeModal } = useRecipe();
+
   return (
-    <RoutedModal
-      title="General"
-      hidden={!open}
-      returnUrl={`/recipes/${recipe?.id}/edit`}
-    >
-      <div>
-        <GeneralForm recipe={recipe} action={updateRecipe} />
-      </div>
-    </RoutedModal>
+    modalType === "general" && (
+      <Modal
+        title="Edit General"
+        close={closeModal}
+        hidden={modalType !== "general"}
+      >
+        <div>
+          {modalType === "general" && <GeneralForm massUnit={massUnit} />}
+        </div>
+      </Modal>
+    )
   );
 };
 export default GeneralModal;
