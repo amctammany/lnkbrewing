@@ -21,6 +21,8 @@ import { OtherIngredientSection } from "../../_components/RecEditor/OtherIngredi
 import { GeneralSection } from "../../_components/RecEditor/GeneralSection/GeneralSection";
 import { WaterProfileSection } from "../../_components/RecEditor/WaterProfileSection/WaterProfileSection";
 import { StyleSection } from "../../_components/RecEditor/StyleSection/StyleSection";
+import { MashProfileForm } from "@/app/profiles/mash/_components";
+import { MashSection } from "../../_components/RecEditor/MashSection/MashSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -78,6 +80,7 @@ export default async function RecipeEditorPage({
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
       />
+      <MashSection recipeId={id} massUnit={session.preferences.hopMassUnit} />
       <WaterProfileSection
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
