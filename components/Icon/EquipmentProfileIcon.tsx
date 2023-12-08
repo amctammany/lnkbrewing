@@ -1,6 +1,6 @@
 import { EyeDropperIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { IconProps, iconStyles } from ".";
+import { IconProps, iconStyles } from "./Icon";
 
 export const EquipmentProfileIcon = ({
   variant,

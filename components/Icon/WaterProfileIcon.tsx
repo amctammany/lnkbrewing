@@ -1,6 +1,6 @@
 import { ChartBarSquareIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { IconProps, iconStyles } from ".";
+import { IconProps, iconStyles } from "./Icon";
 
 export const WaterProfileIcon = ({ variant, size, className }: IconProps) => (
   <ChartBarSquareIcon

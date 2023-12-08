@@ -11,6 +11,7 @@ import {
 import { TextField } from "./TextField";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
@@ -75,6 +76,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       onBlur,
       variant,
       size,
+      className,
     }: AutocompleteProps,
     ref
   ) {
@@ -126,7 +128,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       changeValue(id);
     };
     return (
-      <div className="relative ">
+      <div className={clsx("relative", className)}>
         <input
           type="hidden"
           name={name}

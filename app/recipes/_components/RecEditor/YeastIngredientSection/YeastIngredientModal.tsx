@@ -29,15 +29,10 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
 }) => {
   const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
 
-  const yeast =
-    modalId === "new"
-      ? ({ recipeId: recipe?.id } as ExtendedYeastIngredient)
-      : recipe?.yeasts.find((h) => h.id === modalId);
-  //const action = yeast?.id ? updateYeastIngredient : addYeastIngredientToRecipe;
   return (
     modalType === "yeasts" && (
       <Modal
-        //title="Edit Yeast"
+        title="Edit Yeast"
         close={closeModal}
         hidden={modalType !== "yeasts" || modalId === undefined}
       >

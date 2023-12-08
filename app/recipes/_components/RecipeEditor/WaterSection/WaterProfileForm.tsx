@@ -64,15 +64,15 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
 
   return (
     <Form action={onSubmit}>
-      <Select
-        label="Water Profile"
-        {...register("waterProfileId")}
-        onChange={handleChange}
-        options={options}
-      />
-
-      <input type="hidden" value={recipe?.id} {...register("id")} />
       <div className="flex flex-row md:grid md:grid-cols-2 gap-2">
+        <input type="hidden" value={recipe?.id} {...register("id")} />
+        <Select
+          label="Water Profile"
+          {...register("waterProfileId")}
+          onChange={handleChange}
+          options={options}
+        />
+
         <NumberField step={1} {...register("calcium")} />
         <NumberField step={1} {...register("magnesium")} />
         <NumberField step={1} {...register("sodium")} />
