@@ -1,7 +1,7 @@
 "use client";
 import Button, { ButtonLink } from "@/components/Button/Button";
 import React from "react";
-import { AddIcon } from "@/components/Icon/AddIcon";
+import { EditIcon } from "@/components/Icon/EditIcon";
 import { useRecipe } from "../useRecipe";
 
 export const EquipmentSectionActions = () => {
@@ -9,7 +9,7 @@ export const EquipmentSectionActions = () => {
   return (
     <div>
       <Button onClick={() => openModal("equipment")}>
-        <AddIcon />
+        <EditIcon />
       </Button>
     </div>
   );

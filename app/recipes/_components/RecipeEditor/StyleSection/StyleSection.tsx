@@ -23,7 +23,7 @@ export const StyleSection: FC<StyleSectionProps> = async ({
   const recipe = await getExtendedRecipe(recipeId);
   const styles = await getStyles();
   return (
-    <div className="md:col-span-2">
+    <div className="md:col-span-1">
       <Section header="Style" actions={<StyleSectionActions />}>
         <div className="flex flex-col ">
           <div className="flex">
