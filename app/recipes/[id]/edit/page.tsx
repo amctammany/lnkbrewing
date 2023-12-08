@@ -20,6 +20,7 @@ import { YeastIngredientSection } from "../../_components/RecEditor/YeastIngredi
 import { OtherIngredientSection } from "../../_components/RecEditor/OtherIngredientSection/OtherIngredientSection";
 import { GeneralSection } from "../../_components/RecEditor/GeneralSection/GeneralSection";
 import { WaterProfileSection } from "../../_components/RecEditor/WaterProfileSection/WaterProfileSection";
+import { StyleSection } from "../../_components/RecEditor/StyleSection/StyleSection";
 type RecipeEditorPageProps = {
   params: {
     id: string;
@@ -60,6 +61,7 @@ export default async function RecipeEditorPage({
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}
       />
+      <StyleSection recipeId={id} massUnit={session.preferences.hopMassUnit} />
       <HopIngredientSection
         recipeId={id}
         massUnit={session.preferences.hopMassUnit}

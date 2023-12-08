@@ -127,33 +127,6 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     setValue("potential", fermentable?.potential!);
     setValue("color", fermentable?.color!);
   };
-  const waterSectionProps = [
-    { label: "Profile", value: recipe?.water?.name },
-    {
-      label: "Ca2+",
-      value: recipe?.calcium,
-    },
-    {
-      label: "Mg2+",
-      value: recipe?.magnesium,
-    },
-    {
-      label: "Na+",
-      value: recipe?.sodium,
-    },
-    {
-      label: "Cl-",
-      value: recipe?.chloride,
-    },
-    {
-      label: "SO42-",
-      value: recipe?.sulfate,
-    },
-    {
-      label: "HCO3-",
-      value: recipe?.bicarbonate,
-    },
-  ];
   const options = (fermentables || []).reduce((acc, fermentable) => {
     acc[fermentable.id] = fermentable.name;
     return acc;

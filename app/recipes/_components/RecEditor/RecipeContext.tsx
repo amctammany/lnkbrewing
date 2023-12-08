@@ -5,6 +5,7 @@ import { HopIngredient } from "@prisma/client";
 type ModalTypes =
   | "general"
   | "equipment"
+  | "style"
   | "hops"
   | "fermentables"
   | "yeasts"
