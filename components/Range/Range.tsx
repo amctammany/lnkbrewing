@@ -19,7 +19,7 @@ export function Range({
   const v1 = range?.[1] ?? min;
   const diff = max - min;
   const left = (100 * (v0 - min)) / diff;
-  const valLeft = (100 * (value! - v0)) / diff;
+  const valLeft = (100 * (value! - min)) / diff;
   const width = (100 * (v1 - v0)) / diff;
   return (
     <div className="mb-8">
@@ -39,7 +39,9 @@ export function Range({
           >
             <div className="absolute flex w-full my-2 h-full">
               <div className="absolute block top-full left-0 w-full ">
-                {value?.toPrecision(3)}
+                <span className="absolute -left-1 text-sm">
+                  {value?.toPrecision(4)}
+                </span>
               </div>
             </div>
           </div>
