@@ -13,7 +13,7 @@ export const Basic: Story = {
   args: {
     min: 0,
     max: 100,
-    value: [14, 55],
+    range: [14, 55],
     //className: "",
   },
 };
@@ -22,6 +22,6 @@ export const Warning: Story = {
   args: {
     min: 20,
     max: 40,
-    value: [24, 35],
+    range: [24, 35],
   },
 };

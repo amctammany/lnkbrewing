@@ -66,49 +66,49 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
           label="Alpha Acids"
           min={0}
           max={40}
-          value={[hop?.alphaLow!, hop?.alphaHigh!]}
+          range={[hop?.alphaLow!, hop?.alphaHigh!]}
         />
         <Range
           label="Beta Acids"
           min={0}
           max={40}
-          value={[hop?.betaLow!, hop?.betaHigh!]}
+          range={[hop?.betaLow!, hop?.betaHigh!]}
         />
         <Range
           label="Cohumulone"
           min={0}
           max={50}
-          value={[hop?.cohumuloneLow!, hop?.cohumuloneHigh!]}
+          range={[hop?.cohumuloneLow!, hop?.cohumuloneHigh!]}
         />
         <Range
           label="Caryophyllene"
           min={0}
           max={25}
-          value={[hop?.caryophylleneLow!, hop?.caryophylleneHigh!]}
+          range={[hop?.caryophylleneLow!, hop?.caryophylleneHigh!]}
         />
         <Range
           label="Farnesene"
           min={0}
           max={25}
-          value={[hop?.farneseneLow!, hop?.farneseneHigh!]}
+          range={[hop?.farneseneLow!, hop?.farneseneHigh!]}
         />
         <Range
           label="Humulene"
           min={0}
           max={50}
-          value={[hop?.humuleneLow!, hop?.humuleneHigh!]}
+          range={[hop?.humuleneLow!, hop?.humuleneHigh!]}
         />
         <Range
           label="Myrcene"
           min={0}
           max={65}
-          value={[hop?.myrceneLow!, hop?.myrceneHigh!]}
+          range={[hop?.myrceneLow!, hop?.myrceneHigh!]}
         />
         <Range
           label="Total Oils"
           min={0}
           max={25}
-          value={[hop?.totalOilLow!, hop?.totalOilHigh!]}
+          range={[hop?.totalOilLow!, hop?.totalOilHigh!]}
         />
       </div>
       <div>

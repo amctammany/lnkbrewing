@@ -2,17 +2,25 @@ export type RangeProps = {
   label?: string;
   min?: number;
   max?: number;
-  value: [number | null, number | null];
+  range: [number | null, number | null];
+  value?: number;
 };
 
-export function Range({ label, min: _min, max: _max, value }: RangeProps) {
+export function Range({
+  label,
+  min: _min,
+  max: _max,
+  range,
+  value,
+}: RangeProps) {
   const min = _min ?? 0;
   const max = _max ?? 100;
-  const v0 = value[0] ?? min;
-  const v1 = value[1] ?? min;
-  const range = max - min;
-  const left = (100 * (v0 - min)) / range;
-  const width = (100 * (v1 - v0)) / range;
+  const v0 = range?.[0] ?? min;
+  const v1 = range?.[1] ?? min;
+  const diff = max - min;
+  const left = (100 * (v0 - min)) / diff;
+  const valLeft = (100 * (value! - v0)) / diff;
+  const width = (100 * (v1 - v0)) / diff;
   return (
     <div className="mb-8">
       <h4 className="uppercase text-lg underline">{label}</h4>
@@ -26,13 +34,24 @@ export function Range({ label, min: _min, max: _max, value }: RangeProps) {
             {max}
           </span>
           <div
+            style={{ width: 1, left: `${valLeft}%` }}
+            className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2"
+          >
+            <div className="absolute flex w-full my-2 h-full">
+              <div className="absolute block top-full left-0 w-full ">
+                {value?.toPrecision(3)}
+              </div>
+            </div>
+          </div>
+
+          <div
             style={{ width: `${width}%`, left: `${left}%` }}
             className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2"
           >
             <div className="absolute flex w-full my-2 h-full">
               <div className="absolute block top-full left-0 w-full ">
-                <span className="absolute -left-1 text-sm">{value[0]}</span>
-                <span className="absolute -right-1 text-sm">{value[1]}</span>
+                <span className="absolute -left-1 text-sm">{range?.[0]}</span>
+                <span className="absolute -right-1 text-sm">{range?.[1]}</span>
               </div>
             </div>
           </div>

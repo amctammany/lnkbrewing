@@ -86,11 +86,41 @@ export const RecipeVitals: FC<RecipeVitalsProps> = ({ src }) => {
     src || ({ og: 0, fg: 0, srm: 0, ibu: 0, abv: 0 } as RecipeVitalType);
   return (
     <Section header="Vitals">
-      <Range label="OG" min={1.0} max={1.2} value={[ogLow, ogHigh]} />
-      <Range label="FG" min={1.0} max={1.02} value={[fgLow, fgHigh]} />
-      <Range label="IBU" min={0} max={200} value={[ibuLow, ibuHigh]} />
-      <Range label="SRM" min={0} max={80} value={[srmLow, srmHigh]} />
-      <Range label="ABV" min={0} max={100} value={[abvLow, abvHigh]} />
+      <Range
+        label="OG"
+        min={1.0}
+        max={1.2}
+        range={[ogLow, ogHigh]}
+        value={og}
+      />
+      <Range
+        label="FG"
+        min={1.0}
+        max={1.02}
+        range={[fgLow, fgHigh]}
+        value={fg}
+      />
+      <Range
+        label="IBU"
+        min={0}
+        max={200}
+        range={[ibuLow, ibuHigh]}
+        value={ibu}
+      />
+      <Range
+        label="SRM"
+        min={0}
+        max={80}
+        range={[srmLow, srmHigh]}
+        value={srm}
+      />
+      <Range
+        label="ABV"
+        min={0}
+        max={15}
+        range={[abvLow, abvHigh]}
+        value={abv}
+      />
     </Section>
   );
 };
