@@ -25,7 +25,7 @@ export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
   const other =
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedOtherIngredient)
-      : recipe?.otherIngredients.find((h) => h.id === modalId);
+      : recipe?.otherIngredients?.find((h) => h.id === modalId);
   return (
     modalType === "others" && (
       <Modal

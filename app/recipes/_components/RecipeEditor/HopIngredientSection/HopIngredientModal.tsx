@@ -26,7 +26,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
   const hop =
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
-      : recipe?.hops.find((h) => h.id === modalId);
+      : recipe?.hops?.find((h) => h.id === modalId);
   return (
     modalType === "hops" && (
       <Modal

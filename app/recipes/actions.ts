@@ -147,6 +147,9 @@ export async function updateRecipeVitals(id: number) {
       //...data,
       ...vitals,
     },
+    include: {
+      style: true,
+    },
   });
 }
 
@@ -234,8 +237,8 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   const res = await prisma.hopIngredient.create({
     data,
   });
-  await updateRecipeVitals(res.recipeId);
-  redirect(`/recipes/${res.recipeId}/edit`);
+  return updateRecipeVitals(res.recipeId);
+  //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
   const data = hopIngredientSchema.parse(formData);
@@ -243,8 +246,8 @@ export async function updateHopIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
-  await updateRecipeVitals(res.recipeId);
-  redirect(`/recipes/${res.recipeId}/edit`);
+  return updateRecipeVitals(res.recipeId);
+  //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function removeHopIngredient(formData: FormData) {
   const { id } = removeSchema.parse(formData);

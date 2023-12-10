@@ -14,6 +14,7 @@ type ModalTypes =
   | "water";
 export const RecipeContext = createContext<{
   recipe?: ExtendedRecipe;
+  setRecipe?: any;
   modalType?: ModalTypes;
   modalId?: number | "new";
   openModal: (type: ModalTypes, id?: number | "new") => void;
@@ -42,6 +43,7 @@ export const RecipeProvider: React.FC<{
     <RecipeContext.Provider
       value={{
         recipe,
+        setRecipe,
         openModal,
         closeModal,
         modalType,

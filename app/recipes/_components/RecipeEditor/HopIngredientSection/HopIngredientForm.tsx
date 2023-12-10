@@ -26,6 +26,7 @@ import {
   addHopIngredientToRecipe,
   updateHopIngredient,
 } from "@/app/recipes/actions";
+import { setRequestMeta } from "next/dist/server/request-meta";
 const hopIngredientSchema = z.object({
   id: z.number().optional(),
   recipeId: z.number(),
@@ -80,8 +81,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   //hop,
   hops,
 }) => {
-  const { recipe, modalId, closeModal } = useRecipe();
-  const hop = recipe?.hops.find((h) => h.id === modalId);
+  const { setRecipe, recipe, modalId, closeModal } = useRecipe();
+
+  const hop = recipe?.hops?.find((h) => h.id === modalId);
   const src =
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedHopIngredient)
@@ -111,8 +113,10 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
-    action(data);
+    const res = await action(data);
     closeModal();
+    console.log(res);
+    setRecipe(res);
   };
 
   const handleChange = (value: number) => {

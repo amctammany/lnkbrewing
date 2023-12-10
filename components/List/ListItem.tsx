@@ -14,7 +14,7 @@ const listItemStyles = cva(["flex px-2 py-1 items-center"], {
   },
 });
 export type ListItemProps = VariantProps<typeof listItemStyles> &
-  ComponentProps<"li"> & {
+  ComponentProps<"div"> & {
     children?: React.ReactNode;
     href?: string;
     secondaryAction?: any;
@@ -40,11 +40,13 @@ export const ListItem = ({
       {children}
     </Link>
   ) : (
-    <div className={cn}>{children}</div>
+    <div onClick={onClick} className={cn}>
+      {children}
+    </div>
   );
 
   return (
-    <li onClick={onClick} className="group relative flex flex-col">
+    <li className="group relative flex flex-col">
       {child}
       <div className="absolute right-1 top-1/2 -translate-y-1/2">
         {secondaryAction}

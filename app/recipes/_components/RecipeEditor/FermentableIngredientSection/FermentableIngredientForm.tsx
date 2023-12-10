@@ -73,7 +73,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
   fermentables,
 }) => {
   const { recipe, modalId, closeModal } = useRecipe();
-  const fermentable = recipe?.fermentables.find((h) => h.id === modalId);
+  const fermentable = recipe?.fermentables?.find((h) => h.id === modalId);
   const src =
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
