@@ -1,8 +1,6 @@
 "use client";
 import { useClickAway } from "@/hooks";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 import { VariantProps, cva } from "class-variance-authority";
-import clsx from "clsx";
 import { useState, useRef, useEffect } from "react";
 import { MenuIcon } from "../Icon";
 import Button from "../Button/Button";
