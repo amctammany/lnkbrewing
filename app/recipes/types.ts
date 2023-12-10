@@ -32,7 +32,7 @@ export type ExtendedOtherIngredient = RecipeOtherIngredient & {
 };
 export type ExtendedRecipe = Recipe & {
   author: Pick<User, "name" | "email" | "id"> | null;
-  style: Pick<Style, "id" | "identifier" | "name"> | null;
+  style: Style | null;
   water: WaterProfile | null;
   mash: MashProfile | null;
   equipment: EquipmentProfile | null;

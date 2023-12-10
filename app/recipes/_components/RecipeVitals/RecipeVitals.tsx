@@ -1,4 +1,5 @@
 import { Section } from "@/components/Section/Section";
+import { Range } from "@/components/Range";
 import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
 import { RecipeVitalType } from "../../actions";
@@ -69,15 +70,27 @@ const Prop = ({ label, children }: PropProps) => {
   );
 };
 export const RecipeVitals: FC<RecipeVitalsProps> = ({ src }) => {
+  const {
+    fgLow,
+    fgHigh,
+    ogLow,
+    ogHigh,
+    abvLow,
+    abvHigh,
+    ibuLow,
+    ibuHigh,
+    srmLow,
+    srmHigh,
+  } = src?.style!;
   const { og, srm, fg, ibu, abv } =
     src || ({ og: 0, fg: 0, srm: 0, ibu: 0, abv: 0 } as RecipeVitalType);
   return (
     <Section header="Vitals">
-      <Prop label="OG">{og.toFixed(3)}</Prop>
-      <Prop label="FG">{fg.toFixed(3)}</Prop>
-      <Prop label="IBU">{ibu.toFixed(1)}</Prop>
-      <Prop label="SRM">{srm.toFixed(1)}</Prop>
-      <Prop label="ABV">{abv.toFixed(2)}</Prop>
+      <Range label="OG" min={1.0} max={1.2} value={[ogLow, ogHigh]} />
+      <Range label="FG" min={1.0} max={1.02} value={[fgLow, fgHigh]} />
+      <Range label="IBU" min={0} max={200} value={[ibuLow, ibuHigh]} />
+      <Range label="SRM" min={0} max={80} value={[srmLow, srmHigh]} />
+      <Range label="ABV" min={0} max={100} value={[abvLow, abvHigh]} />
     </Section>
   );
 };

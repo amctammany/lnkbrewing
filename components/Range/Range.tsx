@@ -2,7 +2,7 @@ export type RangeProps = {
   label?: string;
   min?: number;
   max?: number;
-  value: [number?, number?];
+  value: [number | null, number | null];
 };
 
 export function Range({ label, min: _min, max: _max, value }: RangeProps) {
