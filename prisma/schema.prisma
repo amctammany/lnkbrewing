@@ -397,13 +397,17 @@ model Hop {
   totalOil          Float?
   totalOilLow       Float?
   totalOilHigh      Float?
+  geraniol          Float?
   geraniolLow       Float?
   geraniolHigh      Float?
+  other             Float?
   otherLow          Float?
   otherHigh         Float?
+  linalool          Float?
   linaloolLow       Float?
   linaloolHigh      Float?
 
+  bPinene           Float?
   bPineneLow        Float?
   bPineneHigh       Float?
   purpose           String?
