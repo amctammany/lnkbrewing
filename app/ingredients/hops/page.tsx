@@ -1,6 +1,6 @@
 import { Hop } from "@prisma/client";
 import { Metadata } from "next";
-import { HopsTable } from "./_components";
+import { HopsTable } from "./_components/HopsTable";
 import { getHops } from "./queries";
 import { Direction } from "@/components/Table";
 export const metadata: Metadata = {

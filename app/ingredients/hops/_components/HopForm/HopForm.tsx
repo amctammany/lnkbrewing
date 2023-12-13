@@ -2,14 +2,11 @@
 
 import { Button } from "@/components/Button";
 import { Section } from "@/components/Section";
-import {
-  Form,
-  NumberField,
-  Select,
-  Submit,
-  TextArea,
-  TextField,
-} from "@/components/Form";
+import { Form } from "@/components/Form/Form";
+import { NumberField } from "@/components/Form/NumberField";
+import { TextArea } from "@/components/Form/TextArea";
+import { TextField } from "@/components/Form/TextField";
+import { Select } from "@/components/Form/Select";
 import { Range } from "@/components/Range";
 import { Toolbar } from "@/components/Toolbar/Toolbar";
 import { NumberKeys } from "@/lib/types";
@@ -68,6 +65,7 @@ export const HopForm = ({ src, action }: HopFormProps) => {
       <Form action={onAction}>
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
+        <TextField label="Country" {...register("country")} />
         <TextArea label="description" {...register("description")} />
         <Select {...register("usage")} options={HopUsage} />
         <TextArea label="flavor" {...register("flavor")} />
