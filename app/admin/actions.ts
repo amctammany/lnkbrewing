@@ -26,7 +26,7 @@ export async function updateUser(formData: FormData) {
 }
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
-  volumeUnit: zfd.text(z.nativeEnum(UserMassPreference)),
+  volumeUnit: zfd.text(z.nativeEnum(UserVolumePreference)),
   hopMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
   fermentableMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
   gravityUnit: zfd.text(z.nativeEnum(UserGravityPreference)),
@@ -37,9 +37,10 @@ const preferenceSchema = zfd.formData({
   targetWaterProfileId: zfd.numeric(z.number().optional()),
 });
 function validate<
-  T extends ZodSchema
+  T extends ZodSchema,
+  S = ReturnType<T["parse"]>
   //S extends any //<T> = ZodEffects<T>
->(formData: FormData, schema: T) {
+>(formData: FormData, schema: T): S & { errors?: any[] } {
   try {
     const data = schema.parse(formData);
     return data;
@@ -49,7 +50,7 @@ function validate<
         ...err,
         path: err.path.join("."),
       })),
-    };
+    } as S & { errors?: any[] };
   }
 }
 export async function updateUserPreferences(formData: FormData) {
