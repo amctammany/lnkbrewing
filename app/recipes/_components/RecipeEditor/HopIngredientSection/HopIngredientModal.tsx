@@ -19,9 +19,10 @@ interface HopIngredientProfileModalProps {
 
 export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
   massUnit,
+  recipe,
   hops,
 }) => {
-  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
+  const { modalId, modalType, openModal, closeModal } = useRecipe();
 
   const hop =
     modalId === "new"
@@ -40,7 +41,7 @@ export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({
               massUnit={massUnit}
               //hopId={hopId}
               //hop={hop}
-              //recipe={recipe}
+              recipe={recipe}
               //action={action}
               hops={hops}
             />

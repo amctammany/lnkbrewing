@@ -75,13 +75,13 @@ type Schema = z.infer<typeof hopIngredientSchema1>;
 
 export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   massUnit,
-  //recipe,
+  recipe,
   //action,
   //hopId,
   //hop,
   hops,
 }) => {
-  const { setRecipe, recipe, modalId, closeModal } = useRecipe();
+  const { modalId, closeModal } = useRecipe();
 
   const hop = recipe?.hops?.find((h) => h.id === modalId);
   const src =
@@ -116,7 +116,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     const res = await action(data);
     closeModal();
     console.log(res);
-    setRecipe(res);
+    //setRecipe(res);
   };
 
   const handleChange = (value: number) => {

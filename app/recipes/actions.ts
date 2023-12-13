@@ -8,6 +8,7 @@ import {
   YeastAmountType,
 } from "@prisma/client";
 import { prisma } from "@/lib/client";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
 import { z } from "zod";

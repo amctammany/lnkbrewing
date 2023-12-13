@@ -35,7 +35,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
           ))}
         </List>
       </Section>
-      <HopIngredientModal hops={hops} massUnit={massUnit} />
+      <HopIngredientModal recipe={recipe} hops={hops} massUnit={massUnit} />
     </>
   );
 };
