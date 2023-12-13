@@ -14,6 +14,7 @@ import {
 } from "@prisma/client";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 
 interface AdminPreferencesFormProps {
   src?: UserPreferences | null;
@@ -30,28 +31,44 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
   equipmentProfiles,
   waterProfiles,
 }) => {
-  const { register, trigger } = useForm<UserPreferences>({
+  const {
+    register,
+    trigger,
+    formState: { errors },
+    setError,
+  } = useForm<UserPreferences>({
     defaultValues: src || {},
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    action(data);
+    const res = await action(data);
+    if (res?.errors?.length) {
+      console.log(res.errors);
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+    }
+    //if (res?.redirect) redirect(res.redirect);
+    //await trigger();
   };
-  console.log(equipmentProfiles);
   return (
     <div className="max-w-lg mx-auto">
       <Section header="Preferences">
         <Form action={onSubmit}>
           <input type="hidden" {...register("userId")} />
-          <Select {...register("volumeUnit")} options={UserVolumePreference} />
+          <Select
+            {...register("volumeUnit")}
+            error={errors.volumeUnit}
+            options={UserVolumePreference}
+          />
           <Select {...register("hopMassUnit")} options={UserMassPreference} />
           <Select
             {...register("fermentableMassUnit")}
+            error={errors?.fermentableMassUnit}
             options={UserMassPreference}
           />
           <Select
             {...register("temperatureUnit")}
+            error={errors?.temperatureUnit}
             options={UserTemperaturePreference}
           />
           <Autocomplete
@@ -61,6 +78,7 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
           />
           <Select
             {...register("gravityUnit")}
+            error={errors?.gravityUnit}
             options={UserGravityPreference}
           />
           <Select {...register("mashProfileId")} options={mashProfiles} />

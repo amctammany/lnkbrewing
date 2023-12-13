@@ -2,10 +2,17 @@
 import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
+import { FieldError } from "react-hook-form";
 
+type ErrorType = {
+  type: string;
+  path: string;
+  message?: string;
+};
 export type SelectProps = {
   name: string;
   label?: string;
+  error?: FieldError;
   defaultValue?: any;
   disabled?: boolean;
   children?: React.ReactNode | React.ReactNode[];
@@ -27,6 +34,7 @@ const selectStyles = cva("input", {
         "disabled:text-slate-500",
         "disabled:border-slate-200",
         "disabled:shadow-none",
+        "invalid:bg-black",
       ],
     },
     size: {
@@ -41,6 +49,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     {
       name,
       label,
+      error,
       children,
       options,
       disabled,
@@ -61,6 +70,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </option>
         ))
       : children;
+    if (error) console.log(error);
     return (
       <Label className={className} label={label === undefined ? name : label}>
         <select
@@ -75,6 +85,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         >
           {opts}
         </select>
+        {error?.message}
       </Label>
     );
   }

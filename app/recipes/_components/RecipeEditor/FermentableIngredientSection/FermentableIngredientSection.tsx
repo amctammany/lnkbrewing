@@ -41,6 +41,7 @@ export const FermentableIngredientSection: FC<
         </List>
       </Section>
       <FermentableIngredientModal
+        recipe={recipe}
         fermentables={fermentables}
         massUnit={massUnit}
       />

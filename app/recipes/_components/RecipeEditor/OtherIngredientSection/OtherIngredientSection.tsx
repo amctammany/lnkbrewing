@@ -35,7 +35,11 @@ export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({
           ))}
         </List>
       </Section>
-      <OtherIngredientModal others={others} massUnit={massUnit} />
+      <OtherIngredientModal
+        recipe={recipe}
+        others={others}
+        massUnit={massUnit}
+      />
     </>
   );
 };

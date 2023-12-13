@@ -35,7 +35,7 @@ export const StyleSection: FC<StyleSectionProps> = async ({
           <RecipeVitals src={recipe} />
         </div>
       </Section>
-      <StyleModal massUnit={massUnit} styles={styles} />
+      <StyleModal recipe={recipe} massUnit={massUnit} styles={styles} />
     </div>
   );
 };
