@@ -40,7 +40,11 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
           ))}
         </List>
       </Section>
-      <YeastIngredientModal yeasts={yeasts} massUnit={massUnit} />
+      <YeastIngredientModal
+        recipe={recipe}
+        yeasts={yeasts}
+        massUnit={massUnit}
+      />
     </>
   );
 };

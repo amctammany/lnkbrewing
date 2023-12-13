@@ -17,10 +17,11 @@ interface OtherIngredientProfileModalProps {
 }
 
 export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
+  recipe,
   massUnit,
   others,
 }) => {
-  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
+  const { modalId, modalType, openModal, closeModal } = useRecipe();
 
   const other =
     modalId === "new"

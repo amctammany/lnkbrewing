@@ -13,8 +13,6 @@ type ModalTypes =
   | "mash"
   | "water";
 export const RecipeContext = createContext<{
-  recipe?: ExtendedRecipe;
-  setRecipe?: any;
   modalType?: ModalTypes;
   modalId?: number | "new";
   openModal: (type: ModalTypes, id?: number | "new") => void;
@@ -29,7 +27,6 @@ export const RecipeProvider: React.FC<{
 }> = ({ recipe: _recipe, children }) => {
   const [modalType, setModalType] = useState<ModalTypes>();
   const [modalId, setModalId] = useState<number | "new">();
-  const [recipe, setRecipe] = useState<ExtendedRecipe>(_recipe!);
   const openModal = (type: ModalTypes, id?: number | "new") => {
     setModalType(type);
     setModalId(id);
@@ -42,8 +39,6 @@ export const RecipeProvider: React.FC<{
   return (
     <RecipeContext.Provider
       value={{
-        recipe,
-        setRecipe,
         openModal,
         closeModal,
         modalType,

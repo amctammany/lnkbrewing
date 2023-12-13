@@ -8,17 +8,20 @@ const EquipmentForm = dynamic(() => import("./EquipmentForm"), {
 
 import { UserMassPreference, EquipmentProfile } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface EquipmentProfileModalProps {
   massUnit: UserMassPreference;
+  recipe?: ExtendedRecipe | null;
   profiles: EquipmentProfile[];
 }
 
 export const EquipmentModal: FC<EquipmentProfileModalProps> = ({
+  recipe,
   massUnit,
   profiles,
 }) => {
-  const { recipe, modalType, openModal, closeModal } = useRecipe();
+  const { modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "equipment" && (
@@ -29,7 +32,11 @@ export const EquipmentModal: FC<EquipmentProfileModalProps> = ({
       >
         <div>
           {modalType === "equipment" && (
-            <EquipmentForm massUnit={massUnit} profiles={profiles} />
+            <EquipmentForm
+              recipe={recipe}
+              massUnit={massUnit}
+              profiles={profiles}
+            />
           )}
         </div>
       </Modal>

@@ -26,8 +26,8 @@ interface MashFormProps {
 }
 type Schema = z.infer<typeof mashSchema>;
 
-export const MashForm: FC<MashFormProps> = ({ massUnit, profiles }) => {
-  const { recipe, modalId, openModal, closeModal } = useRecipe();
+export const MashForm: FC<MashFormProps> = ({ recipe, massUnit, profiles }) => {
+  const { modalId, openModal, closeModal } = useRecipe();
   const {
     register,
     getValues,

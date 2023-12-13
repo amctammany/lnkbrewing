@@ -61,7 +61,7 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
           ))}
         </div>
       </Section>
-      <EquipmentModal massUnit={massUnit} profiles={profiles} />
+      <EquipmentModal recipe={recipe} massUnit={massUnit} profiles={profiles} />
     </div>
   );
 };

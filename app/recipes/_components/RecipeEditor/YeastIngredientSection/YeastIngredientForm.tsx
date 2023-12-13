@@ -46,10 +46,11 @@ interface YeastIngredientFormProps {
 type Schema = z.infer<typeof yeastIngredientSchema>;
 
 export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
+  recipe,
   massUnit,
   yeasts,
 }) => {
-  const { recipe, modalId, closeModal } = useRecipe();
+  const { modalId, closeModal } = useRecipe();
   const yeast = recipe?.yeasts?.find((h) => h.id === modalId);
   const src =
     modalId === "new"

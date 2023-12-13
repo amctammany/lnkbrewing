@@ -27,8 +27,8 @@ interface StyleFormProps {
 }
 type Schema = z.infer<typeof styleSchema>;
 
-export const StyleForm: FC<StyleFormProps> = ({ massUnit, styles }) => {
-  const { recipe, modalId, openModal, closeModal } = useRecipe();
+export const StyleForm: FC<StyleFormProps> = ({ recipe, massUnit, styles }) => {
+  const { modalId, openModal, closeModal } = useRecipe();
   const {
     register,
     getValues,

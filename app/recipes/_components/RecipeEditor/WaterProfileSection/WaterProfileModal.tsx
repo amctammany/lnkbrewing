@@ -8,17 +8,20 @@ const WaterProfileForm = dynamic(() => import("./WaterProfileForm"), {
 
 import { UserMassPreference, WaterProfile } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface WaterProfileProfileModalProps {
   massUnit: UserMassPreference;
+  recipe?: ExtendedRecipe | null;
   profiles: WaterProfile[];
 }
 
 export const WaterProfileModal: FC<WaterProfileProfileModalProps> = ({
   massUnit,
+  recipe,
   profiles,
 }) => {
-  const { recipe, modalType, openModal, closeModal } = useRecipe();
+  const { modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "water" && (
@@ -29,7 +32,11 @@ export const WaterProfileModal: FC<WaterProfileProfileModalProps> = ({
       >
         <div>
           {modalType === "water" && (
-            <WaterProfileForm massUnit={massUnit} profiles={profiles} />
+            <WaterProfileForm
+              recipe={recipe}
+              massUnit={massUnit}
+              profiles={profiles}
+            />
           )}
         </div>
       </Modal>

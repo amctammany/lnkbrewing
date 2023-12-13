@@ -58,7 +58,7 @@ export const MashSection: FC<MashSectionProps> = async ({
           </List>
         </div>
       </Section>
-      <MashModal massUnit={massUnit} profiles={profiles} />
+      <MashModal recipe={recipe} massUnit={massUnit} profiles={profiles} />
     </div>
   );
 };

@@ -8,13 +8,18 @@ const GeneralForm = dynamic(() => import("./GeneralForm"), {
 
 import { UserMassPreference } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface GeneralProfileModalProps {
   massUnit: UserMassPreference;
+  recipe?: ExtendedRecipe | null;
 }
 
-export const GeneralModal: FC<GeneralProfileModalProps> = ({ massUnit }) => {
-  const { recipe, modalType, openModal, closeModal } = useRecipe();
+export const GeneralModal: FC<GeneralProfileModalProps> = ({
+  recipe,
+  massUnit,
+}) => {
+  const { modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "general" && (
@@ -24,7 +29,9 @@ export const GeneralModal: FC<GeneralProfileModalProps> = ({ massUnit }) => {
         hidden={modalType !== "general"}
       >
         <div>
-          {modalType === "general" && <GeneralForm massUnit={massUnit} />}
+          {modalType === "general" && (
+            <GeneralForm recipe={recipe} massUnit={massUnit} />
+          )}
         </div>
       </Modal>
     )

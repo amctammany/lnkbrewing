@@ -8,24 +8,27 @@ const MashForm = dynamic(() => import("./MashForm"), {
 
 import { UserMassPreference, MashProfile } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface MashProfileModalProps {
+  recipe?: ExtendedRecipe | null;
   massUnit: UserMassPreference;
   profiles: MashProfile[];
 }
 
 export const MashModal: FC<MashProfileModalProps> = ({
   massUnit,
+  recipe,
   profiles,
 }) => {
-  const { recipe, modalType, openModal, closeModal } = useRecipe();
+  const { modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "mash" && (
       <Modal title="Edit Mash" close={closeModal} hidden={modalType !== "mash"}>
         <div>
           {modalType === "mash" && (
-            <MashForm massUnit={massUnit} profiles={profiles} />
+            <MashForm recipe={recipe} massUnit={massUnit} profiles={profiles} />
           )}
         </div>
       </Modal>

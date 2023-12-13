@@ -60,7 +60,11 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({
           ))}
         </div>
       </Section>
-      <WaterProfileModal massUnit={massUnit} profiles={profiles} />
+      <WaterProfileModal
+        recipe={recipe}
+        massUnit={massUnit}
+        profiles={profiles}
+      />
     </div>
   );
 };

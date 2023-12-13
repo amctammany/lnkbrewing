@@ -24,10 +24,11 @@ interface YeastIngredientProfileModalProps {
 }
 
 export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
+  recipe,
   massUnit,
   yeasts,
 }) => {
-  const { recipe, modalId, modalType, openModal, closeModal } = useRecipe();
+  const { modalId, modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "yeasts" && (
@@ -38,7 +39,11 @@ export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({
       >
         <div>
           {modalId !== undefined && (
-            <YeastIngredientForm massUnit={massUnit} yeasts={yeasts} />
+            <YeastIngredientForm
+              recipe={recipe}
+              massUnit={massUnit}
+              yeasts={yeasts}
+            />
           )}
         </div>
       </Modal>

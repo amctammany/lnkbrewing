@@ -8,17 +8,20 @@ const StyleForm = dynamic(() => import("./StyleForm"), {
 
 import { UserMassPreference, Style } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface StyleProfileModalProps {
+  recipe?: ExtendedRecipe | null;
   massUnit: UserMassPreference;
   styles: Style[];
 }
 
 export const StyleModal: FC<StyleProfileModalProps> = ({
   styles,
+  recipe,
   massUnit,
 }) => {
-  const { recipe, modalType, openModal, closeModal } = useRecipe();
+  const { modalType, openModal, closeModal } = useRecipe();
 
   return (
     modalType === "style" && (
@@ -29,7 +32,7 @@ export const StyleModal: FC<StyleProfileModalProps> = ({
       >
         <div>
           {modalType === "style" && (
-            <StyleForm massUnit={massUnit} styles={styles} />
+            <StyleForm recipe={recipe} massUnit={massUnit} styles={styles} />
           )}
         </div>
       </Modal>

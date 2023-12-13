@@ -37,9 +37,10 @@ type Schema = z.infer<typeof equipmentSchema>;
 
 export const EquipmentForm: FC<EquipmentFormProps> = ({
   massUnit,
+  recipe,
   profiles,
 }) => {
-  const { recipe, modalId, openModal, closeModal } = useRecipe();
+  const { modalId, openModal, closeModal } = useRecipe();
   const {
     register,
     getValues,

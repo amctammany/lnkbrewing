@@ -27,12 +27,12 @@ type Schema = z.infer<typeof generalSchema>;
 
 export const GeneralForm: FC<GeneralFormProps> = ({
   massUnit,
-  //recipe,
+  recipe,
   //action,
   //otherId,
   //other,
 }) => {
-  const { recipe, modalId, openModal, closeModal } = useRecipe();
+  const { modalId, openModal, closeModal } = useRecipe();
   const {
     register,
     getValues,

@@ -45,13 +45,13 @@ type Schema = z.infer<typeof otherIngredientSchema>;
 
 export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
   massUnit,
-  //recipe,
+  recipe,
   //action,
   //otherId,
   //other,
   others,
 }) => {
-  const { recipe, modalId, closeModal } = useRecipe();
+  const { modalId, closeModal } = useRecipe();
   const other = recipe?.otherIngredients.find((h) => h.id === modalId);
   const src =
     modalId === "new"

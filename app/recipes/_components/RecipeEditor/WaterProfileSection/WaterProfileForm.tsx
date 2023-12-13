@@ -32,16 +32,18 @@ type WaterProfileFormInput = {
 };
 
 interface WaterProfileFormProps {
+  recipe?: ExtendedRecipe | null;
   profiles: WaterProfile[];
   massUnit: UserMassPreference;
 }
 type Schema = z.infer<typeof waterProfileSchema>;
 
 export const WaterProfileForm: FC<WaterProfileFormProps> = ({
+  recipe,
   massUnit,
   profiles,
 }) => {
-  const { recipe, modalId, openModal, closeModal } = useRecipe();
+  const { modalId, openModal, closeModal } = useRecipe();
   const {
     register,
     getValues,

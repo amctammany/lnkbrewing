@@ -66,13 +66,13 @@ type Schema = z.infer<typeof fermentableIngredientSchema>;
 
 export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
   massUnit,
-  //recipe,
+  recipe,
   //action,
   //fermentableId,
   //fermentable,
   fermentables,
 }) => {
-  const { recipe, modalId, closeModal } = useRecipe();
+  const { modalId, closeModal } = useRecipe();
   const fermentable = recipe?.fermentables?.find((h) => h.id === modalId);
   const src =
     modalId === "new"

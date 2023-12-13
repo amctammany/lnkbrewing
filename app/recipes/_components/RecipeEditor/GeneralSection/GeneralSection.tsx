@@ -26,7 +26,7 @@ export const GeneralSection: FC<GeneralSectionProps> = async ({
         <Prop label="Author" value={recipe?.author?.name} />
         <Prop label="Description" value={recipe?.description} />
       </Section>
-      <GeneralModal massUnit={massUnit} />
+      <GeneralModal recipe={recipe} massUnit={massUnit} />
     </div>
   );
 };

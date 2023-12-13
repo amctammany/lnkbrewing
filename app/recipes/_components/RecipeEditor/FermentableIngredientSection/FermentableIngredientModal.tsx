@@ -1,5 +1,8 @@
 "use client";
-import { ExtendedFermentableIngredient } from "@/app/recipes/types";
+import {
+  ExtendedFermentableIngredient,
+  ExtendedRecipe,
+} from "@/app/recipes/types";
 import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
 //import { FermentableIngredientForm } from "./FermentableIngredientForm";
@@ -15,14 +18,15 @@ import { Fermentable, UserMassPreference } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
 
 interface FermentableIngredientProfileModalProps {
+  recipe?: ExtendedRecipe | null;
   fermentables: Fermentable[];
   massUnit: UserMassPreference;
 }
 
 export const FermentableIngredientModal: FC<
   FermentableIngredientProfileModalProps
-> = ({ massUnit, fermentables }) => {
-  const { recipe, modalId, modalType, closeModal } = useRecipe();
+> = ({ recipe, massUnit, fermentables }) => {
+  const { modalId, modalType, closeModal } = useRecipe();
 
   const fermentable =
     modalId === "new"
@@ -38,6 +42,7 @@ export const FermentableIngredientModal: FC<
         <div>
           {fermentable && (
             <FermentableIngredientForm
+              recipe={recipe}
               massUnit={massUnit}
               fermentables={fermentables}
             />
