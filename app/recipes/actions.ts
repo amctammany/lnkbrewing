@@ -130,6 +130,7 @@ export async function updateRecipeVitals(id: number) {
     id: _id,
     ...data
   } = recipe;
+  revalidatePath(`/recipes/${recipe.id}/edit`);
   return prisma.recipe.update({
     where: {
       id,
