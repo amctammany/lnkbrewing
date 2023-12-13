@@ -32,7 +32,7 @@ import {
 const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  fermentableId: zfd.numeric(z.number().optional().default(1078)),
+  fermentableId: zfd.numeric(z.number().optional()),
   color: zfd.numeric(z.number().optional()),
   potential: zfd.numeric(z.number().optional()),
   usage: z
@@ -120,9 +120,9 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     closeModal();
   };
 
-  const autoChange = (value: number) => {
+  const autoChange = (value?: number) => {
     const fermentable = fermentables.find((p) => p.id === value);
-    if (!fermentable) return;
+    //if (!fermentable) return;
     setValue("fermentableId", fermentable?.id);
     setValue("potential", fermentable?.potential!);
     setValue("color", fermentable?.color!);

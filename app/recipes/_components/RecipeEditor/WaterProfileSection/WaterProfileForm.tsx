@@ -76,7 +76,7 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
     updateRecipe(data);
     closeModal();
   };
-  const autoChange = (value: number) => {
+  const autoChange = (value?: number) => {
     const profile = profiles.find((p) => p.id === value);
     reset({ ...profile, id: recipe?.id });
   };

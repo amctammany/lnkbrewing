@@ -42,7 +42,7 @@ const hopIngredientSchema = z.object({
 const hopIngredientSchema1 = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  hopId: zfd.numeric(z.number().optional().default(1078)),
+  hopId: zfd.numeric(z.number().optional()),
   amount: zfd.numeric(z.number().min(0)),
   alpha: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
@@ -119,10 +119,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     //setRecipe(res);
   };
 
-  const handleChange = (value: number) => {
+  const handleChange = (value?: number) => {
     const hop = hops.find((p) => p.id === value);
-    console.log(value);
-    if (!hop) return;
+    //if (!hop) return;
     setValue("hopId", hop?.id);
     setValue("alpha", hop?.alpha!);
   };

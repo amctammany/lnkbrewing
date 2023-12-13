@@ -9,6 +9,7 @@ import {
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@prisma/client";
+import { validateSchema } from "@/lib/validateSchema";
 
 const schema = zfd.formData({
   id: zfd.text(),
@@ -31,31 +32,17 @@ const preferenceSchema = zfd.formData({
   fermentableMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
   gravityUnit: zfd.text(z.nativeEnum(UserGravityPreference)),
   temperatureUnit: zfd.text(z.nativeEnum(UserTemperaturePreference)),
-  equipmentProfileId: zfd.numeric(z.number().optional()),
+  equipmentProfileId: zfd.numeric(z.number()),
   mashProfileId: zfd.numeric(z.number().optional()),
   sourceWaterProfileId: zfd.numeric(z.number().optional()),
   targetWaterProfileId: zfd.numeric(z.number().optional()),
 });
-function validate<
-  T extends ZodSchema,
-  S = ReturnType<T["parse"]>
-  //S extends any //<T> = ZodEffects<T>
->(formData: FormData, schema: T): S & { errors?: any[] } {
-  try {
-    const data = schema.parse(formData);
-    return data;
-  } catch (e: any) {
-    return {
-      errors: e.errors?.map((err: any) => ({
-        ...err,
-        path: err.path.join("."),
-      })),
-    } as S & { errors?: any[] };
-  }
-}
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
-  const { errors, userId, ...data } = validate(formData, preferenceSchema);
+  const { errors, userId, ...data } = validateSchema(
+    formData,
+    preferenceSchema
+  );
   if (errors && errors.length) {
     console.log(errors);
     return { errors };

@@ -29,7 +29,7 @@ import {
 const yeastIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  yeastId: zfd.numeric(z.number().optional().default(1078)),
+  yeastId: zfd.numeric(z.number().optional()),
   attenuation: zfd.numeric(z.number().min(0).optional()),
   amount: zfd.numeric(z.number().min(0)),
   amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
@@ -95,9 +95,8 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     closeModal();
   };
 
-  const autoChange = (value: number) => {
+  const autoChange = (value?: number) => {
     const yeast = yeasts.find((p) => p.id === value);
-    if (!yeast) return;
     setValue("yeastId", yeast?.id);
     setValue("attenuation", yeast?.attenuation!);
   };

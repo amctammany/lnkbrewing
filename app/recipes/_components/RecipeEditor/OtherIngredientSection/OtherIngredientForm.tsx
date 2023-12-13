@@ -27,7 +27,7 @@ import {
 const otherIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  otherIngredientId: zfd.numeric(z.number().optional().default(1078)),
+  otherIngredientId: zfd.numeric(z.number().optional()),
   attenuation: zfd.numeric(z.number().min(0).optional()),
   amount: zfd.numeric(z.number().min(0)),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.g),
@@ -97,9 +97,9 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     closeModal();
   };
 
-  const autoChange = (value: number) => {
+  const autoChange = (value?: number) => {
     const other = others.find((p) => p.id === value);
-    if (!other) return;
+    //if (!other) return;
     setValue("otherIngredientId", other?.id);
   };
 

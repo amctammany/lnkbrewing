@@ -10,15 +10,17 @@ import {
 } from "react";
 import { TextField } from "./TextField";
 import { Label } from "./Label";
-import { VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
+import { type SchemaFieldError } from "@/lib/validateSchema";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
     value?: number | null;
+    error?: SchemaFieldError;
     label?: string;
     options: Record<number, string>;
-    handleChange?: (id: number) => void;
+    handleChange?: (id?: number) => void;
     //options: Option[];
   };
 const optionStyles = cva(["px-4 py-2 hover:bg-slate-300 hover:text-white"], {
@@ -71,6 +73,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       disabled,
       defaultValue,
       value,
+      error,
       onChange,
       handleChange,
       onBlur,
@@ -101,9 +104,10 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       );
       setQuery(value);
       setActiveOption(0);
+      changeValue(undefined);
       if (onChange) onChange(e);
     };
-    const changeValue = (val: number) => {
+    const changeValue = (val?: number) => {
       setHidden(val);
       if (handleChange) handleChange(val);
     };
@@ -136,7 +140,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           onChange={onChange}
           ref={ref}
         />
-        <Label className="relative m-0" label={label || name}>
+        <Label error={error} className="relative m-0" label={label || name}>
           <input
             type="text"
             disabled={disabled}

@@ -24,7 +24,6 @@ export default async function AdminSettingsPage() {
   const mashProfiles = await getMashProfileOptions();
   const equipmentProfiles = await getEquipmentProfileOptions();
   const waterProfiles = await getWaterProfileOptions();
-  console.log(user);
   return (
     <AdminPreferencesForm
       mashProfiles={mashProfiles}

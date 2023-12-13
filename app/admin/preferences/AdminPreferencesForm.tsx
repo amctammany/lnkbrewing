@@ -72,6 +72,8 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
             options={UserTemperaturePreference}
           />
           <Autocomplete
+            required
+            error={errors?.equipmentProfileId}
             {...register("equipmentProfileId")}
             value={src?.equipmentProfileId ?? undefined}
             options={equipmentProfiles}

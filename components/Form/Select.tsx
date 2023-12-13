@@ -2,7 +2,7 @@
 import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
-import { FieldError } from "react-hook-form";
+import { SchemaFieldError } from "@/lib/validateSchema";
 
 type ErrorType = {
   type: string;
@@ -12,7 +12,7 @@ type ErrorType = {
 export type SelectProps = {
   name: string;
   label?: string;
-  error?: FieldError;
+  error?: SchemaFieldError;
   defaultValue?: any;
   disabled?: boolean;
   children?: React.ReactNode | React.ReactNode[];
@@ -72,7 +72,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       : children;
     if (error) console.log(error);
     return (
-      <Label className={className} label={label === undefined ? name : label}>
+      <Label
+        className={className}
+        error={error}
+        label={label === undefined ? name : label}
+      >
         <select
           disabled={disabled}
           className={selectStyles({ size, variant })}
@@ -85,7 +89,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         >
           {opts}
         </select>
-        {error?.message}
       </Label>
     );
   }
