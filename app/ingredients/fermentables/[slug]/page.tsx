@@ -1,7 +1,7 @@
-import { ButtonLink, Section } from "@/components";
-import { prisma } from "@/lib/client";
+import { Section } from "@/components/Section";
+import { ButtonLink } from "@/components/Button";
 import { Fermentable } from "@prisma/client";
-import Link from "next/link";
+import { getFermentable } from "../queries";
 type FermentableDisplayProps = {
   params: {
     slug: string;
@@ -24,11 +24,7 @@ export function generateMetadata({ params }: FermentableDisplayProps) {
 export default async function FermentableDisplay({
   params: { slug },
 }: FermentableDisplayProps) {
-  const fermentable = await prisma.fermentable.findFirst({
-    where: {
-      slug,
-    },
-  });
+  const fermentable = await getFermentable(slug);
   return (
     <Section
       header={`Fermentable: ${fermentable?.name}`}

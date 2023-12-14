@@ -3,6 +3,18 @@
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 
+export const getHop = cache(async (slug: string) => {
+  const hop = await prisma.hop.findFirst({
+    where: {
+      slug,
+    },
+    include: {
+      HopSensoryPanel: true,
+    },
+  });
+  return hop;
+});
+
 export const getHops = cache(async () => {
   const hops = await prisma.hop.findMany();
   return hops;

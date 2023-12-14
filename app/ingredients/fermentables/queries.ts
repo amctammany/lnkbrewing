@@ -2,6 +2,15 @@
 
 import { prisma } from "@/lib/client";
 import { cache } from "react";
+export const getFermentable = cache(async (slug: string) => {
+  const fermentable = await prisma.fermentable.findFirst({
+    where: {
+      slug,
+    },
+    include: {},
+  });
+  return fermentable;
+});
 
 export const getFermentables = cache(async () => {
   const fermentables = await prisma.fermentable.findMany();

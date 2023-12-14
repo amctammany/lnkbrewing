@@ -1,4 +1,8 @@
-import { Form, NumberField, Submit, TextArea, TextField } from "@/components";
+import { Submit } from "@/components/Form/Submit";
+import { NumberField } from "@/components/Form/NumberField";
+import { TextArea } from "@/components/Form/TextArea";
+import { TextField } from "@/components/Form/TextField";
+import { Form } from "@/components/Form/Form";
 import { Fermentable } from "@prisma/client";
 
 export type FermentableFormProps = {

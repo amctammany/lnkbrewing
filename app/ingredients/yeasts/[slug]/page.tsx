@@ -3,6 +3,7 @@ import { Section } from "@/components/Section/Section";
 import { prisma } from "@/lib/client";
 import { Yeast } from "@prisma/client";
 import Link from "next/link";
+import { getYeast } from "../queries";
 type YeastDisplayProps = {
   params: {
     slug: string;
@@ -47,11 +48,7 @@ export function generateMetadata({ params }: YeastDisplayProps) {
 export default async function YeastDisplay({
   params: { slug },
 }: YeastDisplayProps) {
-  const yeast = await prisma.yeast.findFirst({
-    where: {
-      slug,
-    },
-  });
+  const yeast = await getYeast(slug);
   return (
     <Section
       header={`Yeast: ${yeast?.name}`}

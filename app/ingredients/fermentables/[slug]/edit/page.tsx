@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/client";
 import { FermentableForm } from "../../_components";
 import { updateFermentable } from "../../actions";
+import { getFermentable } from "../../queries";
 type FermentableEditorProps = {
   params: {
     slug: string;
@@ -16,10 +17,6 @@ export function generateMetadata({ params }: FermentableEditorProps) {
 export default async function FermentableEditor({
   params: { slug },
 }: FermentableEditorProps) {
-  const fermentable = await prisma.fermentable.findFirst({
-    where: {
-      slug,
-    },
-  });
+  const fermentable = await getFermentable(slug);
   return <FermentableForm src={fermentable} action={updateFermentable} />;
 }

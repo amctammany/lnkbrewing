@@ -1,26 +1,20 @@
 import { prisma } from "@/lib/client";
 import { HopForm } from "../../_components/HopForm";
 import { updateHop } from "../../actions";
-type HopDisplayProps = {
+import { getHop } from "../../queries";
+type HopEditorProps = {
   params: {
     slug: string;
   };
 };
 
-export function generateMetadata({ params }: HopDisplayProps) {
+export function generateMetadata({ params }: HopEditorProps) {
   return {
     title: `LNK Hop: ${params.slug}`,
   };
 }
 
-export default async function HopDisplay({
-  params: { slug },
-}: HopDisplayProps) {
-  const hop = await prisma.hop.findFirst({
-    where: {
-      slug,
-    },
-  });
-  console.log(hop);
+export default async function HopEditor({ params: { slug } }: HopEditorProps) {
+  const hop = await getHop(slug);
   return <HopForm src={hop} action={updateHop} />;
 }

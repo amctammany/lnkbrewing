@@ -1,6 +1,12 @@
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 
+export const getOtherIngredient = cache(async (slug: string) => {
+  const other = await prisma.otherIngredient.findFirst({
+    where: { slug },
+  });
+  return other;
+});
 export const getOtherIngredients = cache(async () => {
   const others = await prisma.otherIngredient.findMany();
   return others;

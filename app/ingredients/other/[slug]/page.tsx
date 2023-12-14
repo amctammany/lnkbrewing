@@ -1,7 +1,7 @@
-import { ButtonLink, Section } from "@/components";
-import { prisma } from "@/lib/client";
+import { ButtonLink } from "@/components/Button";
+import { Section } from "@/components/Section";
 import { OtherIngredient } from "@prisma/client";
-import Link from "next/link";
+import { getOtherIngredient } from "../queries";
 type OtherIngredientDisplayProps = {
   params: {
     slug: string;
@@ -19,11 +19,7 @@ export function generateMetadata({ params }: OtherIngredientDisplayProps) {
 export default async function OtherIngredientDisplay({
   params: { slug },
 }: OtherIngredientDisplayProps) {
-  const otherIngredient = await prisma.otherIngredient.findFirst({
-    where: {
-      slug,
-    },
-  });
+  const otherIngredient = await getOtherIngredient(slug);
   return (
     <Section
       header={`OtherIngredient: ${otherIngredient?.name}`}
