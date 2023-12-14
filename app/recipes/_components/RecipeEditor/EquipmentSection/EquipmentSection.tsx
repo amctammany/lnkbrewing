@@ -1,29 +1,16 @@
-import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-import dynamic from "next/dynamic";
-const EquipmentModal = dynamic(() => import("./EquipmentModal"), {
-  ssr: true,
-});
-import { UserMassPreference } from "@prisma/client";
+import { Section } from "@/components/Section/Section";
 import { EquipmentSectionActions } from "./EquipmentSectionActions";
 import { Prop } from "@/components/Prop";
-import { getEquipmentProfiles } from "@/app/profiles/queries";
-import { List } from "@/components/List/List";
-import { ListItem } from "@/components/List/ListItem";
-import { ListItemText } from "@/components/List/ListItemText";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface EquipmentSectionProps {
-  recipeId: number;
-  massUnit?: UserMassPreference;
+  recipe?: ExtendedRecipe | null;
 }
 
 export const EquipmentSection: FC<EquipmentSectionProps> = async ({
-  recipeId,
-  massUnit,
+  recipe,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
-  const profiles = await getEquipmentProfiles();
   const equipmentSectionProps = [
     { label: "Profile", value: recipe?.equipment?.name },
     {
@@ -53,15 +40,12 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   ];
 
   return (
-    <div className="md:col-span-1">
-      <Section header="Equipment" actions={<EquipmentSectionActions />}>
-        <div className="flex flex-col ">
-          {equipmentSectionProps.map((p) => (
-            <Prop key={p.label} {...p} />
-          ))}
-        </div>
-      </Section>
-      <EquipmentModal recipe={recipe} massUnit={massUnit} profiles={profiles} />
-    </div>
+    <Section header="Equipment" actions={<EquipmentSectionActions />}>
+      <div className="flex flex-col ">
+        {equipmentSectionProps.map((p) => (
+          <Prop key={p.label} {...p} />
+        ))}
+      </div>
+    </Section>
   );
 };
