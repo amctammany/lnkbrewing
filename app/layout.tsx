@@ -3,6 +3,11 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Nunito_Sans } from "next/font/google";
 import { Dialog, DialogProvider } from "@/components/Dialog";
+import { Viewport } from "next";
+
+export const viewport: Viewport = {
+  themeColor: "black",
+};
 
 const inter = Nunito_Sans({ subsets: ["latin"] });
 
