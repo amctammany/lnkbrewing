@@ -6,7 +6,10 @@ import { FermentableIngredientSection } from "../../_components/RecipeEditor/Fer
 import { HopIngredientSection } from "../../_components/RecipeEditor/HopIngredientSection";
 import { MashSection } from "../../_components/RecipeEditor/MashSection/MashSection";
 import { OtherIngredientSection } from "../../_components/RecipeEditor/OtherIngredientSection/OtherIngredientSection";
-import { StyleSection } from "../../_components/RecipeEditor/StyleSection/StyleSection";
+import {
+  StyleSection,
+  StyleContainer,
+} from "../../_components/RecipeEditor/StyleSection";
 import { WaterProfileSection } from "../../_components/RecipeEditor/WaterProfileSection/WaterProfileSection";
 import { YeastIngredientSection } from "../../_components/RecipeEditor/YeastIngredientSection/YeastIngredientSection";
 import { ExtendedRecipe } from "../../types";
@@ -19,8 +22,8 @@ export type EditorProps = {
 };
 const Loading = ({ id }: { id?: number }) => <div>Loading</div>;
 
-export const Editor = ({ recipe, id, session }: EditorProps) => (
-  <RecipeEditor recipe={recipe} recipeId={id}>
+export const Editor = ({ id, session }: EditorProps) => (
+  <RecipeEditor recipeId={id}>
     <Suspense fallback={<Loading />}>
       <GeneralSection
         recipeId={id}
@@ -33,8 +36,11 @@ export const Editor = ({ recipe, id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <StyleSection recipeId={id} massUnit={session?.preferences.hopMassUnit} />
+    <Suspense fallback={<StyleSection />}>
+      <StyleContainer
+        recipeId={id}
+        massUnit={session?.preferences.hopMassUnit}
+      />
     </Suspense>
     <Suspense fallback={<Loading />}>
       <HopIngredientSection
