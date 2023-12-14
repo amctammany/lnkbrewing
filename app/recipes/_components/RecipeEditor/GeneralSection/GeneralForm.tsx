@@ -41,23 +41,23 @@ export const GeneralForm: FC<GeneralFormProps> = ({
     formState: { errors },
     handleSubmit,
     reset,
+    setError,
     setValue,
   } = useForm<Schema>({
     defaultValues: recipe as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(generalSchema)(data, context, options);
-      return r;
-    },
-
     //resolver: zodResolver(generalSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    updateRecipe(data);
+    const res = (await updateRecipe(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
 
@@ -66,7 +66,7 @@ export const GeneralForm: FC<GeneralFormProps> = ({
       <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <div className="col-span-2">
-          <TextField {...register("name")} />
+          <TextField {...register("name")} error={errors?.name} />
         </div>
       </div>
       <Toolbar className="col-span-2">

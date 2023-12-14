@@ -61,7 +61,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     register,
     getValues,
     control,
-    trigger,
+    setError,
     formState: { errors },
     handleSubmit,
     reset,
@@ -74,24 +74,30 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
           attenuation: src?.yeast?.attenuation,
         }
       : { recipeId: recipe?.id }) as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(yeastIngredientSchema)(
-        data,
-        context,
-        options
-      );
-      return r;
-    },
+    //resolver: async (data, context, options) => {
+    ////console.log({ data, context, options });
+    //const r = await zodResolver(yeastIngredientSchema)(
+    //data,
+    //context,
+    //options
+    //);
+    //return r;
+    //},
 
     //resolver: zodResolver(yeastIngredientSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    action(data);
+    //const valid = await trigger();
+    //if (!valid) return;
+    const res = await action(data);
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
     closeModal();
   };
 
@@ -105,7 +111,6 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     acc[yeast.id] = yeast.name;
     return acc;
   }, {} as Record<string, string>);
-  const handleError = (e: any) => console.log(e);
 
   return (
     <Form action={onSubmit}>
@@ -114,6 +119,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         <input type="hidden" {...register("recipeId")} />
         <div className="col-span-2">
           <Autocomplete
+            error={errors?.yeastId}
             label="Yeast"
             options={options}
             value={getValues("yeastId") as any}
@@ -123,11 +129,16 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         </div>
         <div className="flex">
           <div className="flex-grow">
-            <NumberField {...register("amount")} label="Amount" />
+            <NumberField
+              {...register("amount")}
+              error={errors?.amount}
+              label="Amount"
+            />
           </div>
           <div className="flex-shrink-0">
             <Select
               {...register("amountType")}
+              error={errors?.amountType}
               label=""
               options={YeastAmountType}
             />
@@ -136,6 +147,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         <div>
           <NumberField
             {...register("attenuation")}
+            error={errors?.attenuation}
             label="Potential"
             step={0.001}
           />

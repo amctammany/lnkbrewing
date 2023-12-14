@@ -35,7 +35,13 @@ export const OtherIngredientModal: FC<OtherIngredientProfileModalProps> = ({
         hidden={modalType !== "others" || modalId === undefined}
       >
         <div>
-          {other && <OtherIngredientForm massUnit={massUnit} others={others} />}
+          {other && (
+            <OtherIngredientForm
+              recipe={recipe}
+              massUnit={massUnit}
+              others={others}
+            />
+          )}
         </div>
       </Modal>
     )

@@ -51,6 +51,7 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
     trigger,
     formState: { errors },
     handleSubmit,
+    setError,
     reset,
     setValue,
   } = useForm<WaterProfileFormInput>({
@@ -71,9 +72,14 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
   }, {} as Record<string, string>);
 
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    updateRecipe(data);
+    const res = (await updateRecipe(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
   const autoChange = (value?: number) => {
@@ -94,12 +100,32 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
           options={options}
         />
 
-        <NumberField step={1} {...register("calcium")} />
-        <NumberField step={1} {...register("magnesium")} />
-        <NumberField step={1} {...register("sodium")} />
-        <NumberField step={1} {...register("chloride")} />
-        <NumberField step={1} {...register("sulfate")} />
-        <NumberField step={1} {...register("bicarbonate")} />
+        <NumberField
+          step={1}
+          error={errors?.calcium}
+          {...register("calcium")}
+        />
+        <NumberField
+          step={1}
+          error={errors?.magnesium}
+          {...register("magnesium")}
+        />
+        <NumberField step={1} error={errors?.sodium} {...register("sodium")} />
+        <NumberField
+          step={1}
+          error={errors?.chloride}
+          {...register("chloride")}
+        />
+        <NumberField
+          step={1}
+          error={errors?.sulfate}
+          {...register("sulfate")}
+        />
+        <NumberField
+          step={1}
+          error={errors?.bicarbonate}
+          {...register("bicarbonate")}
+        />
 
         <Toolbar className="col-span-2 md:col-span-2">
           <Button type="submit">Save</Button>

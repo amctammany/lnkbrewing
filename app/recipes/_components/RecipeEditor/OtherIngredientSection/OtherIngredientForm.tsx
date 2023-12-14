@@ -64,7 +64,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     register,
     getValues,
     control,
-    trigger,
+    setError,
     formState: { errors },
     handleSubmit,
     reset,
@@ -76,30 +76,25 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
           otherId: src?.otherIngredient?.id,
         }
       : { recipeId: recipe?.id }) as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(otherIngredientSchema)(
-        data,
-        context,
-        options
-      );
-      return r;
-    },
 
     //resolver: zodResolver(otherIngredientSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    action(data);
+    const res = (await action(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
 
   const autoChange = (value?: number) => {
     const other = others.find((p) => p.id === value);
-    //if (!other) return;
     setValue("otherIngredientId", other?.id);
   };
 
@@ -107,7 +102,6 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     acc[other.id] = other.name;
     return acc;
   }, {} as Record<string, string>);
-  const handleError = (e: any) => console.log(e);
 
   return (
     <Form action={onSubmit}>
@@ -118,6 +112,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
           <Autocomplete
             label="Other"
             options={options}
+            error={errors?.otherIngredientId}
             value={getValues("otherIngredientId") as any}
             {...register("otherIngredientId")}
             handleChange={autoChange}
@@ -125,10 +120,19 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
         </div>
         <div className="flex">
           <div className="flex-grow">
-            <NumberField {...register("amount")} label="Amount" />
+            <NumberField
+              {...register("amount")}
+              error={errors?.amount}
+              label="Amount"
+            />
           </div>
           <div className="flex-shrink-0">
-            <Select {...register("amountType")} label="" options={MassUnit} />
+            <Select
+              {...register("amountType")}
+              error={errors?.amountType}
+              label=""
+              options={MassUnit}
+            />
           </div>
         </div>
       </div>

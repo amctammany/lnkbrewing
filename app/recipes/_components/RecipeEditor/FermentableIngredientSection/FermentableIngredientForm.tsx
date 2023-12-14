@@ -88,6 +88,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     trigger,
     formState: { errors },
     handleSubmit,
+    setError,
     reset,
     setValue,
   } = useForm<Schema>({
@@ -99,24 +100,20 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           color: src?.fermentable?.color,
         }
       : { recipeId: recipe?.id }) as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(fermentableIngredientSchema)(
-        data,
-        context,
-        options
-      );
-      return r;
-    },
 
     //resolver: zodResolver(fermentableIngredientSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    action(data);
+    const res = (await action(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
 
@@ -131,7 +128,6 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     acc[fermentable.id] = fermentable.name;
     return acc;
   }, {} as Record<string, string>);
-  const handleError = (e: any) => console.log(e);
 
   return (
     <Form action={onSubmit}>
@@ -142,6 +138,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           <Autocomplete
             label="Fermentable"
             options={options}
+            error={errors?.fermentableId}
             value={getValues("fermentableId") as any}
             {...register("fermentableId")}
             handleChange={autoChange}
@@ -149,15 +146,25 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
         </div>
         <div className="flex">
           <div className="flex-grow">
-            <NumberField {...register("amount")} label="Amount" />
+            <NumberField
+              {...register("amount")}
+              error={errors?.amount}
+              label="Amount"
+            />
           </div>
           <div className="flex-shrink-0">
-            <Select {...register("amountType")} label="" options={MassUnit} />
+            <Select
+              {...register("amountType")}
+              error={errors?.amountType}
+              label=""
+              options={MassUnit}
+            />
           </div>
         </div>
         <div className="">
           <Select
             label="Usage"
+            error={errors?.usage}
             options={FermentableIngredientUsage}
             {...register("usage")}
           />
@@ -165,12 +172,18 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
         <div>
           <NumberField
             {...register("potential")}
+            error={errors?.potential}
             label="Potential"
             step={0.001}
           />
         </div>
         <div>
-          <NumberField {...register("color")} label="Color" step={0.01} />
+          <NumberField
+            {...register("color")}
+            error={errors?.color}
+            label="Color"
+            step={0.01}
+          />
         </div>
       </div>
       <Toolbar className="col-span-2">

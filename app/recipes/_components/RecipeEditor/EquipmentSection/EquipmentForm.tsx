@@ -49,23 +49,20 @@ export const EquipmentForm: FC<EquipmentFormProps> = ({
     formState: { errors },
     handleSubmit,
     reset,
+    setError,
     setValue,
   } = useForm<Schema>({
     defaultValues: recipe as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(equipmentSchema)(data, context, options);
-      return r;
-    },
-
-    //resolver: zodResolver(equipmentSchema, {
-
-    //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    updateRecipe(data);
+    const res = (await updateRecipe(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
   const options = profiles.reduce((acc, profile) => {
@@ -84,15 +81,32 @@ export const EquipmentForm: FC<EquipmentFormProps> = ({
         <Select
           className="md:col-span-2"
           label="Equipment Profile"
+          error={errors?.equipmentProfileId}
           {...register("equipmentProfileId")}
           onChange={handleChange}
           options={options}
         />
 
-        <NumberField step={1} {...register("boilTime")} />
-        <NumberField step={0.01} {...register("batchVolume")} />
-        <NumberField step={0.01} {...register("mashEfficiency")} />
-        <NumberField step={0.01} {...register("brewEfficiency")} />
+        <NumberField
+          step={1}
+          error={errors?.boilTime}
+          {...register("boilTime")}
+        />
+        <NumberField
+          step={0.01}
+          error={errors?.batchVolume}
+          {...register("batchVolume")}
+        />
+        <NumberField
+          step={0.01}
+          error={errors?.mashEfficiency}
+          {...register("mashEfficiency")}
+        />
+        <NumberField
+          step={0.01}
+          error={errors?.brewEfficiency}
+          {...register("brewEfficiency")}
+        />
 
         <Toolbar className="col-span-2 md:col-span-4">
           <Button type="submit">Save</Button>

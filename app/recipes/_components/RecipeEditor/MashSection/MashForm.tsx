@@ -35,24 +35,31 @@ export const MashForm: FC<MashFormProps> = ({ recipe, massUnit, profiles }) => {
     trigger,
     formState: { errors },
     handleSubmit,
+    setError,
     reset,
     setValue,
   } = useForm<Schema>({
     defaultValues: recipe as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(mashSchema)(data, context, options);
-      return r;
-    },
+    //resolver: async (data, context, options) => {
+    ////console.log({ data, context, options });
+    //const r = await zodResolver(mashSchema)(data, context, options);
+    //return r;
+    //},
 
     //resolver: zodResolver(mashSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    updateRecipe(data);
+    //updateRecipe(data);
+    const res = (await updateRecipe(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
   const options = profiles.reduce((acc, profile) => {
@@ -71,6 +78,7 @@ export const MashForm: FC<MashFormProps> = ({ recipe, massUnit, profiles }) => {
         <Select
           label="Mash Profile"
           {...register("mashProfileId")}
+          error={errors?.mashProfileId}
           onChange={handleChange}
           options={options}
         />

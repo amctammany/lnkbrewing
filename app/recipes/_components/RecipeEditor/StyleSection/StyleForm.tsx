@@ -37,23 +37,25 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, massUnit, styles }) => {
     formState: { errors },
     handleSubmit,
     reset,
+    setError,
     setValue,
   } = useForm<Schema>({
     defaultValues: recipe as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(styleSchema)(data, context, options);
-      return r;
-    },
 
     //resolver: zodResolver(styleSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
     updateRecipe(data);
+    const res = (await updateRecipe(data)) as any;
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+
     closeModal();
   };
   const options = styles.reduce((acc, profile) => {
@@ -68,6 +70,7 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, massUnit, styles }) => {
         <Select
           label="Style"
           {...register("styleIdentifer")}
+          error={errors?.styleIdentifer}
           options={options}
         />
         <Toolbar className="col-span-2 md:col-span-2">

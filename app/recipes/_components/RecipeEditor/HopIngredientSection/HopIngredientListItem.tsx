@@ -11,7 +11,6 @@ export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
 };
 export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
-  console.log(hop);
   const { openModal } = useRecipe();
   return (
     <ListItem
