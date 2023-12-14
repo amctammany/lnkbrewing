@@ -94,28 +94,35 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     getValues,
     control,
     trigger,
+    setError,
     formState: { errors },
     handleSubmit,
     reset,
     setValue,
   } = useForm<Schema>({
     defaultValues: (src || { recipeId: recipe?.id }) as any,
-    resolver: async (data, context, options) => {
-      //console.log({ data, context, options });
-      const r = await zodResolver(hopIngredientSchema1)(data, context, options);
-      return r;
-    },
+    //resolver: async (data, context, options) => {
+    ////console.log({ data, context, options });
+    //const r = await zodResolver(hopIngredientSchema1)(data, context, options);
+    //return r;
+    //},
 
     //resolver: zodResolver(hopIngredientSchema, {
 
     //}),
   });
   const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    const res = await action(data);
-    closeModal();
+    //const valid = await trigger();
+    //if (!valid) return;
+    const res = (await action(data)) as any;
     console.log(res);
+    if (res?.errors?.length) {
+      res.errors.forEach((err: any) =>
+        setError(err.path, { type: err.code, message: err.message })
+      );
+      return;
+    }
+    closeModal();
     //setRecipe(res);
   };
 
@@ -140,6 +147,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           <Autocomplete
             label="Hop"
             {...register("hopId")}
+            error={errors?.hopId}
             value={getValues("hopId") as any}
             options={options}
             handleChange={handleChange}
@@ -149,11 +157,17 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           <div className="flex-grow">
             <NumberField
               label="Amount"
+              error={errors?.amount}
               {...register("amount", { valueAsNumber: true })}
             />
           </div>
           <div className="flex-shrink-0">
-            <Select {...register("amountType")} label="" options={MassUnit} />
+            <Select
+              {...register("amountType")}
+              error={errors?.amountType}
+              label=""
+              options={MassUnit}
+            />
           </div>
         </div>
         <div>
@@ -167,19 +181,25 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         <div className="flex">
           <div className="flex-grow">
             <NumberField
-              variant={errors?.duration ? "error" : "default"}
+              error={errors?.duration}
               {...register("duration", { valueAsNumber: true })}
               name="duration"
               label="Time"
             />
           </div>
           <div className="flex-shrink-0">
-            <Select {...register("durationType")} label="" options={TimeUnit} />
+            <Select
+              {...register("durationType")}
+              error={errors?.durationType}
+              label=""
+              options={TimeUnit}
+            />
           </div>
         </div>
         <div>
           <Select
             {...register("usage")}
+            error={errors?.usage}
             label="Usage"
             options={HopIngredientUsage}
           />
@@ -187,6 +207,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         <div className="">
           <NumberField
             {...register("alpha", { valueAsNumber: true })}
+            error={errors?.alpha}
             step={0.1}
             label="Alpha Acids"
           />

@@ -15,6 +15,7 @@ import { z } from "zod";
 import slugify from "slugify";
 import { ExtendedRecipe } from "./types";
 import { getObjectDifferences } from "@/lib/utils";
+import { validateSchema } from "@/lib/validateSchema";
 const removeSchema = zfd.formData({
   id: zfd.numeric(),
 });
@@ -235,7 +236,9 @@ const hopIngredientSchema = zfd.formData({
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
 export async function addHopIngredientToRecipe(formData: FormData) {
-  const data = hopIngredientSchema.parse(formData);
+  //const data = hopIngredientSchema.parse(formData);
+  const { errors, ...data } = validateSchema(formData, hopIngredientSchema);
+  if (errors) return Promise.resolve({ errors });
   const res = await prisma.hopIngredient.create({
     data,
   });
@@ -243,7 +246,10 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
-  const data = hopIngredientSchema.parse(formData);
+  const { errors, ...data } = validateSchema(formData, hopIngredientSchema);
+  //if (errors) return { errors };
+  if (errors) return Promise.resolve({ errors });
+  //const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.update({
     where: { id: data.id },
     data,

@@ -1,14 +1,14 @@
 import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
+import { SchemaFieldError } from "@/lib/validateSchema";
 
 export type TextFieldProps = {
   name: string;
   label?: string;
   defaultValue?: any;
   disabled?: boolean;
-  error?: boolean;
-  errorMessage?: string;
+  error?: SchemaFieldError;
   onChange?: (e: SyntheticEvent) => void;
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
@@ -38,7 +38,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onBlur,
       value,
       error,
-      errorMessage,
+      className,
       disabled,
       label,
       defaultValue,
@@ -48,9 +48,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     }: TextFieldProps,
     ref
   ) {
-    console.log({ error, errorMessage });
     return (
-      <Label variant={error ? "error" : "default"} label={label || name}>
+      <Label error={error} className={className} label={label || name}>
         <input
           disabled={disabled}
           className={textFieldStyles({
@@ -66,7 +65,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           {...props}
           ref={ref}
         />
-        <b>{error ? errorMessage : ""}</b>
       </Label>
     );
   }
