@@ -22,6 +22,8 @@ import { ExtendedRecipe } from "../../types";
 import { Session } from "next-auth";
 import { OtherIngredientContainer } from "../../_components/RecipeEditor/OtherIngredientSection";
 import { EquipmentContainer } from "../../_components/RecipeEditor/EquipmentSection";
+import { MashContainer } from "../../_components/RecipeEditor/MashSection";
+import { WaterProfileContainer } from "../../_components/RecipeEditor/WaterProfileSection";
 
 export type EditorProps = {
   recipe?: ExtendedRecipe | null;
@@ -74,11 +76,14 @@ export const Editor = ({ id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <MashSection recipeId={id} massUnit={session?.preferences.hopMassUnit} />
+    <Suspense fallback={<MashSection />}>
+      <MashContainer
+        recipeId={id}
+        massUnit={session?.preferences.hopMassUnit}
+      />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <WaterProfileSection
+    <Suspense fallback={<WaterProfileSection />}>
+      <WaterProfileContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />

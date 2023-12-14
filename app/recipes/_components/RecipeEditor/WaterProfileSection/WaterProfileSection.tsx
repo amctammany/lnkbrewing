@@ -1,27 +1,16 @@
-import { getExtendedRecipe, getRecipe } from "@/app/recipes/queries";
-import { Section } from "@/components/Section/Section";
 import React, { FC } from "react";
-import dynamic from "next/dynamic";
-const WaterProfileModal = dynamic(() => import("./WaterProfileModal"), {
-  ssr: true,
-});
-import { UserMassPreference } from "@prisma/client";
+import { Section } from "@/components/Section/Section";
 import { WaterProfileSectionActions } from "./WaterProfileSectionActions";
-import { Prop } from "@/components/Prop";
-import { getWaterProfile, getWaterProfiles } from "@/app/profiles/queries";
 import { PropSet } from "@/components/PropSet/PropSet";
+import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface WaterProfileSectionProps {
-  recipeId: number;
-  massUnit?: UserMassPreference;
+  recipe?: ExtendedRecipe | null;
 }
 
-export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({
-  recipeId,
-  massUnit,
+export const WaterProfileSection: FC<WaterProfileSectionProps> = ({
+  recipe,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
-  const profiles = await getWaterProfiles();
   const waterSectionProps = [
     //{ label: "Profile", value: recipe?.water?.name },
     {
@@ -51,20 +40,13 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({
   ];
 
   return (
-    <div className="md:col-span-2">
-      <Section header="WaterProfile" actions={<WaterProfileSectionActions />}>
-        <PropSet label="Profile" value={recipe?.water?.name} />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-          {waterSectionProps.map((p) => (
-            <PropSet label={p.label} value={p.value} key={p.label} />
-          ))}
-        </div>
-      </Section>
-      <WaterProfileModal
-        recipe={recipe}
-        massUnit={massUnit}
-        profiles={profiles}
-      />
-    </div>
+    <Section header="WaterProfile" actions={<WaterProfileSectionActions />}>
+      <PropSet label="Profile" value={recipe?.water?.name} />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+        {waterSectionProps.map((p) => (
+          <PropSet label={p.label} value={p.value} key={p.label} />
+        ))}
+      </div>
+    </Section>
   );
 };

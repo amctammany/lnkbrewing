@@ -98,7 +98,7 @@ export async function updateRecipeVitals(id: number) {
       author: true,
       style: true,
       water: true,
-      mash: true,
+      mash: { include: { steps: true } },
       yeasts: { include: { yeast: true } },
       hops: { include: { hop: true } },
       otherIngredients: { include: { otherIngredient: true } },
