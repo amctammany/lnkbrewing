@@ -3,7 +3,10 @@ import { RecipeEditor } from "../../_components/RecipeEditor";
 import { GeneralSection } from "../../_components/RecipeEditor/GeneralSection/GeneralSection";
 import { EquipmentSection } from "../../_components/RecipeEditor/EquipmentSection/EquipmentSection";
 import { FermentableIngredientSection } from "../../_components/RecipeEditor/FermentableIngredientSection";
-import { HopIngredientSection } from "../../_components/RecipeEditor/HopIngredientSection";
+import {
+  HopIngredientContainer,
+  HopIngredientSection,
+} from "../../_components/RecipeEditor/HopIngredientSection";
 import { MashSection } from "../../_components/RecipeEditor/MashSection/MashSection";
 import { OtherIngredientSection } from "../../_components/RecipeEditor/OtherIngredientSection/OtherIngredientSection";
 import {
@@ -42,8 +45,8 @@ export const Editor = ({ id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <HopIngredientSection
+    <Suspense fallback={<HopIngredientSection />}>
+      <HopIngredientContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />
