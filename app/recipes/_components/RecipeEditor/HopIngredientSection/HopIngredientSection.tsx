@@ -9,7 +9,7 @@ interface HopIngredientSectionProps {
   recipe?: ExtendedRecipe | null;
 }
 
-export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({
+export const HopIngredientSection: FC<HopIngredientSectionProps> = ({
   recipe,
 }) => {
   return (

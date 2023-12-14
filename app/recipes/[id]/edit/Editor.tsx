@@ -20,6 +20,7 @@ import {
 } from "../../_components/RecipeEditor/YeastIngredientSection/";
 import { ExtendedRecipe } from "../../types";
 import { Session } from "next-auth";
+import { OtherIngredientContainer } from "../../_components/RecipeEditor/OtherIngredientSection";
 
 export type EditorProps = {
   recipe?: ExtendedRecipe | null;
@@ -66,8 +67,8 @@ export const Editor = ({ id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <OtherIngredientSection
+    <Suspense fallback={<OtherIngredientSection />}>
+      <OtherIngredientContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />
