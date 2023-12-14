@@ -2,7 +2,10 @@ import { Suspense } from "react";
 import { RecipeEditor } from "../../_components/RecipeEditor";
 import { GeneralSection } from "../../_components/RecipeEditor/GeneralSection/GeneralSection";
 import { EquipmentSection } from "../../_components/RecipeEditor/EquipmentSection/EquipmentSection";
-import { FermentableIngredientSection } from "../../_components/RecipeEditor/FermentableIngredientSection";
+import {
+  FermentableIngredientContainer,
+  FermentableIngredientSection,
+} from "../../_components/RecipeEditor/FermentableIngredientSection";
 import {
   HopIngredientContainer,
   HopIngredientSection,
@@ -24,6 +27,7 @@ import { OtherIngredientContainer } from "../../_components/RecipeEditor/OtherIn
 import { EquipmentContainer } from "../../_components/RecipeEditor/EquipmentSection";
 import { MashContainer } from "../../_components/RecipeEditor/MashSection";
 import { WaterProfileContainer } from "../../_components/RecipeEditor/WaterProfileSection";
+import { GeneralContainer } from "../../_components/RecipeEditor/GeneralSection";
 
 export type EditorProps = {
   recipe?: ExtendedRecipe | null;
@@ -34,8 +38,8 @@ const Loading = ({ id }: { id?: number }) => <div>Loading</div>;
 
 export const Editor = ({ id, session }: EditorProps) => (
   <RecipeEditor recipeId={id}>
-    <Suspense fallback={<Loading />}>
-      <GeneralSection
+    <Suspense fallback={<GeneralSection />}>
+      <GeneralContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />
@@ -58,8 +62,8 @@ export const Editor = ({ id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <FermentableIngredientSection
+    <Suspense fallback={<FermentableIngredientSection />}>
+      <FermentableIngredientContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />
