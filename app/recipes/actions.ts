@@ -227,7 +227,7 @@ export async function removeRecipeOtherIngredient(formData: FormData) {
 const hopIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  hopId: zfd.numeric(z.number().optional().default(1078)),
+  hopId: zfd.numeric(z.number()),
   amount: zfd.numeric(z.number().min(0)),
   alpha: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
@@ -269,7 +269,7 @@ export async function removeHopIngredient(formData: FormData) {
 const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
-  fermentableId: zfd.numeric(z.number().optional().default(1078)),
+  fermentableId: zfd.numeric(z.number()),
   usage: z
     .nativeEnum(FermentableIngredientUsage)
     .default(FermentableIngredientUsage.Mash),
