@@ -39,7 +39,7 @@ interface OtherIngredientFormProps {
   otherId?: string;
   action?: any;
   others: OtherIngredient[]; //Record<string, string>;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof otherIngredientSchema>;
 

@@ -13,7 +13,7 @@ import { HopIngredientSectionActions } from "./HopIngredientSectionActions";
 
 interface HopIngredientSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const HopIngredientSection: FC<HopIngredientSectionProps> = async ({

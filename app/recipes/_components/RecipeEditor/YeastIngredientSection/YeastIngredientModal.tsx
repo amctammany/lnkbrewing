@@ -20,7 +20,7 @@ import { useRecipe } from "../useRecipe";
 interface YeastIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
   yeasts: Yeast[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const YeastIngredientModal: FC<YeastIngredientProfileModalProps> = ({

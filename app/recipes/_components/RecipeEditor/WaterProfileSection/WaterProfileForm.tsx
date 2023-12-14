@@ -34,7 +34,7 @@ type WaterProfileFormInput = {
 interface WaterProfileFormProps {
   recipe?: ExtendedRecipe | null;
   profiles: WaterProfile[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof waterProfileSchema>;
 

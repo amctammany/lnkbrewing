@@ -81,7 +81,7 @@ export const RecipeVitals: FC<RecipeVitalsProps> = ({ src }) => {
     ibuHigh,
     srmLow,
     srmHigh,
-  } = src?.style!;
+  } = src?.style! ?? {};
   const { og, srm, fg, ibu, abv } =
     src || ({ og: 0, fg: 0, srm: 0, ibu: 0, abv: 0 } as RecipeVitalType);
   return (

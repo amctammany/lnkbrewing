@@ -22,7 +22,7 @@ const mashSchema = zfd.formData({
 interface MashFormProps {
   recipe?: ExtendedRecipe | null;
   profiles: MashProfile[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof mashSchema>;
 

@@ -21,7 +21,7 @@ const generalSchema = zfd.formData({
 interface GeneralFormProps {
   recipe?: ExtendedRecipe | null;
   action?: any;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof generalSchema>;
 

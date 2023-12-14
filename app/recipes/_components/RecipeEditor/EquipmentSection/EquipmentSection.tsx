@@ -15,7 +15,7 @@ import { ListItemText } from "@/components/List/ListItemText";
 
 interface EquipmentSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const EquipmentSection: FC<EquipmentSectionProps> = async ({

@@ -13,7 +13,7 @@ import { PropSet } from "@/components/PropSet/PropSet";
 
 interface WaterProfileSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const WaterProfileSection: FC<WaterProfileSectionProps> = async ({

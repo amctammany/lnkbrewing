@@ -15,7 +15,7 @@ import { ListItemText } from "@/components/List/ListItemText";
 
 interface MashSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const MashSection: FC<MashSectionProps> = async ({

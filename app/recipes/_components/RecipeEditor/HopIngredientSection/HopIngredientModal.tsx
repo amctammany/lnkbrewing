@@ -14,7 +14,7 @@ import { useRecipe } from "../useRecipe";
 interface HopIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
   hops: Hop[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const HopIngredientModal: FC<HopIngredientProfileModalProps> = ({

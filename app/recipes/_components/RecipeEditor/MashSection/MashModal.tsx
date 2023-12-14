@@ -12,7 +12,7 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface MashProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
   profiles: MashProfile[];
 }
 

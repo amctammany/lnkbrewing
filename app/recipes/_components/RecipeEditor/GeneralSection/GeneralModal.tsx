@@ -11,7 +11,7 @@ import { useRecipe } from "../useRecipe";
 import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface GeneralProfileModalProps {
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
   recipe?: ExtendedRecipe | null;
 }
 

@@ -12,7 +12,7 @@ import { useRecipe } from "../useRecipe";
 
 interface OtherIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
   others: OtherIngredient[];
 }
 

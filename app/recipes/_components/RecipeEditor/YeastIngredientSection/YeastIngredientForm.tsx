@@ -41,7 +41,7 @@ interface YeastIngredientFormProps {
   yeastId?: string;
   action?: any;
   yeasts: Yeast[]; //Record<string, string>;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof yeastIngredientSchema>;
 

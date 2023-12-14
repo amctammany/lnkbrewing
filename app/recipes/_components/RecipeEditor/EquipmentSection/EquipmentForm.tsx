@@ -31,7 +31,7 @@ const equipmentSchema = zfd.formData({
 interface EquipmentFormProps {
   recipe?: ExtendedRecipe | null;
   profiles: EquipmentProfile[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof equipmentSchema>;
 

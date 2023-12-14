@@ -13,7 +13,7 @@ import { getOtherIngredients } from "@/app/ingredients/other/queries";
 
 interface OtherIngredientSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const OtherIngredientSection: FC<OtherIngredientSectionProps> = async ({

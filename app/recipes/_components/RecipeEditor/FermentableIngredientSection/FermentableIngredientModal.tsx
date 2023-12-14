@@ -20,7 +20,7 @@ import { useRecipe } from "../useRecipe";
 interface FermentableIngredientProfileModalProps {
   recipe?: ExtendedRecipe | null;
   fermentables: Fermentable[];
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const FermentableIngredientModal: FC<

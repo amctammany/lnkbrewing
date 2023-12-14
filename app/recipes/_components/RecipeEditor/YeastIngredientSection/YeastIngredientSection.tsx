@@ -17,7 +17,7 @@ import { YeastIngredientSectionActions } from "./YeastIngredientSectionActions";
 
 interface YeastIngredientSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({

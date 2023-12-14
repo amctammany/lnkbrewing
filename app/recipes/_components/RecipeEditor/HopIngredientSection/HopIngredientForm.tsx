@@ -57,7 +57,7 @@ interface HopIngredientFormProps {
   hopId?: string;
   action?: any;
   hops: Hop[]; //Record<string, string>;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 type HopIngredientFormInput = {

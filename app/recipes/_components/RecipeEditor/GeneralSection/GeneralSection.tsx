@@ -11,7 +11,7 @@ import { Prop } from "@/components/Prop";
 
 interface GeneralSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const GeneralSection: FC<GeneralSectionProps> = async ({

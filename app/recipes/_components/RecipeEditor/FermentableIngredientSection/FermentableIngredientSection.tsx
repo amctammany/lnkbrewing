@@ -16,7 +16,7 @@ import { FermentableIngredientSectionActions } from "./FermentableIngredientSect
 
 interface FermentableIngredientSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const FermentableIngredientSection: FC<

@@ -12,7 +12,7 @@ import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface StyleProfileModalProps {
   recipe?: ExtendedRecipe | null;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
   styles: Style[];
 }
 

@@ -13,7 +13,7 @@ import { getStyles } from "@/app/styles/queries";
 
 interface StyleSectionProps {
   recipeId: number;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 export const StyleSection: FC<StyleSectionProps> = async ({

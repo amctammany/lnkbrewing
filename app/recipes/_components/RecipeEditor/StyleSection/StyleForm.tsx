@@ -23,7 +23,7 @@ interface StyleFormProps {
   recipe?: ExtendedRecipe | null;
   styles: Style[];
   action?: any;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 type Schema = z.infer<typeof styleSchema>;
 

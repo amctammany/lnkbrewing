@@ -11,7 +11,7 @@ import { useRecipe } from "../useRecipe";
 import { ExtendedRecipe } from "@/app/recipes/types";
 
 interface WaterProfileProfileModalProps {
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
   recipe?: ExtendedRecipe | null;
   profiles: WaterProfile[];
 }

@@ -48,7 +48,7 @@ interface FermentableIngredientFormProps {
   fermentableId?: string;
   action?: any;
   fermentables: Fermentable[]; //Record<string, string>;
-  massUnit: UserMassPreference;
+  massUnit?: UserMassPreference;
 }
 
 type FermentableIngredientFormInput = {
