@@ -27,7 +27,11 @@ export const MashSection: FC<MashSectionProps> = ({ recipe }) => {
   ];
 
   return (
-    <Section header="Mash" actions={<MashSectionActions />}>
+    <Section
+      className="md:col-span-2"
+      header="Mash"
+      actions={<MashSectionActions />}
+    >
       <div className="flex flex-col ">
         {mashSectionProps.map((p) => (
           <Prop key={p.label} {...p} />

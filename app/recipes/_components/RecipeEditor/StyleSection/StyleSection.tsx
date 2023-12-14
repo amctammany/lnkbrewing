@@ -9,7 +9,11 @@ export type StyleSectionProps = {
 };
 
 export const StyleSection = ({ recipe }: StyleSectionProps) => (
-  <Section header="Style" actions={<StyleSectionActions />}>
+  <Section
+    className="md:col-span-1"
+    header="Style"
+    actions={<StyleSectionActions />}
+  >
     <div className="flex flex-col ">
       <div className="flex">
         <h4 className="flex-grow text-md font-bold">Style</h4>

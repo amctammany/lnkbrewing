@@ -40,7 +40,11 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = ({
   ];
 
   return (
-    <Section header="WaterProfile" actions={<WaterProfileSectionActions />}>
+    <Section
+      className="md:col-span-2"
+      header="WaterProfile"
+      actions={<WaterProfileSectionActions />}
+    >
       <PropSet label="Profile" value={recipe?.water?.name} />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
         {waterSectionProps.map((p) => (

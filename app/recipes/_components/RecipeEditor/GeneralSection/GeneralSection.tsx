@@ -10,7 +10,11 @@ interface GeneralSectionProps {
 
 export const GeneralSection: FC<GeneralSectionProps> = ({ recipe }) => {
   return (
-    <Section header="General" actions={<GeneralSectionActions />}>
+    <Section
+      className="col-span-2"
+      header="General"
+      actions={<GeneralSectionActions />}
+    >
       <Prop label="Name" value={recipe?.name} />
       <Prop label="Author" value={recipe?.author?.name} />
       <Prop label="Description" value={recipe?.description} />

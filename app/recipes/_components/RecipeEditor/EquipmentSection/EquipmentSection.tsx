@@ -40,7 +40,11 @@ export const EquipmentSection: FC<EquipmentSectionProps> = async ({
   ];
 
   return (
-    <Section header="Equipment" actions={<EquipmentSectionActions />}>
+    <Section
+      className="md:col-span-1"
+      header="Equipment"
+      actions={<EquipmentSectionActions />}
+    >
       <div className="flex flex-col ">
         {equipmentSectionProps.map((p) => (
           <Prop key={p.label} {...p} />
