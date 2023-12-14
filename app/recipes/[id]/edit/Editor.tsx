@@ -14,7 +14,10 @@ import {
   StyleContainer,
 } from "../../_components/RecipeEditor/StyleSection";
 import { WaterProfileSection } from "../../_components/RecipeEditor/WaterProfileSection/WaterProfileSection";
-import { YeastIngredientSection } from "../../_components/RecipeEditor/YeastIngredientSection/YeastIngredientSection";
+import {
+  YeastIngredientSection,
+  YeastIngredientContainer,
+} from "../../_components/RecipeEditor/YeastIngredientSection/";
 import { ExtendedRecipe } from "../../types";
 import { Session } from "next-auth";
 
@@ -57,8 +60,8 @@ export const Editor = ({ id, session }: EditorProps) => (
         massUnit={session?.preferences.hopMassUnit}
       />
     </Suspense>
-    <Suspense fallback={<Loading />}>
-      <YeastIngredientSection
+    <Suspense fallback={<YeastIngredientSection />}>
+      <YeastIngredientContainer
         recipeId={id}
         massUnit={session?.preferences.hopMassUnit}
       />
