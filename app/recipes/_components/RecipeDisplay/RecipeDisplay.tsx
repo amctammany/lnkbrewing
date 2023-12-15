@@ -1,4 +1,5 @@
-import { ButtonLink, Section } from "@/components";
+import { ButtonLink } from "@/components/Button";
+import { Section } from "@/components/Section";
 import { ExtendedRecipe } from "../../types";
 import { RecipeVitals } from "..";
 type PropProps = {
