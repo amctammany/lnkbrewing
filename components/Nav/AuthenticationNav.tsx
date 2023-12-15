@@ -6,7 +6,8 @@ export type AuthenticationNavProps = {
 };
 
 export const AuthenticationNav = async ({}: AuthenticationNavProps) => {
-  const session = await getServerSession(authOptions);
+  //const session = await getServerSession(authOptions);
+  const session = null;
   //console.log(session);
   return session === null ? (
     <Link

@@ -28,7 +28,7 @@
 
 //export const config = { matcher: ["/admin/:path*"] };
 
-export { auth as middleware } from "./auth";
+export { auth as middleware } from "./app/auth";
 export const config = {
   matcher: [
     "/((?!api|_next/static|.*svg|.*png|.*jpg|.*jpeg|.*gif|.*webp|_next/image|favicon.ico).*)",

@@ -27,8 +27,8 @@ export const AdminPage = ({ src, action }: AdminPageProps) => {
     <div className="mx-auto w-10/12">
       <Section header="Admin" actions={<AdminSettingsActions />}>
         <div>
-          <Prop label="Name" value={src.name} />
-          <Prop label="Email" value={src.email} />
+          <Prop label="Name" value={src?.name} />
+          <Prop label="Email" value={src?.email} />
         </div>
         <div>
           <ButtonLink href="/api/auth/signout">Signout</ButtonLink>
