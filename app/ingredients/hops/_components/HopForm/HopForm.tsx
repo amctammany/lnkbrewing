@@ -10,7 +10,7 @@ import { Select } from "@/components/Form/Select";
 import { Range } from "@/components/Range";
 import { Toolbar } from "@/components/Toolbar/Toolbar";
 import { NumberKeys } from "@/lib/types";
-import { Hop, HopUsage } from "@prisma/client";
+import { type Hop, HopUsage } from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 export type HopFormProps = {

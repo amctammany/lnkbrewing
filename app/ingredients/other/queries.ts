@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 

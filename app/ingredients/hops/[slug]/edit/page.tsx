@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/client";
 import { HopForm } from "../../_components/HopForm";
 import { updateHop } from "../../actions";
 import { getHop } from "../../queries";
