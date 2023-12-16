@@ -25,7 +25,23 @@ export const AuthOptions: NextAuthConfig = {
     }),
   ],
   session: { strategy: "jwt" },
-  callbacks: {},
+  callbacks: {
+    async session({ session, token, user }) {
+      session.preferences = (token.user as any).UserPreferences as any;
+      session.user = token.user as any;
+      return session;
+    },
+    async jwt({ token, user, account, profile }) {
+      const currentUser = await prisma.user.findFirst({
+        where: {
+          email: token.email,
+        },
+        include: { UserPreferences: true },
+      });
+      token.user = currentUser;
+      return token;
+    },
+  },
 };
 export const {
   handlers: { GET, POST },
