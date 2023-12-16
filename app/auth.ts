@@ -10,27 +10,22 @@ export const AuthOptions: NextAuthConfig = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      account(account) {
+        // https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens#refreshing-a-user-access-token-with-a-refresh-token
+        const refresh_token_expires_at =
+          Math.floor(Date.now() / 1000) +
+          Number(account.refresh_token_expires_in);
+        return {
+          access_token: account.access_token,
+          expires_at: account.expires_at,
+          refresh_token: account.refresh_token,
+          refresh_token_expires_at,
+        };
+      },
     }),
   ],
   session: { strategy: "jwt" },
-  callbacks: {
-    async authorized({ request, auth }) {
-      const url = request.nextUrl;
-      console.log(auth);
-
-      if (request.method === "POST") {
-        const { authToken } = (await request.json()) ?? {};
-        console.log(authToken);
-        // If the request has a valid auth token, it is authorized
-        //const valid = await validateAuthToken(authToken);
-        if (0 === 0) return true;
-        return NextResponse.json("Invalid auth token", { status: 401 });
-      }
-
-      // Logged in users are authenticated, otherwise redirect to login page
-      return !!auth?.user;
-    },
-  },
+  callbacks: {},
 };
 export const {
   handlers: { GET, POST },
