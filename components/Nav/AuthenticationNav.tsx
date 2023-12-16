@@ -1,13 +1,11 @@
-import { authOptions } from "@/app/api/auth/authOptions";
-import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 import Link from "next/link";
 export type AuthenticationNavProps = {
   //children: React.ReactNode;
 };
 
 export const AuthenticationNav = async ({}: AuthenticationNavProps) => {
-  //const session = await getServerSession(authOptions);
-  const session = null;
+  const session = await auth();
   //console.log(session);
   return session === null ? (
     <Link

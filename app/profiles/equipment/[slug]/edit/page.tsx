@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/client";
 import { EquipmentProfileForm } from "@/app/profiles/equipment/_components";
-import { authOptions } from "@/app/api/auth/authOptions";
-import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 type EquipmentProfileEditorProps = {
   params: {
@@ -18,7 +17,7 @@ export function generateMetadata({ params }: EquipmentProfileEditorProps) {
 export default async function EquipmentProfileEditor({
   params: { slug },
 }: EquipmentProfileEditorProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const equipmentProfile = await prisma.equipmentProfile.findFirst({
     where: {

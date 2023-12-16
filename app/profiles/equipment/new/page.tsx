@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/client";
 import { EquipmentProfileForm } from "@/app/profiles/equipment/_components";
 import { EquipmentProfile } from "@prisma/client";
-import { authOptions } from "@/app/api/auth/authOptions";
-import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 type EquipmentProfileCreatorProps = {};
 
@@ -13,7 +12,7 @@ export function generateMetadata({}: EquipmentProfileCreatorProps) {
 }
 
 export default async function EquipmentProfileCreator({}: EquipmentProfileCreatorProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
 
   const equipmentProfile = {} as EquipmentProfile;

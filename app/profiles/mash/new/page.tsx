@@ -2,8 +2,7 @@ import { prisma } from "@/lib/client";
 import { MashProfileForm } from "@/app/profiles/mash/_components/MashProfileForm";
 import { MashProfile } from "@prisma/client";
 import { MashProfileInput } from "../types";
-import { authOptions } from "@/app/api/auth/authOptions";
-import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 type MashProfileCreatorProps = {};
 
@@ -14,7 +13,7 @@ export function generateMetadata({}: MashProfileCreatorProps) {
 }
 
 export default async function MashProfileCreator({}: MashProfileCreatorProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
 
   const mashProfile = {} as MashProfileInput;

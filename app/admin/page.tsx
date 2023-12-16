@@ -1,5 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/authOptions";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import AdminPage from "./AdminPage";
@@ -10,12 +9,11 @@ import AdminPage from "./AdminPage";
 
 //import { auth } from "@/app/auth";
 export default async function Page() {
-  //const session = await getServerSession(authOptions);
+  const session = await auth();
 
-  const sessionUser = { email: "em", name: "name" };
-  //if (!session) return redirect("/");
+  if (!session) return redirect("/");
   const user = await prisma.user.findFirst({
-    where: { email: sessionUser?.email },
+    where: { email: session?.user?.email },
     include: {
       recipes: { select: { name: true, id: true, styleIdentifer: true } },
     },

@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/authOptions";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { updateRecipeVitals } from "../actions";
 type RecipeCreatorProps = {};
@@ -12,7 +11,7 @@ type RecipeCreatorProps = {};
 //}
 
 export default async function RecipeCreator({}: RecipeCreatorProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await prisma.recipe.create({
     data: {
