@@ -1,5 +1,5 @@
 "use client";
-import { Section } from "@/components";
+import { Section } from "@/components/Section";
 import {
   Select,
   Form,
