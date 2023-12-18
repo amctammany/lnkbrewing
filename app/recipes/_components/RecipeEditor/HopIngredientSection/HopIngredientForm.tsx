@@ -17,8 +17,6 @@ import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 //import { hopIngredientSchema } from "@/app/recipes/actions";
-import * as z from "zod";
-import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
@@ -27,6 +25,9 @@ import {
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { setRequestMeta } from "next/dist/server/request-meta";
+/**
+import * as z from "zod";
+import { zfd } from "zod-form-data";
 const hopIngredientSchema = z.object({
   id: z.number().optional(),
   recipeId: z.number(),
@@ -51,15 +52,6 @@ const hopIngredientSchema1 = zfd.formData({
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
 
-interface HopIngredientFormProps {
-  recipe?: ExtendedRecipe | null;
-  hop?: ExtendedHopIngredient | null;
-  hopId?: string;
-  action?: any;
-  hops: Hop[]; //Record<string, string>;
-  massUnit?: UserMassPreference;
-}
-
 type HopIngredientFormInput = {
   id: number;
   recipeId: number;
@@ -72,6 +64,16 @@ type HopIngredientFormInput = {
   durationType: TimeUnit | null;
 };
 type Schema = z.infer<typeof hopIngredientSchema1>;
+*/
+
+interface HopIngredientFormProps {
+  recipe?: ExtendedRecipe | null;
+  hop?: ExtendedHopIngredient | null;
+  hopId?: string;
+  action?: any;
+  hops: Hop[]; //Record<string, string>;
+  massUnit?: UserMassPreference;
+}
 
 export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   massUnit,
@@ -99,7 +101,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     handleSubmit,
     reset,
     setValue,
-  } = useForm<Schema>({
+  } = useForm<HopIngredient>({
     defaultValues: (src || { recipeId: recipe?.id }) as any,
     //resolver: async (data, context, options) => {
     ////console.log({ data, context, options });
@@ -126,10 +128,13 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     //setRecipe(res);
   };
 
+  const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.dataset);
+  };
   const handleChange = (value?: number) => {
     const hop = hops.find((p) => p.id === value);
     //if (!hop) return;
-    setValue("hopId", hop?.id);
+    setValue("hopId", hop?.id!);
     setValue("alpha", hop?.alpha!);
   };
   const options = (hops || []).reduce((acc, hop) => {
@@ -214,6 +219,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         </div>
 
         <Toolbar className="md:col-span-2">
+          <Button onClick={handleRemove}>Remove</Button>
           <Button type="submit">Save</Button>
         </Toolbar>
       </div>
