@@ -89,7 +89,7 @@ export async function updateRecipe(formData: FormData) {
   });
   //console.log(getObjectDifferences(old, res));
   await updateRecipeVitals(res.id);
-  redirect(`/recipes/${res.id}/edit`);
+  //redirect(`/recipes/${res.id}/edit`);
 }
 export async function updateRecipeVitals(id: number) {
   const recipe = await prisma.recipe.findFirst({
@@ -170,7 +170,7 @@ export async function addYeastIngredientToRecipe(formData: FormData) {
   const res = await prisma.yeastIngredient.create({
     data,
   });
-  updateRecipeVitals(res.recipeId);
+  return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateYeastIngredient(formData: FormData) {
@@ -181,7 +181,7 @@ export async function updateYeastIngredient(formData: FormData) {
     where: { id: data.id },
     data,
   });
-  updateRecipeVitals(res.recipeId);
+  return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function removeYeastIngredient(formData: FormData) {
@@ -189,7 +189,7 @@ export async function removeYeastIngredient(formData: FormData) {
   const res = await prisma.yeastIngredient.delete({
     where: { id },
   });
-  updateRecipeVitals(res.recipeId);
+  return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 

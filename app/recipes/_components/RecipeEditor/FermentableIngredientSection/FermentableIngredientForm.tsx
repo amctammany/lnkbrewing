@@ -27,6 +27,7 @@ import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import {
   addFermentableIngredientToRecipe,
+  removeFermentableIngredient,
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
 const fermentableIngredientSchema = zfd.formData({
@@ -124,6 +125,16 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     setValue("potential", fermentable?.potential!);
     setValue("color", fermentable?.color!);
   };
+  const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const data = new FormData();
+    data.append("id", fermentable!.id.toString());
+    await removeFermentableIngredient(data);
+    closeModal();
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
+  };
+
   const options = (fermentables || []).reduce((acc, fermentable) => {
     acc[fermentable.id] = fermentable.name;
     return acc;
@@ -187,6 +198,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2">
+        <Button onClick={handleRemove}>Remove</Button>
         <Button type="submit">Submit</Button>
       </Toolbar>
     </Form>

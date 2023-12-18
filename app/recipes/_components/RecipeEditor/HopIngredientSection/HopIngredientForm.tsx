@@ -22,6 +22,7 @@ import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import {
   addHopIngredientToRecipe,
+  removeHopIngredient,
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { setRequestMeta } from "next/dist/server/request-meta";
@@ -128,8 +129,14 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     //setRecipe(res);
   };
 
-  const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.dataset);
+  const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const data = new FormData();
+    data.append("id", hop!.id.toString());
+    await removeHopIngredient(data);
+    closeModal();
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
   };
   const handleChange = (value?: number) => {
     const hop = hops.find((p) => p.id === value);

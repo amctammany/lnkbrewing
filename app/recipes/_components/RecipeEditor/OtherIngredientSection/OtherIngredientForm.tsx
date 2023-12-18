@@ -1,5 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedOtherIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
@@ -10,29 +9,20 @@ import {
   MassUnit,
   TimeUnit,
   UserMassPreference,
+  RecipeOtherIngredient,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 //import { otherIngredientSchema } from "@/app/recipes/actions";
-import * as z from "zod";
-import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import {
   addRecipeOtherIngredientToRecipe,
+  removeRecipeOtherIngredient,
   updateRecipeOtherIngredient,
 } from "@/app/recipes/actions";
-const otherIngredientSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
-  recipeId: zfd.numeric(z.number()),
-  otherIngredientId: zfd.numeric(z.number().optional()),
-  attenuation: zfd.numeric(z.number().min(0).optional()),
-  amount: zfd.numeric(z.number().min(0)),
-  amountType: z.nativeEnum(MassUnit).default(MassUnit.g),
-});
-
 interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
   other?: ExtendedOtherIngredient | null;
@@ -41,7 +31,6 @@ interface OtherIngredientFormProps {
   others: OtherIngredient[]; //Record<string, string>;
   massUnit?: UserMassPreference;
 }
-type Schema = z.infer<typeof otherIngredientSchema>;
 
 export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
   massUnit,
@@ -69,7 +58,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
     handleSubmit,
     reset,
     setValue,
-  } = useForm<Schema>({
+  } = useForm<RecipeOtherIngredient>({
     defaultValues: (src
       ? {
           ...src,
@@ -95,9 +84,18 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
 
   const autoChange = (value?: number) => {
     const other = others.find((p) => p.id === value);
-    setValue("otherIngredientId", other?.id);
+    setValue("otherIngredientId", other!.id);
   };
 
+  const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const data = new FormData();
+    data.append("id", other!.id.toString());
+    await removeRecipeOtherIngredient(data);
+    closeModal();
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
+  };
   const options = (others || []).reduce((acc, other) => {
     acc[other.id] = other.name;
     return acc;
@@ -137,6 +135,7 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2">
+        <Button onClick={handleRemove}>Remove</Button>
         <Button type="submit">Submit</Button>
       </Toolbar>
     </Form>

@@ -1,5 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedYeastIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
@@ -17,23 +16,25 @@ import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 //import { yeastIngredientSchema } from "@/app/recipes/actions";
-import * as z from "zod";
-import { zfd } from "zod-form-data";
+//import { zodResolver } from "@hookform/resolvers/zod";
+//import * as z from "zod";
+//import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
 import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import {
   addYeastIngredientToRecipe,
+  removeYeastIngredient,
   updateYeastIngredient,
 } from "@/app/recipes/actions";
-const yeastIngredientSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
-  recipeId: zfd.numeric(z.number()),
-  yeastId: zfd.numeric(z.number().optional()),
-  attenuation: zfd.numeric(z.number().min(0).optional()),
-  amount: zfd.numeric(z.number().min(0)),
-  amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
-});
+//const yeastIngredientSchema = zfd.formData({
+//id: zfd.numeric(z.number().optional()),
+//recipeId: zfd.numeric(z.number()),
+//yeastId: zfd.numeric(z.number().optional()),
+//attenuation: zfd.numeric(z.number().min(0).optional()),
+//amount: zfd.numeric(z.number().min(0)),
+//amountType: z.nativeEnum(YeastAmountType).default(YeastAmountType.package),
+//});
 
 interface YeastIngredientFormProps {
   recipe?: ExtendedRecipe | null;
@@ -43,7 +44,7 @@ interface YeastIngredientFormProps {
   yeasts: Yeast[]; //Record<string, string>;
   massUnit?: UserMassPreference;
 }
-type Schema = z.infer<typeof yeastIngredientSchema>;
+//type Schema = z.infer<typeof yeastIngredientSchema>;
 
 export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
   recipe,
@@ -66,7 +67,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
     handleSubmit,
     reset,
     setValue,
-  } = useForm<Schema>({
+  } = useForm<YeastIngredient>({
     defaultValues: (src
       ? {
           ...src,
@@ -88,10 +89,20 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
 
     //}),
   });
+  const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const data = new FormData();
+    data.append("id", yeast!.id.toString());
+    await removeYeastIngredient(data);
+    closeModal();
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
+  };
+
   const onSubmit = async (data: FormData) => {
     //const valid = await trigger();
     //if (!valid) return;
-    const res = await action(data);
+    const res = (await action(data)) as any;
     if (res?.errors?.length) {
       res.errors.forEach((err: any) =>
         setError(err.path, { type: err.code, message: err.message })
@@ -103,8 +114,8 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
 
   const autoChange = (value?: number) => {
     const yeast = yeasts.find((p) => p.id === value);
-    setValue("yeastId", yeast?.id);
-    setValue("attenuation", yeast?.attenuation!);
+    setValue("yeastId", yeast!.id);
+    setValue("attenuation", yeast!.attenuation);
   };
 
   const options = (yeasts || []).reduce((acc, yeast) => {
@@ -154,6 +165,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2">
+        <Button onClick={handleRemove}>Remove</Button>
         <Button type="submit">Submit</Button>
       </Toolbar>
     </Form>
