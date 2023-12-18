@@ -43,7 +43,8 @@ export const HopForm = ({ src, action }: HopFormProps) => {
     median: NumberKeys<Hop>;
     high: NumberKeys<Hop>;
   }) => {
-    const [wLow, wMed, wHigh] = watch([low, median, high]);
+    //const [wLow, wMed, wHigh] = watch([low, median, high]);
+    const [wLow, wMed, wHigh] = [src?.[low], src?.[median], src?.[high]];
     return (
       <fieldset className="border border-black p-4 grid grid-cols-3 gap-1">
         <legend>{label}</legend>
