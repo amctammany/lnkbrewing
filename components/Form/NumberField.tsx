@@ -10,8 +10,8 @@ export type NumberFieldProps = {
   error?: SchemaFieldError;
   step?: number;
   disabled?: boolean;
-  onChange?: (e: SyntheticEvent) => void;
-  onBlur?: (e: SyntheticEvent) => void;
+  //onChange?: (e: SyntheticEvent) => void;
+  //onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref: any;
 } & VariantProps<typeof numberFieldStyles> &

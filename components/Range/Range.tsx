@@ -18,10 +18,10 @@ export function Range({
   className,
 }: RangeProps) {
   const margin = (_max! - _min!) / 5;
-  const mn = Math.min(_min!, value! - margin);
+  const mn = Math.min(_min!, value ?? margin - margin);
 
   const min = mn < 0 ? 0 : mn;
-  const max = Math.max(_max!, value! + margin);
+  const max = Math.max(_max!, value ?? margin * 4 + margin);
   const v0 = range?.[0] ?? min;
   const v1 = range?.[1] ?? max;
   const diff = max - min;
@@ -41,7 +41,12 @@ export function Range({
             {max.toPrecision(3)}
           </span>
           <div
-            style={{ width: 1, left: `${valLeft}%` }}
+            style={{
+              display: value !== undefined ? "block" : "none",
+              width: 1,
+              zIndex: 1,
+              left: `${valLeft}%`,
+            }}
             className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2"
           >
             <div className="absolute flex w-full my-2 h-full">

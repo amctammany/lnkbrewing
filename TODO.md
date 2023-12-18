@@ -15,6 +15,7 @@ TODO
 # Recipe Editor
 ## Undo/Redo + History
 ## Replace All of Type => match IBUs or amounts
+## Merge Fermentable + Other ingredients on creation if same usage type
 
 # Amount Types
 ## Hop => kg/g/LbOz/Lb/Oz
@@ -24,11 +25,11 @@ TODO
 ## User Preferences => Display preferred type in editor. Assigned type in display.
 
 
-# Water Calculator
+# Water Calculator => Calculate water agent additions to meet target water profile
 
-# Mash Calculator
+# Mash Calculator => Calcualte FG from mash profile
 
-# Yeast Calculator
+# Yeast Calculator => Calculate attenuation + starter?
 
 # Authorization
 ## Add access levels => [PUBLIC, GROUP, PRIVATE, ADMIN?]

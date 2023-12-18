@@ -2,6 +2,7 @@ import { ButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
 import { Range } from "@/components/Range";
 import { Hop, HopSensoryPanel } from "@prisma/client";
+import { EditIcon } from "@/components/Icon";
 
 const fieldNames: (keyof Hop)[] = ["name", "description", "country", "usage"];
 type RangePropProps = {
@@ -31,7 +32,9 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
   <Section
     header={`Hop: ${hop?.name}`}
     actions={
-      <ButtonLink href={`/ingredients/hops/${hop?.slug}/edit`}>Edit</ButtonLink>
+      <ButtonLink href={`/ingredients/hops/${hop?.slug}/edit`}>
+        <EditIcon />
+      </ButtonLink>
     }
   >
     <div className="grid grid-auto grid-cols-1 md:grid-cols-2">
@@ -66,48 +69,56 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => (
           label="Alpha Acids"
           min={0}
           max={40}
+          value={hop?.alpha!}
           range={[hop?.alphaLow!, hop?.alphaHigh!]}
         />
         <Range
           label="Beta Acids"
           min={0}
           max={40}
+          value={hop?.beta!}
           range={[hop?.betaLow!, hop?.betaHigh!]}
         />
         <Range
           label="Cohumulone"
           min={0}
           max={50}
+          value={hop?.cohumulone!}
           range={[hop?.cohumuloneLow!, hop?.cohumuloneHigh!]}
         />
         <Range
           label="Caryophyllene"
           min={0}
           max={25}
+          value={hop?.caryophyllene!}
           range={[hop?.caryophylleneLow!, hop?.caryophylleneHigh!]}
         />
         <Range
           label="Farnesene"
           min={0}
           max={25}
+          value={hop?.farnesene!}
           range={[hop?.farneseneLow!, hop?.farneseneHigh!]}
         />
         <Range
           label="Humulene"
           min={0}
           max={50}
+          value={hop?.humulene!}
           range={[hop?.humuleneLow!, hop?.humuleneHigh!]}
         />
         <Range
           label="Myrcene"
           min={0}
           max={65}
+          value={hop?.myrcene!}
           range={[hop?.myrceneLow!, hop?.myrceneHigh!]}
         />
         <Range
           label="Total Oils"
           min={0}
           max={25}
+          value={hop?.totalOil!}
           range={[hop?.totalOilLow!, hop?.totalOilHigh!]}
         />
       </div>

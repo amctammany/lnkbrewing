@@ -19,7 +19,7 @@ export type HopFormProps = {
 };
 
 export const HopForm = ({ src, action }: HopFormProps) => {
-  const { control, register, trigger } = useForm<Hop>({
+  const { control, watch, register, trigger, getValues } = useForm<Hop>({
     defaultValues: src || {},
   });
 
@@ -43,19 +43,32 @@ export const HopForm = ({ src, action }: HopFormProps) => {
     median: NumberKeys<Hop>;
     high: NumberKeys<Hop>;
   }) => {
+    const [wLow, wMed, wHigh] = watch([low, median, high]);
     return (
       <fieldset className="border border-black p-4 grid grid-cols-3 gap-1">
         <legend>{label}</legend>
 
-        <NumberField label="Low" {...register(low)} step={0.01} />
-        <NumberField label="Median" {...register(median)} step={0.01} />
-        <NumberField label="High" {...register(high)} step={0.01} />
+        <NumberField
+          label="Low"
+          {...register(low, { valueAsNumber: true })}
+          step={0.01}
+        />
+        <NumberField
+          label="Median"
+          {...register(median, { valueAsNumber: true })}
+          step={0.01}
+        />
+        <NumberField
+          label="High"
+          {...register(high, { valueAsNumber: true })}
+          step={0.01}
+        />
         <Range
           className="col-span-3"
-          range={[src?.[low]!, src?.[high]!]}
+          range={[wLow!, wHigh!]}
           min={min ?? 0}
           max={max ?? 100}
-          value={src?.[median]!}
+          value={wMed!}
         />
       </fieldset>
     );
@@ -141,7 +154,7 @@ export const HopForm = ({ src, action }: HopFormProps) => {
           />
         </div>
 
-        <Toolbar className="col-span-3">
+        <Toolbar className="col-span-3 m-0 p-0">
           <Button type="submit">Submit</Button>
         </Toolbar>
       </Form>
