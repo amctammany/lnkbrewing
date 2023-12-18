@@ -77,7 +77,7 @@ const sectionBody = cva([""], {
 export type SectionProps = VariantProps<typeof section> &
   ComponentProps<"div"> & {
     header?: string;
-    icon?: string;
+    icon?: any;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];
   };

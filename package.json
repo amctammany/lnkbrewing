@@ -11,6 +11,7 @@
     "prepare": "husky install",
     "test": "vitest run",
     "test:watch": "vitest",
+    "icons": "pnpm dlx @svgr/cli -d components/Icon/svgr assets/svg --typescript --icon",
     "precommit": "pnpm lint && pnpm build",
     "postinstall": "prisma generate && prisma db push ",
     "db:generate": "prisma generate ",

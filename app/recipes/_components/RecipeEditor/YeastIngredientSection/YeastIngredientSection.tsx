@@ -6,6 +6,7 @@ import { YeastIngredientListItem } from "./YeastIngredientListItem";
 import { ExtendedRecipe } from "@/app/recipes/types";
 //import YeastIngredientModalContainer from "./YeastIngredientModalContainer";
 import { YeastIngredientSectionActions } from "./YeastIngredientSectionActions";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 
 interface YeastIngredientSectionProps {
   recipe?: ExtendedRecipe | null;
@@ -17,6 +18,7 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
   return (
     <Section
       className="md:col-span-2"
+      icon={<YeastIcon />}
       header="Yeasts"
       actions={<YeastIngredientSectionActions />}
     >

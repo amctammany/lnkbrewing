@@ -4,6 +4,7 @@ import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
 import { HopIngredientSectionActions } from "./HopIngredientSectionActions";
 import { ExtendedRecipe } from "@/app/recipes/types";
+import { HopIcon } from "@/components/Icon/HopIcon";
 
 interface HopIngredientSectionProps {
   recipe?: ExtendedRecipe | null;
@@ -16,6 +17,7 @@ export const HopIngredientSection: FC<HopIngredientSectionProps> = ({
     <Section
       className="md:col-span-2"
       header="Hops"
+      icon={<HopIcon />}
       actions={<HopIngredientSectionActions />}
     >
       <List>
