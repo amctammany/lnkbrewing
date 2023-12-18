@@ -13,6 +13,7 @@ import { Label } from "./Label";
 import { type VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
@@ -53,7 +54,7 @@ const optionListStyles = cva(
 const autocompleteStyles = cva("input overflow-hidden", {
   variants: {
     variant: {
-      default: ["block"],
+      default: ["inline-block"],
     },
     size: {
       default: ["w-full"],
@@ -107,6 +108,11 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       changeValue(undefined);
       if (onChange) onChange(e);
     };
+    const handleClear: MouseEventHandler<HTMLDivElement> = (e) => {
+      setQuery("");
+      changeValue(undefined);
+      e.preventDefault();
+    };
     const changeValue = (val?: number) => {
       setHidden(val);
       if (handleChange) handleChange(val);
@@ -151,6 +157,14 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             onBlur={onBlur}
             onChange={handleChangeListener}
           />
+          {query?.length! > 0 && (
+            <div
+              className="top-1/2 inline-block absolute right-3"
+              onClick={handleClear}
+            >
+              X
+            </div>
+          )}
           <ul
             className={optionListStyles({
               open: displayOptions ? "open" : "closed",
