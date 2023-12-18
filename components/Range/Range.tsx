@@ -17,10 +17,10 @@ export function Range({
   value,
   className,
 }: RangeProps) {
-  const min = _min ?? 0;
-  const max = _max ?? 100;
+  const min = Math.min(_min!, value!);
+  const max = Math.max(_max!, value!);
   const v0 = range?.[0] ?? min;
-  const v1 = range?.[1] ?? min;
+  const v1 = range?.[1] ?? max;
   const diff = max - min;
   const left = (100 * (v0 - min)) / diff;
   const valLeft = (100 * (value! - min)) / diff;
@@ -32,10 +32,10 @@ export function Range({
         <div className="box-border absolute top-1/2 left-0 right-0 h-[1px] w-full bg-black before:h-4 before:w-[1px] before:top-0 before:left-3 before:bg-black before:absolute after:h-4 after:w-[1px] after:bg-black after:absolute after:top-0 after:right-3"></div>
         <div className="w-[100%] h-5 block m-auto relative">
           <span className="block absolute top-full left-[14px] text-center -translate-x-1/2">
-            {min}
+            {min.toPrecision(3)}
           </span>
           <span className="block absolute left-auto top-full right-[15px] text-center translate-x-1/2">
-            {max}
+            {max.toPrecision(3)}
           </span>
           <div
             style={{ width: 1, left: `${valLeft}%` }}
