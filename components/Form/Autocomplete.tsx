@@ -14,6 +14,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { CloseIcon } from "../Icon";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
@@ -111,6 +112,8 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const handleClear: MouseEventHandler<HTMLDivElement> = (e) => {
       setQuery("");
       changeValue(undefined);
+      setDisplayOptions(false);
+      setActiveOption(-1);
       e.preventDefault();
     };
     const changeValue = (val?: number) => {
@@ -162,7 +165,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               className="top-1/2 inline-block absolute right-3"
               onClick={handleClear}
             >
-              X
+              <CloseIcon />
             </div>
           )}
           <ul
