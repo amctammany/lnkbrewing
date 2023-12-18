@@ -1,9 +1,12 @@
+"use client";
 import { Submit } from "@/components/Form/Submit";
 import { NumberField } from "@/components/Form/NumberField";
 import { TextArea } from "@/components/Form/TextArea";
 import { TextField } from "@/components/Form/TextField";
 import { Form } from "@/components/Form/Form";
-import { Fermentable } from "@prisma/client";
+import { Fermentable, FermentableIngredient } from "@prisma/client";
+import { Section } from "@/components/Section";
+import { useForm } from "react-hook-form";
 
 export type FermentableFormProps = {
   src: Fermentable | null;
@@ -24,31 +27,24 @@ const numberFields: NumberKeys<Fermentable>[] = [
   "maxUsage",
 ];
 export const FermentableForm = ({ src, action }: FermentableFormProps) => {
+  const { register } = useForm<Fermentable>({
+    defaultValues: src || {},
+  });
   return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
+    <Section title={`Editing Fermentable: ${src?.name}`}>
       <Form action={action}>
-        <input type="hidden" name="id" value={src?.id} />
-        <TextField name="name" label="Name" defaultValue={src?.name} />
-        <TextArea
-          name="description"
-          rows={3}
-          label="Description"
-          defaultValue={src?.description}
-        />
-        <TextArea
-          name="notes"
-          rows={3}
-          label="Notes"
-          defaultValue={src?.notes}
-        />
+        <input type="hidden" {...register("id")} />
+        <TextField label="Name" {...register("name")} />
+        <TextArea rows={3} label="Description" {...register("description")} />
+        <TextArea rows={3} label="Notes" {...register("notes")} />
 
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
           {numberFields.map((f) => (
-            <NumberField key={f} name={f} label={f} defaultValue={src?.[f]} />
+            <NumberField step={0.01} key={f} label={f} {...register(f)} />
           ))}
         </div>
         <Submit>Save</Submit>
       </Form>
-    </div>
+    </Section>
   );
 };
