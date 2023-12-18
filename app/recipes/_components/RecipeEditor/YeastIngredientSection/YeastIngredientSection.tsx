@@ -18,7 +18,7 @@ export const YeastIngredientSection: FC<YeastIngredientSectionProps> = async ({
   return (
     <Section
       className="md:col-span-2"
-      icon={<YeastIcon />}
+      icon={<YeastIcon className="w-8 h-8 text-red-500" />}
       header="Yeasts"
       actions={<YeastIngredientSectionActions />}
     >

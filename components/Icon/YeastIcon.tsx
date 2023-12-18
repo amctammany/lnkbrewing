@@ -3,5 +3,8 @@ import clsx from "clsx";
 import { IconProps, iconStyles } from "./Icon";
 
 export const YeastIcon = ({ variant, size, className }: IconProps) => (
-  <Yeast className={clsx(iconStyles({ variant, size }), className)} />
+  <Yeast
+    color="red"
+    className={clsx(iconStyles({ variant, size }), className)}
+  />
 );
