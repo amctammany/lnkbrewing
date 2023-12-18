@@ -9,7 +9,7 @@ export type OthersTableProps = {
   direction?: Direction;
 };
 const columns: DataColumnProps<Other>[] = [
-  { name: "name", href: (src: Other) => `/ingredients/others/${src.slug}` },
+  { name: "name", href: (src: Other) => `/ingredients/other/${src.slug}` },
 ];
 
 export const OthersTable = ({ others, sort, direction }: OthersTableProps) => (

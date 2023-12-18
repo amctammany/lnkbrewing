@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/client";
+import { OtherIngredientType } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
@@ -7,6 +8,7 @@ import { zfd } from "zod-form-data";
 const schema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
+  type: z.nativeEnum(OtherIngredientType).default(OtherIngredientType.agent),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),

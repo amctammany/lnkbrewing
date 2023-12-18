@@ -7,7 +7,7 @@ type OtherIngredientDisplayProps = {
     slug: string;
   };
 };
-const fieldNames: (keyof OtherIngredient)[] = ["name", "description"];
+const fieldNames: (keyof OtherIngredient)[] = ["name", "type", "description"];
 const numberFieldNames: (keyof OtherIngredient)[] = [];
 
 export function generateMetadata({ params }: OtherIngredientDisplayProps) {

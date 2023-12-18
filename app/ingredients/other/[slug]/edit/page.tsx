@@ -20,12 +20,10 @@ export default async function OtherIngredientEditor({
   const otherIngredient = await getOtherIngredient(slug);
   const options = await getOtherIngredientOptions();
   return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <OtherIngredientForm
-        src={otherIngredient}
-        action={updateOtherIngredient}
-        options={options}
-      />
-    </div>
+    <OtherIngredientForm
+      src={otherIngredient}
+      action={updateOtherIngredient}
+      options={options}
+    />
   );
 }

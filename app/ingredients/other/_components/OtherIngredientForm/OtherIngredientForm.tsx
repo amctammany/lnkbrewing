@@ -1,4 +1,5 @@
 "use client";
+import { Section } from "@/components";
 import {
   Select,
   Form,
@@ -33,22 +34,24 @@ export const OtherIngredientForm = ({
   };
 
   return (
-    <Form action={onSubmit}>
-      <input type="hidden" {...register("id")} />
-      <TextField label="Name" {...register("name")} />
-      <TextArea rows={3} label="Description" {...register("description")} />
+    <Section title={`Editing Other: ${src?.name}`}>
+      <Form action={onSubmit}>
+        <input type="hidden" {...register("id")} />
+        <TextField label="Name" {...register("name")} />
+        <TextArea rows={3} label="Description" {...register("description")} />
 
-      <Select
-        label="Other"
-        {...register("type")}
-        options={OtherIngredientType}
-      />
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-        {numberFields.map((f) => (
-          <NumberField key={f} label={f} {...register(f)} />
-        ))}
-      </div>
-      <Submit>Save</Submit>
-    </Form>
+        <Select
+          label="Other"
+          {...register("type")}
+          options={OtherIngredientType}
+        />
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+          {numberFields.map((f) => (
+            <NumberField key={f} label={f} {...register(f)} />
+          ))}
+        </div>
+        <Submit>Save</Submit>
+      </Form>
+    </Section>
   );
 };
