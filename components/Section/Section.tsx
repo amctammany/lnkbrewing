@@ -64,8 +64,8 @@ const sectionBody = cva([""], {
       alert: [],
     },
     size: {
-      small: ["p-1", "shadow-sm", "text-sm"],
-      default: ["flex-grow", "p-2", "shadow-lg", "text-lg"],
+      small: ["p-0", "shadow-sm", "text-sm"],
+      default: ["flex-grow", "p-0", "shadow-lg", "text-lg"],
     },
   },
   defaultVariants: {

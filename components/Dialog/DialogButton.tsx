@@ -1,9 +1,9 @@
 "use client";
 import { useContext } from "react";
 import { DialogContext } from "./DialogContext";
-import { Button, ButtonType } from "../Button";
+import { Button, ButtonProps } from "../Button";
 
-export type DialogButtonProps = ButtonType & {
+export type DialogButtonProps = ButtonProps & {
   title?: string;
   message?: string;
   action?: string;

@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-export type ButtonProps = {
-  onClick?: React.MouseEventHandler;
-  className?: string;
-  children?: React.ReactNode;
-  disabled?: boolean;
-};
+//export type ButtonProps = {
+//onClick?: React.MouseEventHandler;
+//className?: string;
+//children?: React.ReactNode;
+//disabled?: boolean;
+//};
 //export const Button = ({ onClick, className, children }: ButtonProps) => {
 //return (
 //<button
@@ -54,6 +54,7 @@ const buttonStyles = cva(
         button: ["rounded", "h-10", "w-32"],
         toolbar: ["px-2", "py-2", "mx-2", "text-xs"],
         icon: ["rounded-full", "w-20", "h-20", "p-2.5"],
+        iconSmall: ["rounded-full", "w-10", "h-10", "p-1.5"],
       },
     },
     defaultVariants: {
@@ -63,7 +64,7 @@ const buttonStyles = cva(
   }
 );
 
-export type ButtonType = VariantProps<typeof buttonStyles> &
+export type ButtonProps = VariantProps<typeof buttonStyles> &
   ComponentProps<"button"> & { disabled?: boolean };
 
 //"bg-primary-button",
@@ -74,7 +75,7 @@ export const Button = ({
   onClick,
   className,
   ...props
-}: ButtonType) => {
+}: ButtonProps) => {
   return (
     <button
       {...props}
@@ -93,7 +94,7 @@ export const Button = ({
 };
 
 export default Button;
-export type ButtonLinkProps = ButtonType & {
+export type ButtonLinkProps = ButtonProps & {
   scroll?: boolean;
   href: string;
 };

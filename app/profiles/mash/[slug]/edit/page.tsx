@@ -27,9 +27,5 @@ export default async function MashProfileEditor({
     include: { steps: true },
   });
   console.log(mashProfile);
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <MashProfileForm src={mashProfile} />
-    </div>
-  );
+  return <MashProfileForm src={mashProfile} />;
 }

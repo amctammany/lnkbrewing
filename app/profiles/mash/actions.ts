@@ -20,7 +20,6 @@ const mashSchema = zfd.formData({
 });
 export const createMashProfile = async (formData: FormData) => {
   const { steps, ...data } = mashSchema.parse(formData);
-  console.log(data);
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
@@ -35,7 +34,6 @@ export const createMashProfile = async (formData: FormData) => {
 };
 export const updateMashProfile = async (formData: FormData) => {
   const { steps, ...data } = mashSchema.parse(formData);
-  console.log(steps);
   const res = await prisma.mashProfile.update({
     where: { id: data.id },
     data: {
