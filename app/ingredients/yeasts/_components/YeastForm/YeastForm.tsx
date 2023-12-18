@@ -1,15 +1,18 @@
+"use client";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
 import { TextArea } from "@/components/Form/TextArea";
 import { TextField } from "@/components/Form/TextField";
+import { Section } from "@/components/Section";
 import {
   Yeast,
   YeastForm as YeastFormEnum,
   YeastFlocculation,
   YeastType,
 } from "@prisma/client";
+import { useForm } from "react-hook-form";
 
 export type YeastFormProps = {
   src: Yeast | null;
@@ -17,46 +20,32 @@ export type YeastFormProps = {
 };
 
 export const YeastForm = ({ src, action }: YeastFormProps) => {
+  const { register } = useForm<Yeast>({ defaultValues: src || {} });
   return (
-    <Form action={action}>
-      <input type="hidden" name="id" value={src?.id} />
-      <TextField name="name" label="Name" defaultValue={src?.name} />
-      <TextField
-        name="manufacturer"
-        label="Manufacturer"
-        defaultValue={src?.manufacturer}
-      />
-      <TextArea name="notes" label="notes" defaultValue={src?.notes} />
-      <TextArea name="usage" label="Usage" defaultValue={src?.usage} />
-      <div className="grid grid-cols-3 gap-4">
-        <Select name="type" defaultValue={src?.type} options={YeastType} />
-        <Select name="form" defaultValue={src?.form} options={YeastFormEnum} />
-        <Select
-          name="flocculation"
-          defaultValue={src?.flocculation}
-          options={YeastFlocculation}
-        />
-      </div>
-      <div className="grid grid-cols-3 gap-4">
-        <NumberField
-          name="attenuation"
-          step={0.01}
-          label="Attenuation"
-          defaultValue={src?.attenuation}
-        />
-        <NumberField
-          name="tempLow"
-          label="Temp Low"
-          defaultValue={src?.tempLow}
-        />
-        <NumberField
-          name="tempHigh"
-          label="Temp High"
-          defaultValue={src?.tempHigh}
-        />
-      </div>
+    <Section title={`Editing Yeast: ${src?.name}`}>
+      <Form action={action}>
+        <input type="hidden" {...register("id")} />
+        <TextField label="Name" {...register("name")} />
+        <TextField label="Manufacturer" {...register("manufacturer")} />
+        <TextArea label="notes" {...register("notes")} />
+        <TextArea label="Usage" {...register("usage")} />
+        <div className="grid grid-cols-3 gap-4">
+          <Select {...register("type")} options={YeastType} />
+          <Select {...register("form")} options={YeastFormEnum} />
+          <Select {...register("flocculation")} options={YeastFlocculation} />
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <NumberField
+            step={0.001}
+            label="Attenuation"
+            {...register("attenuation")}
+          />
+          <NumberField label="Temp Low" {...register("tempLow")} />
+          <NumberField label="Temp High" {...register("tempHigh")} />
+        </div>
 
-      <Submit>Update Yeast</Submit>
-    </Form>
+        <Submit>Update Yeast</Submit>
+      </Form>
+    </Section>
   );
 };

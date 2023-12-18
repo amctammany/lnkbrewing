@@ -17,9 +17,5 @@ export default async function YeastEditor({
   params: { slug },
 }: YeastEditorProps) {
   const yeast = await getYeast(slug);
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <YeastForm src={yeast} action={updateYeast} />
-    </div>
-  );
+  return <YeastForm src={yeast} action={updateYeast} />;
 }
