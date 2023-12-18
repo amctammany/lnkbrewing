@@ -3,7 +3,6 @@ import { ExtendedOtherIngredient } from "../../../types";
 import { removeRecipeOtherIngredient } from "../../../actions";
 import { ListItem } from "@/components/List/ListItem";
 import { RemoveButton } from "@/components/RemoveButton";
-import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
 
@@ -21,8 +20,11 @@ export const OtherIngredientListItem = ({
         <RemoveButton id={other.id} action={removeRecipeOtherIngredient} />
       }
     >
-      <ListItemIcon>{other.otherIngredient.name}</ListItemIcon>
-      <ListItemText className="flex-grow" />
+      <ListItemText
+        className="flex-grow"
+        primary={other.otherIngredient.name}
+        secondary={`${other.otherIngredient.type}`}
+      />
       <ListItemText
         //className="flex-shrink"
         primary={`${other.amount.toString()} ${other.amountType}`}

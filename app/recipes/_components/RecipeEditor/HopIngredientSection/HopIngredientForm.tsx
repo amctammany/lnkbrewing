@@ -154,7 +154,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     <Form action={onSubmit} onError={handleError}>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("recipeId")} />
-      <div className="gap-2 md:grid md:grid-cols-2">
+      <div className="m-2 gap-2 md:grid md:grid-cols-2">
         <div className="md:col-span-2">
           <Autocomplete
             label="Hop"
@@ -224,12 +224,11 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
             label="Alpha Acids"
           />
         </div>
-
-        <Toolbar className="md:col-span-2">
-          <Button onClick={handleRemove}>Remove</Button>
-          <Button type="submit">Save</Button>
-        </Toolbar>
       </div>
+      <Toolbar className="md:col-span-2">
+        <Button onClick={handleRemove}>Remove</Button>
+        <Button type="submit">Save</Button>
+      </Toolbar>
     </Form>
   );
 };

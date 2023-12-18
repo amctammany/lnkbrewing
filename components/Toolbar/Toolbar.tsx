@@ -1,6 +1,6 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { ComponentProps } from "react";
+import { Children, ComponentProps } from "react";
 
 export type ToolbarProps = VariantProps<typeof toolbarStyles> &
   ComponentProps<"div"> & {
@@ -20,7 +20,9 @@ const toolbarStyles = cva("flex min-w-full p-2 flex-row-reverse", {
 export const Toolbar = ({ children, variant, className }: ToolbarProps) => {
   return (
     <div className={clsx(toolbarStyles({ variant }), className)}>
-      {children}
+      {Array.isArray(children)
+        ? Children.map(children!, (c) => c)!.reverse()
+        : children}
     </div>
   );
 };

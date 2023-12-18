@@ -356,6 +356,7 @@ function calculateVitals(src: ExtendedRecipe) {
     return acc;
   }, 0);
   const abv = (100 * ((og - fg) * 1.05)) / fg / 0.79;
+  console.log(ibu);
   return {
     og,
     srm,

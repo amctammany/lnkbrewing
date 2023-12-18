@@ -52,17 +52,6 @@ interface FermentableIngredientFormProps {
   massUnit?: UserMassPreference;
 }
 
-type FermentableIngredientFormInput = {
-  id: number;
-  recipeId: number;
-  fermentableId: number | null;
-  amount: number | null;
-  amountType: MassUnit | null;
-  alpha: number | null;
-  usage: FermentableIngredientUsage | null;
-  duration: number | null;
-  durationType: TimeUnit | null;
-};
 type Schema = z.infer<typeof fermentableIngredientSchema>;
 
 export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({

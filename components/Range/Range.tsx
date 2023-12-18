@@ -18,7 +18,9 @@ export function Range({
   className,
 }: RangeProps) {
   const margin = (_max! - _min!) / 5;
-  const min = Math.min(_min!, value! - margin);
+  const mn = Math.min(_min!, value! - margin);
+
+  const min = mn < 0 ? 0 : mn;
   const max = Math.max(_max!, value! + margin);
   const v0 = range?.[0] ?? min;
   const v1 = range?.[1] ?? max;
