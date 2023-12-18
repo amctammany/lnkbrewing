@@ -24,9 +24,5 @@ export default async function EquipmentProfileEditor({
       slug,
     },
   });
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <EquipmentProfileForm src={equipmentProfile} />
-    </div>
-  );
+  return <EquipmentProfileForm src={equipmentProfile} />;
 }

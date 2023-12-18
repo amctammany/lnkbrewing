@@ -53,6 +53,8 @@ import {
 //import { EquipmentProfileSteps } from "./EquipmentProfileSteps";
 //import { EquipmentProfileInput } from "../../equipment/types";
 import { NumberKeys } from "@/lib/types";
+import { Section } from "@/components/Section";
+import { Toolbar } from "@/components/Toolbar";
 
 export type EquipmentProfileFormProps = {
   src: EquipmentProfile | null;
@@ -87,31 +89,32 @@ export const EquipmentProfileForm = ({ src }: EquipmentProfileFormProps) => {
     action(body);
   };
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
-        <input type="hidden" {...register("id")} />
-        <div className="col-span-2">
-          <TextField {...register("name")} label="Name" />
+    <Section title={`Editing Equipment: ${src?.name}`}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
+          <input type="hidden" {...register("id")} />
+          <div className="col-span-2">
+            <TextField {...register("name")} label="Name" />
+          </div>
+          <div className="col-span-2">
+            <TextField {...register("description")} label="Description" />
+          </div>
+          <div className="md:col-span-2 grid gap-4 grid-cols-2 md:grid-cols-4">
+            {numberFields.map((f) => (
+              <NumberField
+                key={f}
+                //name={f}
+                label={f}
+                {...register(f)}
+                step={0.01}
+              />
+            ))}
+          </div>
         </div>
-        <div className="col-span-2">
-          <TextField {...register("description")} label="Description" />
-        </div>
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-          {numberFields.map((f) => (
-            <NumberField
-              key={f}
-              //name={f}
-              label={f}
-              {...register(f)}
-              step={0.01}
-            />
-          ))}
-        </div>
-
-        <div className="col-span-2">
+        <Toolbar className="col-span-2">
           <Submit>Save</Submit>
-        </div>
-      </div>
-    </Form>
+        </Toolbar>
+      </Form>
+    </Section>
   );
 };

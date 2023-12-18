@@ -20,10 +20,5 @@ export default async function WaterProfileEditor({
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const waterProfile = await getWaterProfile(slug);
-  console.log(waterProfile);
-  return (
-    <div className="m-5 p-0 min-w-full bg-slate-200">
-      <WaterProfileForm src={waterProfile} />
-    </div>
-  );
+  return <WaterProfileForm src={waterProfile} />;
 }
