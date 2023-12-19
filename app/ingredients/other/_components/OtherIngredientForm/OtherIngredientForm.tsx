@@ -11,6 +11,7 @@ import {
 import { NumberKeys } from "@/lib/types";
 import { OtherIngredient, OtherIngredientType } from "@prisma/client";
 import { useForm } from "react-hook-form";
+import { Toolbar } from "@/components/Toolbar";
 
 export type OtherIngredientFormProps = {
   src: OtherIngredient | null;
@@ -34,8 +35,15 @@ export const OtherIngredientForm = ({
   };
 
   return (
-    <Section title={`Editing Other: ${src?.name}`}>
-      <Form action={onSubmit}>
+    <Form action={onSubmit}>
+      <Section
+        title={`Editing Other: ${src?.name}`}
+        footer={
+          <Toolbar>
+            <Submit>Save</Submit>
+          </Toolbar>
+        }
+      >
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
         <TextArea rows={3} label="Description" {...register("description")} />
@@ -50,8 +58,7 @@ export const OtherIngredientForm = ({
             <NumberField key={f} label={f} {...register(f)} />
           ))}
         </div>
-        <Submit>Save</Submit>
-      </Form>
-    </Section>
+      </Section>
+    </Form>
   );
 };

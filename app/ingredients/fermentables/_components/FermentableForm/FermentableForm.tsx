@@ -7,6 +7,7 @@ import { Form } from "@/components/Form/Form";
 import { Fermentable, FermentableIngredient } from "@prisma/client";
 import { Section } from "@/components/Section";
 import { useForm } from "react-hook-form";
+import { Toolbar } from "@/components/Toolbar";
 
 export type FermentableFormProps = {
   src: Fermentable | null;
@@ -31,20 +32,33 @@ export const FermentableForm = ({ src, action }: FermentableFormProps) => {
     defaultValues: src || {},
   });
   return (
-    <Section title={`Editing Fermentable: ${src?.name}`}>
-      <Form action={action}>
+    <Form action={action}>
+      <Section
+        title={`Editing Fermentable: ${src?.name}`}
+        footer={
+          <Toolbar>
+            <Submit variant="toolbar" size="toolbar">
+              Save
+            </Submit>
+          </Toolbar>
+        }
+      >
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
         <TextArea rows={3} label="Description" {...register("description")} />
         <TextArea rows={3} label="Notes" {...register("notes")} />
 
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-          {numberFields.map((f) => (
-            <NumberField step={0.01} key={f} label={f} {...register(f)} />
-          ))}
+          <NumberField step={0.01} label="Color" {...register("color")} />
+          <NumberField step={1} label="Power" {...register("power")} />
+          <NumberField
+            step={0.001}
+            label="Potential"
+            {...register("potential")}
+          />
+          <NumberField step={1} label="Max Usage" {...register("maxUsage")} />
         </div>
-        <Submit>Save</Submit>
-      </Form>
-    </Section>
+      </Section>
+    </Form>
   );
 };

@@ -75,8 +75,15 @@ export const HopForm = ({ src, action }: HopFormProps) => {
     );
   };
   return (
-    <Section title={`Editing Hop: ${src?.name}`}>
-      <Form action={onAction}>
+    <Form action={onAction}>
+      <Section
+        title={`Editing Hop: ${src?.name}`}
+        footer={
+          <Toolbar className="col-span-3 m-0 p-0">
+            <Button type="submit">Submit</Button>
+          </Toolbar>
+        }
+      >
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
         <TextField label="Country" {...register("country")} />
@@ -154,11 +161,7 @@ export const HopForm = ({ src, action }: HopFormProps) => {
             high="otherHigh"
           />
         </div>
-
-        <Toolbar className="col-span-3 m-0 p-0">
-          <Button type="submit">Submit</Button>
-        </Toolbar>
-      </Form>
-    </Section>
+      </Section>
+    </Form>
   );
 };

@@ -6,6 +6,7 @@ import { Submit } from "@/components/Form/Submit";
 import { TextArea } from "@/components/Form/TextArea";
 import { TextField } from "@/components/Form/TextField";
 import { Section } from "@/components/Section";
+import { Toolbar } from "@/components/Toolbar";
 import {
   Yeast,
   YeastForm as YeastFormEnum,
@@ -22,8 +23,15 @@ export type YeastFormProps = {
 export const YeastForm = ({ src, action }: YeastFormProps) => {
   const { register } = useForm<Yeast>({ defaultValues: src || {} });
   return (
-    <Section title={`Editing Yeast: ${src?.name}`}>
-      <Form action={action}>
+    <Form action={action}>
+      <Section
+        title={`Editing Yeast: ${src?.name}`}
+        footer={
+          <Toolbar>
+            <Submit>Update Yeast</Submit>
+          </Toolbar>
+        }
+      >
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
         <TextField label="Manufacturer" {...register("manufacturer")} />
@@ -43,9 +51,7 @@ export const YeastForm = ({ src, action }: YeastFormProps) => {
           <NumberField label="Temp Low" {...register("tempLow")} />
           <NumberField label="Temp High" {...register("tempHigh")} />
         </div>
-
-        <Submit>Update Yeast</Submit>
-      </Form>
-    </Section>
+      </Section>
+    </Form>
   );
 };
