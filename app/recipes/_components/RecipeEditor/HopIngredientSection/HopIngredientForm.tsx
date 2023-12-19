@@ -169,9 +169,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         <input
           type="hidden"
           {...register("amountType", {
-            value:
-              massUnit ??
-              MassUnit[UserMassPreference.LbOz.toLowerCase() as MassUnit],
+            value: massUnit ?? MassUnit.LbOz,
           })}
         />
         <AmountField amountType={massUnit} {...register("amount")} />
