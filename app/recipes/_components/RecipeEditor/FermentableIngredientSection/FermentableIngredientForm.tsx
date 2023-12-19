@@ -40,7 +40,7 @@ const fermentableIngredientSchema = zfd.formData({
     .nativeEnum(FermentableIngredientUsage)
     .default(FermentableIngredientUsage.Mash),
   amount: zfd.numeric(z.number().min(0)),
-  amountType: z.nativeEnum(MassUnit).default(MassUnit.oz),
+  amountType: z.nativeEnum(MassUnit).default(MassUnit.LbOz),
 });
 
 interface FermentableIngredientFormProps {

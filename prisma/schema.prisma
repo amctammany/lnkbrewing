@@ -156,11 +156,11 @@ model Recipe {
 }
 
 enum MassUnit {
-  oz
-  lb
-  lboz
+  Oz
+  Lb
+  LbOz
   g
-  kg
+  Kg
 }
 
 enum TimeUnit {
