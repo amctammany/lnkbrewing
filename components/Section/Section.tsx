@@ -73,6 +73,29 @@ const sectionBody = cva([""], {
     size: "default",
   },
 });
+const sectionFooter = cva([""], {
+  variants: {
+    variant: {
+      primary: [],
+      paper: [""],
+      warning: [""],
+      alert: [],
+    },
+    size: {
+      small: [],
+      default: [],
+    },
+    display: {
+      footer: ["block"],
+      default: ["hidden"],
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
+    size: "default",
+    display: "default",
+  },
+});
 
 export type SectionProps = VariantProps<typeof section> &
   ComponentProps<"div"> & {
@@ -80,6 +103,7 @@ export type SectionProps = VariantProps<typeof section> &
     icon?: any;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];
+    footer?: React.ReactNode | React.ReactNode[];
   };
 
 export const Section = ({
@@ -87,6 +111,7 @@ export const Section = ({
   icon,
   actions,
   children,
+  footer,
   size,
   variant,
   className,
@@ -101,6 +126,15 @@ export const Section = ({
       </div>
 
       <div className={sectionBody({ size, variant })}>{children}</div>
+      <div
+        className={sectionFooter({
+          size,
+          variant,
+          display: footer ? "footer" : "default",
+        })}
+      >
+        {footer}
+      </div>
     </div>
   );
 };

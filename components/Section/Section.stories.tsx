@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Section } from "./Section";
+import { Toolbar } from "../Toolbar/Toolbar";
+import Button from "../Button/Button";
 
 const meta: Meta<typeof Section> = {
   component: Section,
@@ -25,6 +27,18 @@ export const Basic: Story = {
     header: "Basic",
     //className: "",
     children: sectionBody,
+  },
+};
+export const Footer: Story = {
+  args: {
+    header: "Footer",
+    variant: "warning",
+    children: sectionBody,
+    footer: (
+      <Toolbar>
+        <Button>X</Button>
+      </Toolbar>
+    ),
   },
 };
 
