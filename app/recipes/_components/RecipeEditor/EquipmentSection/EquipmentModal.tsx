@@ -2,9 +2,7 @@
 import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
-const EquipmentForm = dynamic(() => import("./EquipmentForm"), {
-  ssr: false,
-});
+const EquipmentForm = dynamic(() => import("./EquipmentForm"));
 
 import { UserMassPreference, EquipmentProfile } from "@prisma/client";
 import { useRecipe } from "../useRecipe";

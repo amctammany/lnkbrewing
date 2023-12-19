@@ -8,10 +8,7 @@ import React, { FC } from "react";
 //import { FermentableIngredientForm } from "./FermentableIngredientForm";
 import dynamic from "next/dynamic";
 const FermentableIngredientForm = dynamic(
-  () => import("./FermentableIngredientForm"),
-  {
-    ssr: false,
-  }
+  () => import("./FermentableIngredientForm")
 );
 
 import { Fermentable, UserMassPreference } from "@prisma/client";

@@ -2,9 +2,7 @@
 import { Modal } from "@/components/Modal/Modal";
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
-const GeneralForm = dynamic(() => import("./GeneralForm"), {
-  ssr: false,
-});
+const GeneralForm = dynamic(() => import("./GeneralForm"));
 
 import { UserMassPreference } from "@prisma/client";
 import { useRecipe } from "../useRecipe";
