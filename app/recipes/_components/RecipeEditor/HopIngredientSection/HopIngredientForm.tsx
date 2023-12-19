@@ -26,6 +26,7 @@ import {
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { setRequestMeta } from "next/dist/server/request-meta";
+import { AmountField } from "@/components/Form/AmountField";
 /**
 import * as z from "zod";
 import { zfd } from "zod-form-data";
@@ -165,23 +166,14 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
             handleChange={handleChange}
           />
         </div>
-        <div className="flex">
-          <div className="flex-grow">
-            <NumberField
-              label="Amount"
-              error={errors?.amount}
-              {...register("amount", { valueAsNumber: true })}
-            />
-          </div>
-          <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              error={errors?.amountType}
-              label=""
-              options={MassUnit}
-            />
-          </div>
-        </div>
+        <input
+          type="hidden"
+          {...register("amountType", {
+            value: (massUnit ??
+              UserMassPreference.LbOz.toLowerCase()) as MassUnit,
+          })}
+        />
+        <AmountField amountType={massUnit} {...register("amount")} />
         <div>
           <Select
             name="type"

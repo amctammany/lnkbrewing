@@ -158,6 +158,7 @@ model Recipe {
 enum MassUnit {
   oz
   lb
+  lboz
   g
   kg
 }

@@ -11,13 +11,13 @@ const massFactors: Record<UserMassPreference, number> = {
   LbOz: 2.20462,
   Oz: 2.20462 * 16,
 };
-export function getAmount(value: number, type: UserMassPreference) {
-  return value * massFactors[type];
+export function getAmount(value: number | undefined, type: UserMassPreference) {
+  return value === undefined ? value : value * massFactors[type];
 }
 
 export type AmountFieldProps = {
   name: string;
-  amountType: UserMassPreference;
+  amountType?: UserMassPreference;
   label?: string;
   defaultValue?: any;
   error?: SchemaFieldError;
@@ -53,7 +53,7 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
     {
       name,
       label,
-      amountType,
+      amountType: _amountType,
       step,
       defaultValue,
       disabled,
@@ -67,6 +67,7 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
     }: AmountFieldProps,
     ref
   ) {
+    const amountType = _amountType ?? UserMassPreference.g;
     const translatedValue = getAmount(value, amountType);
     console.log({ value, translatedValue, amountType });
     return (

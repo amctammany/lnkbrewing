@@ -23,7 +23,7 @@
     "@auth/prisma-adapter": "^1.0.2",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.2",
-    "@prisma/client": "^5.7.0",
+    "@prisma/client": "^5.7.1",
     "@prisma/extension-accelerate": "^0.6.2",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
@@ -63,7 +63,7 @@
     "cross-env": "^7.0.3",
     "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.0",
-    "prisma": "^5.7.0",
+    "prisma": "^5.7.1",
     "storybook": "^7.6.0",
     "ts-node": "^10.9.1"
   },
