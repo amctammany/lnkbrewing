@@ -1,4 +1,4 @@
-import { ComponentProps, SyntheticEvent, forwardRef } from "react";
+import { ComponentProps, useState, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
@@ -12,7 +12,7 @@ const massFactors: Record<UserMassPreference, number> = {
   Oz: 2.20462 * 16,
 };
 export function getAmount(value: number | undefined, type: UserMassPreference) {
-  return value === undefined ? value : value * massFactors[type];
+  return value === undefined ? 0 : value * massFactors[type];
 }
 
 export type AmountFieldProps = {
@@ -48,6 +48,137 @@ const amountFieldStyles = cva("input", {
   defaultVariants: { size: "default", variant: "default" },
 });
 
+export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
+  function LbOzField(
+    {
+      name,
+      label,
+      amountType: _amountType,
+      step,
+      defaultValue,
+      disabled,
+      onBlur,
+      onChange,
+      value,
+      variant,
+      size,
+      error,
+      className,
+    }: AmountFieldProps,
+    ref
+  ) {
+    const [lbs, setLbs] = useState(Math.floor(value));
+    const [ozs, setOzs] = useState((value % lbs) / (1 / 16));
+    console.log({ value, lbs, ozs });
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+      const { name: _name, value: _v } = e.currentTarget;
+      const v = parseFloat(_v);
+      let newValue = value;
+      console.log({ _name, v });
+      if (_name === "lbs") {
+        newValue = v + ozs / 16;
+        setLbs(v);
+      } else if (_name === "ozs") {
+        newValue = lbs + v / 16;
+        setOzs(v);
+      }
+      if (onChange) {
+        console.log({ name, newValue }, e.currentTarget);
+        onChange({
+          ...e,
+          currentTarget: { ...e.currentTarget, name, value: newValue },
+        });
+      }
+    };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <div className="flex">
+          <input
+            disabled={disabled || false}
+            className={amountFieldStyles({
+              variant: error ? "error" : variant,
+              size,
+            })}
+            type="number"
+            step={1}
+            name="lbs"
+            //defaultValue={lbs}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={lbs}
+          />
+          <div className="grid pt-2 px-2 border border-black">Lb</div>
+        </div>
+        <div className="flex">
+          <input
+            disabled={disabled || false}
+            className={amountFieldStyles({
+              variant: error ? "error" : variant,
+              size,
+            })}
+            type="number"
+            step={0.1}
+            name="ozs"
+            //defaultValue={ozs}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={ozs}
+          />
+          <div className="grid pt-2 px-2 border border-black">Oz</div>
+        </div>
+        <input
+          type="hidden"
+          name={name}
+          value={lbs + ozs / 16}
+          ref={ref}
+          onChange={onChange}
+        />
+      </div>
+    );
+  }
+);
+export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
+  function AmtField(
+    {
+      name,
+      label,
+      amountType: _amountType,
+      step,
+      defaultValue,
+      disabled,
+      onBlur,
+      onChange,
+      value,
+      variant,
+      size,
+      error,
+      className,
+    }: AmountFieldProps,
+    ref
+  ) {
+    return (
+      <div className="flex">
+        <input
+          disabled={disabled || false}
+          className={amountFieldStyles({
+            variant: error ? "error" : variant,
+            size,
+          })}
+          type="number"
+          step={step || 1}
+          name={name}
+          //defaultValue={defaultValue}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={value}
+          ref={ref}
+        />
+        <div className="grid pt-2 px-2 border border-black">{_amountType}</div>
+      </div>
+    );
+  }
+);
+
 export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
   function AmountField(
     {
@@ -68,32 +199,31 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
     ref
   ) {
     const amountType = _amountType ?? UserMassPreference.g;
+    console.log({ value, amountType });
     const translatedValue = getAmount(value, amountType);
     //console.log({ value, translatedValue, amountType });
+    const Comp = amountType === "LbOz" ? LbOzField : AmtField;
     return (
       <Label
         className={clsx("", className)}
         label={label || name}
         error={error}
       >
-        <div className="flex">
-          <input
-            disabled={disabled || false}
-            className={amountFieldStyles({
-              variant: error ? "error" : variant,
-              size,
-            })}
-            type="number"
-            step={step || 1}
-            name={name}
-            defaultValue={defaultValue}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={translatedValue}
-            ref={ref}
-          />
-          <div className="grid pt-2 px-2 border border-black">{amountType}</div>
-        </div>
+        <Comp
+          disabled={disabled || false}
+          className={amountFieldStyles({
+            variant: error ? "error" : variant,
+            size,
+          })}
+          //type="number"
+          step={step || 1}
+          name={name}
+          //defaultValue={defaultValue}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={translatedValue}
+          ref={ref}
+        />
       </Label>
     );
   }
