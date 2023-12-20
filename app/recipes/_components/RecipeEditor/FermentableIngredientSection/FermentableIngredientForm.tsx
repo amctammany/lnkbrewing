@@ -30,6 +30,7 @@ import {
   removeFermentableIngredient,
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
+import { AmountField } from "@/components/Form/AmountField";
 const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
@@ -85,6 +86,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
     defaultValues: (src
       ? {
           ...src,
+          amountType: src?.amountType ?? massUnit,
           fermentableId: src?.fermentable?.id,
           potential: src?.fermentable?.potential,
           color: src?.fermentable?.color,
@@ -146,19 +148,15 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
         </div>
         <div className="flex">
           <div className="flex-grow">
-            <NumberField
+            <AmountField
+              amountType={src?.amountType}
               {...register("amount")}
               error={errors?.amount}
               label="Amount"
             />
           </div>
           <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              error={errors?.amountType}
-              label=""
-              options={MassUnit}
-            />
+            <input type="hidden" {...register("amountType")} />
           </div>
         </div>
         <div className="">
