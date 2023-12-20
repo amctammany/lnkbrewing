@@ -20,8 +20,8 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
     }: AmountFieldProps,
     ref
   ) {
-    const [lbs, setLbs] = useState(Math.floor(value));
-    const [ozs, setOzs] = useState((value % lbs) / (1 / 16));
+    const [lbs, setLbs] = useState(Math.floor(value ?? 0));
+    const [ozs, setOzs] = useState((value ?? 0 % lbs) / (1 / 16));
     //console.log({ value, lbs, ozs });
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name: _name, value: _v } = e.currentTarget;
