@@ -491,12 +491,19 @@ model MashProfile {
   UserPreferences UserPreferences[]
 }
 
+enum MashStepType {
+  temperature
+  infusion
+  decoction
+}
+
 model MashStep {
-  id          Int     @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
+  type        MashStepType @default(temperature)
   name        String?
   temperature Int
   time        Int
-  rampTime    Int     @default(0)
+  rampTime    Int          @default(0)
 
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?

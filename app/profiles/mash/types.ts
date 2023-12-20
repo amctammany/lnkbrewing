@@ -1,8 +1,8 @@
-import { MashProfile, MashStep } from "@prisma/client";
+import { MashProfile, MashStep, MashStepType } from "@prisma/client";
 
 export type MashProfileStep = {
   name?: string | null;
-  //type?: any;
+  type: MashStepType;
   temperature: number;
   time: number;
   rampTime: number;

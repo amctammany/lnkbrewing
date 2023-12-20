@@ -3,10 +3,11 @@ import { Control, useFieldArray, useForm } from "react-hook-form";
 import { MashProfileInput } from "@/app/profiles/mash/types";
 import { NumberField } from "@/components/Form/NumberField";
 import { TextField } from "@/components/Form/TextField";
-import { MashProfile } from "@prisma/client";
+import { MashProfile, MashStepType } from "@prisma/client";
 import { Button } from "@/components/Button";
 import { Section } from "@/components/Section";
 import { AddIcon, DeleteIcon, Icon } from "@/components/Icon";
+import { Select } from "@/components/Form/Select";
 type MashProfileStepsProps = {
   src: MashProfileInput | null;
   control: Control<MashProfileInput, any>;
@@ -22,7 +23,13 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
       name: "steps", // unique name for your Field Array
     });
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-    append({ name: "", temperature: 120, time: 0, rampTime: 0 });
+    append({
+      name: "",
+      type: MashStepType.temperature,
+      temperature: 120,
+      time: 0,
+      rampTime: 0,
+    });
     e.preventDefault();
     e.stopPropagation();
     return false;
@@ -56,11 +63,18 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
                 {index}
               </div>
             </div>
-            <div className="flex-grow grid gap-x-2 grid-cols-4">
+            <div className="flex-grow grid gap-x-2 grid-cols-5">
               <div>
                 <TextField
                   {...register(`steps.${index}.name` as const)}
                   label="Name"
+                />
+              </div>
+              <div>
+                <Select
+                  label="Type"
+                  {...register(`steps.${index}.type` as const)}
+                  options={MashStepType}
                 />
               </div>
               <NumberField
