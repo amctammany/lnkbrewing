@@ -85,7 +85,6 @@ export const EquipmentProfileForm = ({ src }: EquipmentProfileFormProps) => {
         body.append(key, value?.toString());
       }
     });
-    console.log(data);
     action(body);
   };
   return (

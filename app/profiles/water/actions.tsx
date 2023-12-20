@@ -18,7 +18,6 @@ const waterSchema = zfd.formData({
 });
 export const createWaterProfile = async (formData: FormData) => {
   const data = waterSchema.parse(formData);
-  console.log(data);
   const res = await prisma.waterProfile.create({
     data: {
       ...data,

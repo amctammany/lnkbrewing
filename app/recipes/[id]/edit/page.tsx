@@ -35,7 +35,7 @@ export default async function RecipeEditorPage({
   //redirect("/api/auth/signin");
   //}
   if (recipe?.authorEmail !== session?.user.email) {
-    console.error("Unauthorized User");
+    //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
   return <Editor recipe={recipe} id={id} session={session!} />;

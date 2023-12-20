@@ -69,7 +69,7 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
   ) {
     const amountType = _amountType ?? UserMassPreference.g;
     const translatedValue = getAmount(value, amountType);
-    console.log({ value, translatedValue, amountType });
+    //console.log({ value, translatedValue, amountType });
     return (
       <Label
         className={clsx("", className)}

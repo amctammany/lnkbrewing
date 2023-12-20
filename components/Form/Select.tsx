@@ -70,7 +70,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </option>
         ))
       : children;
-    if (error) console.log(error);
     return (
       <Label
         className={className}

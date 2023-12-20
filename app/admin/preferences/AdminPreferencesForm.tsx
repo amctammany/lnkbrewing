@@ -4,7 +4,7 @@ import { Autocomplete } from "@/components/Form/Autocomplete";
 import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
-import { TextField } from "@/components/Form/TextField";
+//import { TextField } from "@/components/Form/TextField";
 import {
   UserGravityPreference,
   UserMassPreference,
@@ -14,7 +14,7 @@ import {
 } from "@prisma/client";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
-import { redirect } from "next/navigation";
+//import { redirect } from "next/navigation";
 
 interface AdminPreferencesFormProps {
   src?: UserPreferences | null;
@@ -33,7 +33,6 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
 }) => {
   const {
     register,
-    trigger,
     formState: { errors },
     setError,
   } = useForm<UserPreferences>({
@@ -42,7 +41,6 @@ export const AdminPreferencesForm: FC<AdminPreferencesFormProps> = ({
   const onSubmit = async (data: FormData) => {
     const res = await action(data);
     if (res?.errors?.length) {
-      console.log(res.errors);
       res.errors.forEach((err: any) =>
         setError(err.path, { type: err.code, message: err.message })
       );

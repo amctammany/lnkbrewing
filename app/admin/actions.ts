@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
-import { ZodEffects, ZodSchema, ZodType, ZodTypeAny, z } from "zod";
+import { z } from "zod";
 import {
   UserGravityPreference,
   UserMassPreference,
@@ -23,7 +23,7 @@ export async function updateUser(formData: FormData) {
     },
     data,
   });
-  redirect("/admin");
+  return redirect("/admin");
 }
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
@@ -44,7 +44,7 @@ export async function updateUserPreferences(formData: FormData) {
     preferenceSchema
   );
   if (errors && errors.length) {
-    console.log(errors);
+    //console.log(errors);
     return { errors };
   }
   const update = {
@@ -60,5 +60,5 @@ export async function updateUserPreferences(formData: FormData) {
       userId,
     },
   });
-  redirect("/admin");
+  return redirect("/admin");
 }
