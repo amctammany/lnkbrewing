@@ -29,6 +29,7 @@ export const FermentableIngredientModal: FC<
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
       : recipe?.fermentables?.find((h) => h.id === modalId);
+  console.log(fermentable);
   return (
     modalType === "fermentables" && (
       <Modal
@@ -41,6 +42,7 @@ export const FermentableIngredientModal: FC<
             <FermentableIngredientForm
               recipe={recipe}
               massUnit={massUnit}
+              fermentable={fermentable}
               fermentables={fermentables}
             />
           )}

@@ -60,18 +60,23 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
   recipe,
   //action,
   //fermentableId,
-  //fermentable,
+  fermentable,
   fermentables,
 }) => {
   const { modalId, closeModal } = useRecipe();
-  const fermentable = recipe?.fermentables?.find((h) => h.id === modalId);
+  //const fermentable = recipe?.fermentables?.find((h) => h.id === modalId);
+  console.log(fermentable);
   const src =
     modalId === "new"
-      ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
+      ? ({
+          recipeId: recipe?.id,
+          amountType: massUnit,
+        } as ExtendedFermentableIngredient)
       : fermentable;
   const action = src?.id
     ? updateFermentableIngredient
     : addFermentableIngredientToRecipe;
+  console.log(src);
   const {
     register,
     getValues,
@@ -91,7 +96,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           potential: src?.fermentable?.potential,
           color: src?.fermentable?.color,
         }
-      : { recipeId: recipe?.id }) as any,
+      : { recipeId: recipe?.id, amountType: massUnit }) as any,
 
     //resolver: zodResolver(fermentableIngredientSchema, {
 
@@ -151,6 +156,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
             <AmountField
               amountType={src?.amountType}
               {...register("amount")}
+              value={src?.amount}
               error={errors?.amount}
               label="Amount"
             />

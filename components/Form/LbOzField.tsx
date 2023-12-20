@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
 export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
@@ -21,8 +21,13 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
     ref
   ) {
     const [lbs, setLbs] = useState(Math.floor(value ?? 0));
-    const [ozs, setOzs] = useState((value ?? 0 % lbs) / (1 / 16));
-    //console.log({ value, lbs, ozs });
+    const [ozs, setOzs] = useState(((value ?? 0) % lbs) / (1 / 16));
+    //useEffect(() => {
+    //const lb = Math.floor(value ?? 0);
+    //setLbs(lb);
+    //setOzs((value ?? 0 % lb) / (1 / 16));
+    //}, [value, setLbs, setOzs, lbs]);
+    console.log({ value, lbs, ozs });
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name: _name, value: _v } = e.currentTarget;
       const v = parseFloat(_v);
@@ -75,7 +80,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             //defaultValue={ozs}
             onChange={handleChange}
             onBlur={onBlur}
-            value={ozs}
+            value={ozs.toPrecision(2)}
           />
           <div className="grid pt-2 px-2 border border-black">Oz</div>
         </div>
