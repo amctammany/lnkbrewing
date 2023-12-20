@@ -65,7 +65,7 @@ export const Editor = ({ id, session }: EditorProps) => (
     <Suspense fallback={<FermentableIngredientSection />}>
       <FermentableIngredientContainer
         recipeId={id}
-        massUnit={session?.preferences.hopMassUnit}
+        massUnit={session?.preferences.fermentableMassUnit}
       />
     </Suspense>
     <Suspense fallback={<YeastIngredientSection />}>
