@@ -22,7 +22,7 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
     ref
   ) {
     return (
-      <div className={clsx("grid grid-cols-2 gap-3", className)}>
+      <div className={clsx("flex", className)}>
         <input
           disabled={disabled || false}
           className={amountFieldStyles({
