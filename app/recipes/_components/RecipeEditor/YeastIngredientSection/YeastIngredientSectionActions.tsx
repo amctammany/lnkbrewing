@@ -8,8 +8,12 @@ export const YeastIngredientSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("yeasts", "new")}>
-        <AddIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("yeasts", "new")}
+      >
+        <AddIcon size="small" />
       </Button>
     </div>
   );

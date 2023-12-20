@@ -8,8 +8,12 @@ export const MashSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("mash")}>
-        <EditIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("mash")}
+      >
+        <EditIcon size="small" />
       </Button>
     </div>
   );

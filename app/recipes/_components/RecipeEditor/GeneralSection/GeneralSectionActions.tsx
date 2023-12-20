@@ -8,8 +8,12 @@ export const GeneralSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("general")}>
-        <EditIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("general")}
+      >
+        <EditIcon size="small" />
       </Button>
     </div>
   );

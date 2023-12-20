@@ -8,8 +8,12 @@ export const EquipmentSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("equipment")}>
-        <EditIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("equipment")}
+      >
+        <EditIcon size="small" />
       </Button>
     </div>
   );

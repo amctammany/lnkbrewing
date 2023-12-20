@@ -47,12 +47,14 @@ const buttonStyles = cva(
           "hover:text-warning-800",
         ],
         dark: ["bg-green-900", "hover:bg-slate-800", "text-white"],
-        toolbar: ["bg-default-400 text-white font-bold "],
+        toolbar: [
+          "bg-default-400 font-bold hover:bg-default-100 text-white hover:text-black",
+        ],
       },
       size: {
         default: ["rounded", "m-2", "px-2", "py-1"],
         button: ["rounded", "h-10", "w-32"],
-        toolbar: ["px-2", "py-2", "mx-2", "text-xs"],
+        toolbar: ["px-2", "py-1", "mx-2", "text-xs"],
         icon: ["rounded-full", "w-20", "h-20", "p-2.5"],
         iconSmall: ["rounded-full", "w-10", "h-10", "p-1.5"],
       },

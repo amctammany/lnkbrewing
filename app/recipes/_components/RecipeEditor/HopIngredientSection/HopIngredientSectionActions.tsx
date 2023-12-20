@@ -8,8 +8,12 @@ export const HopIngredientSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("hops", "new")}>
-        <AddIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("hops", "new")}
+      >
+        <AddIcon size="small" />
       </Button>
     </div>
   );

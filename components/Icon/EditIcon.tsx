@@ -1,4 +1,4 @@
-import { PencilIcon } from "@heroicons/react/20/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { IconProps, iconStyles } from "./Icon";
 

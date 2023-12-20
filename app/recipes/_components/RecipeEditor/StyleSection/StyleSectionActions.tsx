@@ -1,15 +1,19 @@
 "use client";
 import Button, { ButtonLink } from "@/components/Button/Button";
 import React from "react";
-import { AddIcon } from "@/components/Icon/AddIcon";
 import { useRecipe } from "../useRecipe";
+import { EditIcon } from "@/components/Icon/EditIcon";
 
 export const StyleSectionActions = () => {
   const { openModal } = useRecipe();
   return (
     <div>
-      <Button onClick={() => openModal("style")}>
-        <AddIcon />
+      <Button
+        variant="toolbar"
+        size="toolbar"
+        onClick={() => openModal("style")}
+      >
+        <EditIcon size="small" />
       </Button>
     </div>
   );
