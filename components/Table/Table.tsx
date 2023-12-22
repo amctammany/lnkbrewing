@@ -11,6 +11,7 @@ export type TableProps<T extends Record<string, any>> = VariantProps<
   ComponentProps<"table"> & {
     sort?: string;
     direction?: Direction; //string; //"ASC" | "DESC";
+    query?: string;
     src: T[];
     columns: DataColumnProps<T>[];
     Header?: React.FC<HeaderProps>;
@@ -37,6 +38,7 @@ const tableStyles = cva(
 export function Table<T extends Record<string, any>>({
   src,
   columns,
+  query,
   sort,
   direction,
   variant,
@@ -46,11 +48,14 @@ export function Table<T extends Record<string, any>>({
   ...props
 }: TableProps<T>) {
   const Row = makeTableRow(columns, _Row);
+  const f = query
+    ? src.filter((s) => s.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+    : src;
   const filtered = sort
-    ? src.sort(
+    ? f.sort(
         (a, b) => (a[sort] < b[sort] ? -1 : 1) * (direction === "ASC" ? -1 : 1)
       )
-    : src;
+    : f;
   return (
     <div className="max-w-full overflow-auto">
       <table className={clsx(tableStyles({ variant }), className)} {...props}>

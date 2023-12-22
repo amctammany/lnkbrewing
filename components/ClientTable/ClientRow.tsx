@@ -7,7 +7,7 @@ const tableRowStyles = cva([""], {
       default: [""],
     },
     active: {
-      selected: ["underline"],
+      selected: ["underline", "bg-teal-200"],
       default: [""],
     },
   },
@@ -53,3 +53,13 @@ export function ClientRow({
     </tr>
   );
 }
+/**
+     <td>
+        <input
+          type="checkbox"
+          checked={selected.indexOf(_id) >= 0}
+          onClick={onClick}
+        />
+      </td>
+
+   */
