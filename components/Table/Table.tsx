@@ -1,9 +1,10 @@
 import React, { ComponentProps } from "react";
-import { TableRow, makeTableRow } from "./TableRow";
-import { TableHeader } from "./TableHeader";
+import { RowProps, TableRow, makeTableRow } from "./TableRow";
+import { HeaderProps, TableHeader, TableHeaderProps } from "./TableHeader";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { DataColumnProps } from "./DataColumn";
+export type Direction = "ASC" | "DESC";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &
@@ -12,8 +13,9 @@ export type TableProps<T extends Record<string, any>> = VariantProps<
     direction?: Direction; //string; //"ASC" | "DESC";
     src: T[];
     columns: DataColumnProps<T>[];
+    Header?: React.FC<HeaderProps>;
+    Row?: React.FC<RowProps>;
   };
-export type Direction = "ASC" | "DESC";
 const tableStyles = cva(
   ["w-full table table-auto border border-collapse border-slate-400"],
   {
@@ -38,10 +40,12 @@ export function Table<T extends Record<string, any>>({
   sort,
   direction,
   variant,
+  Header,
+  Row: _Row,
   className,
   ...props
 }: TableProps<T>) {
-  const Row = makeTableRow(columns);
+  const Row = makeTableRow(columns, _Row);
   const filtered = sort
     ? src.sort(
         (a, b) => (a[sort] < b[sort] ? -1 : 1) * (direction === "ASC" ? -1 : 1)
@@ -54,6 +58,7 @@ export function Table<T extends Record<string, any>>({
           <tr>
             {columns.map(({ name, label }) => (
               <TableHeader
+                Header={Header}
                 key={name.toString()}
                 variant={variant}
                 name={name.toString()}
@@ -71,7 +76,7 @@ export function Table<T extends Record<string, any>>({
         </thead>
         <tbody>
           {filtered.map((row) => (
-            <Row key={row.id} data={row} />
+            <Row variant={variant} key={row.id} _id={row.id} data={row} />
           ))}
         </tbody>
       </table>

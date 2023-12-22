@@ -8,6 +8,8 @@ export type TableRowProps<T extends Record<string, any>> = VariantProps<
 > &
   ComponentProps<"tr"> & {
     data: T;
+    _id: number;
+    Row: ComponentProps<"tr"> & React.FunctionComponent<RowProps>;
     columns: DataColumnProps<T>[];
   };
 const tableRowStyles = cva([""], {
@@ -16,23 +18,26 @@ const tableRowStyles = cva([""], {
       default: [""],
     },
     active: {
-      ASC: ["underline"],
-      DESC: ["underline"],
+      selected: ["underline"],
+      default: [""],
     },
   },
   defaultVariants: {
     variant: "default",
+    active: "default",
   },
 });
 
 export function TableRow<T extends Record<string, any> = Record<string, any>>({
   data,
+  Row,
   columns,
   variant,
+  active,
   ...props
 }: TableRowProps<T>) {
   return (
-    <tr className={tableRowStyles({ variant })} key={data.id} {...props}>
+    <Row variant={variant} key={data.id} {...props}>
       {columns.map(({ name, href }) => (
         <td
           className="border border-slate-400"
@@ -50,14 +55,22 @@ export function TableRow<T extends Record<string, any> = Record<string, any>>({
           )}
         </td>
       ))}
-    </tr>
+    </Row>
   );
 }
-
+export type RowProps = { _id: number } & VariantProps<typeof tableRowStyles> &
+  ComponentProps<"tr">;
+const DefaultRow = ({ variant, ...props }: RowProps) => {
+  return <tr className={tableRowStyles({ variant })} {...props} />;
+};
 export function makeTableRow<T extends Record<string, any>>(
-  columns: DataColumnProps<T>[]
+  columns: DataColumnProps<T>[],
+  _Row?: TableRowProps<T>["Row"]
 ) {
-  return function CustomTableRow(props: Omit<TableRowProps<T>, "columns">) {
-    return <TableRow columns={columns} {...props} />;
+  return function CustomTableRow({
+    ...props
+  }: Omit<TableRowProps<T>, "columns" | "Row">) {
+    const Row = _Row ?? DefaultRow;
+    return <TableRow columns={columns} Row={Row} {...props} />;
   };
 }
