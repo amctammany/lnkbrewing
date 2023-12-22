@@ -34,6 +34,15 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
     e.stopPropagation();
     return false;
   };
+  const handleSwap = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const index = parseInt(e.currentTarget.dataset.index!);
+    const direction = parseInt(e.currentTarget.dataset.direction!);
+    console.log({ index, direction });
+    //swap(0, 1);
+    swap(index, index + direction);
+    e.preventDefault();
+    e.stopPropagation();
+  };
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(e.currentTarget.dataset.index!);
     remove(index);
@@ -42,6 +51,7 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
     return false;
   };
 
+  console.log(fields);
   return (
     <Section
       title="Steps"
@@ -66,33 +76,61 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
             <div className="flex-grow grid gap-x-2 grid-cols-5">
               <div>
                 <TextField
-                  {...register(`steps.${index}.name` as const)}
+                  {...register(`steps.${index}.name` as const, {
+                    value: field.name,
+                  })}
+                  value={field.name}
                   label="Name"
                 />
               </div>
               <div>
                 <Select
                   label="Type"
-                  {...register(`steps.${index}.type` as const)}
+                  {...register(`steps.${index}.type` as const, {
+                    value: field.type,
+                  })}
                   options={MashStepType}
                 />
               </div>
               <NumberField
-                {...register(`steps.${index}.temperature` as const)}
+                {...register(`steps.${index}.temperature` as const, {
+                  //value: field.temperature,
+                })}
+                value={field.temperature}
                 label="Temperature"
               />
 
               <NumberField
-                {...register(`steps.${index}.time` as const)}
+                {...register(`steps.${index}.time` as const, {
+                  value: field.time,
+                })}
                 label="Time (min)"
               />
 
               <NumberField
-                {...register(`steps.${index}.rampTime` as const)}
+                {...register(`steps.${index}.rampTime` as const, {
+                  value: field.rampTime,
+                })}
                 label="Ramp Time (min)"
               />
             </div>
             <div className="m-auto grid pt-3">
+              <Button
+                className={`${index > 0 ? "block" : "hidden"}`}
+                data-index={index}
+                data-direction={-1}
+                onClick={handleSwap}
+              >
+                Up
+              </Button>
+              <Button
+                className={`${index < fields.length - 1 ? "block" : "hidden"}`}
+                data-index={index}
+                data-direction={1}
+                onClick={handleSwap}
+              >
+                down
+              </Button>
               <Button data-index={index} onClick={handleRemove}>
                 <DeleteIcon variant="default" />
               </Button>
