@@ -52,7 +52,7 @@ export const TableHeader = ({
       <Header {...{ name, active }}>
         <div className="flex">
           <b className="flex-grow">{label || name}</b>
-          <span className="flex-shrink">
+          <span className="flex-shrink w-6">
             {active &&
               (active === "ASC" ? (
                 <ArrowUpIcon className="h-6 w-6" />
