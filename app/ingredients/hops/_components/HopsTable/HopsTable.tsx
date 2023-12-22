@@ -1,3 +1,5 @@
+"use client";
+import { ClientTable } from "@/components/ClientTable";
 import { Section } from "@/components/Section";
 import { Direction, Table } from "@/components/Table";
 import { DataColumnProps } from "@/components/Table/DataColumn";
@@ -18,6 +20,6 @@ const columns: DataColumnProps<Hop>[] = [
 
 export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <Section header="Hops">
-    <Table src={hops} columns={columns} sort={sort} direction={direction} />
+    <ClientTable src={hops} columns={columns} />
   </Section>
 );
