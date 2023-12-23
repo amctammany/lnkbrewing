@@ -6,6 +6,7 @@ import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
+import { displayAmount } from "@/lib/displayAmount";
 
 export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
@@ -32,7 +33,7 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
       />
       <ListItemText
         //className="flex-shrink"
-        primary={`${hop.amount.toString()} ${hop.amountType}`}
+        primary={displayAmount(hop.amount, hop.amountType)}
       />
     </ListItem>
   );

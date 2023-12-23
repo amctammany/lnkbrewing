@@ -6,6 +6,7 @@ import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
+import { displayAmount } from "@/lib/displayAmount";
 
 export type FermentableIngredientListItemProps = {
   fermentable: ExtendedFermentableIngredient;
@@ -35,7 +36,7 @@ export const FermentableIngredientListItem = ({
       />
       <ListItemText
         //className="flex-shrink"
-        primary={`${fermentable.amount.toString()} ${fermentable.amountType}`}
+        primary={displayAmount(fermentable.amount, fermentable.amountType)}
       />
     </ListItem>
   );

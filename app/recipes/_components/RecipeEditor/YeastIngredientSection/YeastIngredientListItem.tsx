@@ -6,6 +6,7 @@ import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
+import { displayAmount } from "@/lib/displayAmount";
 
 export type YeastIngredientListItemProps = {
   yeast: ExtendedYeastIngredient;
@@ -29,7 +30,7 @@ export const YeastIngredientListItem = ({
       />
       <ListItemText
         //className="flex-shrink"
-        primary={`${yeast.amount.toString()} ${yeast.amountType}`}
+        primary={displayAmount(yeast.amount, yeast.amountType)}
       />
     </ListItem>
   );
