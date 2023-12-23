@@ -16,7 +16,7 @@ export const GeneralContainer: FC<GeneralContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   return (
     <div className="md:col-span-2">
       <GeneralSection recipe={recipe} />

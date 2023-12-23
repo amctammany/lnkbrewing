@@ -17,7 +17,7 @@ export const WaterProfileContainer: FC<WaterProfileContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const profiles = await getWaterProfiles();
   return (
     <div className="md:col-span-2">

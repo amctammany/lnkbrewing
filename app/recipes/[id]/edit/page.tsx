@@ -29,7 +29,7 @@ export default async function RecipeEditorPage({
   searchParams,
 }: RecipeEditorPageProps) {
   const id = parseInt(_id);
-  const recipe = await getExtendedRecipe(id);
+  const recipe = await getExtendedRecipe({ id });
   const session = await auth();
   //if (!session) {
   //redirect("/api/auth/signin");

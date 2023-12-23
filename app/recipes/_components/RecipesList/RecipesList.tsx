@@ -6,7 +6,7 @@ import { RecipeListItem } from "../RecipeListItem";
 import { Recipe } from "@prisma/client";
 
 export type RecipesListProps = {
-  recipes?: any[];
+  recipes?: Recipe[];
 };
 export function RecipesList({ recipes }: RecipesListProps) {
   return (

@@ -13,8 +13,9 @@ import {
   RecipeOtherIngredient,
   OtherIngredient,
   MashStep,
+  User,
 } from "@prisma/client";
-import { User } from "next-auth";
+//import { User } from "next-auth";
 
 export type ExtendedYeastIngredient = YeastIngredient & {
   yeast: Pick<
@@ -35,7 +36,7 @@ export type ExtendedOtherIngredient = RecipeOtherIngredient & {
   otherIngredient: Pick<OtherIngredient, "id" | "name" | "type" | "slug">;
 };
 export type ExtendedRecipe = Recipe & {
-  author: Pick<User, "name" | "email" | "id"> | null;
+  author: Pick<User, "name" | "email" | "id" | "username"> | null;
   style: Style | null;
   water: WaterProfile | null;
   mash: ExtendedMashProfile | null;

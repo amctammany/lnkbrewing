@@ -17,7 +17,7 @@ export const MashContainer: FC<MashContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const profiles = await getMashProfiles();
 
   return (

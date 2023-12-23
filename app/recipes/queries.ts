@@ -1,8 +1,8 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Recipe } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 
-export const getExtendedRecipe = cache(async (id: number) =>
+export const getExtendedRecipe = cache(async (where: Prisma.RecipeWhereInput) =>
   prisma.recipe.findFirst({
     include: {
       author: true,
@@ -15,9 +15,7 @@ export const getExtendedRecipe = cache(async (id: number) =>
       fermentables: { include: { fermentable: true } },
       style: true,
     },
-    where: {
-      id,
-    },
+    where,
   })
 );
 
@@ -26,17 +24,20 @@ export const getRecipe = cache(async (id: number) =>
     where: {
       id,
     },
+    include: { author: true },
   })
 );
-export const getRecipes = cache(async (where?: Prisma.RecipeWhereInput) =>
-  prisma.recipe.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      styleIdentifer: true,
-      authorEmail: true,
-    },
-    where,
-  })
+export const getRecipes = cache(
+  async (where?: Prisma.RecipeWhereInput) =>
+    prisma.recipe.findMany({
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        styleIdentifer: true,
+        authorEmail: true,
+        author: true,
+      },
+      where,
+    }) as unknown as Recipe[]
 );

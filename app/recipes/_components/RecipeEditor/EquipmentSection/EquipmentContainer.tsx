@@ -17,7 +17,7 @@ export const EquipmentContainer: FC<EquipmentContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const profiles = await getEquipmentProfiles();
 
   return (

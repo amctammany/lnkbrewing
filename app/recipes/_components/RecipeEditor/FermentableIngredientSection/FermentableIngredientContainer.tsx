@@ -19,7 +19,7 @@ interface FermentableIngredientContainerProps {
 export const FermentableIngredientContainer: FC<
   FermentableIngredientContainerProps
 > = async ({ recipeId, massUnit }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const fermentables = await getFermentables();
   return (
     <>

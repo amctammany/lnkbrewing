@@ -17,7 +17,7 @@ export const StyleContainer: FC<StyleContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const styles = await getStyles();
   return (
     <div className="md:col-span-1">

@@ -17,7 +17,7 @@ export const HopIngredientContainer: FC<HopIngredientContainerProps> = async ({
   recipeId,
   massUnit,
 }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const hops = await getHops();
   return (
     <div className="md:col-span-2">

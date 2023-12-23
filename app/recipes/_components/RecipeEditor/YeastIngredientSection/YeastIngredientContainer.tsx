@@ -16,7 +16,7 @@ interface YeastIngredientContainerProps {
 export const YeastIngredientContainer: FC<
   YeastIngredientContainerProps
 > = async ({ recipeId, massUnit }) => {
-  const recipe = await getExtendedRecipe(recipeId);
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const yeasts = await getYeasts();
   return (
     <div className="md:col-span-2">

@@ -16,6 +16,6 @@ export function generateMetadata({ params }: RecipeDisplayProps) {
 export default async function RecipeDisplayPage({
   params: { id },
 }: RecipeDisplayProps) {
-  const recipe = await getExtendedRecipe(id);
+  const recipe = await getExtendedRecipe({ id });
   return <RecipeDisplay recipe={recipe} />;
 }
