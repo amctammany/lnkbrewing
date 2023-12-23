@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 
@@ -27,7 +28,7 @@ export const getRecipe = cache(async (id: number) =>
     },
   })
 );
-export const getRecipes = cache(async () =>
+export const getRecipes = cache(async (where?: Prisma.RecipeWhereInput) =>
   prisma.recipe.findMany({
     select: {
       id: true,
@@ -36,5 +37,6 @@ export const getRecipes = cache(async () =>
       styleIdentifer: true,
       authorEmail: true,
     },
+    where,
   })
 );

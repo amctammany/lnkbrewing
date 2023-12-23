@@ -9,22 +9,12 @@ import { getRecipes } from "./queries";
 //import { TrashIcon } from "@heroicons/react/24/solid";
 //import Link from "next/link";
 import { RecipeListItem } from "./_components/RecipeListItem/RecipeListItem";
+import { RecipesList } from "./_components/RecipesList/RecipesList";
 export const metadata: Metadata = {
   title: "LNK Recipes",
 };
 
 export default async function RecipesIndex() {
   const recipes = await getRecipes();
-  return (
-    <Section
-      header="RecipesIndex"
-      actions={<ButtonLink href="/recipes/new">New</ButtonLink>}
-    >
-      <List>
-        {recipes.map((recipe) => (
-          <RecipeListItem key={recipe.id} recipe={recipe} />
-        ))}
-      </List>
-    </Section>
-  );
+  return <RecipesList recipes={recipes} />;
 }
