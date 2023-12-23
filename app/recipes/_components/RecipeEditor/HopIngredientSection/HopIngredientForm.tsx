@@ -173,7 +173,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         />
         <AmountField
           amountType={massUnit}
-          {...register("amount")}
+          {...register("amount", { valueAsNumber: true })}
           value={src?.amount}
           error={errors?.amount}
         />

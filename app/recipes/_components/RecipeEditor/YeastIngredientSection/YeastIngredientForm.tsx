@@ -141,7 +141,7 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
         <div className="flex">
           <div className="flex-grow">
             <NumberField
-              {...register("amount")}
+              {...register("amount", { valueAsNumber: true })}
               error={errors?.amount}
               label="Amount"
             />

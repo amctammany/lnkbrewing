@@ -153,7 +153,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           <div className="flex-grow">
             <AmountField
               amountType={src?.amountType}
-              {...register("amount")}
+              {...register("amount", { valueAsNumber: true })}
               value={src?.amount}
               error={errors?.amount}
               label="Amount"
