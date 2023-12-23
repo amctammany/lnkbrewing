@@ -15,9 +15,5 @@ export default async function AdminSettingsPage() {
     },
   });
 
-  return (
-    <div className="p-3 max-w-2xl">
-      <AdminForm user={user} action={updateUser} />
-    </div>
-  );
+  return <AdminForm user={user} action={updateUser} />;
 }

@@ -14,6 +14,7 @@ import { validateSchema } from "@/lib/validateSchema";
 const schema = zfd.formData({
   id: zfd.text(),
   name: zfd.text(),
+  username: zfd.text(),
 });
 export async function updateUser(formData: FormData) {
   const data = schema.parse(formData);

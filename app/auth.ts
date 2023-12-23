@@ -10,18 +10,6 @@ export const AuthOptions: NextAuthConfig = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      account(account) {
-        // https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens#refreshing-a-user-access-token-with-a-refresh-token
-        const refresh_token_expires_at =
-          Math.floor(Date.now() / 1000) +
-          Number(account.refresh_token_expires_in);
-        return {
-          access_token: account.access_token,
-          expires_at: account.expires_at,
-          refresh_token: account.refresh_token,
-          refresh_token_expires_at,
-        };
-      },
     }),
   ],
   session: { strategy: "jwt" },

@@ -2,9 +2,10 @@ import { ButtonLink } from "@/components/Button/Button";
 import { DialogButton } from "@/components/Dialog";
 import Prop from "@/components/Prop/Prop";
 import { Section } from "@/components/Section/Section";
+import { User } from "@prisma/client";
 
 export type AdminPageProps = {
-  src: any;
+  src?: User | null;
   action?: any;
   //children: React.ReactNode;
 };
@@ -28,6 +29,7 @@ export const AdminPage = ({ src, action }: AdminPageProps) => {
       <Section header="Admin" actions={<AdminSettingsActions />}>
         <div>
           <Prop label="Name" value={src?.name} />
+          <Prop label="Username" value={src?.username} />
           <Prop label="Email" value={src?.email} />
         </div>
         <div>

@@ -15,6 +15,10 @@ import grains from "../data/grains.json";
 import styles from "../data/styles.json";
 import { prisma } from "../lib/client";
 async function main() {
+  await prisma.account.deleteMany();
+  await prisma.session.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.userPreferences.deleteMany();
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
   await prisma.mashProfile.deleteMany();
