@@ -77,41 +77,49 @@ export const EquipmentForm: FC<EquipmentFormProps> = ({
   return (
     <Form action={onSubmit}>
       <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
-        <input type="hidden" {...register("id")} />
-        <Select
-          className="md:col-span-2"
-          label="Equipment Profile"
-          error={errors?.equipmentProfileId}
-          {...register("equipmentProfileId")}
-          onChange={handleChange}
-          options={options}
-        />
+        <div className="md:col-span-2">
+          <input type="hidden" {...register("id")} />
+          <Select
+            label="Equipment Profile"
+            error={errors?.equipmentProfileId}
+            {...register("equipmentProfileId")}
+            onChange={handleChange}
+            options={options}
+          />
+        </div>
 
-        <NumberField
-          step={1}
-          error={errors?.boilTime}
-          {...register("boilTime")}
-        />
-        <NumberField
-          step={0.01}
-          error={errors?.batchVolume}
-          {...register("batchVolume")}
-        />
-        <NumberField
-          step={0.01}
-          error={errors?.mashEfficiency}
-          {...register("mashEfficiency")}
-        />
-        <NumberField
-          step={0.01}
-          error={errors?.brewEfficiency}
-          {...register("brewEfficiency")}
-        />
-
-        <Toolbar className="col-span-2 md:col-span-4">
-          <Button type="submit">Save</Button>
-        </Toolbar>
+        <div>
+          <NumberField
+            step={1}
+            error={errors?.boilTime}
+            {...register("boilTime")}
+          />
+        </div>
+        <div>
+          <NumberField
+            step={0.01}
+            error={errors?.batchVolume}
+            {...register("batchVolume")}
+          />
+        </div>
+        <div>
+          <NumberField
+            step={0.01}
+            error={errors?.mashEfficiency}
+            {...register("mashEfficiency")}
+          />
+        </div>
+        <div>
+          <NumberField
+            step={0.01}
+            error={errors?.brewEfficiency}
+            {...register("brewEfficiency")}
+          />
+        </div>
       </div>
+      <Toolbar className="col-span-2 md:col-span-4">
+        <Button type="submit">Save</Button>
+      </Toolbar>
     </Form>
   );
 };

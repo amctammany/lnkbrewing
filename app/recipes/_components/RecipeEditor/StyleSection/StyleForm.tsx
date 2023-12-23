@@ -68,14 +68,12 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, massUnit, styles }) => {
       <div className="m-2 grid gap-0 md:gap-2 items-center grid-cols-1 md:grid-cols-2">
         <input type="hidden" {...register("id")} />
         <Select
+          className="md:col-span-2"
           label="Style"
           {...register("styleIdentifer")}
           error={errors?.styleIdentifer}
           options={options}
         />
-        <Toolbar className="col-span-2 md:col-span-2">
-          <Button type="submit">Save</Button>
-        </Toolbar>
       </div>
       <Toolbar className="col-span-2">
         <Button type="submit">Submit</Button>
