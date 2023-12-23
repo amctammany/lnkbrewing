@@ -119,7 +119,6 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     //const valid = await trigger();
     //if (!valid) return;
     const res = (await action(data)) as any;
-    console.log(res);
     if (res?.errors?.length) {
       res.errors.forEach((err: any) =>
         setError(err.path, { type: err.code, message: err.message })
@@ -149,7 +148,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
     acc[hop.id] = hop.name;
     return acc;
   }, {} as Record<string, string>);
-  const handleError = (e: any) => console.log(e);
+  const handleError = (e: any) => null;
 
   return (
     <Form action={onSubmit} onError={handleError}>

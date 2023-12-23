@@ -29,7 +29,6 @@ export const FermentableIngredientModal: FC<
     modalId === "new"
       ? ({ recipeId: recipe?.id } as ExtendedFermentableIngredient)
       : recipe?.fermentables?.find((h) => h.id === modalId);
-  console.log(fermentable);
   return (
     modalType === "fermentables" && (
       <Modal

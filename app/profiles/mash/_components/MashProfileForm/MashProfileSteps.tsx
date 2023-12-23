@@ -37,7 +37,6 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
   const handleSwap = (e: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(e.currentTarget.dataset.index!);
     const direction = parseInt(e.currentTarget.dataset.direction!);
-    console.log({ index, direction });
     //swap(0, 1);
     swap(index, index + direction);
     e.preventDefault();
@@ -51,7 +50,6 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
     return false;
   };
 
-  console.log(fields);
   return (
     <Section
       title="Steps"
