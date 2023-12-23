@@ -70,9 +70,7 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
     ref
   ) {
     const amountType = _amountType ?? UserMassPreference.g;
-    console.log({ value, defaultValue, amountType });
-    const translatedValue = getAmount(value, amountType);
-    //console.log({ value, translatedValue, amountType });
+    //const translatedValue = getAmount(value, amountType);
     const Comp = amountType === "LbOz" ? LbOzField : AmtField;
     return (
       <Label

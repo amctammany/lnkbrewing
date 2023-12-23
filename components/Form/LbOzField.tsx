@@ -27,7 +27,6 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
     //setLbs(lb);
     //setOzs((value ?? 0 % lb) / (1 / 16));
     //}, [value, setLbs, setOzs, lbs]);
-    console.log({ value, lbs, ozs });
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name: _name, value: _v } = e.currentTarget;
       const v = parseFloat(_v);
