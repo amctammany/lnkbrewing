@@ -7,6 +7,7 @@ import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
 import { displayAmount } from "@/lib/displayAmount";
+import { Amount } from "@/components/Amount";
 
 export type FermentableIngredientListItemProps = {
   fermentable: ExtendedFermentableIngredient;
@@ -36,7 +37,9 @@ export const FermentableIngredientListItem = ({
       />
       <ListItemText
         //className="flex-shrink"
-        primary={displayAmount(fermentable.amount, fermentable.amountType)}
+        primary={
+          <Amount amount={fermentable.amount} type={fermentable.amountType} />
+        }
       />
     </ListItem>
   );

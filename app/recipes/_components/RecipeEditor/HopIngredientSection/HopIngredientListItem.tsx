@@ -7,6 +7,7 @@ import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
 import { displayAmount } from "@/lib/displayAmount";
+import { Amount } from "@/components/Amount";
 
 export type HopIngredientListItemProps = {
   hop: ExtendedHopIngredient;
@@ -33,7 +34,7 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
       />
       <ListItemText
         //className="flex-shrink"
-        primary={displayAmount(hop.amount, hop.amountType)}
+        primary={<Amount amount={hop.amount} type={hop.amountType} />}
       />
     </ListItem>
   );

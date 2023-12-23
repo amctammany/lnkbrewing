@@ -14,8 +14,8 @@ const listItemTextStyles = cva(["grid px-2 pr-12"], {
 });
 export type ListItemTextProps = VariantProps<typeof listItemTextStyles> &
   ComponentProps<"div"> & {
-    primary?: string;
-    secondary?: string;
+    primary?: string | React.ReactNode;
+    secondary?: string | React.ReactNode;
     children?: React.ReactNode;
   };
 export const ListItemText = ({

@@ -5,6 +5,7 @@ import { ListItem } from "@/components/List/ListItem";
 import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
+import { Amount } from "@/components/Amount";
 
 export type OtherIngredientListItemProps = {
   other: ExtendedOtherIngredient;
@@ -27,7 +28,7 @@ export const OtherIngredientListItem = ({
       />
       <ListItemText
         //className="flex-shrink"
-        primary={`${other.amount.toString()} ${other.amountType}`}
+        primary={<Amount amount={other.amount} type={other.amountType} />}
       />
     </ListItem>
   );
