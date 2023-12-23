@@ -3,8 +3,8 @@ import { MassUnit, YeastAmountType } from "@prisma/client";
 function displayAmount(amount: number, type: MassUnit | YeastAmountType) {
   if (type === "LbOz") {
     const lb = Math.floor(amount);
-    const oz = ((amount - lb) * 16).toPrecision(2);
-    return `${lb} lb ${oz} oz`;
+    const oz = ((amount - lb) * 16).toFixed(2);
+    return `${lb} lb ${parseFloat(oz)} oz`;
   }
   return `${amount} ${type}`;
 }
