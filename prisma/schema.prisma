@@ -112,7 +112,7 @@ model VerificationToken {
 model Recipe {
   id                 Int                     @id @default(autoincrement())
   name               String
-  slug               String                  @unique
+  slug               String
   description        String?
   authorEmail        String
   author             User                    @relation(fields: [authorEmail], references: [email])
@@ -153,6 +153,8 @@ model Recipe {
   sulfate            Int?
   bicarbonate        Int?
   otherIngredients   RecipeOtherIngredient[]
+
+  @@unique([authorEmail, slug])
 }
 
 enum MassUnit {
