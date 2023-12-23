@@ -1,5 +1,6 @@
 import { auth } from "@/app/auth";
 import Link from "next/link";
+import { NavLink } from "./NavLink";
 export type AuthenticationNavProps = {
   //children: React.ReactNode;
 };
@@ -15,11 +16,11 @@ export const AuthenticationNav = async ({}: AuthenticationNavProps) => {
       Sign In
     </Link>
   ) : (
-    <Link
+    <NavLink
       href="/admin"
       className="block text-center py-2 px-4 rounded-lg font-bold text-white hover:text-red-500"
     >
       Admin
-    </Link>
+    </NavLink>
   );
 };
