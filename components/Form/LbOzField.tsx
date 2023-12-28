@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
 import { Input } from "./Input";
@@ -6,10 +6,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
   function LbOzField(
     {
       name,
-      label,
       amountType: _amountType,
-      step,
-      defaultValue,
       disabled,
       onBlur,
       onChange,
@@ -23,16 +20,10 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
   ) {
     const [lbs, setLbs] = useState(Math.floor(parseFloat(value) ?? 0));
     const [ozs, setOzs] = useState(((parseFloat(value) ?? 0) % lbs) / (1 / 16));
-    //useEffect(() => {
-    //const lb = Math.floor(value ?? 0);
-    //setLbs(lb);
-    //setOzs((value ?? 0 % lb) / (1 / 16));
-    //}, [value, setLbs, setOzs, lbs]);
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name: _name, value: _v } = e.currentTarget;
       const v = parseFloat(_v);
       let newValue = value;
-      //console.log({ _name, v });
       if (_name === "lbs") {
         newValue = v + ozs / 16;
         setLbs(v);
@@ -41,7 +32,6 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
         setOzs(v);
       }
       if (onChange) {
-        //console.log({ name, newValue }, e.currentTarget);
         onChange({
           ...e,
           currentTarget: { ...e.currentTarget, name, value: newValue },
@@ -60,7 +50,6 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             type="number"
             step={1}
             name="lbs"
-            //defaultValue={lbs}
             onChange={handleChange}
             onBlur={onBlur}
             value={lbs}
@@ -77,7 +66,6 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             type="number"
             step={0.1}
             name="ozs"
-            //defaultValue={ozs}
             onChange={handleChange}
             onBlur={onBlur}
             value={ozs.toPrecision(2)}

@@ -1,25 +1,20 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ExtendedFermentableIngredient,
   ExtendedRecipe,
 } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
-import { Submit } from "@/components/Form/Submit";
 import React, { FC } from "react";
 import {
   Fermentable,
-  FermentableIngredient,
   FermentableIngredientUsage,
   MassUnit,
-  TimeUnit,
   UserMassPreference,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
-//import { fermentableIngredientSchema } from "@/app/recipes/actions";
 import * as z from "zod";
 import { zfd } from "zod-form-data";
 import { Toolbar } from "@/components/Toolbar";
@@ -78,12 +73,8 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
   const {
     register,
     getValues,
-    control,
-    trigger,
     formState: { errors },
-    handleSubmit,
     setError,
-    reset,
     setValue,
   } = useForm<Schema>({
     defaultValues: (src
@@ -95,10 +86,6 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           color: src?.fermentable?.color,
         }
       : { recipeId: recipe?.id, amountType: massUnit }) as any,
-
-    //resolver: zodResolver(fermentableIngredientSchema, {
-
-    //}),
   });
   const onSubmit = async (data: FormData) => {
     const res = (await action(data)) as any;

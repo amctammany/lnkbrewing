@@ -1,7 +1,6 @@
-import { ComponentProps, useState, SyntheticEvent, forwardRef } from "react";
+import { forwardRef } from "react";
 import { Label } from "./Label";
-import { VariantProps, cva } from "class-variance-authority";
-import { SchemaFieldError } from "@/lib/validateSchema";
+import { cva } from "class-variance-authority";
 import {
   TimeUnit,
   UserMassPreference,

@@ -1,20 +1,16 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedHopIngredient, ExtendedRecipe } from "@/app/recipes/types";
 import { Form } from "@/components/Form/Form";
 import { NumberField } from "@/components/Form/NumberField";
-import { Submit } from "@/components/Form/Submit";
 import React, { FC } from "react";
 import {
   Hop,
   HopIngredient,
   HopIngredientUsage,
-  MassUnit,
-  TimeUnit,
   UserMassPreference,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 //import { hopIngredientSchema } from "@/app/recipes/actions";
 import { Toolbar } from "@/components/Toolbar";
@@ -25,7 +21,6 @@ import {
   removeHopIngredient,
   updateHopIngredient,
 } from "@/app/recipes/actions";
-import { setRequestMeta } from "next/dist/server/request-meta";
 import { AmountField } from "@/components/Form/AmountField";
 /**
 import * as z from "zod";
@@ -96,28 +91,13 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   const {
     register,
     getValues,
-    control,
-    trigger,
     setError,
     formState: { errors },
-    handleSubmit,
-    reset,
     setValue,
   } = useForm<HopIngredient>({
     defaultValues: (src || { recipeId: recipe?.id }) as any,
-    //resolver: async (data, context, options) => {
-    ////console.log({ data, context, options });
-    //const r = await zodResolver(hopIngredientSchema1)(data, context, options);
-    //return r;
-    //},
-
-    //resolver: zodResolver(hopIngredientSchema, {
-
-    //}),
   });
   const onSubmit = async (data: FormData) => {
-    //const valid = await trigger();
-    //if (!valid) return;
     const res = (await action(data)) as any;
     if (res?.errors?.length) {
       res.errors.forEach((err: any) =>
@@ -126,7 +106,6 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
       return;
     }
     closeModal();
-    //setRecipe(res);
   };
 
   const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
