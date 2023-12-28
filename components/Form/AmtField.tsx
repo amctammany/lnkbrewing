@@ -10,7 +10,11 @@ const AmountType = ({
   type: any;
 }) => {
   if (options?.length == 0) {
-    return <div className="grid pt-2 px-2 border border-black">{type}</div>;
+    return (
+      <div className="grid h-full border border-black border-l-0 uppercase text-center align-middle justify-center">
+        <span className="my-auto block text-sm px-2 font-bold">{type}</span>
+      </div>
+    );
   }
   return type ? (
     <select value={type}>
@@ -63,7 +67,9 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
           value={value}
           ref={ref}
         />
-        {children || <AmountType type={_amountType} options={options} />}
+        <div className="grid items-center align-middle justify-center">
+          {children || <AmountType type={_amountType} options={options} />}
+        </div>
       </div>
     );
   }

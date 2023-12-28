@@ -44,7 +44,11 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
-import { EquipmentProfile } from "@prisma/client";
+import {
+  EquipmentProfile,
+  TimeUnit,
+  UserVolumePreference,
+} from "@prisma/client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   createEquipmentProfile,
@@ -55,6 +59,7 @@ import {
 import { NumberKeys } from "@/lib/types";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { AmountField } from "@/components/Form/AmountField";
 
 export type EquipmentProfileFormProps = {
   src: EquipmentProfile | null;
@@ -90,7 +95,7 @@ export const EquipmentProfileForm = ({ src }: EquipmentProfileFormProps) => {
   return (
     <Section title={`Editing Equipment: ${src?.name}`}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2">
+        <div className="grid gap-1 md:gap-2 grid-cols-1 md:grid-cols-2">
           <input type="hidden" {...register("id")} />
           <div className="col-span-2">
             <TextField {...register("name")} label="Name" />
@@ -98,16 +103,56 @@ export const EquipmentProfileForm = ({ src }: EquipmentProfileFormProps) => {
           <div className="col-span-2">
             <TextField {...register("description")} label="Description" />
           </div>
-          <div className="md:col-span-2 grid gap-4 grid-cols-2 md:grid-cols-4">
-            {numberFields.map((f) => (
-              <NumberField
-                key={f}
-                //name={f}
-                label={f}
-                {...register(f)}
-                step={0.01}
-              />
-            ))}
+          <div className="col-span-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+            <AmountField
+              {...register("batchVolume")}
+              label="Batch Volume"
+              amountType={UserVolumePreference.gal}
+              step={0.01}
+            />
+            <AmountField
+              {...register("boilTime")}
+              label="Boil Time"
+              amountType={TimeUnit.min}
+              step={1}
+            />
+            <AmountField
+              {...register("boilOffRate")}
+              label="Boil Off Rate"
+              amountType="gal/hr"
+              step={0.01}
+            />
+
+            <AmountField
+              {...register("brewEfficiency")}
+              label="Brew Efficiency"
+              amountType="%"
+              step={0.01}
+            />
+            <AmountField
+              {...register("mashEfficiency")}
+              label="Mash Efficiency"
+              amountType="%"
+              step={0.01}
+            />
+            <AmountField
+              {...register("trubLoss")}
+              label="Trub Loss"
+              amountType="gal"
+              step={0.01}
+            />
+            <AmountField
+              {...register("fermenterLoss")}
+              label="Fermenter Loss"
+              amountType="gal"
+              step={0.01}
+            />
+            <AmountField
+              {...register("mashLoss")}
+              label="Mash Loss"
+              amountType="gal"
+              step={0.01}
+            />
           </div>
         </div>
         <Toolbar className="col-span-2">

@@ -2,7 +2,12 @@ import { ComponentProps, useState, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
-import { TimeUnit, UserMassPreference, YeastAmountType } from "@prisma/client";
+import {
+  TimeUnit,
+  UserMassPreference,
+  UserVolumePreference,
+  YeastAmountType,
+} from "@prisma/client";
 import clsx from "clsx";
 import { AmtField } from "./AmtField";
 import { LbOzField } from "./LbOzField";
@@ -19,7 +24,13 @@ export function getAmount(value: number | undefined, type: UserMassPreference) {
 
 export type AmountFieldProps = {
   name: string;
-  amountType?: UserMassPreference | TimeUnit | YeastAmountType;
+  amountType?:
+    | UserMassPreference
+    | TimeUnit
+    | YeastAmountType
+    | UserVolumePreference
+    | "%"
+    | "gal/hr";
   amountTypes?: any;
   options?: any;
   label?: string;
