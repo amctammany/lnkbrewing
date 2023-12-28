@@ -13,7 +13,7 @@
     "test:watch": "vitest",
     "icons": "pnpm dlx @svgr/cli -d components/Icon/svgr assets/svg --typescript --icon",
     "precommit": "pnpm lint && pnpm build",
-    "postinstall": "prisma generate && prisma db push",
+    "postinstall": "prisma generate && prisma db push --accept-data-loss",
     "db:generate": "prisma generate ",
     "db:seed": "prisma db seed",
     "storybook": "storybook dev -p 6006",
