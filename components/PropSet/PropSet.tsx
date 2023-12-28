@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { ComponentProps } from "react";
 
 export type PropSetProps = {
-  label?: string;
+  label?: string | React.ReactNode;
   value?: string | number | null;
 } & VariantProps<typeof propSetStyle> &
   ComponentProps<"fieldset">;

@@ -3,6 +3,7 @@ import { Section } from "@/components/Section/Section";
 import { WaterProfileSectionActions } from "./WaterProfileSectionActions";
 import { PropSet } from "@/components/PropSet/PropSet";
 import { ExtendedRecipe } from "@/app/recipes/types";
+import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 
 interface WaterProfileSectionProps {
   recipe?: ExtendedRecipe | null;
@@ -14,27 +15,27 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = ({
   const waterSectionProps = [
     //{ label: "Profile", value: recipe?.water?.name },
     {
-      label: "Ca2+",
+      label: <Ca2 />,
       value: recipe?.calcium,
     },
     {
-      label: "Mg2+",
+      label: <MgSo4 />,
       value: recipe?.magnesium,
     },
     {
-      label: "Na+",
+      label: <Na />,
       value: recipe?.sodium,
     },
     {
-      label: "Cl-",
+      label: <Cl />,
       value: recipe?.chloride,
     },
     {
-      label: "SO42-",
+      label: <SO4 />,
       value: recipe?.sulfate,
     },
     {
-      label: "HCO3-",
+      label: <HCO3 />,
       value: recipe?.bicarbonate,
     },
   ];
@@ -47,8 +48,8 @@ export const WaterProfileSection: FC<WaterProfileSectionProps> = ({
     >
       <PropSet label="Profile" value={recipe?.water?.name} />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-        {waterSectionProps.map((p) => (
-          <PropSet label={p.label} value={p.value} key={p.label} />
+        {waterSectionProps.map((p, i) => (
+          <PropSet label={p.label} value={p.value} key={i} />
         ))}
       </div>
     </Section>
