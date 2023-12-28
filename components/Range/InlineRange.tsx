@@ -12,7 +12,7 @@ const labelStyles = cva("uppercase underline mr-2", {
   variants: {
     variant: {
       default: [""],
-      warning: ["text-contrast-primary"],
+      warning: [""],
     },
     size: {
       default: ["text-lg"],
@@ -24,16 +24,16 @@ const labelStyles = cva("uppercase underline mr-2", {
     size: "default",
   },
 });
-const valueStyles = cva("absolute grid  text-center text-sm mt-5", {
+const valueStyles = cva("absolute grid ml-1 text-center text-xs mt-2", {
   variants: {
     type: {
-      above: [" text-right"],
-      below: ["text-left"],
-      default: ["text-center"],
+      above: [" text-ight"],
+      below: ["textleft"],
+      default: ["tet-center"],
     },
     variant: {
       default: [""],
-      warning: ["bg-warning-300"],
+      warning: [""],
     },
     size: {
       default: [""],
@@ -46,19 +46,37 @@ const valueStyles = cva("absolute grid  text-center text-sm mt-5", {
     size: "default",
   },
 });
-
+const rangeStyles = cva(
+  "absolute top-0 bottom-0 block h-full border-l-2 border-black border-r-2 mx-3",
+  {
+    variants: {
+      variant: {
+        default: ["bg-purple-300"],
+        warning: ["bg-warning-300"],
+      },
+      size: {
+        default: [""],
+        small: ["text-sm"],
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 const rangeValueStyles = cva(
-  "absolute top-0 bottom-0 text-center block h-full bg-purple-300 border-l-2 border-black border-r-2",
+  "absolute top-0 bottom-0 tet-center block h-full bg-purple-300 border-l-2 border-black border-r-2",
   {
     variants: {
       type: {
         above: ["left-"],
         below: [""],
-        default: ["text-center"],
+        default: ["text-cener"],
       },
       variant: {
         default: [""],
-        warning: ["bg-warning-300"],
+        warning: [""],
       },
       size: {
         default: [""],
@@ -73,11 +91,11 @@ const rangeValueStyles = cva(
   }
 );
 
-const inlineRangeStyles = cva("flex px-2", {
+const inlineRangeStyles = cva("flex px-4 py-1 border border-black", {
   variants: {
     variant: {
       default: [""],
-      warning: ["bg-warning-300"],
+      warning: [""],
     },
     size: {
       default: [""],
@@ -129,19 +147,14 @@ export function InlineRange({
             left: `${valLeft}%`,
           }}
           className={rangeValueStyles({ variant, size, type })}
-        ></div>
-        <div
-          style={{
-            zIndex: 1,
-            left: `${valLeft - 0}%`,
-          }}
-          className={valueStyles({ variant, size, type })}
         >
-          {value?.toPrecision(precision ?? 2)}
+          <span className={valueStyles({ variant, size, type })}>
+            {value?.toPrecision(precision ?? 2)}
+          </span>
         </div>
         <div
           style={{ width: `${width}%`, left: `${left}%` }}
-          className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2 mx-3"
+          className={rangeStyles({ variant, size })}
         >
           <div className="absolute flex w-full my-3 h-full">
             <div className="absolute block -top-1/2 left-0 w-full ">
