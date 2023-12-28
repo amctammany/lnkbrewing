@@ -8,7 +8,7 @@ export type InlineRangeProps = {
   value?: number | null;
   className?: string;
 } & VariantProps<typeof inlineRangeStyles>;
-const labelStyles = cva("uppercase underline mr-2", {
+const labelStyles = cva("uppercase underline mr-2 w-6", {
   variants: {
     variant: {
       default: [""],
@@ -24,34 +24,38 @@ const labelStyles = cva("uppercase underline mr-2", {
     size: "default",
   },
 });
-const valueStyles = cva("absolute grid ml-1 text-center text-xs mt-2", {
-  variants: {
-    type: {
-      above: [" text-ight"],
-      below: ["textleft"],
-      default: ["tet-center"],
+const valueStyles = cva(
+  "flex flex-row-reverse pr-1 -ml-2 text-center text-xs mt-2",
+  {
+    variants: {
+      type: {
+        above: ["text-right"],
+        below: ["text-left"],
+        default: ["text-center"],
+      },
+      variant: {
+        default: [""],
+        warning: [""],
+      },
+      size: {
+        default: [""],
+        small: ["text-sm"],
+      },
     },
-    variant: {
-      default: [""],
-      warning: [""],
+    defaultVariants: {
+      type: "default",
+      variant: "default",
+      size: "default",
     },
-    size: {
-      default: [""],
-      small: ["text-sm"],
-    },
-  },
-  defaultVariants: {
-    type: "default",
-    variant: "default",
-    size: "default",
-  },
-});
+  }
+);
 const rangeStyles = cva(
   "absolute top-0 bottom-0 block h-full border-l-2 border-black border-r-2 mx-3",
   {
     variants: {
       variant: {
-        default: ["bg-purple-300"],
+        default: ["bg-primary-300"],
+        secondary: ["bg-secondary-300"],
         warning: ["bg-warning-300"],
       },
       size: {
@@ -91,7 +95,7 @@ const rangeValueStyles = cva(
   }
 );
 
-const inlineRangeStyles = cva("flex px-4 py-1 border border-black", {
+const inlineRangeStyles = cva("flex px-4 py-1 mb-1", {
   variants: {
     variant: {
       default: [""],
@@ -128,7 +132,11 @@ export function InlineRange({
   const width = (100 * (range[1]! - range[0]!)) / scaleX;
   const left = (100 * (range[0]! - sMin)) / scaleX;
   const valLeft =
-    value < range[0]! ? 0 : value > range[1]! ? 100 : (100 * value) / scaleX;
+    value < range[0]!
+      ? 0
+      : value > range[1]!
+      ? 100
+      : (100 * (value - sMin)) / scaleX;
   const type =
     value < range[0]!
       ? RangeType.Below

@@ -3,6 +3,7 @@ import { Range } from "@/components/Range";
 import React, { FC } from "react";
 import { ExtendedRecipe } from "../../types";
 import { RecipeVitalType } from "../../actions";
+import { InlineRange } from "@/components/Range/InlineRange";
 
 interface RecipeVitalsProps {
   src?: ExtendedRecipe | null;
@@ -86,41 +87,21 @@ export const RecipeVitals: FC<RecipeVitalsProps> = ({ src }) => {
     src || ({ og: 0, fg: 0, srm: 0, ibu: 0, abv: 0 } as RecipeVitalType);
   return (
     <Section header="Vitals">
-      <Range
+      <InlineRange
+        precision={4}
         label="OG"
-        min={1.0}
-        max={1.2}
         range={[ogLow, ogHigh]}
         value={og}
       />
-      <Range
+      <InlineRange
+        precision={4}
         label="FG"
-        min={1.0}
-        max={1.02}
         range={[fgLow, fgHigh]}
         value={fg}
       />
-      <Range
-        label="IBU"
-        min={0}
-        max={200}
-        range={[ibuLow, ibuHigh]}
-        value={ibu}
-      />
-      <Range
-        label="SRM"
-        min={0}
-        max={80}
-        range={[srmLow, srmHigh]}
-        value={srm}
-      />
-      <Range
-        label="ABV"
-        min={0}
-        max={15}
-        range={[abvLow, abvHigh]}
-        value={abv}
-      />
+      <InlineRange label="IBU" range={[ibuLow, ibuHigh]} value={ibu} />
+      <InlineRange label="SRM" range={[srmLow, srmHigh]} value={srm} />
+      <InlineRange label="ABV" range={[abvLow, abvHigh]} value={abv} />
     </Section>
   );
 };
