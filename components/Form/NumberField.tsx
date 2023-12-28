@@ -16,7 +16,7 @@ export type NumberFieldProps = {
   ref: any;
 } & VariantProps<typeof numberFieldStyles> &
   ComponentProps<"input">;
-const numberFieldStyles = cva("input", {
+const numberFieldStyles = cva("input w-full", {
   variants: {
     variant: {
       default: [
@@ -29,7 +29,8 @@ const numberFieldStyles = cva("input", {
       error: ["bg-error-200"],
     },
     size: {
-      default: ["w-full"],
+      default: [""],
+      small: [""],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -54,7 +55,12 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     ref
   ) {
     return (
-      <Label className={className} label={label || name} error={error}>
+      <Label
+        className={className}
+        size={size}
+        label={label || name}
+        error={error}
+      >
         <input
           disabled={disabled || false}
           className={numberFieldStyles({

@@ -2,7 +2,7 @@ import { ComponentProps, useState, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
-import { UserMassPreference } from "@prisma/client";
+import { TimeUnit, UserMassPreference, YeastAmountType } from "@prisma/client";
 import clsx from "clsx";
 import { AmtField } from "./AmtField";
 import { LbOzField } from "./LbOzField";
@@ -19,7 +19,9 @@ export function getAmount(value: number | undefined, type: UserMassPreference) {
 
 export type AmountFieldProps = {
   name: string;
-  amountType?: UserMassPreference;
+  amountType?: UserMassPreference | TimeUnit | YeastAmountType;
+  amountTypes?: any;
+  options?: any;
   label?: string;
   defaultValue?: any;
   error?: SchemaFieldError;
@@ -55,7 +57,8 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
     {
       name,
       label,
-      amountType: _amountType,
+      amountType,
+      options,
       step,
       defaultValue,
       disabled,
@@ -66,12 +69,15 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
       size,
       error,
       className,
+      children,
     }: AmountFieldProps,
     ref
   ) {
-    const amountType = _amountType ?? UserMassPreference.g;
     //const translatedValue = getAmount(value, amountType);
     const Comp = amountType === "LbOz" ? LbOzField : AmtField;
+    const opts = Array.isArray(options)
+      ? options
+      : Object.entries(options || {});
     return (
       <Label
         className={clsx("", className)}
@@ -84,6 +90,8 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
             variant: error ? "error" : variant,
             size,
           })}
+          amountType={amountType}
+          options={opts}
           //type="number"
           step={step || 1}
           name={name}
@@ -92,7 +100,9 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
           onBlur={onBlur}
           value={value}
           ref={ref}
-        />
+        >
+          {children}
+        </Comp>
       </Label>
     );
   }

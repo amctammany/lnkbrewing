@@ -25,7 +25,7 @@ export type SelectProps = {
   ref: any;
 } & VariantProps<typeof selectStyles> &
   ComponentProps<"select">;
-const selectStyles = cva("input", {
+const selectStyles = cva("input w-full", {
   variants: {
     variant: {
       default: [
@@ -38,7 +38,8 @@ const selectStyles = cva("input", {
       ],
     },
     size: {
-      default: ["w-full"],
+      default: [""],
+      small: [""],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -74,6 +75,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <Label
         className={className}
         error={error}
+        size={size}
         label={label === undefined ? name : label}
       >
         <select

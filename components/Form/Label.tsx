@@ -9,14 +9,15 @@ export type LabelProps = {
   label?: string;
 } & VariantProps<typeof labelStyles> &
   ComponentProps<"label">;
-const labelStyles = cva(["block p-1"], {
+const labelStyles = cva(["block "], {
   variants: {
     variant: {
       default: ["m-0"],
       error: ["border-warning-500 border-2"],
     },
     size: {
-      default: ["mx-0 mb-2"],
+      default: ["mx-0 mb-2", "p-2"],
+      small: ["p-0"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -29,6 +30,7 @@ const labelLabelStyles = cva(["block capitalize"], {
     },
     size: {
       default: ["h-6"],
+      small: ["h-4"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -41,6 +43,7 @@ const errorStyles = cva(["capitalize text-warning-400"], {
     },
     size: {
       default: [""],
+      small: [""],
     },
   },
   defaultVariants: { size: "default", variant: "default" },

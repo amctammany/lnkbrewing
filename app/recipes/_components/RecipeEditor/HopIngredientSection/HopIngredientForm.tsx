@@ -165,16 +165,11 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
             handleChange={handleChange}
           />
         </div>
-        <input
-          type="hidden"
-          {...register("amountType", {
-            value: massUnit ?? MassUnit.LbOz,
-          })}
-        />
         <AmountField
           amountType={massUnit}
           {...register("amount", { valueAsNumber: true })}
-          value={src?.amount}
+          //options={MassUnit}
+          //value={src?.amount}
           error={errors?.amount}
         />
         <div>
@@ -185,24 +180,12 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           />
         </div>
 
-        <div className="flex">
-          <div className="flex-grow">
-            <NumberField
-              error={errors?.duration}
-              {...register("duration", { valueAsNumber: true })}
-              name="duration"
-              label="Time"
-            />
-          </div>
-          <div className="flex-shrink-0">
-            <Select
-              {...register("durationType")}
-              error={errors?.durationType}
-              label=""
-              options={TimeUnit}
-            />
-          </div>
-        </div>
+        <AmountField
+          error={errors?.duration}
+          amountType={src?.durationType}
+          //options={TimeUnit}
+          {...register("duration", { valueAsNumber: true })}
+        />
         <div>
           <Select
             {...register("usage")}

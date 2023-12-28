@@ -27,6 +27,7 @@ import {
   removeYeastIngredient,
   updateYeastIngredient,
 } from "@/app/recipes/actions";
+import { AmountField } from "@/components/Form/AmountField";
 //const yeastIngredientSchema = zfd.formData({
 //id: zfd.numeric(z.number().optional()),
 //recipeId: zfd.numeric(z.number()),
@@ -138,23 +139,20 @@ export const YeastIngredientForm: FC<YeastIngredientFormProps> = ({
             handleChange={autoChange}
           />
         </div>
-        <div className="flex">
-          <div className="flex-grow">
-            <NumberField
-              {...register("amount", { valueAsNumber: true })}
-              error={errors?.amount}
-              label="Amount"
-            />
-          </div>
-          <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              error={errors?.amountType}
-              label=""
-              options={YeastAmountType}
-            />
-          </div>
-        </div>
+        <AmountField
+          {...register("amount", { valueAsNumber: true })}
+          error={errors?.amount}
+          options={YeastAmountType}
+          label="Amount"
+        >
+          <select {...register("amountType")}>
+            {Object.entries(YeastAmountType).map(([k, v]) => (
+              <option key={k} value={v}>
+                {k}
+              </option>
+            ))}
+          </select>
+        </AmountField>
         <div>
           <NumberField
             {...register("attenuation")}
