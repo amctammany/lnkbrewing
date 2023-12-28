@@ -22,6 +22,7 @@ export const iconStyles = cva("", {
     },
     size: {
       default: ["w-6 h-6 p-0"],
+      medium: ["w-5 h-5 p-0"],
       small: ["w-4 h-4 p-0"],
     },
   },
