@@ -2,20 +2,9 @@ import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
-import { Input, inputStyles } from "./Input";
+import { Input, InputProps, inputStyles } from "./Input";
 
-export type TextFieldProps = {
-  name: string;
-  label?: string;
-  defaultValue?: any;
-  disabled?: boolean;
-  error?: SchemaFieldError;
-  onChange?: (e: SyntheticEvent) => void;
-  onBlur?: (e: SyntheticEvent) => void;
-  value?: any;
-  ref: any;
-} & VariantProps<typeof textFieldStyles> &
-  ComponentProps<"input">;
+export type TextFieldProps = InputProps;
 const textFieldStyles = cva(
   "disabled:bg-slate-50 disabled:shadow-none disabled:text-slate-500 disabled:border-slate-200",
   {
