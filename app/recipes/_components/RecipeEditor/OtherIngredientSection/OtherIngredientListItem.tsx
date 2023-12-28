@@ -22,7 +22,12 @@ export const OtherIngredientListItem = ({
         <RemoveButton id={other.id} action={removeRecipeOtherIngredient} />
       }
     >
-      <ListItemIcon>{other.usage}</ListItemIcon>
+      <ListItemIcon>
+        <div className="text-lg ">
+          {other.duration} {other.durationType}
+        </div>
+        <div className="text-sm ">{other.usage}</div>
+      </ListItemIcon>
       <ListItemText
         className="flex-grow"
         primary={other.otherIngredient.name}
