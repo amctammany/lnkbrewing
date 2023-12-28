@@ -153,6 +153,7 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
           <AmountField
             amountType={src?.amountType}
             {...register("amount", { valueAsNumber: true })}
+            value={getValues("amount")}
             error={errors?.amount}
             label="Amount"
           />
