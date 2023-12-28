@@ -24,37 +24,34 @@ const labelStyles = cva("uppercase underline mr-2 w-6", {
     size: "default",
   },
 });
-const valueStyles = cva(
-  "flex flex-row-reverse pr-1 -ml-2 text-center text-xs mt-2",
-  {
-    variants: {
-      type: {
-        above: ["text-right"],
-        below: ["text-left"],
-        default: ["text-center"],
-      },
-      variant: {
-        default: [""],
-        warning: [""],
-      },
-      size: {
-        default: [""],
-        small: ["text-sm"],
-      },
+const valueStyles = cva("flex pr-1 text-center text-xs mt-2", {
+  variants: {
+    type: {
+      above: ["flex-row-reverse  -ml-2"],
+      below: ["flex-row ml-1"],
+      default: ["flex-row ml-1"],
     },
-    defaultVariants: {
-      type: "default",
-      variant: "default",
-      size: "default",
+    variant: {
+      default: [""],
+      warning: [""],
     },
-  }
-);
+    size: {
+      default: [""],
+      small: ["text-sm"],
+    },
+  },
+  defaultVariants: {
+    type: "default",
+    variant: "default",
+    size: "default",
+  },
+});
 const rangeStyles = cva(
   "absolute top-0 bottom-0 block h-full border-l-2 border-black border-r-2 mx-3",
   {
     variants: {
       variant: {
-        default: ["bg-primary-300"],
+        default: ["bg-blue-300"],
         secondary: ["bg-secondary-300"],
         warning: ["bg-warning-300"],
       },
@@ -133,9 +130,9 @@ export function InlineRange({
   const left = (100 * (range[0]! - sMin)) / scaleX;
   const valLeft =
     value < range[0]!
-      ? 0
+      ? 5
       : value > range[1]!
-      ? 100
+      ? 95
       : (100 * (value - sMin)) / scaleX;
   const type =
     value < range[0]!
