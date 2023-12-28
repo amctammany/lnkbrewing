@@ -29,7 +29,7 @@ export const HopIngredientListItem = ({ hop }: HopIngredientListItemProps) => {
       </ListItemIcon>
       <ListItemText
         className="flex-grow"
-        primary={hop.hop.name}
+        primary={`${hop.hop.name} - ${hop.alpha}%`}
         secondary={`IBU: ${hop.alpha}`}
       />
       <ListItemText

@@ -6,6 +6,7 @@ import { RemoveButton } from "@/components/RemoveButton";
 import { ListItemText } from "@/components/List/ListItemText";
 import { useRecipe } from "../useRecipe";
 import { Amount } from "@/components/Amount";
+import { ListItemIcon } from "@/components/List/ListItemIcon";
 
 export type OtherIngredientListItemProps = {
   other: ExtendedOtherIngredient;
@@ -21,6 +22,7 @@ export const OtherIngredientListItem = ({
         <RemoveButton id={other.id} action={removeRecipeOtherIngredient} />
       }
     >
+      <ListItemIcon>{other.usage}</ListItemIcon>
       <ListItemText
         className="flex-grow"
         primary={other.otherIngredient.name}

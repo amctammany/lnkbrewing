@@ -28,7 +28,6 @@ export const FermentableIngredientListItem = ({
     >
       <ListItemIcon>
         <div className="text-lg ">{fermentable.usage}</div>
-        <div className="text-xs">{fermentable.usage}</div>
       </ListItemIcon>
       <ListItemText
         className="flex-grow"
