@@ -23,6 +23,7 @@ import {
   removeRecipeOtherIngredient,
   updateRecipeOtherIngredient,
 } from "@/app/recipes/actions";
+import { AmountField } from "@/components/Form/AmountField";
 interface OtherIngredientFormProps {
   recipe?: ExtendedRecipe | null;
   other?: ExtendedOtherIngredient | null;
@@ -117,21 +118,19 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
           />
         </div>
         <div className="flex">
-          <div className="flex-grow">
-            <NumberField
-              {...register("amount", { valueAsNumber: true })}
-              error={errors?.amount}
-              label="Amount"
-            />
-          </div>
-          <div className="flex-shrink-0">
-            <Select
-              {...register("amountType")}
-              error={errors?.amountType}
-              label=""
-              options={MassUnit}
-            />
-          </div>
+          <AmountField
+            {...register("amount", { valueAsNumber: true })}
+            error={errors?.amount}
+            label="Amount"
+          >
+            <select {...register("amountType")}>
+              {Object.entries(MassUnit || {}).map(([k, v]) => (
+                <option key={k} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </AmountField>
         </div>
       </div>
       <Toolbar className="col-span-2">
