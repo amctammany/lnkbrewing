@@ -7,6 +7,7 @@ import {
   Hop,
   HopIngredient,
   HopIngredientUsage,
+  TimeUnit,
   UserMassPreference,
 } from "@prisma/client";
 import { Select } from "@/components/Form/Select";
@@ -163,8 +164,9 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
 
         <AmountField
           error={errors?.duration}
-          amountType={src?.durationType}
-          //options={TimeUnit}
+          //amountType={src?.durationType}
+          amountTypes={TimeUnit}
+          amountTypeProps={register("durationType")}
           {...register("duration", { valueAsNumber: true })}
         />
         <div>

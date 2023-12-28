@@ -119,20 +119,22 @@ export const OtherIngredientForm: FC<OtherIngredientFormProps> = ({
             handleChange={autoChange}
           />
         </div>
+        <AmountField
+          {...register("duration", { valueAsNumber: true })}
+          error={errors?.duration}
+          amountTypes={TimeUnit}
+          amountTypeProps={register("durationType")}
+          label="Duration"
+        />
+
         <div className="flex">
           <AmountField
             {...register("amount", { valueAsNumber: true })}
             error={errors?.amount}
+            amountTypes={MassUnit}
+            amountTypeProps={register("amountType")}
             label="Amount"
-          >
-            <select {...register("amountType")}>
-              {Object.entries(MassUnit || {}).map(([k, v]) => (
-                <option key={k} value={v}>
-                  {v}
-                </option>
-              ))}
-            </select>
-          </AmountField>
+          />
         </div>
       </div>
       <Toolbar className="col-span-2">

@@ -307,6 +307,8 @@ model RecipeOtherIngredient {
   recipe            Recipe          @relation(fields: [recipeId], references: [id])
   amount            Float
   amountType        MassUnit
+  duration          Float
+  durationType      TimeUnit
   otherIngredient   OtherIngredient @relation(fields: [otherIngredientId], references: [id])
   usage             IngredientUsage
   otherIngredientId Int

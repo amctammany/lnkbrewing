@@ -199,6 +199,9 @@ const otherIngredientSchema = zfd.formData({
   otherIngredientId: zfd.numeric(z.number()),
   amount: zfd.numeric(z.number().min(0)),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.g),
+  duration: zfd.numeric(z.number().min(0)),
+  durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
+
   usage: z.nativeEnum(IngredientUsage).default(IngredientUsage.Boil),
 });
 export async function addRecipeOtherIngredientToRecipe(formData: FormData) {

@@ -1,34 +1,43 @@
-import { forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
-import { inputStyles } from "./Input";
+import { InputProps, inputStyles } from "./Input";
 
-const AmountType = ({
-  type,
-  options,
-}: {
+export type AmountTypeProps = ComponentProps<"select"> & {
   options?: [k: string, v: any][];
-  type: any;
-}) => {
-  if (options?.length == 0) {
-    return (
+  type?: any;
+  name?: string;
+};
+export const AmountType = forwardRef<HTMLSelectElement, AmountTypeProps>(
+  function AmountType({ type, options, ...props }: AmountTypeProps, ref) {
+    console.log(props, type, options);
+    return options?.length! > 0 ? (
+      <select ref={ref} {...props} onSelect={props.onChange}>
+        {options?.map(([k, v]) => (
+          <option key={k} value={v}>
+            {k}
+          </option>
+        ))}
+      </select>
+    ) : (
       <div className="grid h-full border border-black border-l-0 text-center align-middle justify-center">
         <span className="my-auto block text-sm px-2 font-bold">{type}</span>
       </div>
     );
   }
-  return type ? (
-    <select value={type}>
-      {options?.map(([k, v]) => (
+);
+function makeOptions(obj?: Record<string, string>) {
+  return (
+    <select>
+      {Object.entries(obj || {}).map(([k, v]) => (
         <option key={k} value={v}>
           {k}
         </option>
       ))}
     </select>
-  ) : (
-    <div className="grid pt-2 px-2 border border-black">{type}</div>
   );
-};
+}
+
 export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
   function AmtField(
     {
@@ -48,9 +57,17 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
       error,
       className,
       children,
+      amountTypeProps,
     }: AmountFieldProps,
     ref
   ) {
+    const body = children || (
+      <AmountType
+        {...amountTypeProps}
+        value={_amountType}
+        options={Object.entries(amountTypes || {})}
+      />
+    );
     return (
       <div className={clsx("flex", className)}>
         <input
@@ -67,9 +84,10 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
           onBlur={onBlur}
           value={value}
           ref={ref}
+          //{...amountTypeProps}
         />
         <div className="grid items-center align-middle justify-center">
-          {children || <AmountType type={_amountType} options={options} />}
+          {body}
         </div>
       </div>
     );

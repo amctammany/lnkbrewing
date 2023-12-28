@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import { Label } from "./Label";
 import { cva } from "class-variance-authority";
 import {
@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { AmtField } from "./AmtField";
 import { LbOzField } from "./LbOzField";
 import { InputProps } from "./Input";
+import { UseFormRegisterReturn } from "react-hook-form";
 const massFactors: Record<UserMassPreference, number> = {
   Kg: 1,
   g: 1000,
@@ -31,7 +32,8 @@ export type AmountFieldProps = {
     | "%"
     | "ppm"
     | "gal/hr";
-  amountTypes?: any;
+  amountTypes?: Record<string, string>;
+  amountTypeProps?: UseFormRegisterReturn;
   options?: any;
   step?: number;
 } & InputProps;
@@ -71,6 +73,8 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
       size,
       error,
       className,
+      amountTypes,
+      amountTypeProps,
       children,
     }: AmountFieldProps,
     ref
@@ -93,7 +97,9 @@ export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
             size,
           })}
           amountType={amountType}
-          options={opts}
+          amountTypes={amountTypes}
+          amountTypeProps={amountTypeProps}
+          //options={opts}
           //type="number"
           step={step || 1}
           name={name}
