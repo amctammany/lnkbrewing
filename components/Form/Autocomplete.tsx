@@ -93,7 +93,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
     );
     const [displayOptions, setDisplayOptions] = useState(false);
-    const [hidden, setHidden] = useState(value || defaultValue);
+    const [hidden, setHidden] = useState(value ?? defaultValue);
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [activeOption, setActiveOption] = useState(-1);
     const handleChangeListener: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -117,6 +117,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       e.preventDefault();
     };
     const changeValue = (val?: number) => {
+      if (val === undefined) return;
       setHidden(val);
       if (handleChange) handleChange(val);
     };
