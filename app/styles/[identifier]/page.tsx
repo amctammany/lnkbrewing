@@ -1,9 +1,5 @@
-import { ButtonLink } from "@/components/Button";
-import { Section } from "@/components/Section";
-import { prisma } from "@/lib/client";
-import { Style } from "@prisma/client";
-import Link from "next/link";
 import { StyleDisplay } from "../_components/StyleDisplay";
+import { getStyle } from "../queries";
 type StyleDisplayPageProps = {
   params: {
     identifier: string;
@@ -18,10 +14,6 @@ export function generateMetadata({ params }: StyleDisplayPageProps) {
 export default async function StyleDisplayPage({
   params: { identifier },
 }: StyleDisplayPageProps) {
-  const style = await prisma.style.findFirst({
-    where: {
-      identifier,
-    },
-  });
+  const style = await getStyle(identifier);
   return <StyleDisplay style={style} />;
 }

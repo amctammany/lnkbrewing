@@ -1,7 +1,7 @@
 import { Form, Submit, TextArea, TextField } from "@/components/Form";
-import { prisma } from "@/lib/client";
 import { update } from "../../actions";
 import { Style } from "@prisma/client";
+import { getStyle } from "../../queries";
 type StyleEditorProps = {
   params: {
     identifier: string;
@@ -28,11 +28,7 @@ const fieldNames: (keyof Style)[] = [
 export default async function StyleEditor({
   params: { identifier },
 }: StyleEditorProps) {
-  const style = await prisma.style.findFirst({
-    where: {
-      identifier,
-    },
-  });
+  const style = await getStyle(identifier);
   return (
     <div className="m-5 p-5 bg-slate-200">
       <h2 className="text-2xl">Style Editor: {style?.name}</h2>

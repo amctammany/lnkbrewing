@@ -3,6 +3,12 @@
 import { prisma } from "@/lib/client";
 import { cache } from "react";
 
+export const getStyle = cache(async (identifier: string) => {
+  const style = await prisma.style.findFirst({
+    where: { identifier },
+  });
+  return style;
+});
 export const getStyles = cache(async () => {
   const styles = await prisma.style.findMany({
     orderBy: [{ subcategoryId: "asc" }, { identifier: "asc" }],
