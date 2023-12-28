@@ -26,6 +26,8 @@ import {
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
 import { AmountField } from "@/components/Form/AmountField";
+import { IconButton } from "@/components/Button/IconButton";
+import { DeleteIcon, SaveIcon } from "@/components/Icon";
 const fermentableIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
@@ -171,8 +173,12 @@ export const FermentableIngredientForm: FC<FermentableIngredientFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2">
-        <Button onClick={handleRemove}>Remove</Button>
-        <Button type="submit">Submit</Button>
+        <IconButton Icon={DeleteIcon} onClick={handleRemove}>
+          Remove
+        </IconButton>
+        <IconButton Icon={SaveIcon} type="submit">
+          Submit
+        </IconButton>
       </Toolbar>
     </Form>
   );

@@ -14,6 +14,8 @@ import { useRecipe } from "../useRecipe";
 import { updateRecipe } from "@/app/recipes/actions";
 import { TextField } from "@/components/Form/TextField";
 import { Select } from "@/components/Form/Select";
+import { IconButton } from "@/components/Button/IconButton";
+import { SaveIcon } from "@/components/Icon";
 const styleSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   styleIdentifer: zfd.text(z.string()),
@@ -76,7 +78,9 @@ export const StyleForm: FC<StyleFormProps> = ({ recipe, massUnit, styles }) => {
         />
       </div>
       <Toolbar className="col-span-2">
-        <Button type="submit">Submit</Button>
+        <IconButton Icon={SaveIcon} type="submit">
+          Save
+        </IconButton>
       </Toolbar>
     </Form>
   );

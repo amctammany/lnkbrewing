@@ -22,6 +22,8 @@ import {
   updateHopIngredient,
 } from "@/app/recipes/actions";
 import { AmountField } from "@/components/Form/AmountField";
+import { DeleteIcon, SaveIcon } from "@/components/Icon";
+import { IconButton } from "@/components/Button/IconButton";
 /**
 import * as z from "zod";
 import { zfd } from "zod-form-data";
@@ -183,8 +185,17 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
         </div>
       </div>
       <Toolbar className="md:col-span-2">
-        <Button onClick={handleRemove}>Remove</Button>
-        <Button type="submit">Save</Button>
+        <IconButton
+          Icon={DeleteIcon}
+          iconVariant="white"
+          onClick={handleRemove}
+          variant="warning"
+        >
+          Remove
+        </IconButton>
+        <IconButton Icon={SaveIcon} type="submit" variant="success">
+          Save
+        </IconButton>
       </Toolbar>
     </Form>
   );

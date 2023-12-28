@@ -15,6 +15,8 @@ import { updateRecipe } from "@/app/recipes/actions";
 import { TextField } from "@/components/Form/TextField";
 import { Autocomplete } from "@/components/Form/Autocomplete";
 import { NumberField } from "@/components/Form/NumberField";
+import { SaveIcon } from "@/components/Icon";
+import { IconButton } from "@/components/Button/IconButton";
 const waterProfileSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   name: zfd.text(z.string()),
@@ -128,7 +130,9 @@ export const WaterProfileForm: FC<WaterProfileFormProps> = ({
         />
 
         <Toolbar className="col-span-2 md:col-span-2">
-          <Button type="submit">Save</Button>
+          <IconButton Icon={SaveIcon} type="submit">
+            Save
+          </IconButton>
         </Toolbar>
       </div>
     </Form>

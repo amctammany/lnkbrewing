@@ -6,6 +6,8 @@ import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { AmountField } from "@/components/Form/AmountField";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
+import { IconButton } from "@/components/Button/IconButton";
+import { SaveIcon } from "@/components/Icon";
 type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
@@ -69,7 +71,9 @@ export const WaterProfileForm = ({ src }: WaterProfileFormProps) => {
           </div>
         </div>
         <Toolbar>
-          <Submit>Save</Submit>
+          <IconButton Icon={SaveIcon} type="submit">
+            Save
+          </IconButton>
         </Toolbar>
       </Form>
     </Section>

@@ -18,6 +18,7 @@ export const iconStyles = cva("", {
   variants: {
     variant: {
       default: [""],
+      white: ["text-white"],
     },
     size: {
       default: ["w-6 h-6 p-0"],

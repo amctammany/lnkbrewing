@@ -13,6 +13,8 @@ import { Button } from "@/components/Button";
 import { useRecipe } from "../useRecipe";
 import { updateRecipe } from "@/app/recipes/actions";
 import { TextField } from "@/components";
+import { IconButton } from "@/components/Button/IconButton";
+import { SaveIcon } from "@/components/Icon";
 const generalSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   name: zfd.text(z.string()),
@@ -70,7 +72,9 @@ export const GeneralForm: FC<GeneralFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2">
-        <Button type="submit">Submit</Button>
+        <IconButton Icon={SaveIcon} type="submit">
+          Save
+        </IconButton>
       </Toolbar>
     </Form>
   );

@@ -15,6 +15,8 @@ import { updateRecipe } from "@/app/recipes/actions";
 import { TextField } from "@/components/Form/TextField";
 import { Select } from "@/components/Form/Select";
 import { NumberField } from "@/components/Form/NumberField";
+import { IconButton } from "@/components/Button/IconButton";
+import { SaveIcon } from "@/components/Icon";
 const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   equipmentProfileId: zfd.numeric(z.number()),
@@ -118,7 +120,9 @@ export const EquipmentForm: FC<EquipmentFormProps> = ({
         </div>
       </div>
       <Toolbar className="col-span-2 md:col-span-4">
-        <Button type="submit">Save</Button>
+        <IconButton Icon={SaveIcon} type="submit">
+          Save
+        </IconButton>
       </Toolbar>
     </Form>
   );

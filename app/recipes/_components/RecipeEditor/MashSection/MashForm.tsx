@@ -14,6 +14,8 @@ import { useRecipe } from "../useRecipe";
 import { updateRecipe } from "@/app/recipes/actions";
 import { TextField } from "@/components/Form/TextField";
 import { Select } from "@/components/Form/Select";
+import { IconButton } from "@/components/Button/IconButton";
+import { SaveIcon } from "@/components/Icon";
 const mashSchema = zfd.formData({
   id: zfd.numeric(z.number()),
   mashProfileId: zfd.text(z.string().optional()),
@@ -84,7 +86,9 @@ export const MashForm: FC<MashFormProps> = ({ recipe, massUnit, profiles }) => {
         />
       </div>
       <Toolbar className="col-span-2">
-        <Button type="submit">Submit</Button>
+        <IconButton Icon={SaveIcon} type="submit">
+          Submit
+        </IconButton>
       </Toolbar>
     </Form>
   );
