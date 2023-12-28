@@ -36,24 +36,41 @@ export const WaterProfileForm = ({ src }: WaterProfileFormProps) => {
           <div className="col-span-3 md:col-span-6 grid grid-cols-3 lg:grid-cols-6">
             <AmountField
               {...register("calcium")}
-              label="Ca2+"
+              label={
+                <>
+                  Ca<sup>2+</sup>
+                </>
+              }
               amountType="ppm"
             />
 
             <AmountField
               {...register("magnesium")}
-              label="Mg2+"
+              label={
+                <>
+                  MgSO<sub>4</sub>
+                </>
+              }
               amountType="ppm"
             />
             <AmountField {...register("sodium")} label="Na+" amountType="ppm" />
             <AmountField
               {...register("chloride")}
-              label="Cl-"
+              label={
+                <>
+                  Cl<sup>-</sup>
+                </>
+              }
               amountType="ppm"
             />
             <AmountField
               {...register("sulfate")}
-              label="SO42-"
+              label={
+                <>
+                  SO<sub>4</sub>
+                  <sup>2-</sup>
+                </>
+              }
               amountType="ppm"
             />
             <AmountField

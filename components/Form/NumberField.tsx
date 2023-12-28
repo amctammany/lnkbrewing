@@ -2,20 +2,21 @@ import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
+import { Input, inputStyles, InputProps } from "./Input";
 
 export type NumberFieldProps = {
-  name: string;
-  label?: string;
-  defaultValue?: any;
-  error?: SchemaFieldError;
+  //name: string;
+  //label?: string;
+  //defaultValue?: any;
+  //error?: SchemaFieldError;
   step?: number;
-  disabled?: boolean;
+  //disabled?: oolean;
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
-  value?: any;
-  ref: any;
-} & VariantProps<typeof numberFieldStyles> &
-  ComponentProps<"input">;
+  //value?: any;
+  //ref: any;
+} & InputProps;
+
 const numberFieldStyles = cva("input w-full", {
   variants: {
     variant: {
@@ -61,9 +62,9 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         label={label || name}
         error={error}
       >
-        <input
+        <Input
           disabled={disabled || false}
-          className={numberFieldStyles({
+          className={inputStyles({
             variant: error ? "error" : variant,
             size,
           })}

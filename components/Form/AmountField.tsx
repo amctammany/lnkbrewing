@@ -11,6 +11,7 @@ import {
 import clsx from "clsx";
 import { AmtField } from "./AmtField";
 import { LbOzField } from "./LbOzField";
+import { InputProps } from "./Input";
 const massFactors: Record<UserMassPreference, number> = {
   Kg: 1,
   g: 1000,
@@ -23,7 +24,6 @@ export function getAmount(value: number | undefined, type: UserMassPreference) {
 }
 
 export type AmountFieldProps = {
-  name: string;
   amountType?:
     | UserMassPreference
     | TimeUnit
@@ -34,17 +34,8 @@ export type AmountFieldProps = {
     | "gal/hr";
   amountTypes?: any;
   options?: any;
-  label?: string;
-  defaultValue?: any;
-  error?: SchemaFieldError;
   step?: number;
-  disabled?: boolean;
-  //onChange?: (e: SyntheticEvent) => void;
-  //onBlur?: (e: SyntheticEvent) => void;
-  value?: any;
-  ref: any;
-} & VariantProps<typeof amountFieldStyles> &
-  ComponentProps<"input">;
+} & InputProps;
 export const amountFieldStyles = cva("input", {
   variants: {
     variant: {

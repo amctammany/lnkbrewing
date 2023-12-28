@@ -6,7 +6,7 @@ import { ComponentProps } from "react";
 export type LabelProps = {
   children?: React.ReactNode;
   error?: SchemaFieldError;
-  label?: string;
+  label?: string | React.ReactNode;
 } & VariantProps<typeof labelStyles> &
   ComponentProps<"label">;
 const labelStyles = cva(["block "], {

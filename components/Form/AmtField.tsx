@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
+import { inputStyles } from "./Input";
 
 const AmountType = ({
   type,
@@ -54,7 +55,7 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
       <div className={clsx("flex", className)}>
         <input
           disabled={disabled || false}
-          className={amountFieldStyles({
+          className={inputStyles({
             variant: error ? "error" : variant,
             size,
           })}

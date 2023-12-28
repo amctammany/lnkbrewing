@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
+import { Input } from "./Input";
 export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
   function LbOzField(
     {
@@ -50,7 +51,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
     return (
       <div className={clsx("grid grid-cols-2 gap-3", className)}>
         <div className="flex">
-          <input
+          <Input
             disabled={disabled || false}
             className={amountFieldStyles({
               variant: error ? "error" : variant,
@@ -67,7 +68,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
           <div className="grid pt-2 px-2 border border-black">Lb</div>
         </div>
         <div className="flex">
-          <input
+          <Input
             disabled={disabled || false}
             className={amountFieldStyles({
               variant: error ? "error" : variant,
