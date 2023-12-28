@@ -3,7 +3,7 @@ import { RecipeDisplay } from "../_components";
 import { getExtendedRecipe } from "../queries";
 type RecipeDisplayProps = {
   params: {
-    id: number;
+    id: string;
   };
 };
 
@@ -16,6 +16,6 @@ export function generateMetadata({ params }: RecipeDisplayProps) {
 export default async function RecipeDisplayPage({
   params: { id },
 }: RecipeDisplayProps) {
-  const recipe = await getExtendedRecipe({ id });
+  const recipe = await getExtendedRecipe({ id: parseInt(id) });
   return <RecipeDisplay recipe={recipe} />;
 }
