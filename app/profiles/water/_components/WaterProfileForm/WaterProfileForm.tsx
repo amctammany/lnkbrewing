@@ -5,6 +5,7 @@ import { createWaterProfile, updateWaterProfile } from "@/app/profiles/actions";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { AmountField } from "@/components/Form/AmountField";
+import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
@@ -36,46 +37,33 @@ export const WaterProfileForm = ({ src }: WaterProfileFormProps) => {
           <div className="col-span-3 md:col-span-6 grid grid-cols-3 lg:grid-cols-6">
             <AmountField
               {...register("calcium")}
-              label={
-                <>
-                  Ca<sup>2+</sup>
-                </>
-              }
+              label={<Ca2 />}
               amountType="ppm"
             />
 
             <AmountField
               {...register("magnesium")}
-              label={
-                <>
-                  MgSO<sub>4</sub>
-                </>
-              }
+              label={<MgSo4 />}
               amountType="ppm"
             />
-            <AmountField {...register("sodium")} label="Na+" amountType="ppm" />
+            <AmountField
+              {...register("sodium")}
+              label={<Na />}
+              amountType="ppm"
+            />
             <AmountField
               {...register("chloride")}
-              label={
-                <>
-                  Cl<sup>-</sup>
-                </>
-              }
+              label={<Cl />}
               amountType="ppm"
             />
             <AmountField
               {...register("sulfate")}
-              label={
-                <>
-                  SO<sub>4</sub>
-                  <sup>2-</sup>
-                </>
-              }
+              label={<SO4 />}
               amountType="ppm"
             />
             <AmountField
               {...register("bicarbonate")}
-              label="HCO3-"
+              label={<HCO3 />}
               amountType="ppm"
             />
           </div>
