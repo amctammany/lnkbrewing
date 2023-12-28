@@ -30,6 +30,7 @@ export type AmountFieldProps = {
     | YeastAmountType
     | UserVolumePreference
     | "%"
+    | "ppm"
     | "gal/hr";
   amountTypes?: any;
   options?: any;

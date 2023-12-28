@@ -11,7 +11,7 @@ const AmountType = ({
 }) => {
   if (options?.length == 0) {
     return (
-      <div className="grid h-full border border-black border-l-0 uppercase text-center align-middle justify-center">
+      <div className="grid h-full border border-black border-l-0 text-center align-middle justify-center">
         <span className="my-auto block text-sm px-2 font-bold">{type}</span>
       </div>
     );

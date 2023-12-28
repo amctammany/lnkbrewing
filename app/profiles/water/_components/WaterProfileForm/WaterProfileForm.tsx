@@ -1,15 +1,10 @@
 "use client";
-import {
-  Form,
-  NumberField,
-  Submit,
-  TextArea,
-  TextField,
-} from "@/components/Form";
+import { Form, Submit, TextArea, TextField } from "@/components/Form";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { createWaterProfile, updateWaterProfile } from "@/app/profiles/actions";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { AmountField } from "@/components/Form/AmountField";
 type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
@@ -38,24 +33,34 @@ export const WaterProfileForm = ({ src }: WaterProfileFormProps) => {
           <div className="col-span-3 md:col-span-6">
             <TextField {...register("description")} label="Description" />
           </div>
-          <div className="">
-            <NumberField {...register("calcium")} label="Ca2+" />
-          </div>
+          <div className="col-span-3 md:col-span-6 grid grid-cols-3 lg:grid-cols-6">
+            <AmountField
+              {...register("calcium")}
+              label="Ca2+"
+              amountType="ppm"
+            />
 
-          <div className="">
-            <NumberField {...register("magnesium")} label="Mg2+" />
-          </div>
-          <div className="">
-            <NumberField {...register("sodium")} label="Na+" />
-          </div>
-          <div className="">
-            <NumberField {...register("chloride")} label="Cl-" />
-          </div>
-          <div className="">
-            <NumberField {...register("sulfate")} label="SO42-" />
-          </div>
-          <div className="">
-            <NumberField {...register("bicarbonate")} label="HCO3-" />
+            <AmountField
+              {...register("magnesium")}
+              label="Mg2+"
+              amountType="ppm"
+            />
+            <AmountField {...register("sodium")} label="Na+" amountType="ppm" />
+            <AmountField
+              {...register("chloride")}
+              label="Cl-"
+              amountType="ppm"
+            />
+            <AmountField
+              {...register("sulfate")}
+              label="SO42-"
+              amountType="ppm"
+            />
+            <AmountField
+              {...register("bicarbonate")}
+              label="HCO3-"
+              amountType="ppm"
+            />
           </div>
         </div>
         <Toolbar>
