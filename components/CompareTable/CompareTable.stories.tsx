@@ -26,9 +26,5 @@ export const Basic: Story = {
     //columns,
     sources: data,
     fields: [{ name: "name" }, { name: "description" }],
-    children: [
-      <NumberField key="name" name="name" />,
-      <NumberField key="description" name="description" />,
-    ],
   },
 };
