@@ -11,12 +11,15 @@ export default async function HopsComparison({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const ids = searchParams?.hops;
+  const ids = searchParams?.hopId;
+
   const hopIds = Array.isArray(ids)
     ? ids.map((id) => parseInt(id))
     : ids
     ? [parseInt(ids)]
     : [];
+  console.log(hopIds);
   const hops = await getHops({ where: { id: { in: hopIds } } });
+
   return <HopComparison hops={hops} />;
 }

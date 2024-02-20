@@ -6,6 +6,7 @@ export type HopComparisonProps = {
 };
 
 export function HopComparison({ hops }: HopComparisonProps) {
+  console.log(hops);
   return (
     <div className="grid grid-flow-col auto-cols-auto">
       {hops.map((hop) => (

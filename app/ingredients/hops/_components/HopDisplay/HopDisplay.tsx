@@ -4,7 +4,13 @@ import { Range } from "@/components/Range";
 import { Hop, HopSensoryPanel } from "@prisma/client";
 import { EditIcon } from "@/components/Icon";
 
-const fieldNames: (keyof Hop)[] = ["name", "description", "country", "usage"];
+const fieldNames: (keyof Hop)[] = [
+  "name",
+  "id",
+  "description",
+  "country",
+  "usage",
+];
 type RangePropProps = {
   label?: string;
   low?: number | null;
