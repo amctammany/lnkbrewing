@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 
 //export type ButtonProps = {
 //onClick?: React.MouseEventHandler;
@@ -19,6 +19,7 @@ import Link from "next/link";
 import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
+import { URL } from "url";
 
 const buttonStyles = cva(
   [
@@ -98,7 +99,7 @@ export const Button = ({
 export default Button;
 export type ButtonLinkProps = ButtonProps & {
   scroll?: boolean;
-  href: string;
+  href: LinkProps["href"];
 };
 export const ButtonLink = ({ href, scroll, ...props }: ButtonLinkProps) => {
   return (

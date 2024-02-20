@@ -20,6 +20,10 @@ const columns: DataColumnProps<Hop>[] = [
 
 export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <Section header="Hops">
-    <ClientTable src={hops} columns={columns} />
+    <ClientTable
+      src={hops}
+      columns={columns}
+      selectActions={{ Compare: "/ingredients/hops/compare" }}
+    />
   </Section>
 );
