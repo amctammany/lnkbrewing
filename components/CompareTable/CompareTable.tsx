@@ -26,7 +26,7 @@ export function CompareTable<T extends { name: string }>({
         <div key={i} className={colClass}>
           <div className="uppercase border-r-4">{field.name.toString()}</div>
           {sources.map((src, j) => (
-            <div className="border-r-4 text-center" key={j}>
+            <div className="border-r-4 text-center py-2" key={j}>
               {src[field.name] as string}
             </div>
           ))}
