@@ -2,6 +2,7 @@ import { Hop } from "@prisma/client";
 import { Metadata } from "next";
 import { HopComparison } from "../_components/HopComparison";
 import { getHops } from "../queries";
+import { Section } from "@/components/Section";
 //import { Direction } from "@/components/Table";
 export const metadata: Metadata = {
   title: "LNK Hops",
@@ -18,8 +19,11 @@ export default async function HopsComparison({
     : ids
     ? [parseInt(ids)]
     : [];
-  console.log(hopIds);
   const hops = await getHops({ where: { id: { in: hopIds } } });
 
-  return <HopComparison hops={hops} />;
+  return (
+    <Section header="Hop Comparision">
+      <HopComparison hops={hops} />
+    </Section>
+  );
 }
