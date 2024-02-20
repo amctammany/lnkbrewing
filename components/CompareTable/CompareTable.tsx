@@ -18,13 +18,15 @@ export function CompareTable<T extends { name: string }>({
   );
   return (
     <div
-      className={`grid grid-flow-row gap-3 auto-cols-auto auto-rows-auto grid-cols-${
+      className={`grid grid-flow-row  auto-cols-auto auto-rows-auto grid-cols-${
         sources.length + 1
       } grid-rows-${fields.length + 1}`}
     >
       {fields?.map((field, i) => (
         <div key={i} className={colClass}>
-          <div className="uppercase border-r-4">{field.name.toString()}</div>
+          <div className="uppercase border-r-4 py-2">
+            {field.name.toString()}
+          </div>
           {sources.map((src, j) => (
             <div className="border-r-4 text-center py-2" key={j}>
               {src[field.name] as string}
