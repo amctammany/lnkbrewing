@@ -14,17 +14,23 @@ export function CompareTable<T>({
   children,
 }: CompareTableProps<T>) {
   return (
-    <div>
-      CompareTable
-      {sources.map((src, i) => (
-        <div key={i}>
-          {fields?.map((f, j) => (
-            <div key={j}>
-              {f.name.toString()} {src[f.name]?.toString()}
-            </div>
+    <div className="flex ">
+      <div className="shrink pr-4">
+        <div className="grid grid-flow-row auto-rows-max">
+          {fields?.map((f, i) => (
+            <div key={i}>{f.name.toString()}</div>
           ))}
         </div>
-      ))}
+      </div>
+      <div className="grid grid-flow-col auto-cols-auto gap-4">
+        {sources.map((src, i) => (
+          <div key={i} className="grid grid-flow-row auto-rows-max">
+            {fields?.map((f, j) => (
+              <div key={j}>{src[f.name]?.toString()}</div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
