@@ -1,2 +1,2 @@
 export * from "./CompareTable";
-export * from "./fields";
+export * from "./FieldValue";

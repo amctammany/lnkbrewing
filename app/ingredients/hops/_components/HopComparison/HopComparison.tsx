@@ -6,7 +6,15 @@ export type HopComparisonProps = {
   hops: Hop[];
 };
 
-const compFields: CompareField<Hop>[] = ["name", "country", "alpha", "beta"];
+const compFields: CompareField<Hop>[] = [
+  "name",
+  "country",
+  "characteristics",
+  "usage",
+  "alpha",
+  "beta",
+  "styles",
+];
 export function HopComparison({ hops }: HopComparisonProps) {
   return <CompareTable sources={hops} fields={compFields} />;
 }

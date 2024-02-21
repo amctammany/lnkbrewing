@@ -1,3 +1,5 @@
+import FieldValue from "./FieldValue";
+
 export type CompareField<T> =
   | keyof T
   | {
@@ -29,9 +31,7 @@ export function CompareTable<T extends { name: string }>({
             {field.name.toString()}
           </div>
           {sources.map((src, j) => (
-            <div className="border-r-4 text-center py-2" key={j}>
-              {src[field.name] as string}
-            </div>
+            <FieldValue value={src[field.name]} key={j} />
           ))}
         </div>
       ))}
