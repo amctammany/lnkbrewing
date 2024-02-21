@@ -8,6 +8,7 @@ import { Label } from "../Form/Label";
 import Button, { ButtonLink } from "../Button/Button";
 import { IconButton } from "../Button/IconButton";
 import { CloseIcon } from "../Icon";
+import { Searchbar } from "../Searchbar";
 
 export type ClientTableProps<T extends Record<string, any>> = TableProps<T> & {
   selectActions?: Record<string, string>;
@@ -53,9 +54,8 @@ export function ClientTable<T extends Record<string, any>>({
     <div className="">
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="flex p-0 bg-slate-200">
-          <input
+          <Searchbar
             className="flex-grow"
-            type="search"
             value={query}
             onChange={handleQuery}
           />
