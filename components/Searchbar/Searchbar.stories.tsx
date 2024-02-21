@@ -21,7 +21,11 @@ export const Basic: Story = {
 export const SearchButton: Story = {
   args: {
     variant: "warning",
-    children: <Button>Search</Button>,
+    children: (
+      <Button size="toolbar" className="mx-0">
+        Search
+      </Button>
+    ),
   },
 };
 export const Warning: Story = {
