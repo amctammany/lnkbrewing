@@ -5,7 +5,9 @@ import { ClientHeaderProps, ClientHeader } from "./ClientHeader";
 import { ClientRow } from "./ClientRow";
 import { RowProps, TableRowProps } from "../Table/TableRow";
 import { Label } from "../Form/Label";
-import { ButtonLink } from "../Button/Button";
+import Button, { ButtonLink } from "../Button/Button";
+import { IconButton } from "../Button/IconButton";
+import { CloseIcon } from "../Icon";
 
 export type ClientTableProps<T extends Record<string, any>> = TableProps<T> & {
   selectActions?: Record<string, string>;
@@ -38,27 +40,50 @@ export function ClientTable<T extends Record<string, any>>({
   const Row = ({ ...props }: RowProps & { data?: Record<string, any> }) => (
     <ClientRow selected={selected} setSelected={setSelected} {...props} />
   );
+  const handleUnselect: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const id = e.currentTarget.dataset.id;
+    if (id)
+      setSelected((old) => old.filter((v) => v.toString() !== id.toString()));
+  };
   const handleQuery: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
     setQuery(value);
   };
   return (
     <div className="">
-      <input type="search" value={query} onChange={handleQuery} />
-      <div className="inline-flex p-2 bg-slate-200">
-        {selected.map((id) => (
-          <div key={id} className="px-2 py-1 border-2 mx-2 bg-white">
-            {id}
+      <div className="grid lg:grid-cols-2 gap-4">
+        <div className="flex p-0 bg-slate-200">
+          <input
+            className="flex-grow"
+            type="search"
+            value={query}
+            onChange={handleQuery}
+          />
+        </div>
+        <div className="flex bg-slate-200">
+          <div className="flex-grow inline-flex p-0 ">
+            {selected.map((id) => (
+              <IconButton
+                key={id}
+                Icon={CloseIcon}
+                iconVariant="default"
+                size="default"
+                data-id={id}
+                onClick={handleUnselect}
+              >
+                {props.src.find((v) => v.id === id)?.name}
+              </IconButton>
+            ))}
           </div>
-        ))}
-        {Object.entries(selectActions || {}).map(([label, pathname]) => (
-          <ButtonLink
-            key={label}
-            href={{ pathname, query: selectedParams(selected) }}
-          >
-            {label}
-          </ButtonLink>
-        ))}
+          {Object.entries(selectActions || {}).map(([label, pathname]) => (
+            <ButtonLink
+              key={label}
+              href={{ pathname, query: selectedParams(selected) }}
+            >
+              {label}
+            </ButtonLink>
+          ))}
+        </div>
       </div>
       <Table
         {...props}
