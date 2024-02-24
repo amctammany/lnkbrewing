@@ -1,5 +1,7 @@
 export * from "./Icon";
 export * from "./AddIcon";
+export * from "./UpIcon";
+export * from "./DownIcon";
 export * from "./CloseIcon";
 export * from "./DeleteIcon";
 export * from "./SearchIcon";

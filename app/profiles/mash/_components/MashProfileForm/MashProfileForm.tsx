@@ -23,6 +23,8 @@ import { MashStepType } from "@prisma/client";
 import { Button } from "@/components/Button";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { DeleteIcon } from "@/components/Icon/DeleteIcon";
+import { IconButton } from "@/components/Button/IconButton";
+import { DownIcon, SaveIcon, UpIcon } from "@/components/Icon";
 
 type MashStepProps = {
   index: number;
@@ -43,7 +45,7 @@ const MashStep = ({
       <div className="m-auto grid  ">
         <div className="border-2 border-black rounded-lg p-2">{index}</div>
       </div>
-      <div className="flex-grow grid gap-x-2 grid-cols-6">
+      <div className="flex-grow grid gap-x-2 grid-cols-6 ">
         <div>
           <Controller
             render={({ field }) => <TextField {...field} label="Name" />}
@@ -82,24 +84,21 @@ const MashStep = ({
             control={control}
           />
         </div>
-
-        <div className="m-auto grid pt-3">
-          <Button
+        <div className="flex-shrink m-auto grid grid-flow-col pt-0">
+          <IconButton
             className={`${index > 0 ? "block" : "hidden"}`}
             data-index={index}
             data-direction={-1}
             onClick={handleSwap}
-          >
-            Up
-          </Button>
-          <Button
+            Icon={UpIcon}
+          />
+          <IconButton
             className={`${index < max ? "block" : "hidden"}`}
             data-index={index}
             data-direction={1}
             onClick={handleSwap}
-          >
-            down
-          </Button>
+            Icon={DownIcon}
+          />
           <Button data-index={index} onClick={handleRemove}>
             <DeleteIcon variant="default" />
           </Button>
