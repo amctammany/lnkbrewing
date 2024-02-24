@@ -14,7 +14,7 @@ type MashProfileStepsProps = {
 };
 export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
   const { register } = useForm({
-    defaultValues: src || {},
+    //defaultValues: src || {},
     context: { control },
   });
   const { fields, append, prepend, remove, swap, move, insert } =
@@ -37,10 +37,12 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
   const handleSwap = (e: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(e.currentTarget.dataset.index!);
     const direction = parseInt(e.currentTarget.dataset.direction!);
-    //swap(0, 1);
+    console.log({ index, direction });
+    //move(0, 1);
     swap(index, index + direction);
     e.preventDefault();
     e.stopPropagation();
+    return false;
   };
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(e.currentTarget.dataset.index!);
@@ -75,9 +77,9 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
               <div>
                 <TextField
                   {...register(`steps.${index}.name` as const, {
-                    value: field.name,
+                    //value: field.name,
                   })}
-                  value={field.name}
+                  //value={field.name}
                   label="Name"
                 />
               </div>
@@ -85,7 +87,7 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
                 <Select
                   label="Type"
                   {...register(`steps.${index}.type` as const, {
-                    value: field.type,
+                    //value: field.type,
                   })}
                   options={MashStepType}
                 />
@@ -94,7 +96,7 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
                 {...register(`steps.${index}.temperature` as const, {
                   //value: field.temperature,
                 })}
-                value={field.temperature}
+                //value={field.temperature}
                 label="Temperature"
               />
 

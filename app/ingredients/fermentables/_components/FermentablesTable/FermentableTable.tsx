@@ -13,6 +13,7 @@ const columns: DataColumnProps<Fermentable>[] = [
     name: "name",
     href: (src: Fermentable) => `/ingredients/fermentables/${src.slug}`,
   },
+  { name: "manufacturer" },
   { name: "country" },
   { name: "color" },
   { name: "maxUsage" },

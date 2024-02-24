@@ -38,7 +38,7 @@ export function FieldValue({
     );
   return (
     <div className={clsx(fieldValueStyles({ variant, padding }), className)}>
-      {value as string}
+      {(value || "-") as string}
     </div>
   );
 }
