@@ -1,5 +1,5 @@
 "use client";
-import { Control, useFieldArray, useForm } from "react-hook-form";
+import { Control, Controller, useFieldArray, useForm } from "react-hook-form";
 import { MashProfileInput } from "@/app/profiles/mash/types";
 import { NumberField } from "@/components/Form/NumberField";
 import { TextField } from "@/components/Form/TextField";
@@ -12,9 +12,75 @@ type MashProfileStepsProps = {
   src: MashProfileInput | null;
   control: Control<MashProfileInput, any>;
 };
+
+type MashStepProps = {
+  index: number;
+  control: Control<MashProfileInput>;
+  handleSwap?: any;
+  handleRemove?: any;
+};
+const MashStep = ({
+  index,
+  control,
+  handleSwap,
+  handleRemove,
+}: MashStepProps) => {
+  return (
+    <div className="w-full flex flex-row ">
+      <div className="m-auto grid  ">
+        <div className="border-2 border-black rounded-lg p-2">{index}</div>
+      </div>
+      <div className="flex-grow grid gap-x-2 grid-cols-5">
+        <div>
+          <Controller
+            render={({ field }) => <TextField {...field} label="Name" />}
+            name={`steps.${index}.name`}
+            control={control}
+          />
+        </div>
+        <div>
+          <Controller
+            render={({ field }) => <TextField {...field} label="Temperature" />}
+            name={`steps.${index}.temperature`}
+            control={control}
+          />
+        </div>
+        <div>
+          <Controller
+            render={({ field }) => <TextField {...field} label="Time" />}
+            name={`steps.${index}.time`}
+            control={control}
+          />
+        </div>
+      </div>
+      <div className="m-auto grid pt-3">
+        <Button
+          className={`${index > 0 ? "block" : "hidden"}`}
+          data-index={index}
+          data-direction={-1}
+          onClick={handleSwap}
+        >
+          Up
+        </Button>
+        <Button
+          className={`${index < 6 ? "block" : "hidden"}`}
+          data-index={index}
+          data-direction={1}
+          onClick={handleSwap}
+        >
+          down
+        </Button>
+        <Button data-index={index} onClick={handleRemove}>
+          <DeleteIcon variant="default" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
-  const { register } = useForm({
-    //defaultValues: src || {},
+  const { register, watch } = useForm({
+    defaultValues: src || {},
     context: { control },
   });
   const { fields, append, prepend, remove, swap, move, insert } =
@@ -22,6 +88,13 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
       control, // control props comes from useForm (optional: if you are using FormContext)
       name: "steps", // unique name for your Field Array
     });
+  const watchFieldArray = watch("steps", src?.steps || []);
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index],
+    };
+  });
   const addStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     append({
       name: "",
@@ -63,7 +136,7 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
       }
     >
       <div>
-        {(fields || []).map((field, index) => (
+        {(controlledFields || []).map((field, index) => (
           <div
             key={field.id} // important to include key with field's id
             className="w-full flex flex-row "
@@ -77,9 +150,8 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
               <div>
                 <TextField
                   {...register(`steps.${index}.name` as const, {
-                    //value: field.name,
+                    value: field.name,
                   })}
-                  //value={field.name}
                   label="Name"
                 />
               </div>
@@ -87,16 +159,16 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
                 <Select
                   label="Type"
                   {...register(`steps.${index}.type` as const, {
-                    //value: field.type,
+                    value: field.type,
                   })}
                   options={MashStepType}
                 />
               </div>
               <NumberField
                 {...register(`steps.${index}.temperature` as const, {
-                  //value: field.temperature,
+                  value: field.temperature,
                 })}
-                //value={field.temperature}
+                value={field.temperature}
                 label="Temperature"
               />
 
@@ -124,7 +196,9 @@ export function MashProfileSteps({ src, control }: MashProfileStepsProps) {
                 Up
               </Button>
               <Button
-                className={`${index < fields.length - 1 ? "block" : "hidden"}`}
+                className={`${
+                  index < controlledFields.length - 0 ? "block" : "hidden"
+                }`}
                 data-index={index}
                 data-direction={1}
                 onClick={handleSwap}
