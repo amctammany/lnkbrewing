@@ -512,3 +512,14 @@ model MashStep {
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?
 }
+
+model HopSupplier {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  description String
+  address1    String?
+  address2    String?
+  website     String?
+  phone       String?
+}

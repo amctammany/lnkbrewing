@@ -15,7 +15,21 @@ export const getHop = cache(async (slug: string) => {
   });
   return hop;
 });
+export const getHopSupplier = cache(async (slug: string) => {
+  const hop = await prisma.hopSupplier.findFirst({
+    where: {
+      slug,
+    },
+  });
+  return hop;
+});
 
+export const getHopSuppliers = cache(
+  async (args?: Prisma.HopSupplierFindManyArgs) => {
+    const hops = await prisma.hopSupplier.findMany(args);
+    return hops;
+  }
+);
 export const getHops = cache(async (args?: Prisma.HopFindManyArgs) => {
   const hops = await prisma.hop.findMany(args);
   return hops;

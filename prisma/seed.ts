@@ -9,6 +9,7 @@ import {
 } from "@prisma/client";
 import slugify from "slugify";
 import hops from "../data/hops.json";
+import hopSuppliers from "../data/hopsuppliers.json";
 import yakima from "../data/yakima.json";
 import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
@@ -17,7 +18,6 @@ import { prisma } from "../lib/client";
 async function main() {
   await prisma.account.deleteMany();
   await prisma.session.deleteMany();
-  await prisma.user.deleteMany();
   await prisma.userPreferences.deleteMany();
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
@@ -34,6 +34,7 @@ async function main() {
   await prisma.yeast.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.recipe.deleteMany();
+  await prisma.user.deleteMany();
   //await prisma.user.deleteMany();
   //const alex = await prisma.user.upsert({
   //where: { email: "alex@gmail.com" },
@@ -223,8 +224,13 @@ async function main() {
       });
     })
   );
-  console.log(data);
 
+  await prisma.hopSupplier.createMany({
+    data: hopSuppliers.map((sup) => ({
+      ...sup,
+      slug: slugify(sup.name, { lower: true }),
+    })),
+  });
   await prisma.fermentable.createMany({
     data: grains.map((grain) => ({
       ...grain,
