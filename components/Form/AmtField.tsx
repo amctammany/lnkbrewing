@@ -65,6 +65,7 @@ export const AmtField = forwardRef<HTMLInputElement, AmountFieldProps>(
       <AmountType
         {...amountTypeProps}
         value={_amountType}
+        type={_amountType}
         options={Object.entries(amountTypes || {})}
       />
     );
