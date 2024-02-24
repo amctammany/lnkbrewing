@@ -5,6 +5,23 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 
+const supplierSchema = zfd.formData({
+  id: zfd.numeric(),
+  name: zfd.text(),
+  description: zfd.text(z.string().optional()),
+  address1: zfd.text(z.string().optional()),
+  address2: zfd.text(z.string().optional()),
+  country: zfd.text(z.string().optional()),
+});
+export const updateHopSupplier = async (formData: FormData) => {
+  const data = supplierSchema.parse(formData);
+  const res = await prisma.hopSupplier.update({
+    where: { id: data.id },
+    data,
+  });
+  redirect(`/ingredients/hops/suppliers/${res.slug}`);
+};
+
 const schema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
