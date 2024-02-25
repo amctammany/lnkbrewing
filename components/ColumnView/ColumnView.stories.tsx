@@ -1,0 +1,25 @@
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { ColumnView } from "./ColumnView";
+
+const meta: Meta<typeof ColumnView<D>> = {
+  component: ColumnView,
+};
+export default meta;
+type D = { name: string; description: string };
+
+const data: D[] = [
+  { name: "first", description: "foobar" },
+  { name: "second", description: "why" },
+  { name: "third", description: "bar" },
+  { name: "fourth", description: "barfas" },
+];
+
+type Story = StoryObj<typeof ColumnView<D>>;
+
+export const Basic: Story = {
+  args: {
+    sources: data,
+    fields: [{ name: "name" }, { name: "description" }],
+  },
+};

@@ -1,0 +1,40 @@
+import FieldValue from "./FieldValue";
+
+export type ColumnField<T> =
+  | keyof T
+  | {
+      name: keyof T;
+    };
+export type ColumnViewProps<T extends { name: string }> = {
+  sources: T[];
+  fields?: ColumnField<T>[];
+};
+export function ColumnView<T extends { name: string }>({
+  sources,
+  fields: _fields,
+}: ColumnViewProps<T>) {
+  const fields = (_fields || []).map((f) =>
+    typeof f !== "object" ? { name: f } : f
+  );
+  return (
+    <div className="grid grid-flow-row w-full">
+      {(fields || []).map((field, i) => (
+        <div
+          key={i}
+          className={`grid grid-cols-${(
+            sources.length + 1
+          ).toString()}  border-b-2 gap-2`}
+        >
+          <div className="uppercase border-r-4 py-2">
+            {field.name.toString()}
+          </div>
+          {sources.map((src, j) => (
+            <FieldValue value={src[field.name]} key={j} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ColumnView;
