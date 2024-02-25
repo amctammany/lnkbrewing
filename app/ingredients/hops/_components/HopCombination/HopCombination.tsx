@@ -1,16 +1,16 @@
 import React from "react";
 //import HopPanel from "./HopPanel";
 import { Hop } from "@prisma/client";
-import { CompareField, CompareTable } from "@/components/CompareTable";
 import { Section } from "@/components/Section";
 import { Form } from "@/components/Form/Form";
 import { useForm } from "react-hook-form";
+import ColumnView, { ColumnField } from "@/components/ColumnView/ColumnView";
 export type HopCombinationProps = {
   hops: Hop[];
   action: any;
 };
 
-const compFields: CompareField<Hop>[] = [
+const compFields: ColumnField<Hop>[] = [
   "name",
   "country",
   "characteristics",
@@ -30,7 +30,7 @@ export function HopCombination({ hops, action }: HopCombinationProps) {
   return (
     <Section header="Hop Comparision">
       <Form action={onAction}>
-        <CompareTable sources={hops} fields={compFields} />
+        <ColumnView sources={hops} fields={compFields} />
       </Form>
     </Section>
   );
