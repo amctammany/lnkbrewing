@@ -23,7 +23,10 @@ export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
     <ClientTable
       src={hops}
       columns={columns}
-      selectActions={{ Compare: "/ingredients/hops/compare" }}
+      selectActions={{
+        Compare: "/ingredients/hops/compare",
+        Combine: "/ingredients/hops/combine",
+      }}
     />
   </Section>
 );

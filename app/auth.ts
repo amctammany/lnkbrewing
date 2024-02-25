@@ -15,7 +15,7 @@ export const AuthOptions: NextAuthConfig = {
   session: { strategy: "jwt" },
   callbacks: {
     async session({ session, token, user }) {
-      session.preferences = (token.user as any).UserPreferences as any;
+      session.preferences = ((token.user || {}) as any).UserPreferences as any;
       session.user = token.user as any;
       return session;
     },
