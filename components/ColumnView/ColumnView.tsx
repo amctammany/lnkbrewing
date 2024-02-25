@@ -2,11 +2,12 @@ import FieldValue from "./FieldValue";
 
 export type ColumnField<T> =
   | keyof T
+  | "selected"
   | {
       name: keyof T;
     };
 export type ColumnViewProps<T extends { name: string }> = {
-  sources: T[];
+  sources: (T & { selected?: boolean })[];
   fields?: ColumnField<T>[];
 };
 export function ColumnView<T extends { name: string }>({

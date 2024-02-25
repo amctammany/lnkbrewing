@@ -23,3 +23,10 @@ export const Basic: Story = {
     fields: [{ name: "name" }, { name: "description" }],
   },
 };
+
+export const Form: Story = {
+  args: {
+    sources: data,
+    fields: [{ name: "name" }, "selected", { name: "description" }],
+  },
+};

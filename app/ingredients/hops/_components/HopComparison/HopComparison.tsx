@@ -1,22 +1,24 @@
 import React from "react";
 //import HopPanel from "./HopPanel";
 import { Hop } from "@prisma/client";
-import { CompareField, CompareTable } from "@/components/CompareTable";
+import { ColumnView, ColumnField } from "@/components/ColumnView/ColumnView";
 export type HopComparisonProps = {
   hops: Hop[];
 };
 
-const compFields: CompareField<Hop>[] = [
+const compFields: ColumnField<Hop>[] = [
   "name",
+  "selected",
   "country",
   "characteristics",
   "usage",
   "alpha",
   "beta",
+  "cohumulone",
   "styles",
 ];
 export function HopComparison({ hops }: HopComparisonProps) {
-  return <CompareTable sources={hops} fields={compFields} />;
+  return <ColumnView sources={hops} fields={compFields} />;
 }
 
 export default HopComparison;
