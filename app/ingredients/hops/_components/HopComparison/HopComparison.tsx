@@ -6,7 +6,7 @@ export type HopComparisonProps = {
   hops: Hop[];
 };
 
-const compFields: ColumnField<Hop>[] = [
+const compFields: ColumnField<Hop, { selected: boolean }>[] = [
   "name",
   "selected",
   "country",

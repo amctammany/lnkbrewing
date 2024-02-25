@@ -1,20 +1,24 @@
 import FieldValue from "./FieldValue";
 
-export type ColumnField<T> =
+export type ColumnField<T, S = {}> =
   | keyof T
-  | "selected"
+  | keyof S
   | {
-      name: keyof T;
+      name: keyof T | keyof S;
     };
-export type ColumnViewProps<T extends { name: string }> = {
-  sources: (T & { selected?: boolean })[];
-  fields?: ColumnField<T>[];
+export type ColumnViewProps<
+  T extends { name: string },
+  S extends Record<any, any> = {}
+> = {
+  sources: T[];
+  state?: S;
+  fields?: ColumnField<T, S>[];
 };
-export function ColumnView<T extends { name: string }>({
-  sources,
-  fields: _fields,
-}: ColumnViewProps<T>) {
-  const fields = (_fields || []).map((f) =>
+export function ColumnView<
+  T extends { name: string },
+  S extends Record<any, any> = {}
+>({ sources, fields: _fields, state }: ColumnViewProps<T, S>) {
+  const fields = (_fields || []).map<{ name: keyof T | keyof S }>((f) =>
     typeof f !== "object" ? { name: f } : f
   );
   return (
@@ -30,7 +34,7 @@ export function ColumnView<T extends { name: string }>({
             {field.name.toString()}
           </div>
           {sources.map((src, j) => (
-            <FieldValue value={src[field.name]} key={j} />
+            <FieldValue value={src[field.name as keyof T]} key={j} />
           ))}
         </div>
       ))}

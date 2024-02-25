@@ -2,11 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { ColumnView } from "./ColumnView";
 
-const meta: Meta<typeof ColumnView<D>> = {
+type D = { name: string; description: string };
+type S = { selected: number };
+const meta: Meta<typeof ColumnView<D, S>> = {
   component: ColumnView,
 };
 export default meta;
-type D = { name: string; description: string };
 
 const data: D[] = [
   { name: "first", description: "foobar" },
@@ -15,7 +16,7 @@ const data: D[] = [
   { name: "fourth", description: "barfas" },
 ];
 
-type Story = StoryObj<typeof ColumnView<D>>;
+type Story = StoryObj<typeof ColumnView<D, S>>;
 
 export const Basic: Story = {
   args: {
@@ -27,6 +28,7 @@ export const Basic: Story = {
 export const Form: Story = {
   args: {
     sources: data,
+    state: { selected: 0 },
     fields: [{ name: "name" }, "selected", { name: "description" }],
   },
 };
