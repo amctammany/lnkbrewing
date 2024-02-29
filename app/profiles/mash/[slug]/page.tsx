@@ -7,6 +7,9 @@ import { MashProfile, MashStep } from "@prisma/client";
 import Link from "next/link";
 import { MashProfileStep } from "../types";
 import Prop from "@/components/Prop/Prop";
+import { auth } from "@/app/auth";
+import { toggleUserFavorite } from "@/app/admin/actions";
+import FavButton from "@/app/admin/_components/FavButton/FavButton";
 type MashProfileDisplayProps = {
   params: {
     slug: string;
@@ -49,13 +52,29 @@ export default async function MashProfileDisplay({
     },
     include: { steps: true },
   });
+  const session = await auth();
+  const userMashProfileId = session?.preferences?.mashProfileId;
+
   return (
     <Section
       header={`MashProfile: ${mashProfile?.name}`}
       actions={
-        <ButtonLink href={`/profiles/mash/${mashProfile?.slug}/edit`}>
-          Edit
-        </ButtonLink>
+        <>
+          <FavButton
+            id={mashProfile?.id}
+            name="mashProfileId"
+            isActive={userMashProfileId === mashProfile?.id}
+            action={toggleUserFavorite.bind(
+              null,
+              session?.preferences.userId,
+              "mashProfileId"
+            )}
+          />
+
+          <ButtonLink href={`/profiles/mash/${mashProfile?.slug}/edit`}>
+            Edit
+          </ButtonLink>
+        </>
       }
     >
       {fieldNames.map((field) => (

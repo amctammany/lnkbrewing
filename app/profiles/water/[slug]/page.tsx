@@ -7,6 +7,9 @@ import { WaterProfile } from "@prisma/client";
 import Link from "next/link";
 import Prop from "@/components/Prop/Prop";
 import { getWaterProfile } from "../queries";
+import { FavButton } from "@/app/admin/_components/FavButton";
+import { toggleUserFavorite } from "@/app/admin/actions";
+import { auth } from "@/app/auth";
 type WaterProfileDisplayProps = {
   params: {
     slug: string;
@@ -31,13 +34,28 @@ export default async function WaterProfileDisplay({
   params: { slug },
 }: WaterProfileDisplayProps) {
   const waterProfile = await getWaterProfile(slug);
+  const session = await auth();
+  const userWaterProfileId = session?.preferences?.sourceWaterProfileId;
   return (
     <Section
       header={`WaterProfile: ${waterProfile?.name}`}
       actions={
-        <ButtonLink href={`/profiles/water/${waterProfile?.slug}/edit`}>
-          Edit
-        </ButtonLink>
+        <>
+          <FavButton
+            id={waterProfile?.id}
+            name="waterProfileId"
+            isActive={userWaterProfileId === waterProfile?.id}
+            action={toggleUserFavorite.bind(
+              null,
+              session?.preferences.userId,
+              "sourceWaterProfileId"
+            )}
+          />
+
+          <ButtonLink href={`/profiles/water/${waterProfile?.slug}/edit`}>
+            Edit
+          </ButtonLink>
+        </>
       }
     >
       {fieldNames.map((field) => (
