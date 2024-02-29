@@ -13,30 +13,30 @@ export type HopCombinationProps = {
   action: any;
 };
 
-const Radio = ({ name, src, state, setState }) => {
+const Radio = ({ name, src, state, setState }: any) => {
   console.log({ name, src, state });
   return <input type="radio" name={name} />;
 };
-const SelectField = ({ name, src, state, setState }) => {
+const SelectField = ({ name, src, state, setState }: any) => {
   const isSelected = state.selected === src.id;
   const value = src[name];
   const handleSelect: React.ReactEventHandler<HTMLInputElement> = (e) => {
     console.log(e.currentTarget.value);
-    setState((old) => ({ ...old, selected: src.id }));
+    setState((old: any) => ({ ...old, selected: src.id }));
   };
   return (
     <input name={name} onClick={handleSelect} value={src.id} type="radio" />
   );
 };
 
-const EditFieldValue = ({ name, src, state, setState }) => {
+const EditFieldValue = ({ name, src, state, setState }: any) => {
   const value = src[name];
   return <TextField name={name} value={value} />;
 };
-const EditField = ({ name, src, state, setState }) => {
+const EditField = ({ name, src, state, setState }: any) => {
   const value = src[name];
   const isSelected = state.selected === src.id;
-  const Comp = isSelected ? EditFieldValue : FieldValue;
+  const Comp = (isSelected ? EditFieldValue : FieldValue) as any;
   return (
     <Comp
       name={name}

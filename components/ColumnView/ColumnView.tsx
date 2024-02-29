@@ -12,8 +12,8 @@ export type ColumnViewProps<
   S extends Record<any, any> = {}
 > = {
   sources: T[];
-  state: S;
-  setState: React.Dispatch<React.SetStateAction<S>>;
+  state?: S;
+  setState?: React.Dispatch<React.SetStateAction<S>>;
   fields?: ColumnField<T, S>[];
 };
 export function ColumnView<
