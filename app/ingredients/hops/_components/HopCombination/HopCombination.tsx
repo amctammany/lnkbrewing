@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 //import HopPanel from "./HopPanel";
 import { Hop } from "@prisma/client";

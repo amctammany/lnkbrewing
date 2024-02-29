@@ -15,10 +15,10 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await prisma.recipe.create({
     data: {
-      authorEmail: session.user.email,
-      mashProfileId: session.preferences.mashProfileId,
-      equipmentProfileId: session.preferences.equipmentProfileId,
-      waterProfileId: session.preferences.sourceWaterProfileId,
+      authorEmail: session?.user.email,
+      mashProfileId: session?.preferences.mashProfileId,
+      equipmentProfileId: session?.preferences.equipmentProfileId,
+      waterProfileId: session?.preferences.sourceWaterProfileId,
 
       name: "New Recipe",
       slug: "new-recipe",

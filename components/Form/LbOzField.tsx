@@ -38,6 +38,8 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
         });
       }
     };
+
+    const v = lbs + ozs / 16;
     return (
       <div className={clsx("grid grid-cols-2 gap-3", className)}>
         <div className="flex">
@@ -52,7 +54,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             name="lbs"
             onChange={handleChange}
             onBlur={onBlur}
-            value={lbs}
+            value={Number.isNaN(lbs) ? 0 : lbs.toPrecision(1)}
           />
           <div className="grid pt-2 px-2 border border-black">Lb</div>
         </div>
@@ -65,17 +67,19 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             })}
             type="number"
             step={0.1}
+            min={0}
+            max={16}
             name="ozs"
             onChange={handleChange}
             onBlur={onBlur}
-            value={ozs.toPrecision(2)}
+            value={Number.isNaN(ozs) ? 0 : ozs}
           />
           <div className="grid pt-2 px-2 border border-black">Oz</div>
         </div>
         <input
           type="hidden"
           name={name}
-          value={lbs + ozs / 16}
+          value={Number.isNaN(v) ? 0 : v}
           ref={ref}
           onChange={onChange}
         />

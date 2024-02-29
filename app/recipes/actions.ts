@@ -236,7 +236,7 @@ const hopIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.numeric(z.number()),
   hopId: zfd.numeric(z.number()),
-  amount: zfd.numeric(z.number().min(0)),
+  amount: zfd.numeric(z.number().gt(0)),
   alpha: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.Oz),
@@ -281,7 +281,7 @@ const fermentableIngredientSchema = zfd.formData({
   usage: z
     .nativeEnum(FermentableIngredientUsage)
     .default(FermentableIngredientUsage.Mash),
-  amount: zfd.numeric(z.number().min(0)),
+  amount: zfd.numeric(z.number().gt(0)),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.LbOz),
 });
 export async function addFermentableIngredientToRecipe(formData: FormData) {
