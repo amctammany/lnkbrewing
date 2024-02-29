@@ -1,3 +1,6 @@
+import FavButton from "@/app/admin/_components/FavButton/FavButton";
+import { updateUserFavorite, updateUserPreferences } from "@/app/admin/actions";
+import { auth } from "@/app/auth";
 import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
 import { prisma } from "@/lib/client";
@@ -34,13 +37,27 @@ export default async function EquipmentProfileDisplay({
       slug,
     },
   });
+  const session = await auth();
+  const userEquipmentProfileId = session?.preferences?.equipmentProfileId;
+
   return (
     <Section
       header={`EquipmentProfile: ${equipmentProfile?.name}`}
       actions={
-        <ButtonLink href={`/profiles/equipment/${equipmentProfile?.slug}/edit`}>
-          Edit
-        </ButtonLink>
+        <>
+          <FavButton
+            id={equipmentProfile?.id}
+            name="equipmentProfileId"
+            isActive={userEquipmentProfileId === equipmentProfile?.id}
+            action={updateUserFavorite.bind(null, session?.user.id)}
+          />
+
+          <ButtonLink
+            href={`/profiles/equipment/${equipmentProfile?.slug}/edit`}
+          >
+            Edit
+          </ButtonLink>
+        </>
       }
     >
       {fieldNames.map((field) => (

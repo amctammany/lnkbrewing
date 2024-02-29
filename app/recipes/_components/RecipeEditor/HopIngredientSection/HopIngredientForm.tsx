@@ -152,6 +152,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           {...register("amount", { valueAsNumber: true })}
           //options={MassUnit}
           //value={src?.amount}
+          step={0.01}
           error={errors?.amount}
         />
         <div>

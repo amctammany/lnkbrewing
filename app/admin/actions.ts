@@ -10,6 +10,7 @@ import {
   UserVolumePreference,
 } from "@prisma/client";
 import { validateSchema } from "@/lib/validateSchema";
+import { revalidateTag } from "next/cache";
 
 const schema = zfd.formData({
   id: zfd.text(),
@@ -38,6 +39,57 @@ const preferenceSchema = zfd.formData({
   sourceWaterProfileId: zfd.numeric(z.number().optional()),
   targetWaterProfileId: zfd.numeric(z.number().optional()),
 });
+const favoriteSchema = zfd.formData({
+  equipmentProfileId: zfd.numeric(z.number().optional()),
+  mashProfileId: zfd.numeric(z.number().optional()),
+  sourceWaterProfileId: zfd.numeric(z.number().optional()),
+  targetWaterProfileId: zfd.numeric(z.number().optional()),
+});
+export async function updateUserFavorite(
+  userId: string | undefined,
+  formData: FormData
+) {
+  const { errors, ...data } = validateSchema(formData, favoriteSchema);
+  if (errors && errors.length) {
+    console.log(errors);
+    return { errors };
+  }
+  const res = await prisma.userPreferences.update({
+    where: {
+      userId,
+    },
+    data: {
+      defaultEquipment:
+        data.equipmentProfileId === null
+          ? undefined
+          : data.equipmentProfileId === undefined
+          ? { disconnect: true }
+          : { connect: { id: data.equipmentProfileId } },
+      defaultTargetWater:
+        data.targetWaterProfileId === null
+          ? undefined
+          : data.targetWaterProfileId === undefined
+          ? { disconnect: true }
+          : { connect: { id: data.targetWaterProfileId } },
+      defaultSourceWater:
+        data.sourceWaterProfileId === null
+          ? undefined
+          : data.sourceWaterProfileId === undefined
+          ? { disconnect: true }
+          : { connect: { id: data.sourceWaterProfileId } },
+      defaultMashProfile:
+        data.mashProfileId === null
+          ? undefined
+          : data.mashProfileId === undefined
+          ? { disconnect: true }
+          : { connect: { id: data.mashProfileId } },
+    },
+  });
+
+  console.log(data, res);
+  revalidateTag("userPreferences");
+  //return redirect("/admin");
+}
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
   const { errors, userId, ...data } = validateSchema(

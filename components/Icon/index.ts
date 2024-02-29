@@ -5,6 +5,7 @@ export * from "./DownIcon";
 export * from "./CloseIcon";
 export * from "./DeleteIcon";
 export * from "./SearchIcon";
+export * from "./StarIcon";
 export * from "./EditIcon";
 export * from "./RedoIcon";
 export * from "./UndoIcon";
