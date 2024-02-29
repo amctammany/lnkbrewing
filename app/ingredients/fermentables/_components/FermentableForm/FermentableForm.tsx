@@ -8,6 +8,7 @@ import { Fermentable, FermentableIngredient } from "@prisma/client";
 import { Section } from "@/components/Section";
 import { useForm } from "react-hook-form";
 import { Toolbar } from "@/components/Toolbar";
+import { AmountField } from "@/components/Form/AmountField";
 
 export type FermentableFormProps = {
   src: Fermentable | null;
@@ -49,14 +50,30 @@ export const FermentableForm = ({ src, action }: FermentableFormProps) => {
         <TextArea rows={3} label="Notes" {...register("notes")} />
 
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-          <NumberField step={0.01} label="Color" {...register("color")} />
-          <NumberField step={1} label="Power" {...register("power")} />
-          <NumberField
+          <AmountField
+            step={0.01}
+            label="Color"
+            amountType="°L"
+            {...register("color")}
+          />
+          <AmountField
+            step={1}
+            amountType="°Lintner"
+            label="Power"
+            {...register("power")}
+          />
+          <AmountField
             step={0.001}
             label="Potential"
+            amountType="PPG"
             {...register("potential")}
           />
-          <NumberField step={1} label="Max Usage" {...register("maxUsage")} />
+          <AmountField
+            amountType="%"
+            step={1}
+            label="Max Usage"
+            {...register("maxUsage")}
+          />
         </div>
       </Section>
     </Form>

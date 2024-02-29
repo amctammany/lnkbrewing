@@ -30,7 +30,10 @@ export type AmountFieldProps = {
     | YeastAmountType
     | UserVolumePreference
     | "%"
+    | "PPG"
     | "ppm"
+    | "°L"
+    | "°Lintner"
     | "gal/hr";
   amountTypes?: Record<string, string>;
   amountTypeProps?: UseFormRegisterReturn;
