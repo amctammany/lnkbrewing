@@ -28,7 +28,6 @@ export function FavButton({ action, name, isActive, id }: FavButtonProps) {
   );
   const handleAction = async () => {
     const res = await action(isActive ? null : id);
-    console.log(res);
   };
   return (
     <IconButton Icon={StarIcon} onClick={handleAction} className={className}>

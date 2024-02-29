@@ -59,7 +59,6 @@ export async function toggleUserFavorite(
   >,
   profileId: number | null
 ) {
-  console.log({ userId, profileId, profileType });
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -75,7 +74,6 @@ export async function toggleUserFavorite(
       [profileType]: profileId !== null ? profileId : null,
     },
   });
-  console.log(res);
   revalidateTag("userPreferences");
 }
 export async function updateUserFavorite(
@@ -119,9 +117,7 @@ export async function updateUserFavorite(
     },
   });
 
-  console.log(data, res);
   revalidateTag("userPreferences");
-  //return redirect("/admin");
 }
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
