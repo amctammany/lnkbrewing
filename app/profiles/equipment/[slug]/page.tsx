@@ -1,5 +1,9 @@
 import FavButton from "@/app/admin/_components/FavButton/FavButton";
-import { updateUserFavorite, updateUserPreferences } from "@/app/admin/actions";
+import {
+  toggleUserFavorite,
+  updateUserFavorite,
+  updateUserPreferences,
+} from "@/app/admin/actions";
 import { auth } from "@/app/auth";
 import { ButtonLink } from "@/components/Button/Button";
 import { Section } from "@/components/Section/Section";
@@ -49,7 +53,11 @@ export default async function EquipmentProfileDisplay({
             id={equipmentProfile?.id}
             name="equipmentProfileId"
             isActive={userEquipmentProfileId === equipmentProfile?.id}
-            action={updateUserFavorite.bind(null, session?.user.id)}
+            action={toggleUserFavorite.bind(
+              null,
+              session?.preferences.userId,
+              "equipmentProfileId"
+            )}
           />
 
           <ButtonLink

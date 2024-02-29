@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
 import { z } from "zod";
 import {
+  UserPreferences,
   UserGravityPreference,
   UserMassPreference,
   UserTemperaturePreference,
@@ -45,6 +46,38 @@ const favoriteSchema = zfd.formData({
   sourceWaterProfileId: zfd.numeric(z.number().optional()),
   targetWaterProfileId: zfd.numeric(z.number().optional()),
 });
+export async function toggleUserFavorite(
+  userId: string | undefined,
+  profileType: Exclude<
+    keyof UserPreferences,
+    | "gravityUnit"
+    | "temperatureUnit"
+    | "userId"
+    | "volumeUnit"
+    | "hopMassUnit"
+    | "fermentableMassUnit"
+  >,
+  profileId: number | null
+) {
+  console.log({ userId, profileId, profileType });
+  const res = await prisma.userPreferences.update({
+    where: {
+      userId,
+    },
+    include: {
+      user: true,
+      defaultEquipment: true,
+      defaultMashProfile: true,
+      defaultSourceWater: true,
+      defaultTargetWater: true,
+    },
+    data: {
+      [profileType]: profileId !== null ? profileId : null,
+    },
+  });
+  console.log(res);
+  revalidateTag("userPreferences");
+}
 export async function updateUserFavorite(
   userId: string | undefined,
   formData: FormData

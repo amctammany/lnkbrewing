@@ -1,3 +1,4 @@
+"use client";
 import { IconButton } from "@/components/Button/IconButton";
 import { StarIcon } from "@/components/Icon";
 import { UserPreferences } from "@prisma/client";
@@ -25,16 +26,14 @@ export function FavButton({ action, name, isActive, id }: FavButtonProps) {
       "bg-red-300": !isActive,
     }
   );
-  //
+  const handleAction = async () => {
+    const res = await action(isActive ? null : id);
+    console.log(res);
+  };
   return (
-    <form action={action}>
-      <input type="hidden" name={name} value={isActive ? "" : id} />
-      <IconButton
-        Icon={StarIcon}
-        type="submit"
-        className={className}
-      ></IconButton>
-    </form>
+    <IconButton Icon={StarIcon} onClick={handleAction} className={className}>
+      Fav
+    </IconButton>
   );
 }
 
