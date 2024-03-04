@@ -132,6 +132,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
   }, {} as Record<string, string>);
   const handleError = (e: any) => null;
 
+  console.log(src);
   return (
     <Form action={onSubmit} onError={handleError}>
       <input type="hidden" {...register("id")} />
@@ -151,7 +152,7 @@ export const HopIngredientForm: FC<HopIngredientFormProps> = ({
           amountType={massUnit}
           {...register("amount", { valueAsNumber: true })}
           //options={MassUnit}
-          //value={src?.amount}
+          //value={getValues("amount")}
           step={0.01}
           error={errors?.amount}
         />

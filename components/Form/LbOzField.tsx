@@ -54,7 +54,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             name="lbs"
             onChange={handleChange}
             onBlur={onBlur}
-            value={Number.isNaN(lbs) ? 0 : lbs.toPrecision(1)}
+            value={Number.isNaN(lbs) ? 0 : lbs.toFixed(0)}
           />
           <div className="grid pt-2 px-2 border border-black">Lb</div>
         </div>
@@ -66,7 +66,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
               size,
             })}
             type="number"
-            step={0.1}
+            step={0.01}
             min={0}
             max={16}
             name="ozs"
