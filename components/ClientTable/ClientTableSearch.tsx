@@ -6,12 +6,16 @@ import { DownIcon } from "../Icon/DownIcon";
 import { TextField } from "..";
 
 export type ClientTableSearchProps<Q extends Record<string, any>> = {
-  filters?: any;
+  filters?: Record<
+    string,
+    React.FC<{ className?: string; name: string; value?: any; onChange: any }>
+  >;
   query?: Q;
   setQuery?: React.Dispatch<React.SetStateAction<Q>>;
 };
 export function ClientTableSearch<Q extends Record<string, any>>({
   query,
+  filters,
   setQuery,
 }: ClientTableSearchProps<Q>) {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -28,12 +32,12 @@ export function ClientTableSearch<Q extends Record<string, any>>({
       <div className="flex-grow flex p-0">
         <div className={`${searchOpen ? "hidden" : "block"} w-full `}>
           Adv Search
-          {Object.entries(query || {}).map(([q, v]) => (
-            <TextField
+          {Object.entries(filters || {}).map(([q, Comp]) => (
+            <Comp
               className=""
               key={q}
               name={q}
-              value={v}
+              value={query?.[q]}
               onChange={handleQuery}
             />
           ))}

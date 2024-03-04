@@ -10,6 +10,7 @@ import { IconButton } from "../Button/IconButton";
 import { CloseIcon, DownIcon, UpIcon } from "../Icon";
 import { Searchbar } from "../Searchbar";
 import { ClientTableSearch } from "./ClientTableSearch";
+import { Select, SelectProps, TextField, TextFieldProps } from "..";
 type AdvancedSearchProps = {
   open: boolean;
 };
@@ -22,7 +23,9 @@ function AdvancedSearch({ open }: AdvancedSearchProps) {
 }
 export type ClientTableProps<T extends Record<string, any>> = TableProps<T> & {
   selectActions?: Record<string, string>;
-  filters?: Partial<T>;
+  filters?: Partial<
+    Record<keyof T, "string" | "number" | Record<string, string>>
+  >;
 };
 
 function selectedParams(selected: number[]) {
@@ -33,13 +36,23 @@ function selectedParams(selected: number[]) {
 }
 export function ClientTable<T extends Record<string, any>>({
   selectActions,
-  filters,
+  filters: _filters,
   ...props
 }: ClientTableProps<T>) {
+  const filters = Object.entries(_filters || {}).reduce((acc, [f, v]) => {
+    if (v === "string")
+      acc[f] = (props: TextFieldProps) => <TextField {...props} />;
+    if (typeof v === "object")
+      acc[f] = ({ name, ...props }: SelectProps) => (
+        <Select name={name} options={v as any} {...props} />
+      );
+    return acc;
+  }, {} as any);
   const [query, setQuery] = useState(
-    Object.entries(filters || {}).reduce((acc, [n, f]) => {
+    Object.entries(_filters || {}).reduce((acc, [n, f]) => {
       if (f === "string") acc[n] = "";
       if (Array.isArray(f)) acc[n] = f[0];
+      if (typeof f === "object") acc[n] = Object.entries(f || {})[0][0];
       return acc;
     }, {} as any)
   );
