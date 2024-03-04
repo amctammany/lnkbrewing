@@ -22,7 +22,7 @@ export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <Section header="Hops">
     <ClientTable
       src={hops}
-      filters={{ name: "string", usage: HopUsage as any }}
+      filters={{ name: "string", usage: { "": "", ...HopUsage } as any }}
       columns={columns}
       selectActions={{
         Compare: "/ingredients/hops/compare",

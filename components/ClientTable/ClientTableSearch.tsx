@@ -30,8 +30,11 @@ export function ClientTableSearch<Q extends Record<string, any>>({
   return (
     <div className=" flex bg-slate-200">
       <div className="flex-grow flex p-0">
-        <div className={`${searchOpen ? "hidden" : "block"} w-full `}>
-          Adv Search
+        <div
+          className={`${
+            searchOpen ? "hidden" : "block"
+          } w-full grid grid-cols-3`}
+        >
           {Object.entries(filters || {}).map(([q, Comp]) => (
             <Comp
               className=""
