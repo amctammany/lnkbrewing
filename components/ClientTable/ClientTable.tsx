@@ -7,11 +7,22 @@ import { RowProps, TableRowProps } from "../Table/TableRow";
 import { Label } from "../Form/Label";
 import Button, { ButtonLink } from "../Button/Button";
 import { IconButton } from "../Button/IconButton";
-import { CloseIcon } from "../Icon";
+import { CloseIcon, DownIcon, UpIcon } from "../Icon";
 import { Searchbar } from "../Searchbar";
-
+import { ClientTableSearch } from "./ClientTableSearch";
+type AdvancedSearchProps = {
+  open: boolean;
+};
+function AdvancedSearch({ open }: AdvancedSearchProps) {
+  return open ? (
+    <div className="flex p-0 bg-slate-200">AdvancedSearch</div>
+  ) : (
+    <div></div>
+  );
+}
 export type ClientTableProps<T extends Record<string, any>> = TableProps<T> & {
   selectActions?: Record<string, string>;
+  filters?: Partial<T>;
 };
 
 function selectedParams(selected: number[]) {
@@ -22,9 +33,16 @@ function selectedParams(selected: number[]) {
 }
 export function ClientTable<T extends Record<string, any>>({
   selectActions,
+  filters,
   ...props
 }: ClientTableProps<T>) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(
+    Object.entries(filters || {}).reduce((acc, [n, f]) => {
+      if (f === "string") acc[n] = "";
+      if (Array.isArray(f)) acc[n] = f[0];
+      return acc;
+    }, {} as any)
+  );
   const [sort, setSort] = useState("name");
   const [selected, setSelected] = useState<number[]>([]);
   const [direction, setDirection] = useState<Direction>("DESC");
@@ -46,20 +64,23 @@ export function ClientTable<T extends Record<string, any>>({
     if (id)
       setSelected((old) => old.filter((v) => v.toString() !== id.toString()));
   };
-  const handleQuery: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { value } = e.currentTarget;
-    setQuery(value);
-  };
+  //const handleAdvancedSearchToggle: React.MouseEventHandler<
+  //HTMLButtonElement
+  //> = (e) => {
+  //setSearchOpen((o) => !o);
+  //};
+  //const handleQuery: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  //const { value } = e.currentTarget;
+  //setQuery(value);
+  //};
   return (
     <div className="">
-      <div className="grid lg:grid-cols-2 gap-4">
-        <div className="flex p-0 bg-slate-200">
-          <Searchbar
-            className="flex-grow"
-            value={query}
-            onChange={handleQuery}
-          />
-        </div>
+      <div className="">
+        <ClientTableSearch
+          filters={filters}
+          query={query}
+          setQuery={setQuery}
+        />
         <div className="flex bg-slate-200">
           <div className="flex-grow inline-flex p-0 ">
             {selected.map((id) => (

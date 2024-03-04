@@ -3,7 +3,7 @@ import { ClientTable } from "@/components/ClientTable";
 import { Section } from "@/components/Section";
 import { Direction, Table } from "@/components/Table";
 import { DataColumnProps } from "@/components/Table/DataColumn";
-import { Hop } from "@prisma/client";
+import { Hop, HopUsage } from "@prisma/client";
 
 export type HopsTableProps = {
   hops: Hop[];
@@ -22,6 +22,7 @@ export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <Section header="Hops">
     <ClientTable
       src={hops}
+      filters={{ name: "string", usage: HopUsage as any }}
       columns={columns}
       selectActions={{
         Compare: "/ingredients/hops/compare",
