@@ -6,6 +6,8 @@ import {
 } from "@/app/admin/actions";
 import { auth } from "@/app/auth";
 import { ButtonLink } from "@/components/Button/Button";
+import { IconButtonLink } from "@/components/Button/IconButton";
+import { EditIcon } from "@/components/Icon";
 import { Section } from "@/components/Section/Section";
 import { prisma } from "@/lib/client";
 import { EquipmentProfile } from "@prisma/client";
@@ -48,7 +50,7 @@ export default async function EquipmentProfileDisplay({
     <Section
       header={`EquipmentProfile: ${equipmentProfile?.name}`}
       actions={
-        <>
+        <div className="inline-flex flex-row-reverse">
           <FavButton
             id={equipmentProfile?.id}
             name="equipmentProfileId"
@@ -60,12 +62,13 @@ export default async function EquipmentProfileDisplay({
             )}
           />
 
-          <ButtonLink
+          <IconButtonLink
+            Icon={EditIcon}
             href={`/profiles/equipment/${equipmentProfile?.slug}/edit`}
           >
             Edit
-          </ButtonLink>
-        </>
+          </IconButtonLink>
+        </div>
       }
     >
       {fieldNames.map((field) => (

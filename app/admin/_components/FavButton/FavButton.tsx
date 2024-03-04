@@ -1,6 +1,6 @@
 "use client";
 import { IconButton } from "@/components/Button/IconButton";
-import { StarIcon } from "@/components/Icon";
+import { SolidStarIcon, StarIcon } from "@/components/Icon";
 import { UserPreferences } from "@prisma/client";
 import clsx from "clsx";
 import React from "react";
@@ -20,7 +20,7 @@ export function FavButton({ action, name, isActive, id }: FavButtonProps) {
   //};
 
   const className = clsx(
-    "border hover:text-red-300  hover:bg-white text-white rounded-md p-2",
+    "border hover:text-red-300  hover:bg-white text-white rounded-md ",
     {
       "bg-blue-300": isActive,
       "bg-red-300": !isActive,
@@ -30,7 +30,11 @@ export function FavButton({ action, name, isActive, id }: FavButtonProps) {
     const res = await action(isActive ? null : id);
   };
   return (
-    <IconButton Icon={StarIcon} onClick={handleAction} className={className}>
+    <IconButton
+      Icon={isActive ? SolidStarIcon : StarIcon}
+      onClick={handleAction}
+      className={className}
+    >
       Fav
     </IconButton>
   );

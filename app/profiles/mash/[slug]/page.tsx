@@ -10,6 +10,8 @@ import Prop from "@/components/Prop/Prop";
 import { auth } from "@/app/auth";
 import { toggleUserFavorite } from "@/app/admin/actions";
 import FavButton from "@/app/admin/_components/FavButton/FavButton";
+import { IconButtonLink } from "@/components/Button/IconButton";
+import { EditIcon } from "@/components/Icon";
 type MashProfileDisplayProps = {
   params: {
     slug: string;
@@ -59,7 +61,7 @@ export default async function MashProfileDisplay({
     <Section
       header={`MashProfile: ${mashProfile?.name}`}
       actions={
-        <>
+        <div className="inline-flex flex-row-reverse">
           <FavButton
             id={mashProfile?.id}
             name="mashProfileId"
@@ -71,10 +73,13 @@ export default async function MashProfileDisplay({
             )}
           />
 
-          <ButtonLink href={`/profiles/mash/${mashProfile?.slug}/edit`}>
+          <IconButtonLink
+            Icon={EditIcon}
+            href={`/profiles/mash/${mashProfile?.slug}/edit`}
+          >
             Edit
-          </ButtonLink>
-        </>
+          </IconButtonLink>
+        </div>
       }
     >
       {fieldNames.map((field) => (

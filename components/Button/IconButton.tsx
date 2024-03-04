@@ -1,3 +1,4 @@
+import Link, { LinkProps } from "next/link";
 import { Icon, IconProps } from "../Icon";
 import { Button, ButtonProps } from "./Button";
 
@@ -18,4 +19,19 @@ export const IconButton = ({
     </div>
   );
   return <Button {...props}>{body}</Button>;
+};
+export type IconButtonLinkProps = IconButtonProps & {
+  scroll?: boolean;
+  href: LinkProps["href"];
+};
+export const IconButtonLink = ({
+  href,
+  scroll,
+  ...props
+}: IconButtonLinkProps) => {
+  return (
+    <Link href={href} scroll={scroll}>
+      <IconButton {...props} />
+    </Link>
+  );
 };

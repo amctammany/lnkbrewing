@@ -10,6 +10,8 @@ import { getWaterProfile } from "../queries";
 import { FavButton } from "@/app/admin/_components/FavButton";
 import { toggleUserFavorite } from "@/app/admin/actions";
 import { auth } from "@/app/auth";
+import { IconButtonLink } from "@/components/Button/IconButton";
+import { EditIcon } from "@/components/Icon/EditIcon";
 type WaterProfileDisplayProps = {
   params: {
     slug: string;
@@ -40,7 +42,7 @@ export default async function WaterProfileDisplay({
     <Section
       header={`WaterProfile: ${waterProfile?.name}`}
       actions={
-        <>
+        <div className="inline-flex flex-row-reverse">
           <FavButton
             id={waterProfile?.id}
             name="waterProfileId"
@@ -52,10 +54,13 @@ export default async function WaterProfileDisplay({
             )}
           />
 
-          <ButtonLink href={`/profiles/water/${waterProfile?.slug}/edit`}>
+          <IconButtonLink
+            Icon={EditIcon}
+            href={`/profiles/water/${waterProfile?.slug}/edit`}
+          >
             Edit
-          </ButtonLink>
-        </>
+          </IconButtonLink>
+        </div>
       }
     >
       {fieldNames.map((field) => (
