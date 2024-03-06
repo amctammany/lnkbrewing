@@ -4,7 +4,7 @@ function displayAmount(amount: number, type: MassUnit | YeastAmountType) {
   if (type === "LbOz") {
     const lb = Math.floor(amount);
     const oz = ((amount - lb) * 16).toFixed(2);
-    return `${lb} lb ${parseFloat(oz)} oz`;
+    return `${lb} lb ${parseFloat(oz).toFixed(2)} oz`;
   }
   return `${amount} ${type}`;
 }

@@ -72,7 +72,7 @@ export const LbOzField = forwardRef<HTMLInputElement, AmountFieldProps>(
             name="ozs"
             onChange={handleChange}
             onBlur={onBlur}
-            value={Number.isNaN(ozs) ? 0 : ozs}
+            value={Number.isNaN(ozs) ? 0 : ozs.toFixed(2)}
           />
           <div className="grid pt-2 px-2 border border-black">Oz</div>
         </div>
