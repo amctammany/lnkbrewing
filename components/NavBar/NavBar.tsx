@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { NavBarLink } from "./NavBarLink";
-import SignInButton from "../SignInButton";
+import AuthButton from "@/app/admin/_components/AuthButton";
 
 interface MenuItem {
   title: string;
@@ -45,7 +45,11 @@ export function NavBar() {
           </NavigationMenu>
         </div>
         <div className="flex gap-2">
-          <SignInButton />
+          <AuthButton>
+            <Button asChild>
+              <Link href="/admin">Admin</Link>
+            </Button>
+          </AuthButton>
         </div>
       </nav>
     </div>
