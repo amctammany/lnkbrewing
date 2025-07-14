@@ -6,9 +6,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "./ui/navigation-menu";
+} from "../ui/navigation-menu";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import { NavBarLink } from "./NavBarLink";
 
 interface MenuItem {
   title: string;
@@ -26,7 +27,7 @@ const menu: MenuItem[] = [
     items: [{ title: "Hops", url: "/ingredients/hops" }],
   },
 ];
-export default function NavBar() {
+export function NavBar() {
   return (
     <div className="w-full border-b-2 p-4">
       <nav className="hidden lg:flex items-center justify-between gap-6">
@@ -44,7 +45,7 @@ export default function NavBar() {
         </div>
         <div className="flex gap-2">
           <Button asChild variant="outline">
-            <Link href="">Login</Link>
+            <NavBarLink href="">Login</NavBarLink>
           </Button>
         </div>
       </nav>
@@ -73,7 +74,7 @@ function renderMenuItem(item: MenuItem) {
         asChild
         className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
       >
-        <Link href={item.url}>{item.title}</Link>
+        <NavBarLink href={item.url}>{item.title}</NavBarLink>
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
@@ -96,3 +97,4 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
     </a>
   );
 };
+export default NavBar;
