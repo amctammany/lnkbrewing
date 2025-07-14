@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { NavBarLink } from "./NavBarLink";
+import SignInButton from "../SignInButton";
 
 interface MenuItem {
   title: string;
@@ -44,9 +45,7 @@ export function NavBar() {
           </NavigationMenu>
         </div>
         <div className="flex gap-2">
-          <Button asChild variant="outline">
-            <NavBarLink href="">Login</NavBarLink>
-          </Button>
+          <SignInButton />
         </div>
       </nav>
     </div>
@@ -83,6 +82,7 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
     <Link
       className="flex flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
+      prefetch={false}
       href={item.url}
     >
       <div className="text-foreground">{item.icon}</div>
