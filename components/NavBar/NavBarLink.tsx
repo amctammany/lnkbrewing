@@ -5,5 +5,9 @@ export interface NavBarLinkProps {
   children: React.ReactNode;
 }
 export const NavBarLink: React.FC<NavBarLinkProps> = ({ href, children }) => {
-  return <Link href={href}>{children}</Link>;
+  return (
+    <Link prefetch={false} href={href}>
+      {children}
+    </Link>
+  );
 };
