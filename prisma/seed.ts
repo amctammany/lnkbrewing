@@ -1,6 +1,6 @@
 import { prisma } from "../lib/client";
 import styles from "../data/styles.json";
-import { StyleCategory } from "@prisma/client";
+import { StyleCategory } from "../generated/prisma";
 async function main() {
   await prisma.style.deleteMany();
 
