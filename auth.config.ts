@@ -15,7 +15,7 @@ const PAdapter = (p: any) => {
     },
   };
 };
-import { User, UserRoles } from "@/lib/generated/prisma/client";
+import { User, UserRoles } from "@prisma/client";
 declare module "next-auth" {
   /**
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
