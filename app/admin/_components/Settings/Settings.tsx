@@ -1,11 +1,11 @@
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/ui/button";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { User } from "@prisma/client";
 import React from "react";
 import { SettingsContainerForm, SettingsForm } from "./SettingsForm";
 
-export type SettingsProps = {
-  action: (formData: FormData) => Promise<void>;
+export type SettingsProps<S = unknown> = {
+  action: (prev: S, formData: FormData) => S | Promise<S>;
   user: User;
 };
 export function Settings({ user, action }: SettingsProps) {
@@ -17,9 +17,9 @@ export function Settings({ user, action }: SettingsProps) {
           { title: "Settings", url: "/admin/settings" },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <input type="submit" />
       </TopBar>
-      <SettingsForm user={user} action={action} />
+      <SettingsForm user={user} />
     </SettingsContainerForm>
   );
 }

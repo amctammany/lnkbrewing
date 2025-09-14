@@ -3,12 +3,12 @@ import TextInput from "@/components/Form/TextInput";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
 import { User } from "@prisma/client";
-import React from "react";
+import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 
-export type SettingsFormContainerProps = {
+export type SettingsFormContainerProps<S = unknown> = {
   user: User;
-  action: (formData: FormData) => Promise<void>;
+  action: (state: S, formData: FormData) => S | Promise<S>;
   children: React.ReactNode;
 };
 export function SettingsContainerForm({
@@ -16,23 +16,38 @@ export function SettingsContainerForm({
   action,
   children,
 }: SettingsFormContainerProps) {
-  const form = useForm<User>({ defaultValues: user });
+  const [state, formAction] = useActionState<any, FormData>(action, null);
+  const form = useForm<User>({ defaultValues: user, errors: state?.errors });
   return (
     <Form {...form}>
-      <form action={action}>{children}</form>
+      <form
+        action={formAction}
+        onSubmit={(e) => {
+          e.bubbles = false;
+          e.defaultPrevented = true;
+          e.preventDefault();
+          e.stopPropagation();
+          console.log(e);
+          return false;
+        }}
+      >
+        {children}
+      </form>
     </Form>
   );
 }
 
 export type SettingsFormProps = {
   user: User;
-  action: (formData: FormData) => Promise<void>;
+  //  action: (formData: FormData) => Promise<void>;
 };
-export function SettingsForm({ user, action }: SettingsFormProps) {
+export function SettingsForm({ user }: SettingsFormProps) {
   const { register } = useFormContext<User>();
   return (
     <>
+      <input type="hidden" {...register("id")} />
       <TextInput label="Name" {...register("name")} />
+      <TextInput label="Username" {...register("username")} />
       <TextInput label="Email" {...register("email")} />
     </>
   );
