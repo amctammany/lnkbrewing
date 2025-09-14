@@ -4,6 +4,7 @@ import { prisma } from "@/lib/client";
 import { cache } from "react";
 
 export const getStyle = cache(async (slug: string) => {
+  console.log(slug);
   const style = await prisma.style.findFirst({
     where: { slug },
   });

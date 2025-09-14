@@ -9,7 +9,7 @@ export type StyleEditorProps = { style: Style };
 export default function StyleEditor({ style }: StyleEditorProps) {
   const { control, register } = useFormContext<Style>();
   return (
-    <div>
+    <div className="gap-2 *:p-3">
       <input type="hidden" {...register("id", { valueAsNumber: true })} />
       <input type="hidden" {...register("category")} />
       <input type="hidden" {...register("identifier")} />
@@ -19,7 +19,12 @@ export default function StyleEditor({ style }: StyleEditorProps) {
       <TextInput control={control} name="appearance" label="Appearance" />
       <TextInput control={control} name="aroma" label="Aroma" />
       <TextInput control={control} name="flavor" label="Flavor" />
+      <TextInput control={control} name="mouthfeel" label="Mouthfeel" />
       <TextInput control={control} name="history" label="History" />
+      <TextInput control={control} name="comments" label="Comments" />
+      <TextInput control={control} name="ingredients" label="Ingredients" />
+      <TextInput control={control} name="comparison" label="Comparison" />
+      <TextInput control={control} name="examples" label="Examples" />
     </div>
   );
 }
