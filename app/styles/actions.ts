@@ -31,12 +31,12 @@ export async function updateStyle(formData: FormData) {
     },
     data: { ...data, slug: slugify(data.identifier) },
   });
-  redirect(`/styles/${res.identifier}`);
+  redirect(`/styles/${res.slug}`);
 }
 export const createStyle = async (formData: FormData) => {
   const data = schema.parse(formData);
   const res = await prisma.style.create({
     data: { ...data, slug: slugify(data.identifier) },
   });
-  redirect(`/styles/${res.identifier}`);
+  redirect(`/styles/${res.slug}`);
 };
