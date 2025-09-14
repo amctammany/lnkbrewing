@@ -17,7 +17,7 @@ export function Settings({ user, action }: SettingsProps) {
           { title: "Settings", url: "/admin/settings" },
         ]}
       >
-        <input type="submit" />
+        <Button type="submit">Save</Button>
       </TopBar>
       <SettingsForm user={user} />
     </SettingsContainerForm>

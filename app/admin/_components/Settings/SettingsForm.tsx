@@ -22,7 +22,7 @@ export function SettingsContainerForm({
     <Form {...form}>
       <form
         action={formAction}
-        onErrorCapture={(e) => {
+        onError={(e) => {
           console.log(e);
           e.preventDefault();
         }}
