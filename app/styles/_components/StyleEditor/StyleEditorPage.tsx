@@ -3,11 +3,16 @@ import React from "react";
 import StyleEditor from "./StyleEditor";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
-export type StyleEditorPageProps = { style: Style };
+import { Form, useForm } from "react-hook-form";
+import StyleEditorContainer from "./StyleEditorContainer";
+export type StyleEditorPageProps = {
+  action: (data: FormData) => Promise<void>;
+  style: Style;
+};
 
-export function StyleEditorPage({ style }: StyleEditorPageProps) {
+export function StyleEditorPage({ action, style }: StyleEditorPageProps) {
   return (
-    <div>
+    <StyleEditorContainer style={style} action={action}>
       <TopBar
         breadcrumbs={[
           { title: "Styles", url: "/styles" },
@@ -17,7 +22,7 @@ export function StyleEditorPage({ style }: StyleEditorPageProps) {
         <Button type="submit">Save</Button>
       </TopBar>
       <StyleEditor style={style} />
-    </div>
+    </StyleEditorContainer>
   );
 }
 export default StyleEditorPage;

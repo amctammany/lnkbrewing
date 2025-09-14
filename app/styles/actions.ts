@@ -4,11 +4,11 @@ import { z } from "zod";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { $Enums } from "@/lib/generated/prisma/client";
+import slugify from "@/lib/slugify";
 
 const schema = zfd.formData({
   id: zfd.numeric(),
   name: zfd.text(),
-  slug: zfd.text(),
   identifier: zfd.text(),
   category: z.enum($Enums.StyleCategory),
   subcategoryId: zfd.numeric(),
@@ -24,18 +24,19 @@ const schema = zfd.formData({
 });
 export async function updateStyle(formData: FormData) {
   const data = schema.parse(formData);
+  console.log(data);
   const res = await prisma.style.update({
     where: {
       id: data.id,
     },
-    data,
+    data: { ...data, slug: slugify(data.name) },
   });
   redirect(`/styles/${res.identifier}`);
 }
 export const createStyle = async (formData: FormData) => {
   const data = schema.parse(formData);
   const res = await prisma.style.create({
-    data,
+    data: { ...data, slug: slugify(data.name) },
   });
   redirect(`/styles/${res.identifier}`);
 };
