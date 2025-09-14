@@ -41,6 +41,7 @@ model User {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   UserPreferences UserPreferences?
+  WaterProfile    WaterProfile[]
 }
 
 model UserPreferences {
@@ -229,4 +230,25 @@ model Style {
   abvLow        Float?
   abvHigh       Float?
   abvFlex       Boolean       @default(false)
+}
+
+model WaterProfile {
+  id          Int            @id @default(autoincrement())
+  userId      String?
+  owner       User?          @relation(fields: [userId], references: [id])
+  name        String
+  slug        String         @unique
+  calcium     Int
+  magnesium   Int
+  sodium      Int
+  chloride    Int
+  sulfate     Int
+  bicarbonate Int
+  description String?
+  //  Recipe         Recipe[]
+  //  DefaultSources UserPreferences[] @relation("SourceWater")
+  //  TargetSources  UserPreferences[] @relation("TargetWater")
+  forkedFrom  Int?
+  origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       WaterProfile[] @relation("origin")
 }
