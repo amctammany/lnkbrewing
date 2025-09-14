@@ -1,4 +1,6 @@
 "use client";
+import RadioGroupInput from "@/components/Form/RadioGroupInput";
+import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -68,6 +70,11 @@ export function SettingsForm({ user }: SettingsFormProps) {
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Username" {...register("username")} />
       <TextInput label="Email" {...register("email")} />
+      <RadioGroupInput
+        control={control}
+        name="UserPreferences.gravity"
+        options={UserGravityPreference}
+      />
       <FormField
         control={control}
         name="UserPreferences.gravity"
@@ -128,6 +135,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
             <FormMessage />
           </FormItem>
         )}
+      />
+      <SelectInput
+        control={control}
+        name="UserPreferences.pressure"
+        label="Pressure"
+        options={UserPressurePreference}
       />
       <Button type="submit">Save</Button>
     </>
