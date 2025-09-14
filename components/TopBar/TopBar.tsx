@@ -19,7 +19,7 @@ export function TopBar({
   breadcrumbs = [],
   children,
 }: {
-  breadcrumbs: BreadCrumb[];
+  breadcrumbs?: BreadCrumb[];
   children?: React.ReactNode;
 }) {
   const crumbs = breadcrumbs.slice(0, -1);
@@ -32,23 +32,25 @@ export function TopBar({
           orientation="vertical"
           className="mr-2 data-[orientation=vertical]:h-4"
         />
-        <Breadcrumb>
-          <BreadcrumbList>
-            {crumbs.map((crumb) => (
-              <React.Fragment key={crumb.title}>
-                <BreadcrumbItem className="idden dlock">
-                  <BreadcrumbLink href={crumb.url ? crumb.url : "#"}>
-                    {crumb.title}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hiden md:bloc" />
-              </React.Fragment>
-            ))}
-            <BreadcrumbItem>
-              <BreadcrumbPage>{final.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        {breadcrumbs.length > 0 && (
+          <Breadcrumb>
+            <BreadcrumbList>
+              {crumbs.map((crumb) => (
+                <React.Fragment key={crumb.title}>
+                  <BreadcrumbItem className="idden dlock">
+                    <BreadcrumbLink href={crumb.url ? crumb.url : "#"}>
+                      {crumb.title}
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hiden md:bloc" />
+                </React.Fragment>
+              ))}
+              <BreadcrumbItem>
+                <BreadcrumbPage>{final.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        )}
       </div>
       <div className="ml-auto flex items-center gap-2 px-4">{children}</div>
     </header>
