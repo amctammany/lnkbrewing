@@ -1,13 +1,11 @@
 import type { Style } from "@/lib/generated/prisma/client";
 import React from "react";
+import StyleEditor from "./StyleEditor";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { StyleDisplay } from "./StyleDisplay";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-export type StyleDisplayPageProps = {
-  style: Style;
-};
-export function StyleDisplayPage({ style }: StyleDisplayPageProps) {
+export type StyleEditorPageProps = { style: Style };
+
+export function StyleEditorPage({ style }: StyleEditorPageProps) {
   return (
     <div>
       <TopBar
@@ -16,13 +14,10 @@ export function StyleDisplayPage({ style }: StyleDisplayPageProps) {
           { title: style.name, isCurrent: true },
         ]}
       >
-        <Button asChild>
-          <Link href={`/styles/${style.slug}/edit`}>Edit</Link>
-        </Button>
+        <Button type="submit">Save</Button>
       </TopBar>
-
-      <StyleDisplay style={style} />
+      <StyleEditor style={style} />
     </div>
   );
 }
-export default StyleDisplayPage;
+export default StyleEditorPage;
