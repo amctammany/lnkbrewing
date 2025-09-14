@@ -3,8 +3,8 @@ import { zfd } from "zod-form-data";
 import { z } from "zod";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
-import { $Enums } from "@/lib/generated/prisma/client";
 import slugify from "@/lib/slugify";
+import { $Enums } from "@prisma/client";
 
 const schema = zfd.formData({
   id: zfd.numeric(),

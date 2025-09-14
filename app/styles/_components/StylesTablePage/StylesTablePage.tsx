@@ -1,4 +1,4 @@
-import type { Style } from "@/lib/generated/prisma/client";
+import type { Style } from "@prisma/client";
 import React from "react";
 import StylesTable from "../StylesTable";
 import { TopBar } from "@/components/TopBar/TopBar";
