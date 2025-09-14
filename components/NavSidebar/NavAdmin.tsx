@@ -14,16 +14,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -34,6 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import NavLink from "./NavLink";
 
 export function NavAdmin() {
   const { isMobile } = useSidebar();
@@ -46,28 +37,28 @@ export function NavAdmin() {
       <SidebarMenu>
         <SidebarMenuItem hidden={session?.user ? false : true}>
           <SidebarMenuButton asChild>
-            <Link href="/admin">
+            <NavLink href="/admin">
               <LayoutDashboardIcon />
               Dashboard
-            </Link>
+            </NavLink>
           </SidebarMenuButton>
         </SidebarMenuItem>
         <SidebarMenuItem hidden={session?.user ? false : true}>
           <SidebarMenuButton asChild>
-            <Link href="/admin/settings">
+            <NavLink href="/admin/settings">
               <SettingsIcon />
               Settings
-            </Link>
+            </NavLink>
           </SidebarMenuButton>
         </SidebarMenuItem>
 
         <SidebarMenuItem>
           {session?.user ? (
             <SidebarMenuButton asChild>
-              <Link href="/api/auth/signout">
+              <NavLink href="/api/auth/signout">
                 <LogOutIcon />
                 Logout
-              </Link>
+              </NavLink>
             </SidebarMenuButton>
           ) : (
             <SidebarMenuButton asChild>

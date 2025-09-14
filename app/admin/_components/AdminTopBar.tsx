@@ -7,6 +7,18 @@ import React from "react";
 
 export default function AdminTopBar() {
   return (
+    <TopBar
+      breadcrumbs={[
+        { title: "Dashboard", url: "/admin" },
+        { title: "Settings", url: "/admin/settings" },
+      ]}
+    >
+      <Button>Logout</Button>
+    </TopBar>
+  );
+  /**
+   * 
+  return (
     <header className="lg:sticky lg:top-0 lg:z-50 lg:w-full flex h-12 shrink-0 items-center gap-2 transition-[width,height] ease-linear bg-sidebar-accent group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b-2">
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
@@ -22,4 +34,5 @@ export default function AdminTopBar() {
       </div>
     </header>
   );
+   */
 }
