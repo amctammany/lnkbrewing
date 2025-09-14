@@ -10,6 +10,8 @@ generator client {
   runtime             = "nodejs"
   moduleFormat        = "esm"
   importFileExtension = ""
+  binaryTargets       = ["native", "rhelop-openssl-3.0.x"] // Adjust based on your deployment target
+  //  provider = "prisma-client-js" --- IGNORE ---
 }
 
 datasource db {
