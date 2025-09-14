@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export type WaterProfilesListProps = {
@@ -11,7 +12,9 @@ export default function WaterProfilesList({
       WaterProfilesList
       <ul>
         {profiles.map((profile) => (
-          <li key={profile.name}>{profile.name}</li>
+          <li key={profile.name}>
+            <Link href={`/profiles/water/${profile.slug}`}>{profile.name}</Link>
+          </li>
         ))}
       </ul>
     </div>
