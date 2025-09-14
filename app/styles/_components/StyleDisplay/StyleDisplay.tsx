@@ -1,6 +1,6 @@
 import { Prop } from "@/components/Prop";
 import { Card } from "@/components/ui/card";
-import type { Style } from "@/lib/generated/prisma/client";
+import type { Style } from "@prisma/client";
 import React from "react";
 
 export interface StyleDisplayProps {
