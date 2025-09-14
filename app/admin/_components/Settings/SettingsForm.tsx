@@ -4,20 +4,36 @@ import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
 import { User } from "@prisma/client";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
+
+export type SettingsFormContainerProps = {
+  user: User;
+  action: (formData: FormData) => Promise<void>;
+  children: React.ReactNode;
+};
+export function SettingsContainerForm({
+  user,
+  action,
+  children,
+}: SettingsFormContainerProps) {
+  const form = useForm<User>({ defaultValues: user });
+  return (
+    <Form {...form}>
+      <form action={action}>{children}</form>
+    </Form>
+  );
+}
 
 export type SettingsFormProps = {
   user: User;
   action: (formData: FormData) => Promise<void>;
 };
-export default function SettingsForm({ user, action }: SettingsFormProps) {
-  const form = useForm<User>({ defaultValues: user });
+export function SettingsForm({ user, action }: SettingsFormProps) {
+  const { register } = useFormContext<User>();
   return (
-    <Form {...form}>
-      <form action={action}>
-        <TextInput label="Name" {...form.register("name")} />
-        <TextInput label="Email" {...form.register("email")} />
-      </form>
-    </Form>
+    <>
+      <TextInput label="Name" {...register("name")} />
+      <TextInput label="Email" {...register("email")} />
+    </>
   );
 }

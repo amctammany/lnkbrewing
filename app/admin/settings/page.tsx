@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { unauthorized } from "next/navigation";
 import React from "react";
-import SettingsForm from "@/app/admin/_components/Settings/SettingsForm";
+import { Settings } from "@/app/admin/_components/Settings/Settings";
 import { updateUserSettings } from "@/app/admin/actions";
 import { prisma } from "@/lib/client";
 
@@ -18,7 +18,7 @@ export default async function SettingsPage() {
   }
   return (
     <div>
-      <SettingsForm user={user} action={updateUserSettings} />
+      <Settings user={user} action={updateUserSettings} />
     </div>
   );
 }
