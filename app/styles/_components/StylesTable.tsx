@@ -1,5 +1,5 @@
 "use client";
-import { Style } from "@/generated/prisma";
+import { Style } from "@/lib/generated/prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
