@@ -4,6 +4,7 @@ import { StyleCategory } from "@prisma/client";
 import slugify from "@/lib/slugify";
 async function main() {
   await prisma.style.deleteMany();
+  await prisma.waterProfile.deleteMany();
 
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
