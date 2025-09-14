@@ -1,5 +1,6 @@
 "use client";
 import TextInput from "@/components/Form/TextInput";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
 import { User } from "@prisma/client";
@@ -19,34 +20,11 @@ export function SettingsContainerForm({
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm<User>({ defaultValues: user, errors: state?.errors });
 
-  function handleAction(values: any, e: any) {
-    console.log(e);
-    e.preventDefault();
-    e.stopPropagation();
-    const formData = new FormData();
-    for (const [key, value] of Object.entries(values)) {
-      formData.append(key, value as any);
-    }
-    startTransition(async () => {
-      formAction(formData);
-    });
-    return false;
-  }
-  const onSubmit = (data: any) => {
-    // You can still perform client-side validation here if needed
-    // Then, trigger the server action
-    //    formAction(data); // Pass form data to the server action
-    console.log(data);
-  };
   return (
     <Form {...form}>
       <form
         action={formAction}
         //        onSubmit={form.handleSubmit(handleAction)}
-        onError={(e) => {
-          console.log(e);
-          e.preventDefault();
-        }}
       >
         {children}
       </form>
@@ -66,6 +44,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Username" {...register("username")} />
       <TextInput label="Email" {...register("email")} />
+      <Button type="submit">Save</Button>
     </>
   );
 }
