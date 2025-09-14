@@ -22,13 +22,9 @@ export function SettingsContainerForm({
     <Form {...form}>
       <form
         action={formAction}
-        onSubmit={(e) => {
-          e.bubbles = false;
-          e.defaultPrevented = true;
-          e.preventDefault();
-          e.stopPropagation();
+        onErrorCapture={(e) => {
           console.log(e);
-          return false;
+          e.preventDefault();
         }}
       >
         {children}
