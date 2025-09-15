@@ -10,7 +10,7 @@ const Box = ({
 }: {
   unit?: string | React.ReactNode;
   label: string | React.ReactNode;
-  value: number;
+  value?: number | null;
 }) => (
   <div className="grid grid-cols-2 font-mono border-2 rounded *:px-4 *:py-3">
     <span className="text-lg font-bold bg-slate-700 text-gray-300 ">

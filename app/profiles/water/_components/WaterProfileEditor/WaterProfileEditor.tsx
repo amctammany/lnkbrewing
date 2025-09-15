@@ -6,9 +6,10 @@ import {
 } from "./WaterProfileForm";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
+import { OptionalNullable } from "@/lib/utils";
 
 export type WaterProfileEditorProps = {
-  profile: WaterProfile;
+  profile: Omit<OptionalNullable<WaterProfile>, "id">;
   action: any;
 };
 export default function WaterProfileEditor({

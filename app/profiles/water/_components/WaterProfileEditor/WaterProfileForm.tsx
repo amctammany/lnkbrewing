@@ -1,11 +1,12 @@
 "use client";
 import TextInput from "@/components/Form/TextInput";
 import { Form } from "@/components/ui/form";
+import { OptionalNullable } from "@/lib/utils";
 import { WaterProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type WaterProfileFormContainerProps<S = unknown> = {
-  profile: WaterProfile;
+  profile: Omit<OptionalNullable<WaterProfile>, "id">;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };

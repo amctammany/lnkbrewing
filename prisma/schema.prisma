@@ -238,12 +238,12 @@ model WaterProfile {
   owner       User?          @relation(fields: [userId], references: [id])
   name        String
   slug        String         @unique
-  calcium     Int
-  magnesium   Int
-  sodium      Int
-  chloride    Int
-  sulfate     Int
-  bicarbonate Int
+  calcium     Int?           @default(0)
+  magnesium   Int?           @default(0)
+  sodium      Int?           @default(0)
+  chloride    Int?           @default(0)
+  sulfate     Int?           @default(0)
+  bicarbonate Int?           @default(0)
   description String?
   //  Recipe         Recipe[]
   //  DefaultSources UserPreferences[] @relation("SourceWater")

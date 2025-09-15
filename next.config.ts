@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
   }, */
   experimental: {
     //    ppr: "incremental",
-    //   authInterrupts: true,
+    authInterrupts: true,
   },
   eslint: {
     ignoreDuringBuilds: true,

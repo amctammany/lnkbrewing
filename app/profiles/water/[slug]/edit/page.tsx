@@ -1,17 +1,8 @@
 import WaterProfileEditor from "@/app/profiles/water/_components/WaterProfileEditor/WaterProfileEditor";
 import { getWaterProfile } from "@/app/profiles/water/queries";
-import {
-  createWaterProfile,
-  updateWaterProfile,
-} from "@/app/profiles/water/actions";
+import { updateWaterProfile } from "@/app/profiles/water/actions";
 
-import { notFound } from "next/navigation";
-import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
-import {
-  WaterProfileForm,
-  WaterProfileFormContainer,
-} from "../../_components/WaterProfileEditor/WaterProfileForm";
+import { authorizeResource } from "@/lib/authorizeResource";
 
 export default async function WaterProfileEditorPage({
   params,
@@ -19,8 +10,6 @@ export default async function WaterProfileEditorPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const profile = await getWaterProfile(slug);
-  const action = slug ? updateWaterProfile : createWaterProfile;
-  if (!profile) notFound();
-  return <WaterProfileEditor action={action} profile={profile} />;
+  const profile = await authorizeResource(getWaterProfile, slug);
+  return <WaterProfileEditor action={updateWaterProfile} profile={profile} />;
 }
