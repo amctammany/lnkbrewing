@@ -1,4 +1,4 @@
-import { Prop } from "@/components/Prop";
+import { Prop } from "@/components/Prop/Prop";
 import { Card } from "@/components/ui/card";
 import type { Style } from "@prisma/client";
 import React from "react";

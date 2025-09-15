@@ -10,6 +10,11 @@ export default async function WaterProfileEditorPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const profile = await authorizeResource(getWaterProfile, slug);
+
+  const profile = await authorizeResource(
+    `/profiles/water/${slug}/edit`,
+    getWaterProfile,
+    slug
+  );
   return <WaterProfileEditor action={updateWaterProfile} profile={profile} />;
 }
