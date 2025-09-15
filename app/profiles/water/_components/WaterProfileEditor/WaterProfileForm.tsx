@@ -28,6 +28,7 @@ export function WaterProfileForm() {
   return (
     <>
       <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("userId")} />
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
       <TextInput

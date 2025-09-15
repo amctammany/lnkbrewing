@@ -8,8 +8,10 @@ import { zfd } from "zod-form-data";
 
 const waterProfileSchema = zfd.formData({
   //userId: zfd.text(),
-  id: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
+  userId: zfd.text(z.string().optional()),
   name: zfd.text(),
+  description: zfd.text(),
 
   calcium: zfd.numeric(z.number().min(0)),
   magnesium: zfd.numeric(z.number().min(0)),
@@ -20,6 +22,7 @@ const waterProfileSchema = zfd.formData({
 });
 export async function createWaterProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, waterProfileSchema);
+  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
