@@ -2,8 +2,12 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
-export const verifySession = cache(async function (redirect_url = "") {
+export const cachedAuth = cache(async function () {
   const session = await auth();
+  return session;
+});
+export const verifySession = cache(async function (redirect_url = "") {
+  const session = await cachedAuth();
   if (!session?.user) {
     const url = new URLSearchParams({
       redirect_url,
