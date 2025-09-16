@@ -12,8 +12,8 @@ const Box = ({
   label: string | React.ReactNode;
   value?: number | null;
 }) => (
-  <div className="grid grid-cols-2 font-mono border-2 rounded *:px-4 *:py-3">
-    <span className="text-lg font-bold bg-slate-700 text-gray-300 ">
+  <div className="grid grid-cols-2 font-mono border-2 rounded p-1 md:*:px-4 md:*:py-3">
+    <span className="md:text-lg font-bold bg-slate-700 text-gray-300 ">
       {label}
     </span>
     <div className="flexspacing-2 *:my-auto">
@@ -30,11 +30,11 @@ export default function WaterProfileDisplay({
 }: WaterProfileDisplayProps) {
   return (
     <div>
-      <Card className="*:not-last:border-b-2 max-w-2/3 mx-auto">
+      <Card className="*:not-last:border-b-2 lg:max-w-2/3 mx-auto">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.userId} />
         <Prop label="Description" value={profile.description} />
-        <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 p-2">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
           <Box label={<Ca2 />} value={profile.calcium} unit="ppm" />
           <Box label={<Mg2 />} value={profile.magnesium} unit="ppm" />
           <Box label={<Cl />} value={profile.chloride} unit="ppm" />

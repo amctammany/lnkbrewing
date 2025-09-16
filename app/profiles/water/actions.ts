@@ -27,7 +27,6 @@ export async function createWaterProfile(prev: any, formData: FormData) {
   if (!v.success) {
     return Promise.resolve(v);
   }
-  console.log(v);
   const res = await prisma.waterProfile.create({
     data: { ...v.data, slug: slugify(v.data.name) },
   });
@@ -42,7 +41,6 @@ export async function updateWaterProfile(prev: any, formData: FormData) {
   if (!v.success) {
     return Promise.resolve(v);
   }
-  console.log(v);
   const res = await prisma.waterProfile.update({
     where: {
       id: v.data.id,
