@@ -7,10 +7,11 @@ import {
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { OptionalNullable } from "@/lib/utils";
-import { BaseWaterProfile } from "@/types/Profile";
+import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
+import Link from "next/link";
 
 export type WaterProfileEditorProps = {
-  profile: BaseWaterProfile;
+  profile: WaterProfileType;
   action: any;
 };
 export default function WaterProfileEditor({
@@ -28,6 +29,12 @@ export default function WaterProfileEditor({
       >
         <Button type="submit">Save</Button>
       </TopBar>
+      <h3 className={profile.origin ? "" : "hidden"}>
+        Forked From:
+        <Link href={`/profiles/water/${profile.origin?.slug}`}>
+          {profile.origin?.name}
+        </Link>
+      </h3>
       <WaterProfileForm />
     </WaterProfileFormContainer>
   );

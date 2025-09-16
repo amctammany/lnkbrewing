@@ -4,6 +4,7 @@ import { zfd } from "zod-form-data";
 export const waterProfileSchema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.numeric(z.number().optional()),
+  forkedFrom: zfd.numeric(z.number().optional()),
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),

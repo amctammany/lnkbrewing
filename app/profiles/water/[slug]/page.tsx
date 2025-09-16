@@ -26,6 +26,10 @@ export default async function WaterProfileDisplayPage({
           { title: profile.name, url: `/profiles/water/${profile.slug}` },
         ]}
       >
+        <LinkButton href={`/profiles/water/${profile.slug}/fork`}>
+          Fork
+        </LinkButton>
+
         <LinkButton href={`/profiles/water/${profile.slug}/edit`}>
           Edit
         </LinkButton>
