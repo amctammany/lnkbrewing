@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 
 import {
   BadgeCheck,
@@ -22,13 +22,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useSession } from "next-auth/react";
+//import { useSession } from "next-auth/react";
 import Link from "next/link";
 import NavLink from "./NavLink";
+import { cachedAuth } from "@/lib/verifySession";
 
-export function NavAdmin() {
-  const { isMobile } = useSidebar();
-  const { data: session } = useSession();
+export async function NavAdmin() {
+  const session = await cachedAuth();
+  //  const { isMobile } = useSidebar();
+  //  const { data: session } = useSession();
 
   return (
     <SidebarGroup>

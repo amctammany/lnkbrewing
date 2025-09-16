@@ -14,12 +14,10 @@ const schema = zfd.formData({
 });
 export async function updateUserSettings(prev: any, formData: FormData) {
   const v = validateSchema(formData, schema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  console.log(v);
   const res = await prisma.user.update({
     where: {
       id: v.data.id,
