@@ -1,4 +1,4 @@
-import { getStyle } from "../queries";
+import { getStyle, getStyles } from "../queries";
 import { notFound } from "next/navigation";
 import { StyleDisplayPage } from "../_components/StyleDisplay/StyleDisplayPage";
 interface StylePageProps {
@@ -6,6 +6,10 @@ interface StylePageProps {
     identifier: string;
   }>;
 }
+export async function generateStaticParams() {
+  return (await getStyles()).map(({ identifier }) => ({ identifier }));
+}
+
 export async function generateMetadata({ params }: StylePageProps) {
   const { identifier } = await params;
   return {

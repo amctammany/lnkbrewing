@@ -1,11 +1,14 @@
 import React from "react";
 import WaterProfileDisplay from "../_components/WaterProfileDisplay/WaterProfileDisplay";
-import { getWaterProfile } from "../queries";
+import { getWaterProfile, getWaterProfiles } from "../queries";
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { BaseWaterProfile } from "@/types/Profile";
 
+export async function generateStaticParams() {
+  return (await getWaterProfiles()).map(({ slug }) => ({ slug }));
+}
 export default async function WaterProfileDisplayPage({
   params,
 }: {
