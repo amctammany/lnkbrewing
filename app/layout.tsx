@@ -7,7 +7,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import NavSidebar from "@/components/NavSidebar/NavSidebar";
-import { SessionProvider } from "next-auth/react";
+//import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,12 +34,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
-          <SidebarProvider>
-            <NavSidebar />
-            <SidebarInset>{children}</SidebarInset>
-          </SidebarProvider>
-        </SessionProvider>
+        <SidebarProvider>
+          <NavSidebar />
+          <SidebarInset>{children}</SidebarInset>
+        </SidebarProvider>
       </body>
     </html>
   );
