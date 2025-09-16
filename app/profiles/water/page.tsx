@@ -6,6 +6,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
+import { BaseWaterProfile } from "@/types/Profile";
 
 export default async function WaterProfilesListPage() {
   const profiles = await prisma.waterProfile.findMany();
@@ -22,7 +23,7 @@ export default async function WaterProfilesListPage() {
           Add
         </LinkButton>
       </TopBar>
-      <WaterProfilesList profiles={profiles} />
+      <WaterProfilesList profiles={profiles as BaseWaterProfile[]} />
     </div>
   );
 }

@@ -2,9 +2,10 @@ import Link from "next/link";
 import React from "react";
 import WaterProfileListItem from "./WaterProfileListItem";
 import { Card } from "@/components/ui/card";
+import { BaseWaterProfile } from "@/types/Profile";
 
 export type WaterProfilesListProps = {
-  profiles: any[];
+  profiles: BaseWaterProfile[];
 };
 export default function WaterProfilesList({
   profiles,

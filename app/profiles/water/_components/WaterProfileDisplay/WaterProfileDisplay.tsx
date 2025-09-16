@@ -1,6 +1,7 @@
 import { Ca2, Cl, HCO3, Mg2, MgSo4, Na, SO4 } from "@/components/Elements";
 import { Prop } from "@/components/Prop";
 import { Card } from "@/components/ui/card";
+import { BaseWaterProfile } from "@/types/Profile";
 import { WaterProfile } from "@prisma/client";
 import React from "react";
 const Box = ({
@@ -23,7 +24,7 @@ const Box = ({
   </div>
 );
 export type WaterProfileDisplayProps = {
-  profile: WaterProfile;
+  profile: BaseWaterProfile;
 };
 export default function WaterProfileDisplay({
   profile,

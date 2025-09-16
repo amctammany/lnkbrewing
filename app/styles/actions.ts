@@ -4,26 +4,10 @@ import { z } from "zod";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import slugify from "@/lib/slugify";
-import { $Enums } from "@prisma/client";
+import { styleSchema } from "@/schemas/StyleSchema";
 
-const schema = zfd.formData({
-  id: zfd.numeric(),
-  name: zfd.text(),
-  identifier: zfd.text(),
-  category: z.enum($Enums.StyleCategory),
-  subcategoryId: zfd.numeric(),
-  aroma: zfd.text(z.string().optional()),
-  appearance: zfd.text(z.string().optional()),
-  flavor: zfd.text(z.string().optional()),
-  mouthfeel: zfd.text(z.string().optional()),
-  history: zfd.text(z.string().optional()),
-  ingredients: zfd.text(z.string().optional()),
-  comments: zfd.text(z.string().optional()),
-  comparison: zfd.text(z.string().optional()),
-  examples: zfd.text(z.string().optional()),
-});
 export async function updateStyle(formData: FormData) {
-  const data = schema.parse(formData);
+  const data = styleSchema.parse(formData);
   console.log(data);
   const res = await prisma.style.update({
     where: {
@@ -34,7 +18,7 @@ export async function updateStyle(formData: FormData) {
   redirect(`/styles/${res.slug}`);
 }
 export const createStyle = async (formData: FormData) => {
-  const data = schema.parse(formData);
+  const data = styleSchema.parse(formData);
   const res = await prisma.style.create({
     data: { ...data, slug: slugify(data.identifier) },
   });

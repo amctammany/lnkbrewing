@@ -4,6 +4,7 @@ import { getWaterProfile } from "../queries";
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
+import { BaseWaterProfile } from "@/types/Profile";
 
 export default async function WaterProfileDisplayPage({
   params,
@@ -26,7 +27,7 @@ export default async function WaterProfileDisplayPage({
           Edit
         </LinkButton>
       </TopBar>
-      <WaterProfileDisplay profile={profile} />
+      <WaterProfileDisplay profile={profile as BaseWaterProfile} />
     </div>
   );
 }
