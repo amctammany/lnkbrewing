@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   }, */
   experimental: {
-    //    ppr: "incremental",
+    useCache: true,
+    ppr: "incremental",
     authInterrupts: true,
   },
   eslint: {
