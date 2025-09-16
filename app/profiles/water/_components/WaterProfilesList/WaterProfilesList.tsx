@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import WaterProfileListItem from "./WaterProfileListItem";
+import { Card } from "@/components/ui/card";
 
 export type WaterProfilesListProps = {
   profiles: any[];
@@ -8,15 +10,13 @@ export default function WaterProfilesList({
   profiles,
 }: WaterProfilesListProps) {
   return (
-    <div>
-      WaterProfilesList
-      <ul>
+    <Card className="mx-4 my-2">
+      <div className="w-full bg-amber-400">SearchBar</div>
+      <ul className="gap-2 *:not-last:border-b-2">
         {profiles.map((profile) => (
-          <li key={profile.name}>
-            <Link href={`/profiles/water/${profile.slug}`}>{profile.name}</Link>
-          </li>
+          <WaterProfileListItem key={profile.name} profile={profile} />
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }
