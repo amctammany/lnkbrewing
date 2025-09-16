@@ -7,6 +7,12 @@ export const getWaterProfiles = async (args: any = {}) => {
 };
 
 export const getWaterProfile = async (slug: string) => {
-  const profile = await prisma.waterProfile.findFirst({ where: { slug } });
+  const profile = await prisma.waterProfile.findFirst({
+    where: { slug },
+    include: {
+      origin: { select: { slug: true, name: true } },
+      owner: { select: { name: true, id: true } },
+    },
+  });
   return profile;
 };

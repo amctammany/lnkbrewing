@@ -1,8 +1,9 @@
 import { Ca2, Cl, HCO3, Mg2, MgSo4, Na, SO4 } from "@/components/Elements";
 import { Prop } from "@/components/Prop";
 import { Card } from "@/components/ui/card";
-import { BaseWaterProfile } from "@/types/Profile";
+import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
 import { WaterProfile } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 const Box = ({
   label,
@@ -24,7 +25,7 @@ const Box = ({
   </div>
 );
 export type WaterProfileDisplayProps = {
-  profile: BaseWaterProfile;
+  profile: WaterProfileType;
 };
 export default function WaterProfileDisplay({
   profile,
@@ -33,7 +34,18 @@ export default function WaterProfileDisplay({
     <div>
       <Card className="*:not-last:border-b-2 lg:max-w-2/3 mx-auto">
         <Prop label="Name" value={profile.name} />
-        <Prop label="Author" value={profile.userId} />
+        <Prop label="Author" value={profile.owner?.name} />
+        <Prop
+          label="Forked From"
+          value={
+            <Link
+              className="underline"
+              href={`/profiles/water/${profile.origin?.slug}`}
+            >
+              {profile.origin?.name}
+            </Link>
+          }
+        />
         <Prop label="Description" value={profile.description} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
           <Box label={<Ca2 />} value={profile.calcium} unit="ppm" />
