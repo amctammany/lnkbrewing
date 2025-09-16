@@ -10,6 +10,10 @@ import {
   PillBottle,
   ToolCase,
   Wheat,
+  Droplet,
+  Thermometer,
+  ChartLine,
+  ShoppingBasket,
 } from "lucide-react";
 import {
   Sidebar,
@@ -23,6 +27,7 @@ import {
 } from "../ui/sidebar";
 import { NavMain } from "./NavMain";
 import { NavAdmin } from "./NavAdmin";
+import NavLink from "./NavLink";
 
 const data = {
   ingredients: [
@@ -44,7 +49,7 @@ const data = {
     {
       title: "Ingredients",
       url: "/ingredients",
-      icon: CookingPot,
+      icon: ShoppingBasket,
       items: [
         {
           title: "Grains",
@@ -77,17 +82,21 @@ const data = {
         {
           title: "Equipment",
           url: "/profiles/equipment",
+          icon: CookingPot,
         },
         {
           title: "Mash",
+          icon: Thermometer,
           url: "/profiles/mash",
         },
         {
           title: "Water",
+          icon: Droplet,
           url: "/profiles/water",
         },
         {
           title: "Fermentation",
+          icon: ChartLine,
           url: "/profiles/fermentation",
         },
       ],
@@ -128,10 +137,13 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <GalleryVerticalEnd className="size-4" />
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <NavLink
+                href="/"
+                className="grid flex-1 text-left text-sm leading-tight"
+              >
                 <span className="truncate font-medium">LNK</span>
                 <span className="truncate text-xs">Brew</span>
-              </div>
+              </NavLink>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
           </SidebarMenuItem>
