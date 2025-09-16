@@ -1,7 +1,6 @@
 //"use client";
 import Link, { LinkProps } from "next/link";
 import React, { ComponentProps } from "react";
-import { useSidebar } from "../ui/sidebar";
 
 export interface NavLinkProps extends ComponentProps<"a"> {
   href: string;
