@@ -1,5 +1,6 @@
 "use client";
 import TextInput from "@/components/Form/TextInput";
+import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
 import { WaterProfile } from "@prisma/client";
@@ -26,7 +27,7 @@ export function WaterProfileFormContainer({
 export function WaterProfileForm() {
   const { register, control } = useFormContext<WaterProfile>();
   return (
-    <>
+    <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <TextInput label="Name" {...register("name")} />
@@ -67,6 +68,6 @@ export function WaterProfileForm() {
         label="Chloride"
         {...register("chloride")}
       />
-    </>
+    </div>
   );
 }
