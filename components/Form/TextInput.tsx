@@ -18,6 +18,7 @@ export default function TextInput<T extends FieldValues>({
   type = "string",
   placeholder,
   description,
+  unit,
   className = "",
   ...props
 }: {
@@ -25,6 +26,7 @@ export default function TextInput<T extends FieldValues>({
   control?: Control<T>;
   type?: any;
   name: FieldPath<T>;
+  unit?: string | React.ReactNode;
   label?: string | React.ReactNode;
   placeholder?: string;
   description?: string;
@@ -34,18 +36,20 @@ export default function TextInput<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={clsx("flex", className)}>
+        <FormItem className={clsx("flex cap", className)}>
           <FormLabel>{label ?? name}</FormLabel>
           <FormControl className="flex-grow">
-            <div className=" flex px-4">
+            <div className="flex mx-4 p-1">
               <Input
-                className="flex-grow"
+                className="flex-grow bg-white"
                 type={type}
                 placeholder={placeholder}
                 {...props}
                 {...field}
               />
-              <span>ppm</span>
+              <div className="grid m-2 bg-slate-500 text-white">
+                <span className="m-auto">{unit}</span>
+              </div>
             </div>
           </FormControl>
           <FormDescription className={description ? "" : "hidden"}>

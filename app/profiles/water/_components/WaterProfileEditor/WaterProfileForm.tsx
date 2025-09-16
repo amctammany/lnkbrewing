@@ -34,42 +34,48 @@ export function WaterProfileForm() {
       <input type="hidden" {...register("forkedFrom")} />
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
-      <TextInput
-        step=".01"
-        type="number"
-        label="Calcium"
-        {...register("calcium")}
-      />{" "}
-      <TextInput
-        step=".01"
-        type="number"
-        label="magnesium"
-        {...register("magnesium")}
-      />{" "}
-      <TextInput
-        step=".01"
-        type="number"
-        label="sulfate"
-        {...register("sulfate")}
-      />{" "}
-      <TextInput
-        step=".01"
-        type="number"
-        label="Sodium"
-        {...register("sodium")}
-      />{" "}
-      <TextInput
-        step=".01"
-        type="number"
-        label="Bicarbonate"
-        {...register("bicarbonate")}
-      />
-      <TextInput
-        step=".01"
-        type="number"
-        label="Chloride"
-        {...register("chloride")}
-      />
+      <div className="grid grid-cols-3 gap-2">
+        <TextInput
+          className="block"
+          step=".01"
+          type="number"
+          label="Calcium"
+          unit="PPM"
+          description="ppm (0-250)"
+          {...register("calcium")}
+        />{" "}
+        <TextInput
+          step=".01"
+          type="number"
+          className="block"
+          label="magnesium"
+          {...register("magnesium")}
+        />{" "}
+        <TextInput
+          step=".01"
+          type="number"
+          label="sulfate"
+          {...register("sulfate")}
+        />{" "}
+        <TextInput
+          step=".01"
+          type="number"
+          label="Sodium"
+          {...register("sodium")}
+        />{" "}
+        <TextInput
+          step=".01"
+          type="number"
+          label="Bicarbonate"
+          {...register("bicarbonate")}
+        />
+        <TextInput
+          step=".01"
+          type="number"
+          label="Chloride"
+          {...register("chloride")}
+        />
+      </div>
     </div>
   );
 }
