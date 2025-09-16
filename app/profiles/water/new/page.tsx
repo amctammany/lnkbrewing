@@ -5,19 +5,14 @@ import { auth } from "@/auth";
 
 import { authorizeResource } from "@/lib/authorizeResource";
 import { OptionalNullable } from "@/lib/utils";
+import { verifySession } from "@/lib/verifySession";
 import { WaterProfile } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function WaterProfileCreatorPage({}) {
   //  const profile = await authorizeResource(getWaterProfile, slug);
-  const session = await auth();
-  if (!session?.user?.id) {
-    // need to login
-    const url = new URLSearchParams({
-      redirect_url: "/profiles/water/new",
-    }).toString();
-    return redirect("/admin/login?" + url.toString());
-  }
+  const session = await verifySession("/profiles/water/new");
+
   const profile: Omit<OptionalNullable<WaterProfile>, "id"> = {
     name: "",
     slug: "",
