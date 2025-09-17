@@ -1,4 +1,4 @@
-"use server";
+"use cache";
 import { prisma } from "@/lib/client";
 
 export async function getHop(slug: string) {
