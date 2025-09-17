@@ -16,7 +16,8 @@ import { ArrowDownToDotIcon, PoundSterlingIcon } from "lucide-react";
 const inlineFieldStyles = cva("", {
   variants: {
     variant: {
-      default: "flex items-center justify-center",
+      default:
+        "grid grid-flow-col auto-cols-auto tems-center w-full ustify-center",
       inline: "flx",
     },
   },
@@ -32,6 +33,8 @@ export default function InlineField<T extends FieldValues>({
   placeholder,
   description,
   unit,
+  PrependIcon,
+  AppendIcon,
   variant,
   className = "",
   ...props
@@ -42,6 +45,8 @@ export default function InlineField<T extends FieldValues>({
   name: FieldPath<T>;
   unit?: string | React.ReactNode;
   label?: string | React.ReactNode;
+  PrependIcon?: any;
+  AppendIcon?: any;
   placeholder?: string;
   description?: string;
 } & ComponentProps<"input"> &
@@ -53,13 +58,15 @@ export default function InlineField<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className={cx(inlineFieldStyles({ variant }), className)}>
-            <FormLabel>{label ?? name}</FormLabel>
+            <FormLabel className="block my-auto justify-center items-center w-full text-right">
+              {label ?? name}
+            </FormLabel>
             <FormControl>
-              <div className="flex border-box mx-4 p-1">
+              <div className="flex w-full  flex-grow border-box mx-4 p-1">
                 <InlineInput
                   className="flex-grow bg-white"
-                  prepend={ArrowDownToDotIcon}
-                  append={PoundSterlingIcon}
+                  prepend={PrependIcon}
+                  append={AppendIcon}
                   type={type}
                   placeholder={placeholder}
                   {...props}

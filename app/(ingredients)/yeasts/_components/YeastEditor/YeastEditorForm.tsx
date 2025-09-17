@@ -1,10 +1,19 @@
 "use client";
+import InlineField from "@/components/Form/InlineField";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { YeastInput } from "@/schemas/IngredientSchemas";
 import { YeastType } from "@/types/Ingredient";
 import { User, Yeast } from "@prisma/client";
+import { Percent } from "lucide-react";
 import { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 
@@ -20,10 +29,7 @@ export function YeastEditorFormContainer({
 }: YeastEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm<YeastInput>({
-    defaultValues: Object.entries(src).reduce((acc, [k, v]) => {
-      acc[k] = v === null ? "" : v;
-      return acc;
-    }, {} as Record<string, any>),
+    defaultValues: src,
     errors: state?.errors,
   });
 
@@ -46,13 +52,35 @@ export type YeastEditorFormProps = {
 export function YeastEditorForm({}: YeastEditorFormProps) {
   const { register, control } = useFormContext<YeastType>();
   return (
-    <>
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("userId")} />
-      <TextInput name="name" control={control} label="Name" />
-      <TextInput name="description" label="Description" control={control} />
-
-      <Button type="submit">Save</Button>
-    </>
+    <Card className="m-4">
+      <CardHeader className="border-b-4">
+        <CardTitle>Yeast Editor</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("userId")} />
+        <TextInput name="name" control={control} label="Name" />
+        <TextInput name="description" label="Description" control={control} />
+        <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:border p-4">
+          <div>
+            <InlineField
+              name="attenuation"
+              control={control}
+              label="Attenuation"
+              AppendIcon={Percent}
+            />
+            <InlineField
+              name="tolerance"
+              control={control}
+              label="Tolerance"
+              AppendIcon={Percent}
+            />
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button type="submit">Save</Button>
+      </CardFooter>
+    </Card>
   );
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { Signal } from "lucide-react";
+import { cx } from "class-variance-authority";
 export type InlineInputProps = React.ComponentProps<"input"> & {
   prepend?: React.FC<any>;
   append?: React.FC<any>;
@@ -18,7 +19,10 @@ function InlineInput({
       <input
         type={type}
         data-slot="input"
-        className="pl-10 pr-10 py-2 border rounded-lg"
+        className={cx("px-3 py-2 border rounded-lg w-full", {
+          Pre: "pl-10",
+          App: "pr-10",
+        })}
         {...props}
       />
       <div
