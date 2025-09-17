@@ -1,0 +1,18 @@
+import { Prop } from "@/components/Prop";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Hop } from "@prisma/client";
+import React from "react";
+
+export default function General({ src }: { src: Hop }) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>General</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Prop label="Name" value={src.name} />
+        <Prop label="Description" value={src.description} />
+      </CardContent>
+    </Card>
+  );
+}
