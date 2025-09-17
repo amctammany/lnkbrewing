@@ -1,6 +1,7 @@
 import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getFermentables } from "./queries";
+import FermentablesTable from "./_components/FermentablesTable/FermentablesTable";
 
 export default async function FermentablesIngredientsPage() {
   const fermentables = await getFermentables();
@@ -12,7 +13,9 @@ export default async function FermentablesIngredientsPage() {
           { title: "Yeasts", url: "/yeasts" },
         ]}
       ></TopBar>
-      <div>YeastsIngredientsPage</div>
+      <div>
+        <FermentablesTable src={fermentables} />
+      </div>
     </div>
   );
 }

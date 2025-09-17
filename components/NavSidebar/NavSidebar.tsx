@@ -52,9 +52,9 @@ const data = {
       icon: ShoppingBasket,
       items: [
         {
-          title: "Grains",
+          title: "Fermentables",
           icon: Wheat,
-          url: "/grains",
+          url: "/fermentables",
         },
         {
           title: "Hops",
