@@ -14,7 +14,7 @@ export type LinkButtonProps = ButtonProps & {
 export const LinkButton = ({ href, scroll, ...props }: LinkButtonProps) => {
   return (
     <Link href={href} scroll={scroll}>
-      <Button variant="link" {...props} />
+      <Button {...props} />
     </Link>
   );
 };

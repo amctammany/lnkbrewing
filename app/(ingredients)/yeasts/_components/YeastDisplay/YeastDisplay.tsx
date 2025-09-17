@@ -15,7 +15,7 @@ export function YeastDisplay({ src }: YeastDisplayProps) {
         <Prop label="Manufacturer" value={src.manufacturer} />
         <Prop label="Attenuation" value={src.attenuation} />
         <Prop label="Flocculation" value={src.flocculation} />
-        <Prop label="Notes" value={src.notes} />
+        <Prop label="Note" value={src.notes} />
       </div>
     </div>
   );

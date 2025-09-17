@@ -409,11 +409,11 @@ model RecipeOtherIngredient {
   durationType      TimeUnit
   otherIngredient   OtherIngredient @relation(fields: [otherIngredientId], references: [id])
   usage             IngredientUsage
-  otherIngredientId Int
+  otherIngredientId String
 }
 
 model OtherIngredient {
-  id                    Int                     @id @default(autoincrement())
+  id                    String                  @id @default(cuid())
   name                  String
   slug                  String                  @unique
   type                  OtherIngredientType
