@@ -1,5 +1,6 @@
 "use client";
 import InlineField from "@/components/Form/InlineField";
+import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +13,7 @@ import {
 import { Form } from "@/components/ui/form";
 import { YeastInput } from "@/schemas/IngredientSchemas";
 import { YeastType } from "@/types/Ingredient";
-import { User, Yeast } from "@prisma/client";
+import { $Enums, User, Yeast } from "@prisma/client";
 import { Percent } from "lucide-react";
 import { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
@@ -74,6 +75,26 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
               control={control}
               label="Tolerance"
               AppendIcon={Percent}
+            />
+          </div>
+          <div>
+            <SelectInput
+              name="type"
+              control={control}
+              label="Type"
+              options={$Enums.YeastType}
+            />
+            <SelectInput
+              name="form"
+              control={control}
+              label="Form"
+              options={$Enums.YeastForm}
+            />
+            <SelectInput
+              name="flocculation"
+              control={control}
+              label="Flocculation"
+              options={$Enums.YeastFlocculation}
             />
           </div>
         </div>

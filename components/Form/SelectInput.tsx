@@ -39,22 +39,26 @@ export default function SelectInput<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <div className=" items-center flex gap-3">
-            <FormLabel>{label}</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {Object.entries(options).map(([key, value]) => (
-                  <SelectItem key={key} value={value}>
-                    {value}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className=" grid grid-flow-col grid-cols-2 items-cnter lex gap-">
+            <FormLabel className="block my-auto justify-center items-center w-full text-right">
+              {label ?? name}
+            </FormLabel>
+            <div className="flex w-full  flex-grow border-box mx-4 p-1">
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl className="w-full flex-grow">
+                  <SelectTrigger>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.entries(options).map(([key, value]) => (
+                    <SelectItem key={key} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <FormMessage />
         </FormItem>
