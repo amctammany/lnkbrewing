@@ -1,6 +1,12 @@
 import { prisma } from "../lib/client";
 import styles from "../data/styles.json";
-import { HopUsage, StyleCategory } from "@prisma/client";
+import {
+  HopUsage,
+  StyleCategory,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
+} from "@prisma/client";
 import hops from "../data/hops.json";
 import grains from "../data/grains.json";
 import yeasts from "../data/yeasts.json";
@@ -106,6 +112,24 @@ async function main() {
         type: "agent",
       },
     ],
+  });
+  await prisma.yeast.createMany({
+    data: yeasts.map(
+      ({ type, form, flocculation, temp, attenuation, notes, ...yeast }) => ({
+        ...yeast,
+        type: YeastType[type as YeastType],
+        flocculation:
+          YeastFlocculation[
+            flocculation?.replace(" ", "") as YeastFlocculation
+          ],
+        form: YeastForm[form as YeastForm],
+        attenuation: attenuation / 100,
+        tempLow: temp[0],
+        tempHigh: temp[1],
+        notes: notes[0],
+        usage: notes[1],
+      })
+    ),
   });
 }
 
