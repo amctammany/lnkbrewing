@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/client";
 import { validateSchema } from "@/lib/validateSchema";
+import { User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
 

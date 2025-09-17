@@ -1,13 +1,7 @@
-import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getYeast, getYeasts } from "@/app/(ingredients)/yeasts/queries";
-import { YeastDisplay } from "@/app/(ingredients)/yeasts/_components/YeastDisplay/YeastDisplay";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-  YeastEditorForm,
-  YeastEditorFormContainer,
-} from "../../_components/YeastEditor/YeastEditorForm";
+
 import { updateYeast } from "../../actions";
 import YeastEditor from "../../_components/YeastEditor/YeastEditor";
 export async function generateStaticParams() {

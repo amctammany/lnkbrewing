@@ -20,7 +20,10 @@ export function YeastEditorFormContainer({
 }: YeastEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm<YeastInput>({
-    defaultValues: src,
+    defaultValues: Object.entries(src).reduce((acc, [k, v]) => {
+      acc[k] = v === null ? "" : v;
+      return acc;
+    }, {} as Record<string, any>),
     errors: state?.errors,
   });
 
@@ -40,15 +43,14 @@ export type YeastEditorFormProps = {
   src: YeastType;
   //  action: (formData: FormData) => Promise<void>;
 };
-type A = YeastType["name"];
-export function YeastEditorForm({ src }: YeastEditorFormProps) {
+export function YeastEditorForm({}: YeastEditorFormProps) {
   const { register, control } = useFormContext<YeastType>();
   return (
     <>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
-      <TextInput label="Name" {...register("name")} />
-      <TextInput label="Duuuuescription" {...register("description")} />
+      <TextInput name="name" control={control} label="Name" />
+      <TextInput name="description" label="Description" control={control} />
 
       <Button type="submit">Save</Button>
     </>
