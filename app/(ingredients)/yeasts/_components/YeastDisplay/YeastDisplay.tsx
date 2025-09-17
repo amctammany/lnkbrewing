@@ -14,8 +14,13 @@ export function YeastDisplay({ src }: YeastDisplayProps) {
         <Prop label="Name" value={src.name} />
         <Prop label="Description" value={src.description} />
         <Prop label="Manufacturer" value={src.manufacturer} />
+        <Prop label="Min Temperature" value={src.tempLow} />
+        <Prop label="Max Temperature" value={src.tempHigh} />
         <Prop label="Attenuation" value={src.attenuation} />
+        <Prop label="Tolerance" value={src.tolerance} />
+        <Prop label="Type" value={src.type} />
         <Prop label="Flocculation" value={src.flocculation} />
+        <Prop label="Form" value={src.form} />
         <Prop label="Note" value={src.notes} />
       </div>
     </div>
