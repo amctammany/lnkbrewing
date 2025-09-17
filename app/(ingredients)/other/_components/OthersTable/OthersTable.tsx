@@ -16,7 +16,7 @@ const columns: ColumnDef<Other>[] = [
       <Link
         className="hover:underline w-8"
         prefetch={false}
-        href={`/Others/${slugify(getValue<string>() || "", { lower: true })}`}
+        href={`/other/${slugify(getValue<string>() || "", { lower: true })}`}
       >
         {getValue<string>()}
       </Link>
