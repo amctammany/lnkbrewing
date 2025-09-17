@@ -29,7 +29,8 @@ export function YeastEditorFormContainer({
   children,
 }: YeastEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm<YeastInput>({
+  console.log(src);
+  const form = useForm<YeastType>({
     defaultValues: src,
     errors: state?.errors,
   });
@@ -66,12 +67,14 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
           <div>
             <InlineField
               name="attenuation"
+              type="number"
               control={control}
               label="Attenuation"
               AppendIcon={Percent}
             />
             <InlineField
               name="tolerance"
+              type="number"
               control={control}
               label="Tolerance"
               AppendIcon={Percent}

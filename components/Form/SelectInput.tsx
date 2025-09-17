@@ -44,7 +44,11 @@ export default function SelectInput<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <div className="flex w-full  flex-grow border-box mx-4 p-1">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                {...field}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
                 <FormControl className="w-full flex-grow">
                   <SelectTrigger>
                     <SelectValue placeholder={placeholder} />

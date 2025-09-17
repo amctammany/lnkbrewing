@@ -1,4 +1,3 @@
-"use cache";
 import { prisma } from "@/lib/client";
 import { YeastType } from "@/types/Ingredient";
 
