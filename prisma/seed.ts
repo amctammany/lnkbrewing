@@ -1,11 +1,20 @@
 import { prisma } from "../lib/client";
 import styles from "../data/styles.json";
-import { StyleCategory } from "@prisma/client";
+import { HopUsage, StyleCategory } from "@prisma/client";
+import hops from "../data/hops.json";
+import grains from "../data/grains.json";
+import yeasts from "../data/yeasts.json";
+import yakima from "../data/yakima.json";
 import slugify from "@/lib/slugify";
 async function main() {
   await prisma.style.deleteMany();
   await prisma.waterProfile.deleteMany();
-
+  //  await prisma.hopNote.deleteMany();
+  //  await prisma.hopSensoryPanel.deleteMany();
+  //  await prisma.characteristicAroma.deleteMany();
+  await prisma.hop.deleteMany();
+  await prisma.fermentable.deleteMany();
+  await prisma.yeast.deleteMany();
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
       ...style,
@@ -66,6 +75,22 @@ async function main() {
       bicarbonate: 6,
       sodium: 15,
     },
+  });
+  await prisma.hop.createMany({
+    //eslint-disable-next-line
+    data: hops.map(({ aromas, usage, flavorMap, ...hop }: any) => ({
+      flavor: aromas,
+      ...hop,
+
+      slug: slugify(hop.name),
+      usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
+    })),
+  });
+  await prisma.fermentable.createMany({
+    data: grains.map((grain) => ({
+      ...grain,
+      slug: slugify(grain.name, { lower: true }),
+    })),
   });
 }
 

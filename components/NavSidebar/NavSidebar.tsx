@@ -54,23 +54,23 @@ const data = {
         {
           title: "Grains",
           icon: Wheat,
-          url: "/ingredients/grains",
+          url: "/grains",
         },
         {
           title: "Hops",
           icon: Hop,
-          url: "/ingredients/hops",
+          url: "/hops",
           //          isActive: true,
         },
         {
           title: "Yeasts",
           icon: FlaskConical,
-          url: "/ingredients/yeasts",
+          url: "/yeasts",
         },
         {
           title: "Other",
           icon: PillBottle,
-          url: "/ingredients/other",
+          url: "/other",
         },
       ],
     },
