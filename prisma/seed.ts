@@ -14,6 +14,7 @@ async function main() {
   //  await prisma.characteristicAroma.deleteMany();
   await prisma.hop.deleteMany();
   await prisma.fermentable.deleteMany();
+  await prisma.otherIngredient.deleteMany();
   await prisma.yeast.deleteMany();
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
@@ -91,6 +92,20 @@ async function main() {
       ...grain,
       slug: slugify(grain.name, { lower: true }),
     })),
+  });
+  await prisma.otherIngredient.createMany({
+    data: [
+      {
+        name: "Baking Soda (NaHCO3)",
+        slug: slugify("Baking Soda (NaHCO3)", { lower: true }),
+        type: "agent",
+      },
+      {
+        name: "Gypsum (CaSO4)",
+        slug: slugify("Gypsum (CaSO4)", { lower: true }),
+        type: "agent",
+      },
+    ],
   });
 }
 

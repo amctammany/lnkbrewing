@@ -379,3 +379,44 @@ model Hop {
   userId            String?
   owner             User?    @relation(fields: [userId], references: [id])
 }
+
+enum OtherIngredientType {
+  fining
+  flavor
+  agent
+  spice
+  herbal
+  other
+}
+
+enum IngredientUsage {
+  Mash
+  Boil
+  Whirlpool
+  DryHop
+  Primary
+  Secondary
+  Bottling
+}
+
+model RecipeOtherIngredient {
+  id                Int             @id @default(autoincrement())
+  recipeId          Int
+  //  recipe            Recipe          @relation(fields: [recipeId], references: [id])
+  amount            Float
+  amountType        MassUnit
+  duration          Float
+  durationType      TimeUnit
+  otherIngredient   OtherIngredient @relation(fields: [otherIngredientId], references: [id])
+  usage             IngredientUsage
+  otherIngredientId Int
+}
+
+model OtherIngredient {
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  slug                  String                  @unique
+  type                  OtherIngredientType
+  description           String?
+  RecipeOtherIngredient RecipeOtherIngredient[]
+}
