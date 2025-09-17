@@ -1,9 +1,11 @@
 import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
-import { getHop } from "@/app/(ingredients)/hops/queries";
+import { getHop, getHops } from "@/app/(ingredients)/hops/queries";
 import { HopDisplay } from "@/app/(ingredients)/hops/_components/HopDisplay/HopDisplay";
 import { notFound } from "next/navigation";
-
+export async function generateStaticParams() {
+  return (await getHops()).map(({ slug }) => ({ slug }));
+}
 export default async function HopDisplayPage({ params }: any) {
   const { slug } = await params;
   const hop = await getHop(slug);
