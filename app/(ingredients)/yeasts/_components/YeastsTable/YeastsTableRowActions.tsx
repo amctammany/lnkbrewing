@@ -27,7 +27,7 @@ export function YeastsTableRowActions<T>({ row }: CellContext<T, unknown>) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/fermentables/${slugify(row.getValue("name"), {
+            href={`/yeasts/${slugify(row.getValue("name"), {
               lower: true,
             })}/fork`}
           >

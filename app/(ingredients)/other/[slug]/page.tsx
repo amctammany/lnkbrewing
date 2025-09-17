@@ -13,8 +13,8 @@ export default async function OtherDisplayPage({ params }: any) {
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },
-          { title: "Others", url: "/others" },
-          { title: other.name, url: `/others/${other.slug}` },
+          { title: "Others", url: "/other" },
+          { title: other.name, url: `/other/${other.slug}` },
         ]}
       ></TopBar>
       <div>

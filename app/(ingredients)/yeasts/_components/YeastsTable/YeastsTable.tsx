@@ -16,7 +16,7 @@ const columns: ColumnDef<Yeast>[] = [
       <Link
         className="hover:underline w-8"
         prefetch={false}
-        href={`/fermentables/${slugify(getValue<string>() || "", {
+        href={`/yeasts/${slugify(getValue<string>() || "", {
           lower: true,
         })}`}
       >
