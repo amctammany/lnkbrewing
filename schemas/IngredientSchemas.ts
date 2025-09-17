@@ -62,3 +62,7 @@ export const yeastSchema = zfd.formData({
   usage: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
+
+export type HopInput = z.infer<typeof hopSchema>;
+export type FermentableInput = z.infer<typeof fermentableSchema>;
+export type YeastInput = z.infer<typeof yeastSchema>;

@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/lib/client";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";

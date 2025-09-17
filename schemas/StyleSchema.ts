@@ -18,3 +18,4 @@ export const styleSchema = zfd.formData({
   comparison: zfd.text(z.string().optional()),
   examples: zfd.text(z.string().optional()),
 });
+export type StyleInput = z.infer<typeof styleSchema>;

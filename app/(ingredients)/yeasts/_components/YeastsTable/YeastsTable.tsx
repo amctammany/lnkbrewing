@@ -7,10 +7,10 @@ import slugify from "@/lib/slugify";
 import { YeastsTableRowActions } from "./YeastsTableRowActions";
 import { DataTable } from "@/components/DataTable";
 // import { BookType } from "lucide-react";
-const columns: ColumnDef<Yeast>[] = [
+const columns: ColumnDef<YeastType>[] = [
   {
     accessorKey: "name",
-    header: Header<Yeast>,
+    header: Header<YeastType>,
     size: 3,
     cell: ({ getValue }) => (
       <Link
@@ -27,18 +27,19 @@ const columns: ColumnDef<Yeast>[] = [
 
   {
     accessorKey: "country",
-    header: Header<Yeast>,
+    header: Header<YeastType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     id: "actions",
     enableHiding: false,
-    cell: YeastsTableRowActions<Yeast>,
+    cell: YeastsTableRowActions<YeastType>,
   },
 ];
 import React from "react";
+import { YeastType } from "@/types/Ingredient";
 export interface YeastsTableProps {
-  src: Yeast[];
+  src: YeastType[];
 }
 export const YeastsTable: React.FC<YeastsTableProps> = ({ src }) => {
   return (
