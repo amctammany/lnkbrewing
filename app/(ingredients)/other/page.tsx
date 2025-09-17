@@ -10,7 +10,7 @@ export default async function OthersIngredientsPage() {
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },
-          { title: "Others", url: "/Others" },
+          { title: "Other", url: "/other" },
         ]}
       ></TopBar>
       <div>
