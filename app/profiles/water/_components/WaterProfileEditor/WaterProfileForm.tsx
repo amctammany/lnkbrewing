@@ -36,33 +36,32 @@ export function WaterProfileForm() {
       <TextInput label="Description" {...register("description")} />
       <div className="grid grid-cols-3 gap-2">
         <TextInput
-          className="block"
+          variant="inline"
           step=".01"
           type="number"
           label="Calcium"
           unit="PPM"
           description="ppm (0-250)"
           {...register("calcium")}
-        />{" "}
+        />
         <TextInput
           step=".01"
           type="number"
-          className="block"
-          label="magnesium"
+          label="Magnesium"
           {...register("magnesium")}
-        />{" "}
+        />
         <TextInput
           step=".01"
           type="number"
           label="sulfate"
           {...register("sulfate")}
-        />{" "}
+        />
         <TextInput
           step=".01"
           type="number"
           label="Sodium"
           {...register("sodium")}
-        />{" "}
+        />
         <TextInput
           step=".01"
           type="number"

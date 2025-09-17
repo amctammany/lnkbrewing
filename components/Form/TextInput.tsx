@@ -9,8 +9,41 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import clsx from "clsx";
+import { cx, cva, VariantProps } from "class-variance-authority";
 
+const textInputStyles = cva("", {
+  variants: {
+    variant: {
+      default: "",
+      inline: "flex",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+const textInputLabelStyles = cva("", {
+  variants: {
+    variant: {
+      default: "",
+      inline: "flex",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+const textInputControlStyles = cva("", {
+  variants: {
+    variant: {
+      default: "",
+      inline: "flex-grow",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 export default function TextInput<T extends FieldValues>({
   control,
   name,
@@ -19,6 +52,7 @@ export default function TextInput<T extends FieldValues>({
   placeholder,
   description,
   unit,
+  variant,
   className = "",
   ...props
 }: {
@@ -30,28 +64,33 @@ export default function TextInput<T extends FieldValues>({
   label?: string | React.ReactNode;
   placeholder?: string;
   description?: string;
-} & ComponentProps<"input">) {
+} & ComponentProps<"input"> &
+  VariantProps<typeof textInputStyles>) {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={clsx("flex cap", className)}>
-          <FormLabel>{label ?? name}</FormLabel>
-          <FormControl className="flex-grow">
-            <div className="flex mx-4 p-1">
-              <Input
-                className="flex-grow bg-white"
-                type={type}
-                placeholder={placeholder}
-                {...props}
-                {...field}
-              />
-              <div className="grid m-2 bg-slate-500 text-white">
-                <span className="m-auto">{unit}</span>
+        <FormItem>
+          <div className={cx(textInputStyles({ variant }), className)}>
+            <FormLabel className={textInputLabelStyles({ variant })}>
+              {label ?? name}
+            </FormLabel>
+            <FormControl className={textInputControlStyles({ variant })}>
+              <div className="flex mx-4 p-1">
+                <Input
+                  className="flex-grow bg-white"
+                  type={type}
+                  placeholder={placeholder}
+                  {...props}
+                  {...field}
+                />
+                <div className="grid m-2 bg-slate-500 text-white">
+                  <span className="m-auto items-center">{unit}</span>
+                </div>
               </div>
-            </div>
-          </FormControl>
+            </FormControl>
+          </div>
           <FormDescription className={description ? "" : "hidden"}>
             {description}
           </FormDescription>
