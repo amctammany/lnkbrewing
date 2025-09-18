@@ -15,6 +15,7 @@ export default async function EquipmentProfileDisplayPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  console.log(slug);
   const profile = await getEquipmentProfile(slug);
   if (!profile) notFound();
   return (
