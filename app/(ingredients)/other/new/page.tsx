@@ -3,7 +3,7 @@ import React from "react";
 import { getOtherIngredient } from "@/app/(ingredients)/other/queries";
 import { OtherIngredientDisplay } from "@/app/(ingredients)/other/_components/OtherDisplay/OtherDisplay";
 import { notFound } from "next/navigation";
-import OtherIngredientEditor from "@/app/(ingredients)/other/_components/OtherIngredientEditor/OtherIngredientEditor";
+import OtherIngredientEditor from "@/app/(ingredients)/other/_components/OtherEditor/OtherEditor";
 import { createOtherIngredient } from "../actions";
 
 export default async function OtherDisplayPage({ params }: any) {

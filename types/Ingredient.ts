@@ -1,8 +1,12 @@
 import { OptionalNullable } from "@/lib/utils";
-import { Fermentable, Hop, Yeast } from "@prisma/client";
+import { Fermentable, Hop, OtherIngredient, Yeast } from "@prisma/client";
 
-export type HopType = OptionalNullable<Hop> & { id?: string | null };
-export type YeastType = OptionalNullable<Yeast> & { id?: string | null };
-export type FermentableType = OptionalNullable<Fermentable> & {
+export type OtherType = OtherIngredient & {
+  id?: string | null;
+  userId?: string | null;
+};
+export type HopType = Hop & { id?: string | null };
+export type YeastType = Yeast & { id?: string | null };
+export type FermentableType = Fermentable & {
   id?: string | null;
 };

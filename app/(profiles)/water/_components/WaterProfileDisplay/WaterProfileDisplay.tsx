@@ -5,7 +5,8 @@ import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
 import { WaterProfile } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
-const Box = ({
+const Box = Prop;
+const Baox = ({
   label,
   value,
   unit,
@@ -38,10 +39,7 @@ export default function WaterProfileDisplay({
         <Prop
           label="Forked From"
           value={
-            <Link
-              className="underline"
-              href={`/profiles/water/${profile.origin?.slug}`}
-            >
+            <Link className="underline" href={`/water/${profile.origin?.slug}`}>
               {profile.origin?.name}
             </Link>
           }

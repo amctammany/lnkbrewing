@@ -22,16 +22,16 @@ export default function WaterProfileEditor({
     <WaterProfileFormContainer profile={profile} action={action}>
       <TopBar
         breadcrumbs={[
-          { title: "Profiles", url: "/profiles" },
-          { title: "Water", url: "/profiles/water" },
-          { title: profile.name, url: `/profiles/water/${profile.slug}` },
+          { title: "Profiles" },
+          { title: "Water", url: "/water" },
+          { title: profile.name, url: `/water/${profile.slug}` },
         ]}
       >
         <Button type="submit">Save</Button>
       </TopBar>
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:
-        <Link href={`/profiles/water/${profile.origin?.slug}`}>
+        <Link href={`/water/${profile.origin?.slug}`}>
           {profile.origin?.name}
         </Link>
       </h3>

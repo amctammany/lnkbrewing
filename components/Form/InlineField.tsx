@@ -18,7 +18,7 @@ const inlineFieldStyles = cva("", {
     variant: {
       default:
         "grid grid-flow-col grid-cols-2 tems-center w-full ustify-center",
-      inline: "flx",
+      inline: "flex",
     },
   },
   defaultVariants: {

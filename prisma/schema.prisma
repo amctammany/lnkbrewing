@@ -46,6 +46,7 @@ model User {
   Yeast            Yeast[]
   Hop              Hop[]
   EquipmentProfile EquipmentProfile[]
+  OtherIngredient  OtherIngredient[]
 }
 
 model UserPreferences {
@@ -414,11 +415,14 @@ model RecipeOtherIngredient {
 }
 
 model OtherIngredient {
-  id                    String                  @id @default(cuid())
-  name                  String
-  slug                  String                  @unique
-  type                  OtherIngredientType
-  description           String?
+  id          String              @id @default(cuid())
+  name        String
+  slug        String              @unique
+  type        OtherIngredientType
+  description String?
+  userId      String?
+  owner       User?               @relation(fields: [userId], references: [id])
+
   RecipeOtherIngredient RecipeOtherIngredient[]
 }
 

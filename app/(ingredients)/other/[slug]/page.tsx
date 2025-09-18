@@ -3,6 +3,7 @@ import React from "react";
 import { getOtherIngredient } from "@/app/(ingredients)/other/queries";
 import { OtherIngredientDisplay } from "@/app/(ingredients)/other/_components/OtherDisplay/OtherDisplay";
 import { notFound } from "next/navigation";
+import { LinkButton } from "@/components/Button/LinkButton";
 
 export default async function OtherDisplayPage({ params }: any) {
   const { slug } = await params;
@@ -16,7 +17,11 @@ export default async function OtherDisplayPage({ params }: any) {
           { title: "Others", url: "/other" },
           { title: other.name, url: `/other/${other.slug}` },
         ]}
-      ></TopBar>
+      >
+        <LinkButton variant="outline" href={`/other/${other.slug}/edit`}>
+          Edit
+        </LinkButton>
+      </TopBar>
       <div>
         <OtherIngredientDisplay src={other} />
       </div>

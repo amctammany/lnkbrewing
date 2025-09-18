@@ -9,6 +9,7 @@ import {
 } from "@prisma/client";
 export const fermentableSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
+  userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
@@ -20,7 +21,7 @@ export const fermentableSchema = zfd.formData({
   potential: zfd.numeric(z.number().min(0).max(2).optional()),
 });
 
-export const otherIngredientSchema = zfd.formData({
+export const otherSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   name: zfd.text(),
   type: z.enum(OtherIngredientType).default(OtherIngredientType.agent),
@@ -64,6 +65,7 @@ export const yeastSchema = zfd.formData({
   notes: zfd.text(z.string().optional()),
 });
 
+export type OtherInput = z.infer<typeof otherSchema>;
 export type HopInput = z.infer<typeof hopSchema>;
 export type FermentableInput = z.infer<typeof fermentableSchema>;
 export type YeastInput = z.infer<typeof yeastSchema>;

@@ -6,6 +6,7 @@ import {
 } from "@/app/(ingredients)/fermentables/queries";
 import { FermentableDisplay } from "@/app/(ingredients)/fermentables/_components/FermentableDisplay/FermentableDisplay";
 import { notFound } from "next/navigation";
+import { LinkButton } from "@/components/Button/LinkButton";
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }
@@ -22,7 +23,9 @@ export default async function FermentableDisplayPage({ params }: any) {
           { title: "Fermentables", url: "/fermentables" },
           { title: fermentable.name, url: `/fermentables/${fermentable.slug}` },
         ]}
-      ></TopBar>
+      >
+        <LinkButton href={`/fermentables/${slug}/edit`}>Edit</LinkButton>
+      </TopBar>
       <div>
         <FermentableDisplay src={fermentable} />
       </div>

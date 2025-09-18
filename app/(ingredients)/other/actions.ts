@@ -1,10 +1,11 @@
+"use server";
 import { prisma } from "@/lib/client";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
-import { otherIngredientSchema } from "@/schemas/IngredientSchemas";
+import { otherSchema } from "@/schemas/IngredientSchemas";
 import { redirect } from "next/navigation";
 export const createOtherIngredient = async (prev: any, formData: FormData) => {
-  const v = validateSchema(formData, otherIngredientSchema);
+  const v = validateSchema(formData, otherSchema);
   console.log(v);
   if (v.errors) return v;
   if (!v.success) {
@@ -16,7 +17,7 @@ export const createOtherIngredient = async (prev: any, formData: FormData) => {
   return redirect(`/other/${res.slug}`);
 };
 export const updateOtherIngredient = async (prev: any, formData: FormData) => {
-  const v = validateSchema(formData, otherIngredientSchema);
+  const v = validateSchema(formData, otherSchema);
   console.log(v);
   if (v.errors) return v;
   if (!v.success) {
