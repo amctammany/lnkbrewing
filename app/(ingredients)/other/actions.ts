@@ -6,7 +6,6 @@ import { otherSchema } from "@/schemas/IngredientSchemas";
 import { redirect } from "next/navigation";
 export const createOtherIngredient = async (prev: any, formData: FormData) => {
   const v = validateSchema(formData, otherSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -18,7 +17,6 @@ export const createOtherIngredient = async (prev: any, formData: FormData) => {
 };
 export const updateOtherIngredient = async (prev: any, formData: FormData) => {
   const v = validateSchema(formData, otherSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

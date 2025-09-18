@@ -29,7 +29,6 @@ export function YeastEditorFormContainer({
   children,
 }: YeastEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  console.log(src);
   const form = useForm<YeastType>({
     defaultValues: src,
     errors: state?.errors,

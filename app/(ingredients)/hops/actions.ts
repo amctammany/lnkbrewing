@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 
 export async function createHop(prev: any, formData: FormData) {
   const v = validateSchema(formData, hopSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -20,9 +19,7 @@ export async function createHop(prev: any, formData: FormData) {
 }
 
 export async function updateHop(prev: any, formData: FormData) {
-  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, hopSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
