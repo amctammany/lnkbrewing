@@ -1,13 +1,17 @@
 import { prisma } from "@/lib/client";
 
 export async function getEquipmentProfiles() {
-  const fermentables = await prisma.equipmentProfile.findMany();
-  return fermentables;
+  const profiles = await prisma.equipmentProfile.findMany();
+  return profiles;
 }
 
 export async function getEquipmentProfile(slug: string) {
-  const fermentable = await prisma.equipmentProfile.findFirst({
+  const profile = await prisma.equipmentProfile.findFirst({
     where: { slug },
+    include: {
+      owner: { select: { name: true, id: true } },
+      origin: { select: { name: true, id: true } },
+    },
   });
-  return fermentable;
+  return profile;
 }
