@@ -9,7 +9,6 @@ import {
 import NavSidebar from "@/components/NavSidebar/NavSidebar";
 import { RouteChangeListener } from "@/components/RouteChangeListener";
 //import { SessionProvider } from "next-auth/react";
-export const experimental_ppr = true;
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
