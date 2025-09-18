@@ -25,7 +25,7 @@ export function NavMain({
 }: {
   items: {
     title: string;
-    url: string;
+    url?: string;
     icon?: LucideIcon;
     isActive?: boolean;
     items?: {
@@ -74,7 +74,7 @@ export function NavMain({
           ) : (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <NavLink href={item.url}>
+                <NavLink href={item.url ?? "#"}>
                   {item.icon && <item.icon />}
 
                   <span>{item.title}</span>

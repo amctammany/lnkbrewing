@@ -1,9 +1,9 @@
-import WaterProfileEditor from "@/app/profiles/water/_components/WaterProfileEditor/WaterProfileEditor";
-import { getWaterProfile } from "@/app/profiles/water/queries";
+import WaterProfileEditor from "@/app/(profiles)/water/_components/WaterProfileEditor/WaterProfileEditor";
+import { getWaterProfile } from "@/app/(profiles)/water/queries";
 import {
   createWaterProfile,
   updateWaterProfile,
-} from "@/app/profiles/water/actions";
+} from "@/app/(profiles)/water/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
 import { notFound } from "next/navigation";

@@ -24,7 +24,21 @@ const columns: ColumnDef<Fermentable>[] = [
       </Link>
     ),
   },
-
+  {
+    accessorKey: "color",
+    header: Header<Fermentable>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "maxUsage",
+    header: Header<Fermentable>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "potential",
+    header: Header<Fermentable>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
   {
     accessorKey: "country",
     header: Header<Fermentable>,

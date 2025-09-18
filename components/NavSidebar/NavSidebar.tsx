@@ -77,27 +77,26 @@ const data = {
     {
       title: "Profiles",
       icon: FolderCog,
-      url: "/profiles",
       items: [
         {
           title: "Equipment",
-          url: "/profiles/equipment",
+          url: "/equipment",
           icon: CookingPot,
         },
         {
           title: "Mash",
           icon: Thermometer,
-          url: "/profiles/mash",
+          url: "/mash",
         },
         {
           title: "Water",
           icon: Droplet,
-          url: "/profiles/water",
+          url: "/water",
         },
         {
           title: "Fermentation",
           icon: ChartLine,
-          url: "/profiles/fermentation",
+          url: "/fermentation",
         },
       ],
     },
