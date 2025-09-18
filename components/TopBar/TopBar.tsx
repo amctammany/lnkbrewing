@@ -39,9 +39,13 @@ export function TopBar({
               {crumbs.map((crumb) => (
                 <React.Fragment key={crumb.title}>
                   <BreadcrumbItem className="idden dlock">
-                    <BreadcrumbLink href={crumb.url ? crumb.url : "#"}>
-                      {crumb.title}
-                    </BreadcrumbLink>
+                    {crumb.url ? (
+                      <BreadcrumbLink href={crumb.url ? crumb.url : "#"}>
+                        {crumb.title}
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage>End</BreadcrumbPage>
+                    )}
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hiden md:bloc" />
                 </React.Fragment>
