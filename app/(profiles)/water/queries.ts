@@ -1,4 +1,3 @@
-"use cache";
 import { prisma } from "@/lib/client";
 
 export const getWaterProfiles = async (args: any = {}) => {

@@ -38,13 +38,14 @@ model User {
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  UserPreferences UserPreferences?
-  WaterProfile    WaterProfile[]
-  Fermentable     Fermentable[]
-  Yeast           Yeast[]
-  Hop             Hop[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  UserPreferences  UserPreferences?
+  WaterProfile     WaterProfile[]
+  Fermentable      Fermentable[]
+  Yeast            Yeast[]
+  Hop              Hop[]
+  EquipmentProfile EquipmentProfile[]
 }
 
 model UserPreferences {
@@ -422,9 +423,9 @@ model OtherIngredient {
 }
 
 model EquipmentProfile {
-  id              String  @id @default(cuid())
+  id              String             @id @default(cuid())
   name            String
-  slug            String  @unique
+  slug            String             @unique
   description     String?
   batchVolume     Float?
   boilVolume      Float?
@@ -433,11 +434,16 @@ model EquipmentProfile {
   brewEfficiency  Float?
   mashEfficiency  Float?
   boilOffRate     Float?
-  trubLoss        Float?  @default(0)
-  mashLoss        Float?  @default(0)
-  fermenterLoss   Float?  @default(0)
-  grainAbsorption Float?  @default(0.5)
-  waterGrainRatio Float?  @default(1.5)
+  trubLoss        Float?             @default(0)
+  mashLoss        Float?             @default(0)
+  fermenterLoss   Float?             @default(0)
+  grainAbsorption Float?             @default(0.5)
+  waterGrainRatio Float?             @default(1.5)
+  forkedFrom      String?
+  origin          EquipmentProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks           EquipmentProfile[] @relation("origin")
+  userId          String?
+  owner           User?              @relation(fields: [userId], references: [id])
   //  Recipe          Recipe[]
   //  UserPreferences UserPreferences[]
 }

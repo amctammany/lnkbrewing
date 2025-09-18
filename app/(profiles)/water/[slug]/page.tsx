@@ -21,18 +21,14 @@ export default async function WaterProfileDisplayPage({
     <div>
       <TopBar
         breadcrumbs={[
-          { title: "Profiles", url: "/profiles" },
-          { title: "Water", url: "/profiles/water" },
-          { title: profile.name, url: `/profiles/water/${profile.slug}` },
+          { title: "Profiles" },
+          { title: "Water", url: "/water" },
+          { title: profile.name, url: `/water/${profile.slug}` },
         ]}
       >
-        <LinkButton href={`/profiles/water/${profile.slug}/fork`}>
-          Fork
-        </LinkButton>
+        <LinkButton href={`/water/${profile.slug}/fork`}>Fork</LinkButton>
 
-        <LinkButton href={`/profiles/water/${profile.slug}/edit`}>
-          Edit
-        </LinkButton>
+        <LinkButton href={`/water/${profile.slug}/edit`}>Edit</LinkButton>
       </TopBar>
       <WaterProfileDisplay profile={profile as BaseWaterProfile} />
     </div>
