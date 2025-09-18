@@ -60,26 +60,26 @@ export default function SelectInput<T extends FieldValues>({
             <FormLabel className="block my-auto justify-center items-center ">
               {label ?? name}
             </FormLabel>
-            <div className="flex x-4 p-1">
-              <Select
-                {...field}
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-              >
-                <FormControl className="wfull flexgrow">
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder={placeholder} />
+            <FormControl className="glex mx-4 p-1">
+              <div className="flex x-4 p-1">
+                <Select
+                  {...field}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue className="w-full" placeholder={placeholder} />
                   </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.entries(options).map(([key, value]) => (
-                    <SelectItem key={key} value={value}>
-                      {value}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  <SelectContent>
+                    {Object.entries(options).map(([key, value]) => (
+                      <SelectItem key={key} value={value}>
+                        {value}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </FormControl>
           </div>
           <FormMessage />
         </FormItem>

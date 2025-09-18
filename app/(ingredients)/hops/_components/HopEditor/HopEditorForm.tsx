@@ -70,13 +70,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
           label="Characteristics"
           control={control}
         />
-        <div className="w-[200px]">
-          <SelectInput
-            name="usage"
-            options={$Enums.HopUsage}
-            control={control}
-          />
-        </div>
+        <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InlineField
             name="alpha"
