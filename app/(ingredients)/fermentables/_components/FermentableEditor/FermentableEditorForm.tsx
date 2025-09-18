@@ -29,7 +29,6 @@ export function FermentableEditorFormContainer({
   children,
 }: FermentableEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  console.log(src);
   const form = useForm<FermentableType>({
     defaultValues: src,
     errors: state?.errors,

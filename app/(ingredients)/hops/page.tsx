@@ -2,6 +2,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getHops } from "./queries";
 import HopsTable from "./_components/HopsTable/HopsTable";
+import { LinkButton } from "@/components/Button/LinkButton";
 
 export default async function HopsIngredientsPage() {
   const hops = await getHops();
@@ -12,7 +13,11 @@ export default async function HopsIngredientsPage() {
           { title: "Ingredients" },
           { title: "Hops", url: "/hops" },
         ]}
-      ></TopBar>
+      >
+        <LinkButton variant="outline" href="/hops/new">
+          Add
+        </LinkButton>
+      </TopBar>
       <div>
         <HopsTable src={hops} />
       </div>

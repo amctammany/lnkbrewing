@@ -15,6 +15,7 @@ import {
   SelectItem,
   Select,
 } from "@/components/ui/select";
+import { cva, VariantProps } from "class-variance-authority";
 export type SelectInputProps<T extends FieldValues> = {
   className?: string;
   control?: Control<T>;
@@ -23,7 +24,21 @@ export type SelectInputProps<T extends FieldValues> = {
   placeholder?: string;
   options: Record<string, string>;
   description?: string;
-};
+} & VariantProps<typeof selectStyles>;
+const selectStyles = cva("w-full", {
+  variants: {
+    variant: {
+      default: [],
+      inline: ["inline-block"],
+    },
+    inputSize: {
+      default: ["w-full content-center"],
+      full: ["w-full"],
+      small: [""],
+    },
+  },
+  defaultVariants: { inputSize: "default", variant: "default" },
+});
 export default function SelectInput<T extends FieldValues>({
   className,
   control,
@@ -31,6 +46,8 @@ export default function SelectInput<T extends FieldValues>({
   label,
   placeholder,
   options,
+  variant,
+  inputSize,
   description,
 }: SelectInputProps<T>) {
   return (
@@ -39,8 +56,8 @@ export default function SelectInput<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <div className=" grid grid-flow-col grid-cols-2 items-cnter lex gap-">
-            <FormLabel className="block my-auto justify-center items-center w-full text-right">
+          <div className={selectStyles({ variant, inputSize })}>
+            <FormLabel className="block my-auto justify-center items-center ">
               {label ?? name}
             </FormLabel>
             <div className="flex w-full  flex-grow border-box mx-4 p-1">
