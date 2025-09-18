@@ -63,17 +63,21 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
         <input type="hidden" {...register("userId")} />
         <TextInput name="name" control={control} label="Name" />
         <TextInput name="description" label="Description" control={control} />
+        <TextInput name="manufacturer" label="Manufacturer" control={control} />
+        <TextInput name="notes" label="Notes" control={control} />
         <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
           <div>
             <InlineField
               name="attenuation"
               type="number"
+              step="0.01"
               control={control}
               label="Attenuation"
               AppendIcon={Percent}
             />
             <InlineField
               name="tolerance"
+              step="0.01"
               type="number"
               control={control}
               label="Tolerance"
@@ -81,12 +85,14 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
             />
             <InlineField
               name="tempLow"
+              step="0.1"
               type="number"
               control={control}
               label="Min Temp."
             />
             <InlineField
               name="tempHigh"
+              step="0.1"
               type="number"
               control={control}
               label="Max Temp."

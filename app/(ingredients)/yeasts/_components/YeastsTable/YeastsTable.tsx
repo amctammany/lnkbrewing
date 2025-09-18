@@ -24,7 +24,36 @@ const columns: ColumnDef<YeastType>[] = [
       </Link>
     ),
   },
-
+  {
+    accessorKey: "manufacturer",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "attenuation",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "form",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "flocculation",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "tempLow",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "tempHigh",
+    header: Header<YeastType>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
   {
     accessorKey: "country",
     header: Header<YeastType>,
@@ -44,9 +73,7 @@ export interface YeastsTableProps {
 export const YeastsTable: React.FC<YeastsTableProps> = ({ src }) => {
   return (
     <div>
-      <div className="relative overflow-auto">
-        <DataTable data={src} columns={columns} />
-      </div>
+      <DataTable data={src} columns={columns} />
     </div>
   );
 };
