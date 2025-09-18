@@ -31,5 +31,5 @@ export async function updateEquipmentProfile(prev: any, formData: FormData) {
     },
     data: { ...v.data, slug: slugify(v.data.name) },
   });
-  return redirect(`/profiles/equipment/${res.slug}`);
+  return redirect(`/equipment/${res.slug}`);
 }

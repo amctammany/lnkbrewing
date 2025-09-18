@@ -8,6 +8,18 @@ export const equipmentProfileSchema = zfd.formData({
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),
+  brewEfficiency: zfd.numeric(z.number().min(0)),
+  mashEfficiency: zfd.numeric(z.number().min(0)),
+  batchVolume: zfd.numeric(z.number().min(0)),
+  boilTime: zfd.numeric(z.number().min(0).default(60)),
+  boilVolume: zfd.numeric(z.number().min(0).optional()),
+  preboilVolume: zfd.numeric(z.number().min(0).optional()),
+  boilOffRate: zfd.numeric(z.number().min(0).default(5)),
+  trubLoss: zfd.numeric(z.number().min(0).default(0)),
+  mashLoss: zfd.numeric(z.number().min(0).default(0)),
+  fermenterLoss: zfd.numeric(z.number().min(0).default(0)),
+  grainAbsorption: zfd.numeric(z.number().min(0).default(1)),
+  waterGrainRatio: zfd.numeric(z.number().min(0).default(1)),
 });
 
 export const waterProfileSchema = zfd.formData({

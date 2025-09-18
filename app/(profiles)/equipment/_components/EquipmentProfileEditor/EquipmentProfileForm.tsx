@@ -28,7 +28,7 @@ export function EquipmentProfileFormContainer({
   );
 }
 export function EquipmentProfileForm() {
-  const { register, control } = useFormContext<EquipmentProfile>();
+  const { register, control } = useFormContext<EquipmentProfileType>();
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />
@@ -36,6 +36,43 @@ export function EquipmentProfileForm() {
       <input type="hidden" {...register("forkedFrom")} />
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
+      <div>
+        <InlineField
+          control={control}
+          name="boilTime"
+          type="number"
+          step={1}
+          label="Boil Time "
+        />
+        <InlineField
+          control={control}
+          name="mashEfficiency"
+          type="number"
+          step={1}
+          label="Mash Efficiency "
+        />
+        <InlineField
+          control={control}
+          name="brewEfficiency"
+          type="number"
+          step={1}
+          label="Brew Efficiency "
+        />
+        <InlineField
+          control={control}
+          name="batchVolume"
+          type="number"
+          step={1}
+          label="Batch Volume"
+        />
+        <InlineField
+          control={control}
+          name="fermenterLoss"
+          type="number"
+          step={1}
+          label="Fermenter Loss"
+        />
+      </div>
     </div>
   );
 }

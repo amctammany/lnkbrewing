@@ -71,6 +71,7 @@ export default function InlineField<T extends FieldValues>({
                   placeholder={placeholder}
                   {...props}
                   {...field}
+                  value={field.value === null ? "" : field.value}
                 />
               </div>
             </FormControl>
