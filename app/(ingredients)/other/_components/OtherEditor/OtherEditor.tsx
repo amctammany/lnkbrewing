@@ -15,8 +15,8 @@ export default function OtherEditor({ src: other, action }: OtherEditorProps) {
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },
-          { title: "Others", url: "/others" },
-          { title: other.name, url: `/others/${other.slug}` },
+          { title: "Other", url: "/other" },
+          { title: other.name, url: `/other/${other.slug}` },
         ]}
       >
         <Button type="submit">Save</Button>

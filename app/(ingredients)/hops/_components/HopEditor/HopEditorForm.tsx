@@ -65,7 +65,12 @@ export function HopEditorForm({}: HopEditorFormProps) {
         <TextInput name="name" control={control} label="Name" />
         <TextInput name="description" label="Description" control={control} />
         <TextInput name="country" label="Country" control={control} />
-        <SelectInput name="usage" options={$Enums.HopUsage} />
+        <TextInput
+          name="characteristics"
+          label="Characteristics"
+          control={control}
+        />
+        <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InlineField
             name="alpha"

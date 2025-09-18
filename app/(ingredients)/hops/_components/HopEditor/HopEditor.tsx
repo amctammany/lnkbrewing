@@ -15,8 +15,8 @@ export default function HopEditor({ src: hop, action }: HopEditorProps) {
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },
-          { title: "Hop", url: "/hop" },
-          { title: hop.name, url: `/hop/${hop.slug}` },
+          { title: "Hops", url: "/hops" },
+          { title: hop.name, url: `/hops/${hop.slug}` },
         ]}
       >
         <Button type="submit">Save</Button>

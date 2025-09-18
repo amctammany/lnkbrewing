@@ -12,6 +12,9 @@ export default function General({ src }: { src: Hop }) {
       <CardContent>
         <Prop label="Name" value={src.name} />
         <Prop label="Description" value={src.description} />
+        <Prop label="Country" value={src.country} />
+        <Prop label="Usage" value={src.usage} />
+        <Prop label="Characteristics" value={src.characteristics} />
       </CardContent>
     </Card>
   );
