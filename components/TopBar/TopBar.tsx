@@ -44,7 +44,7 @@ export function TopBar({
                         {crumb.title}
                       </BreadcrumbLink>
                     ) : (
-                      <BreadcrumbPage>End</BreadcrumbPage>
+                      <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
                     )}
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hiden md:bloc" />
