@@ -15,8 +15,10 @@ export const getMashProfile = async (slug: string) => {
       steps: {
         select: {
           name: true,
+          mashProfileId: true,
           id: true,
           temperature: true,
+          index: true,
           time: true,
           rampTime: true,
           type: true,

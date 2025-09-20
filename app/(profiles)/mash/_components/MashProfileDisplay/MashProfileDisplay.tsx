@@ -34,12 +34,12 @@ export default function MashProfileDisplay({
             }
           />
           <Prop label="Description" value={profile.description} />
-          <Card>
+          <Card className="w-full">
             <CardHeader>
               <CardTitle>Steps</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul>
+              <ul className="w-full">
                 {profile.steps.map((step) => (
                   <MashStepListItem key={step.id} src={step} />
                 ))}

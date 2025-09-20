@@ -9,6 +9,7 @@ import { MashProfileType } from "@/types/Profile";
 import { MashProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
+import { MashProfileStepsForm } from "./MashProfileStepsForm";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
@@ -27,7 +28,7 @@ export function MashProfileFormContainer({
     </Form>
   );
 }
-export function MashProfileForm() {
+export function MashProfileForm({ profile }: { profile: MashProfileType }) {
   const { register, control } = useFormContext<MashProfile>();
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
@@ -36,7 +37,9 @@ export function MashProfileForm() {
       <input type="hidden" {...register("forkedFrom")} />
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
-      <div className="grid grid-cols-3 gap-2"></div>
+      <div className="grid grid-cols-1 gap-2">
+        <MashProfileStepsForm src={profile} />
+      </div>
     </div>
   );
 }

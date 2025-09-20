@@ -32,7 +32,7 @@ export default function MashProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <MashProfileForm />
+      <MashProfileForm profile={profile} />
     </MashProfileFormContainer>
   );
 }

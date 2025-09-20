@@ -484,13 +484,16 @@ enum MashStepType {
 }
 
 model MashStep {
-  id          Int          @id @default(autoincrement())
-  type        MashStepType @default(temperature)
+  id          Int           @id @default(autoincrement())
+  type        MashStepType? @default(temperature)
   name        String?
   temperature Int
   time        Int
-  rampTime    Int          @default(0)
+  rampTime    Int?          @default(0)
+  index       Int
 
   MashProfile   MashProfile @relation(fields: [mashProfileId], references: [id], onDelete: Cascade)
   mashProfileId String
+
+  @@unique(name: "mashIndex", fields: [mashProfileId, index])
 }

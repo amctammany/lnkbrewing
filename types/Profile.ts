@@ -9,7 +9,12 @@ import { OptionalNullable } from "@/lib/utils";
 export interface MashProfileType extends BaseMashProfile {
   owner?: BaseUser;
   origin?: BaseMashProfile;
-  steps: MashStep[];
+  steps: MashStepType[];
+}
+export interface MashStepType
+  extends Omit<OptionalNullable<MashStep>, "mashProfileId" | "id"> {
+  id?: number;
+  mashProfileId?: string;
 }
 export interface WaterProfileType extends BaseWaterProfile {
   owner?: BaseUser;
