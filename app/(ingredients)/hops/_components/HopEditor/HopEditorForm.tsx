@@ -86,6 +86,68 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Beta"
             control={control}
           />
+          <InlineField
+            name="caryophyllene"
+            type="number"
+            step="0.1"
+            label="Caryophyllene"
+            control={control}
+          />
+          <InlineField
+            name="cohumulone"
+            type="number"
+            step="0.1"
+            label="Cohumulone"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="farnesene"
+            type="number"
+            step="0.1"
+            label="Farnesene"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="geraniol"
+            type="number"
+            step="0.1"
+            label="Gernaniol"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="humulene"
+            type="number"
+            step="0.1"
+            label="Humulene"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="linalool"
+            type="number"
+            step="0.1"
+            label="Linalool"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="myrcene"
+            type="number"
+            step="0.1"
+            label="Myrcene"
+            control={control}
+          />
+          <InlineField
+            variant="inline"
+            name="totalOil"
+            type="number"
+            step="0.1"
+            label="Total Oil"
+            control={control}
+          />
         </div>
       </CardContent>
       <CardFooter>

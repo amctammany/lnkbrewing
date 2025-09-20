@@ -1,16 +1,30 @@
+import { cva, VariantProps } from "class-variance-authority";
+const propStyles = cva("[&_span]:my-auto ", {
+  variants: {
+    variant: {
+      default: "block md:*:block align-tex-bottom  py-2 [&_span]:leading-",
+      inline: "flex *:block py-1",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
 export type PropProps = {
   label: string | React.ReactNode;
   value?: string | number | null | React.ReactNode;
   unit?: string | React.ReactNode;
   children?: string | number | null | React.ReactNode;
-};
-export const Prop = ({ label, value, unit, children }: PropProps) => {
+} & VariantProps<typeof propStyles>;
+
+export const Prop = ({ label, value, unit, children, variant }: PropProps) => {
   return (
-    <div className="*:block md:*:flex md:flex align-text-bottom  py-2">
-      <span className="leading-6 my-auto font-mono font-bold text-gray-700 px-2 shrink min-w-32">
+    <div className={propStyles({ variant })}>
+      <span className="font-mono font-bold text-gray-700 px-2 shrink min-w-32">
         {label}:
       </span>
-      <span className="my-auto leading-6 px-2 font-mono grow border-b-2">
+      <span className="px-2 font-mono grow border-b-2 text-center">
         {children ?? value}
         <span className="pl-1">{unit}</span>
       </span>

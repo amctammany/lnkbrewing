@@ -22,6 +22,21 @@ const columns: ColumnDef<Hop>[] = [
       </Link>
     ),
   },
+  {
+    accessorKey: "alpha",
+    header: Header<Hop>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "beta",
+    header: Header<Hop>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "usage",
+    header: Header<Hop>,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
 
   {
     accessorKey: "country",
