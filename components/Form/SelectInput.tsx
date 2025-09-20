@@ -28,8 +28,8 @@ export type SelectInputProps<T extends FieldValues> = {
 const selectStyles = cva("w-fll", {
   variants: {
     variant: {
-      default: [],
-      inline: ["inline-block"],
+      default: ["flex"],
+      inline: ["flex"],
     },
     inputSize: {
       default: ["w-ful ontent-center"],
@@ -60,14 +60,14 @@ export default function SelectInput<T extends FieldValues>({
             <FormLabel className="block my-auto justify-center items-center ">
               {label ?? name}
             </FormLabel>
-            <FormControl className="glex mx-4 p-1">
-              <div className="flex x-4 p-1">
+            <FormControl className="flex p-1">
+              <div className="flex w-full flex-grow px-3 py-2">
                 <Select
                   {...field}
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="flex-grow w-full ">
                     <SelectValue className="w-full" placeholder={placeholder} />
                   </SelectTrigger>
                   <SelectContent>

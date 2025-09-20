@@ -48,7 +48,7 @@ export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
           </Button>
         </CardAction>
       </CardHeader>
-      <ul>
+      <ul className="*:not-last:border-b-2">
         {controlledFields.map((step, index) => (
           <MashProfileStepField
             key={step.id}
