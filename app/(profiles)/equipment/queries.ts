@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/client";
+import { EquipmentProfileType } from "@/types/Profile";
 
 export async function getEquipmentProfiles() {
   const profiles = await prisma.equipmentProfile.findMany();
@@ -13,5 +14,5 @@ export async function getEquipmentProfile(slug: string) {
       origin: { select: { name: true, id: true } },
     },
   });
-  return profile;
+  return profile as EquipmentProfileType;
 }

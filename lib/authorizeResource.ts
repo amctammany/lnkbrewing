@@ -1,10 +1,11 @@
 //import { User } from "next-auth";
 import { forbidden, notFound, redirect, unauthorized } from "next/navigation";
 import { verifySession } from "./verifySession";
+import { OptionalNullable } from "./utils";
 
-export async function authorizeResource<T extends object>(
+export async function authorizeResource<T extends { userId?: string }>(
   redirectTo: string,
-  fn: any,
+  fn: (...props: any[]) => Promise<T | null>,
   ...args: any[]
 ) {
   const session = await verifySession(redirectTo);

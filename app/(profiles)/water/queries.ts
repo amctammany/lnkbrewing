@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/client";
+import { WaterProfileType } from "@/types/Profile";
 
 export const getWaterProfiles = async (args: any = {}) => {
   const profiles = await prisma.waterProfile.findMany(args);
@@ -13,5 +14,5 @@ export const getWaterProfile = async (slug: string) => {
       owner: { select: { name: true, id: true } },
     },
   });
-  return profile;
+  return profile as WaterProfileType;
 };

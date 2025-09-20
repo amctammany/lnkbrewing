@@ -37,3 +37,12 @@ export const waterProfileSchema = zfd.formData({
   chloride: zfd.numeric(z.number().min(0)),
   bicarbonate: zfd.numeric(z.number().min(0)),
 });
+
+export const mashProfileSchema = zfd.formData({
+  //userId: zfd.text(),
+  id: zfd.text(z.string().optional()),
+  forkedFrom: zfd.text(z.string().optional()),
+  userId: zfd.text(z.string().optional()),
+  name: zfd.text(),
+  description: zfd.text(),
+});

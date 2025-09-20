@@ -47,6 +47,7 @@ model User {
   Hop              Hop[]
   EquipmentProfile EquipmentProfile[]
   OtherIngredient  OtherIngredient[]
+  MashProfile      MashProfile[]
 }
 
 model UserPreferences {
@@ -427,9 +428,9 @@ model OtherIngredient {
 }
 
 model EquipmentProfile {
-  id                  String             @id @default(cuid())
+  id                  String  @id @default(cuid())
   name                String
-  slug                String             @unique
+  slug                String  @unique
   description         String?
   batchVolume         Float?
   boilVolume          Float?
@@ -438,22 +439,58 @@ model EquipmentProfile {
   brewEfficiency      Float?
   mashEfficiency      Float?
   boilOffRate         Float?
-  trubLoss            Float?             @default(0)
-  mashLoss            Float?             @default(0)
-  fermenterLoss       Float?             @default(0)
-  grainAbsorption     Float?             @default(0.5)
-  waterGrainRatio     Float?             @default(1.5)
-  mashTunVolume       Float?             @default(100)
-  mashTunWeight       Float?             @default(100)
-  mashTunSpecificHeat Float?             @default(0.12)
-  mashTunDeadSpace    Float?             @default(0)
-  boilExpansion       Float?             @default(0.04)
-  fermenterTopOff     Float?             @default(0)
-  forkedFrom          String?
-  origin              EquipmentProfile?  @relation("origin", fields: [forkedFrom], references: [id])
-  forks               EquipmentProfile[] @relation("origin")
-  userId              String?
-  owner               User?              @relation(fields: [userId], references: [id])
+  trubLoss            Float?  @default(0)
+  mashLoss            Float?  @default(0)
+  fermenterLoss       Float?  @default(0)
+  grainAbsorption     Float?  @default(0.5)
+  waterGrainRatio     Float?  @default(1.5)
+  mashTunVolume       Float?  @default(100)
+  mashTunWeight       Float?  @default(100)
+  mashTunSpecificHeat Float?  @default(0.12)
+  mashTunDeadSpace    Float?  @default(0)
+
+  boilExpansion   Float?             @default(0.04)
+  fermenterTopOff Float?             @default(0)
+  forkedFrom      String?
+  origin          EquipmentProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks           EquipmentProfile[] @relation("origin")
+  userId          String?
+  owner           User?              @relation(fields: [userId], references: [id])
   //  Recipe          Recipe[]
   //  UserPreferences UserPreferences[]
+}
+
+model MashProfile {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  spargeTemp  Float         @default(168)
+  grainTemp   Float         @default(72)
+  mashTunTemp Float         @default(72)
+  description String?
+  userId      String?
+  forkedFrom  String?
+  origin      MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       MashProfile[] @relation("origin")
+
+  steps MashStep[]
+  owner User?      @relation(fields: [userId], references: [id])
+}
+
+enum MashStepType {
+  temperature
+  infusion
+  decoction
+}
+
+model MashStep {
+  id          Int          @id @default(autoincrement())
+  type        MashStepType @default(temperature)
+  name        String?
+  temperature Int
+  time        Int
+  rampTime    Int          @default(0)
+
+  MashProfile   MashProfile @relation(fields: [mashProfileId], references: [id], onDelete: Cascade)
+  mashProfileId String
 }

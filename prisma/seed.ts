@@ -16,6 +16,7 @@ async function main() {
   await prisma.style.deleteMany();
   await prisma.waterProfile.deleteMany();
   await prisma.equipmentProfile.deleteMany();
+  await prisma.mashProfile.deleteMany();
   //  await prisma.hopNote.deleteMany();
   //  await prisma.hopSensoryPanel.deleteMany();
   //  await prisma.characteristicAroma.deleteMany();
@@ -103,6 +104,14 @@ async function main() {
     },
   });
 
+  await prisma.mashProfile.create({
+    data: {
+      name: "Max Fermentability",
+      slug: slugify("Max Fermentability", { lower: true }),
+      description: "Maximum Fermentability",
+      steps: { create: [{ temperature: 152, time: 60 }] },
+    },
+  });
   await prisma.hop.createMany({
     //eslint-disable-next-line
     data: hops.map(({ aromas, usage, flavorMap, ...hop }: any) => ({
