@@ -33,7 +33,7 @@ export default function WaterProfileDisplay({
 }: WaterProfileDisplayProps) {
   return (
     <div>
-      <Card className="*:not-last:border-b-2 lg:max-w-2/3 mx-auto">
+      <Card className="*:not-last:border-b-2 m-1">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.owner?.name} />
         <Prop

@@ -15,7 +15,7 @@ export default function MashProfileDisplay({
 }: MashProfileDisplayProps) {
   return (
     <div>
-      <Card className="lg:max-w-2/3 m-1 ">
+      <Card className="m-1 ">
         <CardHeader>
           <CardTitle>Mash Profile</CardTitle>
         </CardHeader>
