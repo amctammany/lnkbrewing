@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { BaseWaterProfile } from "@/types/Profile";
+import IconButton from "@/components/Button/IconButton";
+import { Pencil, Split } from "lucide-react";
 
 export async function generateStaticParams() {
   return (await getWaterProfiles()).map(({ slug }) => ({ slug }));
@@ -26,9 +28,13 @@ export default async function WaterProfileDisplayPage({
           { title: profile.name, url: `/water/${profile.slug}` },
         ]}
       >
-        <LinkButton href={`/water/${profile.slug}/fork`}>Fork</LinkButton>
+        <IconButton icon={Split} href={`/water/${profile.slug}/fork`}>
+          Fork
+        </IconButton>
 
-        <LinkButton href={`/water/${profile.slug}/edit`}>Edit</LinkButton>
+        <IconButton icon={Pencil} href={`/water/${profile.slug}/edit`}>
+          Edit
+        </IconButton>
       </TopBar>
       <WaterProfileDisplay profile={profile as BaseWaterProfile} />
     </div>

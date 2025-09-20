@@ -5,6 +5,8 @@ import { OtherIngredientDisplay } from "@/app/(ingredients)/other/_components/Ot
 import { notFound } from "next/navigation";
 import OtherIngredientEditor from "@/app/(ingredients)/other/_components/OtherEditor/OtherEditor";
 import { createOtherIngredient } from "../actions";
+import { Save } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function OtherDisplayPage({ params }: any) {
   const { slug } = await params;
@@ -18,7 +20,11 @@ export default async function OtherDisplayPage({ params }: any) {
           { title: "Others", url: "/other" },
           { title: other.name, url: `/other/${other.slug}` },
         ]}
-      ></TopBar>
+      >
+        <IconButton icon={Save} type="submit">
+          Save
+        </IconButton>
+      </TopBar>
       <div>
         <OtherIngredientEditor src={other} action={createOtherIngredient} />
       </div>

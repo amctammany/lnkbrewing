@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { OptionalNullable } from "@/lib/utils";
 import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
 import Link from "next/link";
+import { Save } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export type WaterProfileEditorProps = {
   profile: WaterProfileType;
@@ -27,7 +29,9 @@ export default function WaterProfileEditor({
           { title: profile.name, url: `/water/${profile.slug}` },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <IconButton icon={Save} type="submit">
+          Save
+        </IconButton>
       </TopBar>
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:

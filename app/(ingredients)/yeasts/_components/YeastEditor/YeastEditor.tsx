@@ -3,6 +3,8 @@ import { YeastEditorForm, YeastEditorFormContainer } from "./YeastEditorForm";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { YeastType } from "@/types/Ingredient";
+import { Save } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export type YeastEditorProps<S = unknown> = {
   yeast: YeastType;
@@ -19,7 +21,9 @@ export default function YeastEditor({ yeast, action }: YeastEditorProps) {
           { title: yeast.name, url: `/yeasts/${yeast.slug}` },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <IconButton icon={Save} type="submit">
+          Save
+        </IconButton>
       </TopBar>
       <div>
         <YeastEditorForm src={yeast} />

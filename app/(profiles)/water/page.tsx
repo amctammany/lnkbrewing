@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import { BaseWaterProfile } from "@/types/Profile";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function WaterProfilesListPage() {
   const profiles = await prisma.waterProfile.findMany();
@@ -18,10 +19,9 @@ export default async function WaterProfilesListPage() {
           { title: "Water", url: "/profiles/water" },
         ]}
       >
-        <LinkButton variant="outline" href="/profiles/water/new">
-          <Plus />
+        <IconButton icon={Plus} variant="outline" href="/water/new">
           Add
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <WaterProfilesList profiles={profiles as BaseWaterProfile[]} />
     </div>

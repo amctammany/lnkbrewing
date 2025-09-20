@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, buttonVariants } from "../ui/button";
 import { cx, VariantProps } from "class-variance-authority";
+import { LinkButton } from "./LinkButton";
 
 export type IconButtonProps = {
   icon?: any;
@@ -14,11 +15,18 @@ export default function IconButton({
   icon: Icon,
   label,
   children,
+  href,
+  className,
   ...props
 }: IconButtonProps) {
-  return (
-    <Button {...props}>
-      <Icon />
+  return href ? (
+    <LinkButton href={href} variant="outline" size={props.size} {...props}>
+      <Icon size={props.size} />
+      <span className={cx("hidden md:block")}>{label ?? children}</span>
+    </LinkButton>
+  ) : (
+    <Button variant="outline" size={props.size} {...props}>
+      <Icon size={props.size} />
       <span className={cx("hidden md:block")}>{label ?? children}</span>
     </Button>
   );

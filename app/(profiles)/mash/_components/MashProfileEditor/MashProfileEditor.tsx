@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { OptionalNullable } from "@/lib/utils";
 import { BaseMashProfile, MashProfileType } from "@/types/Profile";
 import Link from "next/link";
+import { Save } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export type MashProfileEditorProps = {
   profile: MashProfileType;
@@ -24,7 +26,9 @@ export default function MashProfileEditor({
           { title: profile.name, url: `/mash/${profile.slug}` },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <IconButton icon={Save} type="submit">
+          Save
+        </IconButton>
       </TopBar>
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:

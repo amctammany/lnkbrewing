@@ -4,6 +4,7 @@ import { getFermentables } from "./queries";
 import FermentablesTable from "./_components/FermentablesTable/FermentablesTable";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function FermentablesIngredientsPage() {
   const fermentables = await getFermentables();
@@ -15,10 +16,9 @@ export default async function FermentablesIngredientsPage() {
           { title: "Fermentables", url: "/fermentables" },
         ]}
       >
-        <LinkButton variant="outline" href={"/fermentables/new"}>
-          <Plus />
+        <IconButton size="sm" icon={Plus} href={"/fermentables/new"}>
           New
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <div>
         <FermentablesTable src={fermentables} />

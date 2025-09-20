@@ -3,6 +3,8 @@ import { HopEditorForm, HopEditorFormContainer } from "./HopEditorForm";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { HopType } from "@/types/Ingredient";
+import { Save } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export type HopEditorProps<S = unknown> = {
   src: HopType;
@@ -19,7 +21,9 @@ export default function HopEditor({ src: hop, action }: HopEditorProps) {
           { title: hop.name, url: `/hops/${hop.slug}` },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <IconButton icon={Save} type="submit">
+          Save
+        </IconButton>
       </TopBar>
       <div>
         <HopEditorForm src={hop} />

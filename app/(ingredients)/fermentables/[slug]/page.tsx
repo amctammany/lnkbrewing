@@ -7,6 +7,8 @@ import {
 import { FermentableDisplay } from "@/app/(ingredients)/fermentables/_components/FermentableDisplay/FermentableDisplay";
 import { notFound } from "next/navigation";
 import { LinkButton } from "@/components/Button/LinkButton";
+import IconButton from "@/components/Button/IconButton";
+import { Pencil } from "lucide-react";
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }
@@ -24,7 +26,9 @@ export default async function FermentableDisplayPage({ params }: any) {
           { title: fermentable.name, url: `/fermentables/${fermentable.slug}` },
         ]}
       >
-        <LinkButton href={`/fermentables/${slug}/edit`}>Edit</LinkButton>
+        <IconButton href={`/fermentables/${slug}/edit`} icon={Pencil}>
+          Edit
+        </IconButton>
       </TopBar>
       <div>
         <FermentableDisplay src={fermentable} />

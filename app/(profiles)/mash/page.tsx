@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import { MashProfile } from "@prisma/client";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function MashProfilesListPage() {
   const profiles = await prisma.mashProfile.findMany();
@@ -15,10 +16,9 @@ export default async function MashProfilesListPage() {
       <TopBar
         breadcrumbs={[{ title: "Profiles" }, { title: "Mash", url: "/mash" }]}
       >
-        <LinkButton variant="outline" href="/mash/new">
-          <Plus />
+        <IconButton icon={Plus} variant="outline" href="/mash/new">
           Add
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <MashProfilesTable src={profiles as MashProfile[]} />
     </div>

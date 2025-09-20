@@ -4,6 +4,7 @@ import { getOtherIngredients } from "./queries";
 import OthersTable from "./_components/OthersTable/OthersTable";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function OthersIngredientsPage() {
   const others = await getOtherIngredients();
@@ -15,9 +16,9 @@ export default async function OthersIngredientsPage() {
           { title: "Other", url: "/other" },
         ]}
       >
-        <LinkButton variant="outline" href="/other/new">
-          <Plus /> Add
-        </LinkButton>
+        <IconButton icon={Plus} variant="outline" href="/other/new">
+          Add
+        </IconButton>
       </TopBar>
       <div>
         <OthersTable src={others} />

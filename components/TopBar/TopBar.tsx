@@ -35,7 +35,7 @@ export function TopBar({
         />
         {breadcrumbs.length > 0 && (
           <Breadcrumb>
-            <BreadcrumbList>
+            <BreadcrumbList className="*:not-last:hidden lg:*:not-last:block">
               {crumbs.map((crumb) => (
                 <React.Fragment key={crumb.title}>
                   <BreadcrumbItem className="idden dlock">

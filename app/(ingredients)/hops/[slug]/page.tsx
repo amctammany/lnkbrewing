@@ -4,6 +4,8 @@ import { getHop, getHops } from "@/app/(ingredients)/hops/queries";
 import { HopDisplay } from "@/app/(ingredients)/hops/_components/HopDisplay/HopDisplay";
 import { notFound } from "next/navigation";
 import { LinkButton } from "@/components/Button/LinkButton";
+import { Pencil } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 export async function generateStaticParams() {
   return (await getHops()).map(({ slug }) => ({ slug }));
 }
@@ -20,9 +22,13 @@ export default async function HopDisplayPage({ params }: any) {
           { title: hop.name, url: `/hops/${hop.slug}` },
         ]}
       >
-        <LinkButton variant="outline" href={`/hops/${hop.slug}/edit`}>
+        <IconButton
+          icon={Pencil}
+          variant="outline"
+          href={`/hops/${hop.slug}/edit`}
+        >
           Edit
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <div>
         <HopDisplay src={hop} />

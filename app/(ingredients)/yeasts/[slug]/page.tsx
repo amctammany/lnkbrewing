@@ -4,6 +4,8 @@ import { getYeast, getYeasts } from "@/app/(ingredients)/yeasts/queries";
 import { YeastDisplay } from "@/app/(ingredients)/yeasts/_components/YeastDisplay/YeastDisplay";
 import { notFound } from "next/navigation";
 import { LinkButton } from "@/components/Button/LinkButton";
+import { Pencil } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 export async function generateStaticParams() {
   return (await getYeasts()).map(({ slug }) => ({ slug }));
 }
@@ -21,9 +23,13 @@ export default async function YeastDisplayPage({ params }: any) {
           { title: yeast.name, url: `/yeasts/${yeast.slug}` },
         ]}
       >
-        <LinkButton variant="outline" href={`/yeasts/${yeast.slug}/edit`}>
+        <IconButton
+          icon={Pencil}
+          variant="outline"
+          href={`/yeasts/${yeast.slug}/edit`}
+        >
           Edit
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <div>
         <YeastDisplay src={yeast} />

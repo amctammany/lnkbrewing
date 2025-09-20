@@ -4,6 +4,7 @@ import YeastsTable from "./_components/YeastsTable/YeastsTable";
 import { getYeasts } from "./queries";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function YeastsIngredientsPage() {
   const yeasts = await getYeasts();
@@ -15,9 +16,9 @@ export default async function YeastsIngredientsPage() {
           { title: "Yeasts", url: "/yeasts" },
         ]}
       >
-        <LinkButton href="/yeasts/new">
-          <Plus /> Add
-        </LinkButton>
+        <IconButton href="/yeasts/new" icon={Plus}>
+          Add
+        </IconButton>
       </TopBar>
       <div>
         <YeastsTable src={yeasts} />

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import { BaseEquipmentProfile } from "@/types/Profile";
+import IconButton from "@/components/Button/IconButton";
 
 export default async function EquipmentProfilesListPage() {
   const profiles = await getEquipmentProfiles();
@@ -18,10 +19,9 @@ export default async function EquipmentProfilesListPage() {
           { title: "Equipment", url: "/profiles/water" },
         ]}
       >
-        <LinkButton variant="outline" href="/profiles/water/new">
-          <Plus />
+        <IconButton icon={Plus} variant="outline" href="/profiles/water/new">
           Add
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <EquipmentProfilesList profiles={profiles as BaseEquipmentProfile[]} />
     </div>

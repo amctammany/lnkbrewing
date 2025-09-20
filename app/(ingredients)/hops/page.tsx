@@ -3,6 +3,8 @@ import React from "react";
 import { getHops } from "./queries";
 import HopsTable from "./_components/HopsTable/HopsTable";
 import { LinkButton } from "@/components/Button/LinkButton";
+import IconButton from "@/components/Button/IconButton";
+import { Plus } from "lucide-react";
 
 export default async function HopsIngredientsPage() {
   const hops = await getHops();
@@ -14,9 +16,9 @@ export default async function HopsIngredientsPage() {
           { title: "Hops", url: "/hops" },
         ]}
       >
-        <LinkButton variant="outline" href="/hops/new">
+        <IconButton icon={Plus} variant="outline" href="/hops/new">
           Add
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <div>
         <HopsTable src={hops} />

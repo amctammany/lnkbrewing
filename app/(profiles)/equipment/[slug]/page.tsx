@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { BaseEquipmentProfile } from "@/types/Profile";
+import IconButton from "@/components/Button/IconButton";
+import { Pencil, Split } from "lucide-react";
 
 export async function generateStaticParams() {
   return (await getEquipmentProfiles()).map(({ slug }) => ({ slug }));
@@ -26,9 +28,13 @@ export default async function EquipmentProfileDisplayPage({
           { title: profile.name, url: `/equipment/${profile.slug}` },
         ]}
       >
-        <LinkButton href={`/equipment/${profile.slug}/fork`}>Fork</LinkButton>
+        <IconButton icon={Split} href={`/equipment/${profile.slug}/fork`}>
+          Fork
+        </IconButton>
 
-        <LinkButton href={`/equipment/${profile.slug}/edit`}>Edit</LinkButton>
+        <IconButton icon={Pencil} href={`/equipment/${profile.slug}/edit`}>
+          Edit
+        </IconButton>
       </TopBar>
       <EquipmentProfileDisplay profile={profile as BaseEquipmentProfile} />
     </div>
