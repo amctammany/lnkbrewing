@@ -5,6 +5,8 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { MashProfileType } from "@/types/Profile";
 import MashProfileDisplay from "@/app/(profiles)/mash/_components/MashProfileDisplay/MashProfileDisplay";
+import IconButton from "@/components/Button/IconButton";
+import { Pencil, Split } from "lucide-react";
 
 export async function generateStaticParams() {
   return (await getMashProfiles()).map(({ slug }) => ({ slug }));
@@ -26,13 +28,13 @@ export default async function MashProfileDisplayPage({
           { title: profile.name, url: `/mash/${profile.slug}` },
         ]}
       >
-        <LinkButton href={`/mash/${profile.slug}/fork`} size="sm">
+        <IconButton href={`/mash/${profile.slug}/fork`} size="sm" icon={Split}>
           Fork
-        </LinkButton>
+        </IconButton>
 
-        <LinkButton href={`/mash/${profile.slug}/edit`} size="sm">
+        <IconButton href={`/mash/${profile.slug}/edit`} size="sm" icon={Pencil}>
           Edit
-        </LinkButton>
+        </IconButton>
       </TopBar>
       <MashProfileDisplay profile={profile as MashProfileType} />
     </div>
