@@ -48,7 +48,10 @@ export async function updateMashProfile(prev: any, formData: FormData) {
     data: {
       ...data,
       slug: slugify(v.data.name),
-      steps: { connect: stepData.map(({ id }) => ({ id })) },
+      steps: {
+        connect: stepData.map(({ id }) => ({ id })),
+        deleteMany: { index: { gt: stepData.length - 1 } },
+      },
     },
   });
   return redirect(`/mash/${res.slug}`);

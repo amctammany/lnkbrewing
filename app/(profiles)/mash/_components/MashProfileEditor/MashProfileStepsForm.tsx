@@ -65,6 +65,14 @@ export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
               type="number"
               label="Ramp Time"
             />
+            <Button
+              onClick={(e) => {
+                remove(index);
+                e.preventDefault();
+              }}
+            >
+              Remove
+            </Button>
           </li>
         ))}
       </ul>
