@@ -9,26 +9,34 @@ export default function BrewingValues({ src }: { src: Hop }) {
       <CardHeader>
         <CardTitle>Brewing Values</CardTitle>
       </CardHeader>
-      <CardContent>
-        <Prop variant="inline" label="Alpha" value={src.alpha} unit="%" />
-        <Prop variant="inline" label="Beta" value={src.beta} unit="%" />
+      <CardContent className="*:py-1">
+        <Prop variant="grid" label="Alpha" value={src.alpha} unit="%" />
+        <Prop variant="grid" label="Beta" value={src.beta} unit="%" />
+        <Prop variant="grid" label="bPinene" value={src.bPinene} unit="%" />
+
         <Prop
-          variant="inline"
+          variant="grid"
           label="Cohumulone"
           value={src.cohumulone}
           unit="%"
         />
         <Prop
-          variant="inline"
+          variant="grid"
           label="Caryophyllene"
           value={src.caryophyllene}
+          unit="%"
         />
-        <Prop variant="inline" label="Farnesene" value={src.farnesene} />
-        <Prop variant="inline" label="Geraniol" value={src.geraniol} />
-        <Prop variant="inline" label="Humulene" value={src.humulene} />
-        <Prop variant="inline" label="Linalool" value={src.linalool} />
-        <Prop variant="inline" label="Myrcene" value={src.myrcene} />
-        <Prop variant="inline" label="Total Oil" value={src.totalOil} />
+        <Prop variant="grid" label="Farnesene" value={src.farnesene} unit="%" />
+        <Prop variant="grid" label="Geraniol" value={src.geraniol} unit="%" />
+        <Prop variant="grid" label="Humulene" value={src.humulene} unit="%" />
+        <Prop variant="grid" label="Linalool" value={src.linalool} unit="%" />
+        <Prop variant="grid" label="Myrcene" value={src.myrcene} unit="%" />
+        <Prop
+          variant="grid"
+          label="Total Oil"
+          value={src.totalOil}
+          unit="mL/100g"
+        />
       </CardContent>
     </Card>
   );

@@ -1,9 +1,10 @@
-import { cva, VariantProps } from "class-variance-authority";
+import { cva, cx, VariantProps } from "class-variance-authority";
 const propStyles = cva("[&_span]:my-auto ", {
   variants: {
     variant: {
       default: "block md:*:block align-tex-bottom  py-2 [&_span]:leading-",
       inline: "flex *:block py-1",
+      grid: "grid grid-cols-2 justify-center items-center *:block *:first:text-right",
     },
   },
   defaultVariants: {
@@ -26,7 +27,7 @@ export const Prop = ({ label, value, unit, children, variant }: PropProps) => {
       </span>
       <span className="px-2 font-mono grow border-b-2 text-center">
         {children ?? value}
-        <span className="pl-1">{unit}</span>
+        <span className={cx("pl-1", !value && "hidden")}>{unit}</span>
       </span>
     </div>
   );

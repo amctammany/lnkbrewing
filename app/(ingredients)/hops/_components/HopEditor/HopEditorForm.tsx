@@ -87,6 +87,13 @@ export function HopEditorForm({}: HopEditorFormProps) {
             control={control}
           />
           <InlineField
+            name="bPinene"
+            type="number"
+            step="0.1"
+            label="Beta Pinene"
+            control={control}
+          />
+          <InlineField
             name="caryophyllene"
             type="number"
             step="0.1"
