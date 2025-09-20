@@ -55,11 +55,6 @@ const columns: ColumnDef<YeastType>[] = [
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
-    accessorKey: "country",
-    header: Header<YeastType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-  },
-  {
     id: "actions",
     enableHiding: false,
     cell: YeastsTableRowActions<YeastType>,

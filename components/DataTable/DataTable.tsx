@@ -130,7 +130,7 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="overflow-auto">
+      <div className="overflow-x-auto w-full">
         <Table className="grow border-t-2 border-gray-200 table table-auto">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

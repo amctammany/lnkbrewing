@@ -20,7 +20,7 @@ export default async function YeastsIngredientsPage() {
           Add
         </IconButton>
       </TopBar>
-      <div>
+      <div className="relative overflow-auto w-full">
         <YeastsTable src={yeasts} />
       </div>
     </div>
