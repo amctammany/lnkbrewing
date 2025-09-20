@@ -2,7 +2,7 @@
 import InlineField from "@/components/Form/InlineField";
 import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
 import { EquipmentProfileType } from "@/types/Profile";
@@ -36,42 +36,81 @@ export function EquipmentProfileForm() {
       <input type="hidden" {...register("forkedFrom")} />
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
-      <div>
-        <InlineField
-          control={control}
-          name="boilTime"
-          type="number"
-          step={1}
-          label="Boil Time "
-        />
-        <InlineField
-          control={control}
-          name="mashEfficiency"
-          type="number"
-          step={1}
-          label="Mash Efficiency "
-        />
-        <InlineField
-          control={control}
-          name="brewEfficiency"
-          type="number"
-          step={1}
-          label="Brew Efficiency "
-        />
-        <InlineField
-          control={control}
-          name="batchVolume"
-          type="number"
-          step={1}
-          label="Batch Volume"
-        />
-        <InlineField
-          control={control}
-          name="fermenterLoss"
-          type="number"
-          step={1}
-          label="Fermenter Loss"
-        />
+      <div className="grid lg:grid-cols-3 gap-2">
+        <Card className="grid">
+          <CardHeader>
+            <CardTitle>Volumes</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <InlineField
+              control={control}
+              name="boilTime"
+              type="number"
+              step={1}
+              label="Boil Time "
+            />
+
+            <InlineField
+              control={control}
+              name="batchVolume"
+              type="number"
+              step={1}
+              label="Batch Volume"
+            />
+            <InlineField
+              control={control}
+              name="boilOffRate"
+              type="number"
+              step={1}
+              label="Boil Off Rate"
+            />
+
+            <InlineField
+              control={control}
+              name="mashLoss"
+              type="number"
+              step={1}
+              label="Mash Loss"
+            />
+
+            <InlineField
+              control={control}
+              name="fermenterLoss"
+              type="number"
+              step={1}
+              label="Fermenter Loss"
+            />
+            <InlineField
+              control={control}
+              name="trubLoss"
+              type="number"
+              step={1}
+              label="Trub Loss"
+            />
+          </CardContent>
+        </Card>
+        <Card className="grid">
+          <CardHeader>
+            <CardTitle>Efficiency</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {" "}
+            <InlineField
+              control={control}
+              name="mashEfficiency"
+              type="number"
+              step={1}
+              label="Mash Efficiency "
+            />
+            <InlineField
+              control={control}
+              name="brewEfficiency"
+              type="number"
+              step={1}
+              label="Brew Efficiency "
+            />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

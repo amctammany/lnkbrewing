@@ -77,7 +77,7 @@ export default function TextInput<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <FormControl className={textInputControlStyles({ variant })}>
-              <div className="flex mx-4 p-1">
+              <div className="flex p-1">
                 <Input
                   className="flex-grow bg-white"
                   type={type}
@@ -86,7 +86,11 @@ export default function TextInput<T extends FieldValues>({
                   {...field}
                   value={field.value === null ? "" : field.value}
                 />
-                <div className="grid m-2 bg-slate-500 text-white">
+                <div
+                  className={`grid m-2 bg-slate-500 text-white ${
+                    unit ? "" : "hidden"
+                  }`}
+                >
                   <span className="m-auto items-center">{unit}</span>
                 </div>
               </div>

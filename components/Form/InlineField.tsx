@@ -62,7 +62,7 @@ export default function InlineField<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <FormControl>
-              <div className="flex w-full  flex-grow border-box mx-4 p-1">
+              <div className="flex w-full  flex-grow p-1">
                 <InlineInput
                   className="flex-grow bg-white"
                   prepend={PrependIcon}
