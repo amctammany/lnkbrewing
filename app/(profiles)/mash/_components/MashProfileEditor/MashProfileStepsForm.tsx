@@ -10,12 +10,20 @@ import { MashProfileType } from "@/types/Profile";
 import { MashProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
+import MashProfileStepField from "./MashProfileStepField";
 
 export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
-  const { register, control } = useFormContext<MashProfileType>();
-  const { fields, append, insert, remove } = useFieldArray({
+  const { register, control, watch } = useFormContext<MashProfileType>();
+  const { fields, append, insert, swap, remove } = useFieldArray({
     control,
     name: "steps",
+  });
+  const watchFieldArray = watch("steps");
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index],
+    };
   });
   return (
     <Card>
@@ -41,39 +49,16 @@ export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
         </CardAction>
       </CardHeader>
       <ul>
-        {fields.map((step, index) => (
-          <li className="list-item" key={index}>
-            <b>{index}</b>
-            <b>{step.type}</b>
-            <input type="hidden" name={`steps.${index}.index`} value={index} />
-            <input type="hidden" name={`steps.${index}.id`} />
-            <InlineField
-              control={control}
-              name={`steps.${index}.temperature`}
-              type="number"
-              label="Temp"
-            />
-            <InlineField
-              control={control}
-              name={`steps.${index}.time`}
-              type="number"
-              label="Time"
-            />
-            <InlineField
-              control={control}
-              name={`steps.${index}.rampTime`}
-              type="number"
-              label="Ramp Time"
-            />
-            <Button
-              onClick={(e) => {
-                remove(index);
-                e.preventDefault();
-              }}
-            >
-              Remove
-            </Button>
-          </li>
+        {controlledFields.map((step, index) => (
+          <MashProfileStepField
+            key={step.id}
+            src={step}
+            index={index}
+            length={controlledFields.length - 1}
+            control={control}
+            swap={swap}
+            remove={remove}
+          />
         ))}
       </ul>
     </Card>
