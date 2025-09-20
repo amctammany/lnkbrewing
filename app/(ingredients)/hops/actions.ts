@@ -19,6 +19,7 @@ export async function createHop(prev: any, formData: FormData) {
 }
 
 export async function updateHop(prev: any, formData: FormData) {
+  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, hopSchema);
   if (v.errors) return v;
   if (!v.success) {
@@ -28,7 +29,10 @@ export async function updateHop(prev: any, formData: FormData) {
     where: {
       id: v.data.id,
     },
-    data: { ...v.data, slug: slugify(v.data.name) },
+    data: {
+      ...v.data,
+      slug: slugify(v.data.name),
+    },
   });
   return redirect(`/hops/${res.slug}`);
 }

@@ -19,6 +19,7 @@ export async function createYeast(prev: any, formData: FormData) {
 }
 
 export async function updateYeast(prev: any, formData: FormData) {
+  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, yeastSchema);
   if (v.errors) return v;
   if (!v.success) {

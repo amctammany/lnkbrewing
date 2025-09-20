@@ -5,7 +5,10 @@ export type OtherType = OtherIngredient & {
   id?: string | null;
   userId?: string | null;
 };
-export type HopType = Hop & { id?: string | null };
+export type HopType = Hop & {
+  alphaRange: [number, number];
+  id?: string | null;
+};
 export type YeastType = Yeast & { id?: string | null };
 export type FermentableType = Fermentable & {
   id?: string | null;

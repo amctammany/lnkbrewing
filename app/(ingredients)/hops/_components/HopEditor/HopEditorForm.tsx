@@ -1,5 +1,6 @@
 "use client";
 import InlineField from "@/components/Form/InlineField";
+import RangeField from "@/components/Form/RangeField";
 import { Select } from "@/components/Form/Select";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
@@ -72,6 +73,13 @@ export function HopEditorForm({}: HopEditorFormProps) {
         />
         <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
         <div className="grid grid-cols-2 lg:grid-cols-4">
+          <RangeField
+            name="alphaRange"
+            low="alphaLow"
+            high="alphaHigh"
+            label="Alpha Range"
+            control={control}
+          />
           <InlineField
             name="alpha"
             type="number"

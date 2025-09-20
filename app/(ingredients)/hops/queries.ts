@@ -1,8 +1,12 @@
 import { prisma } from "@/lib/client";
+import { HopType } from "@/types/Ingredient";
 
 export async function getHop(slug: string) {
   const hop = await prisma.hop.findFirst({ where: { slug } });
-  return hop;
+  return {
+    alphaRange: [hop?.alphaLow, hop?.alphaHigh],
+    ...hop,
+  } as HopType;
 }
 
 export async function getHops() {
