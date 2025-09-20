@@ -109,7 +109,7 @@ DataTableProps<TData, TValue>) {
     [table]
   );
   return (
-    <div className="w-full">
+    <div className="w-auto">
       <TableSearch table={table}>
         {filters?.map(({ name, options }) =>
           options ? (
@@ -130,7 +130,7 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="overflow-x-auto w-full">
+      <div className="overflow-hidden border">
         <Table className="grow border-t-2 border-gray-200 table table-auto">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

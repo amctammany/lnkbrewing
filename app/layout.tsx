@@ -37,7 +37,8 @@ export default function RootLayout({
         <SidebarProvider>
           <RouteChangeListener />
           <NavSidebar />
-          <SidebarInset>{children}</SidebarInset>
+
+          <SidebarInset className="overflow-hidden">{children}</SidebarInset>
         </SidebarProvider>
       </body>
     </html>
