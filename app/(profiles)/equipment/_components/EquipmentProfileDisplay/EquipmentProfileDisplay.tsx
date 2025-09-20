@@ -46,6 +46,20 @@ export default function EquipmentProfileDisplay({
           }
         />
         <Prop label="Description" value={profile.description} />
+        <div className="grid md:grid-cols-2">
+          <div>
+            <Prop label="Boil Time" value={profile.boilTime} />
+            <Prop label="Batch Size" value={profile.batchVolume} />
+            <Prop label="Mash Efficiency" value={profile.mashEfficiency} />
+            <Prop label="Brew Efficiency" value={profile.brewEfficiency} />
+          </div>
+          <div>
+            <Prop label="Boiloff Rate" value={profile.boilOffRate} />
+            <Prop label="Mash Loss" value={profile.mashLoss} />
+            <Prop label="Trub Loss" value={profile.trubLoss} />
+            <Prop label="Fermenter Loss" value={profile.fermenterLoss} />
+          </div>
+        </div>
       </Card>
     </div>
   );
