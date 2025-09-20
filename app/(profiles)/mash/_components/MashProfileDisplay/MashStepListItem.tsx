@@ -7,7 +7,7 @@ export type MashStepListItemProps = {
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
-    <div className="flex">
+    <div className="lg:flex lg:flex-row grid grid-cols-2 text-sm lg:text-lg">
       <Prop label="Type" value={src?.type} />
       <Prop label="Time" value={src?.time} />
       <Prop label="Temperature" value={src?.temperature} />

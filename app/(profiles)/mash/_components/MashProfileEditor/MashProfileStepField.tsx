@@ -9,15 +9,14 @@ import { cx } from "class-variance-authority";
 import { ArrowDown, ArrowUp, Delete, X } from "lucide-react";
 import React from "react";
 import { Control } from "react-hook-form";
-const Unit = (text?: string) => {
+const Unit = (text?: string) =>
   function UnitComp({ className, ...props }: React.ComponentProps<"span">) {
     return (
       <span className={cx("text-sm font-mono", className)} {...props}>
         {text}
       </span>
     );
-  }
-};
+  };
 export type MashProfileStepFieldProps = {
   src: MashStepType;
   index: number;

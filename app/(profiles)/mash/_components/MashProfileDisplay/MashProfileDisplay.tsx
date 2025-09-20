@@ -15,7 +15,7 @@ export default function MashProfileDisplay({
 }: MashProfileDisplayProps) {
   return (
     <div>
-      <Card className="lg:max-w-2/3 mx-auto">
+      <Card className="lg:max-w-2/3 m-1 ">
         <CardHeader>
           <CardTitle>Mash Profile</CardTitle>
         </CardHeader>
@@ -38,7 +38,7 @@ export default function MashProfileDisplay({
             <CardHeader>
               <CardTitle>Steps</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-2">
               <ul className="w-full">
                 {profile.steps.map((step) => (
                   <MashStepListItem key={step.id} src={step} />

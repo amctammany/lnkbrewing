@@ -26,9 +26,13 @@ export default async function MashProfileDisplayPage({
           { title: profile.name, url: `/mash/${profile.slug}` },
         ]}
       >
-        <LinkButton href={`/mash/${profile.slug}/fork`}>Fork</LinkButton>
+        <LinkButton href={`/mash/${profile.slug}/fork`} size="sm">
+          Fork
+        </LinkButton>
 
-        <LinkButton href={`/mash/${profile.slug}/edit`}>Edit</LinkButton>
+        <LinkButton href={`/mash/${profile.slug}/edit`} size="sm">
+          Edit
+        </LinkButton>
       </TopBar>
       <MashProfileDisplay profile={profile as MashProfileType} />
     </div>
