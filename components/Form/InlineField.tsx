@@ -16,9 +16,9 @@ import { ArrowDownToDotIcon, PoundSterlingIcon } from "lucide-react";
 const inlineFieldStyles = cva("", {
   variants: {
     variant: {
-      default:
-        "grid grid-flow-col grid-cols-2 tems-center w-full ustify-center",
-      inline: "flex",
+      default: "flex",
+      grid: "grid grid-flow-col grid-cols-2 tems-center w-full ustify-center",
+      inline: "flex *:first:flex-grow",
     },
   },
   defaultVariants: {
@@ -58,13 +58,13 @@ export default function InlineField<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className={cx(inlineFieldStyles({ variant }), className)}>
-            <FormLabel className="block my-auto justify-center items-center w-full text-right">
+            <FormLabel className="block px-1 m-auto whitespace-nowrap justify-center items-center ">
               {label ?? name}
             </FormLabel>
             <FormControl>
-              <div className="flex w-full  flex-grow p-1">
+              <div className="flex flex-grow p-1">
                 <InlineInput
-                  className="flex-grow bg-white"
+                  className="flex-grow text-center  bg-white"
                   prepend={PrependIcon}
                   append={AppendIcon}
                   type={type}

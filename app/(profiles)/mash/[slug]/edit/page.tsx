@@ -12,7 +12,7 @@ export default async function MashProfileEditorPage({
   const { slug } = await params;
 
   const profile = await authorizeResource(
-    `/profiles/mash/${slug}/edit`,
+    `/mash/${slug}/edit`,
     getMashProfile,
     slug
   );

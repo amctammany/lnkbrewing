@@ -57,11 +57,11 @@ export default function SelectInput<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className={selectStyles({ variant, inputSize })}>
-            <FormLabel className="block my-auto justify-center items-center ">
+            <FormLabel className="block px-1 m-auto whitespace-nowrap justify-center items-center ">
               {label ?? name}
             </FormLabel>
-            <FormControl className="flex p-1">
-              <div className="flex w-full flex-grow px-3 py-2">
+            <FormControl>
+              <div className="flex w-full flex-grow p-1 ">
                 <Select
                   {...field}
                   onValueChange={field.onChange}

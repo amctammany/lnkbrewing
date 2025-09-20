@@ -19,10 +19,11 @@ function InlineInput({
       <input
         type={type}
         data-slot="input"
-        className={cx("px-3 py-2 border rounded-lg w-full", {
-          Pre: "pl-10",
-          App: "pr-10",
-        })}
+        className={cx(
+          " text-center px-3 py-2 border rounded-lg w-full",
+          Pre && "pl-10",
+          App && "pr-10"
+        )}
         {...props}
       />
       <div
