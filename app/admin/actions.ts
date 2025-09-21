@@ -26,7 +26,7 @@ const schema = zfd.formData({
   UserPreferences: z.object({
     id: zfd.numeric().optional(),
     userId: zfd.text(),
-    massSystem: z.enum(MassSystem).optional(),
+    massSystem: z.enum(MassSystem).default("US"),
     temperature: z.enum(UserTemperaturePreference).default("F"),
     volume: z.enum(UserVolumePreference).default("gal"),
     pressure: z.enum(UserPressurePreference).default("PSI"),
@@ -44,17 +44,19 @@ export async function updateUserSettings(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const { UserPreferences, ...data } = v.data;
-  const res = await prisma.user.update({
-    where: {
-      id: data.id,
-    },
-    data,
-  });
-  const r = await prisma.userPreferences.update({
-    where: { userId: UserPreferences.userId },
-    data: UserPreferences,
-  });
-  console.log(res, r);
+  const res = Promise.all([
+    prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    }),
+    prisma.userPreferences.update({
+      where: { userId: UserPreferences.userId },
+      data: UserPreferences,
+    }),
+  ]);
+  console.log(res);
   return redirect("/admin");
   //  return { success: true, data: res };
 }
