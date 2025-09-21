@@ -4,7 +4,7 @@ import { HopType } from "@/types/Ingredient";
 export async function getHop(slug: string) {
   const hop = await prisma.hop.findFirst({ where: { slug } });
   return {
-    alphaRange: [hop?.alphaLow, hop?.alphaHigh],
+    alphaRange: [hop?.alphaLow, hop?.alpha, hop?.alphaHigh],
     ...hop,
   } as HopType;
 }

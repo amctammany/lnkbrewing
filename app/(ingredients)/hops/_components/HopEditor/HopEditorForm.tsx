@@ -72,21 +72,16 @@ export function HopEditorForm({}: HopEditorFormProps) {
           control={control}
         />
         <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 ">
           <RangeField
             name="alphaRange"
             low="alphaLow"
             high="alphaHigh"
+            median="alpha"
             label="Alpha Range"
             control={control}
           />
-          <InlineField
-            name="alpha"
-            type="number"
-            step="0.1"
-            label="Alpha"
-            control={control}
-          />
+
           <InlineField
             name="beta"
             type="number"

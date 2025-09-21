@@ -6,7 +6,7 @@ export type OtherType = OtherIngredient & {
   userId?: string | null;
 };
 export type HopType = Hop & {
-  alphaRange: [number, number];
+  alphaRange: [number, number, number];
   id?: string | null;
 };
 export type YeastType = Yeast & { id?: string | null };
