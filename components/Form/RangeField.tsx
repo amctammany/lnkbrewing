@@ -28,17 +28,20 @@ const rangeFieldStyles = cva("", {
     variant: "default",
   },
 });
-const rangeFieldLabelStyles = cva("", {
-  variants: {
-    variant: {
-      default: "",
-      inline: "flex",
+const rangeFieldLabelStyles = cva(
+  "block px-1 m-auto whitespace-nowrap justify-center items-center leading-6",
+  {
+    variants: {
+      variant: {
+        default: "",
+        inline: "flex",
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 const rangeFieldControlStyles = cva("", {
   variants: {
     variant: {
@@ -94,7 +97,7 @@ export default function RangeField<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <FormControl className={rangeFieldControlStyles({ variant })}>
-              <div className="">
+              <div className="flex-grow w-full">
                 <div className="flex">
                   <input
                     className="ring rounded text-center w-8"
