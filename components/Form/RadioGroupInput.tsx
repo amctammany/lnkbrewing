@@ -12,6 +12,8 @@ import { Control, FieldPath, FieldValues } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import Link from "next/link";
+import { cx, VariantProps } from "class-variance-authority";
+import { inlineFieldStyles } from "./InlineField";
 export type RadioGroupInputProps<T extends FieldValues> = {
   className?: string;
   control?: Control<T>;
@@ -20,7 +22,7 @@ export type RadioGroupInputProps<T extends FieldValues> = {
   placeholder?: string;
   options: Record<string, string>;
   description?: string;
-};
+} & VariantProps<typeof inlineFieldStyles>;
 export default function RadioGroupInput<T extends FieldValues>({
   control,
   name,
@@ -29,16 +31,19 @@ export default function RadioGroupInput<T extends FieldValues>({
   placeholder,
   description,
   className = "",
+  variant,
 }: RadioGroupInputProps<T>) {
+  console.log(name);
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="grid grid-cols-2">
+        <FormItem className={cx(inlineFieldStyles({ variant }), className)}>
           <FormLabel className="text-left">{label}</FormLabel>
           <FormControl className="mx-auto justify-items-center">
             <RadioGroup
+              name={field.name}
               onValueChange={field.onChange}
               defaultValue={field.value}
               className="flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2"
@@ -56,9 +61,7 @@ export default function RadioGroupInput<T extends FieldValues>({
             </RadioGroup>
           </FormControl>
 
-          <FormDescription>
-            <Link href="/examples/forms">{field.value}email settings</Link>.
-          </FormDescription>
+          <FormDescription>{description}</FormDescription>
           <FormMessage />
         </FormItem>
       )}

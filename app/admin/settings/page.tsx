@@ -12,6 +12,7 @@ export default async function SettingsPage() {
   }
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
+    include: { UserPreferences: true },
   });
   if (!user) {
     throw new Error("User not found");

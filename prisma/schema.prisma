@@ -57,6 +57,7 @@ model UserPreferences {
   language        String                    @default("en") // ISO language code, e.g., en, es, fr
   timezone        String? // e.g., America/New_York
   fontSize        String                    @default("medium") // Options: small, medium, large
+  massSystem      MassSystem                @default(US)
   color           UserColorPreference       @default(L)
   flow            FlowUnit                  @default(gpm)
   concentration   ConcentrationUnit         @default(ppm)
@@ -71,6 +72,12 @@ model UserPreferences {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum MassSystem {
+  US
+  Imperial
+  Metric
 }
 
 enum MassUnit {

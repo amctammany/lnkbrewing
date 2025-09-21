@@ -30,6 +30,7 @@ const selectStyles = cva("w-fll", {
     variant: {
       default: ["flex"],
       inline: ["flex"],
+      grid: ["grid grid-cols-2 items-center justify-content"],
     },
     inputSize: {
       default: ["w-ful ontent-center"],
@@ -57,7 +58,7 @@ export default function SelectInput<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className={selectStyles({ variant, inputSize })}>
-            <FormLabel className="block px-1 m-auto whitespace-nowrap justify-center items-center ">
+            <FormLabel className="block  whitespace-nowrap justify-center items-center ">
               {label ?? name}
             </FormLabel>
             <FormControl>
@@ -67,13 +68,13 @@ export default function SelectInput<T extends FieldValues>({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="flex-grow w-full ">
-                    <SelectValue className="w-full" placeholder={placeholder} />
+                  <SelectTrigger className="flex-grow w-full flex ">
+                    <SelectValue placeholder={placeholder} />
                   </SelectTrigger>
                   <SelectContent>
                     {Object.entries(options).map(([key, value]) => (
                       <SelectItem key={key} value={value}>
-                        {value}
+                        <div className="flex-grow text-center">{value}</div>
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -13,7 +13,7 @@ import { cx, cva, VariantProps } from "class-variance-authority";
 import { InlineInput } from "./InlineInput";
 import { ArrowDownToDotIcon, PoundSterlingIcon } from "lucide-react";
 
-const inlineFieldStyles = cva("", {
+export const inlineFieldStyles = cva("", {
   variants: {
     variant: {
       default: "flex",

@@ -27,6 +27,11 @@ import {
   User,
   UserPreferences,
   UserPressurePreference,
+  UserTemperaturePreference,
+  UserMassPreference,
+  MassSystem,
+  UserColorPreference,
+  UserVolumePreference,
 } from "@prisma/client";
 import Link from "next/link";
 import React, { startTransition, useActionState } from "react";
@@ -65,17 +70,79 @@ export type UserType = User & { UserPreferences: UserPreferences };
 export function SettingsForm({ user }: SettingsFormProps) {
   const { register, control } = useFormContext<UserType>();
   return (
-    <>
-      <input type="hidden" {...register("id")} />
-      <TextInput label="Name" {...register("name")} />
-      <TextInput label="Username" {...register("username")} />
-      <TextInput label="Email" {...register("email")} />
-      <RadioGroupInput
-        control={control}
-        name="UserPreferences.gravity"
-        options={UserGravityPreference}
-      />
-      <FormField
+    <div className="grid grid-cols-2 ">
+      <div className="*:py-1">
+        <input type="hidden" {...register("id")} />
+        <TextInput label="Name" {...register("name")} />
+        <TextInput label="Username" {...register("username")} />
+        <TextInput label="Email" {...register("email")} />
+      </div>
+      <div className="*:py-1">
+        <input type="hidden" {...register("UserPreferences.userId")} />
+        <RadioGroupInput
+          variant="inline"
+          control={control}
+          label="Mass System"
+          name="UserPreferences.massSystem"
+          options={MassSystem}
+        />
+        <RadioGroupInput
+          variant="inline"
+          control={control}
+          label="Color"
+          name="UserPreferences.color"
+          options={UserColorPreference}
+        />
+        <RadioGroupInput
+          variant="inline"
+          control={control}
+          label="Temperature"
+          name="UserPreferences.temperature"
+          options={UserTemperaturePreference}
+        />
+        <SelectInput
+          variant="grid"
+          control={control}
+          label="Volume"
+          name="UserPreferences.volume"
+          options={UserVolumePreference}
+        />
+        <SelectInput
+          variant="grid"
+          control={control}
+          label="Gravity"
+          name="UserPreferences.gravity"
+          options={UserGravityPreference}
+        />
+        <SelectInput
+          variant="grid"
+          control={control}
+          name="UserPreferences.pressure"
+          label="Pressure"
+          options={UserPressurePreference}
+        />
+        <SelectInput
+          variant="grid"
+          control={control}
+          label="Fermentable Mass"
+          name="UserPreferences.fermentableMass"
+          options={UserMassPreference}
+        />
+        <SelectInput
+          variant="grid"
+          control={control}
+          label="Hop Mass"
+          name="UserPreferences.hopMass"
+          options={UserMassPreference}
+        />
+      </div>
+      <Button type="submit">Save</Button>
+    </div>
+  );
+}
+
+/**
+ *  <FormField
         control={control}
         name="UserPreferences.gravity"
         render={({ field }) => (
@@ -107,42 +174,5 @@ export function SettingsForm({ user }: SettingsFormProps) {
           </FormItem>
         )}
       />
-
-      <FormField
-        control={control}
-        name="UserPreferences.pressure"
-        render={({ field }) => (
-          <FormItem>
-            <div className=" items-center flex gap-3">
-              <FormLabel>Pressure</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Density Unit" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.entries(UserPressurePreference).map(
-                    ([key, value]) => (
-                      <SelectItem key={key} value={value}>
-                        {value}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectContent>
-              </Select>
-            </div>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <SelectInput
-        control={control}
-        name="UserPreferences.pressure"
-        label="Pressure"
-        options={UserPressurePreference}
-      />
-      <Button type="submit">Save</Button>
-    </>
-  );
-}
+ 
+ */
