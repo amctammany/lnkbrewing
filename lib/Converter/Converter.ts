@@ -23,16 +23,13 @@ function makeConverter(src: ConverterDict) {
     to: keyof ConverterDict
   ) => {
     if (!src.hasOwnProperty(from) || !src.hasOwnProperty(to)) throw new Error();
-    console.log({ value, from, to });
     return (value / (src[from] as number)) * (src[to] as number);
   };
 }
 export function Converter(value: number, from: UnitNames, to: UnitNames) {
   const group = UnitDict[from];
-  console.log({ to, from, group });
   if (UnitDict[to] !== group)
     throw new Error("Cannot convert between two different measurements");
   const convert = converters[group];
-  const res = convert(value, from, to);
-  console.log({ res });
+  return convert(value, from, to);
 }

@@ -23,10 +23,9 @@ export default function AmountProp({ value, unit, ...props }: AmountPropProps) {
 }
 export function Amount({ value, unit, ...props }: AmountPropProps) {
   const prefs = getPreferences();
-  if (!prefs) return;
   return (
     <Suspense fallback={<Prop value={value} unit={unit} {...props} />}>
-      <ClientAmountProp unit={unit} value={value} prefs={prefs} />
+      <ClientAmountProp unit={unit} value={value} prefs={prefs} {...props} />
     </Suspense>
   );
 }

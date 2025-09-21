@@ -6,26 +6,24 @@ import React, { use } from "react";
 import AmountProp from "./AmountProp";
 import { useSession } from "next-auth/react";
 import { Converter } from "@/lib/Converter/Converter";
+import { PropProps } from "./Prop";
 
-export type ClientAmountPropProps = {
+export type ClientAmountPropProps = Omit<PropProps, "unit"> & {
   label?: string | React.ReactNode;
-  user?: UserType;
   value: number;
   prefs: Promise<Record<UnitTypes, UnitNames> | null>;
   unit: UnitNames;
 };
 export default function ClientAmountProp({
   label,
-  user,
   prefs,
   value,
   unit,
+  ...props
 }: ClientAmountPropProps) {
   const refs = use(prefs);
   const Prefs = refs ?? ({} as any);
   const userUnit = Prefs[UnitDict[unit]];
-  console.log(Prefs, UnitDict[unit], userUnit);
   const result = Converter(value, unit, userUnit);
-  console.log({ value, unit, result, userUnit });
-  return <AmountProp label={label} value={value} unit={unit} />;
+  return <AmountProp label={label} value={result} unit={userUnit} {...props} />;
 }
