@@ -4,16 +4,19 @@ import {
   UserGravityPreference,
   UserVolumePreference,
   UserMassPreference,
+  UserTemperaturePreference,
 } from "@prisma/client";
 
 export type UnitNames =
   | MassUnit
+  | UserTemperaturePreference
   | UserPressurePreference
   | UserGravityPreference
   | UserVolumePreference
   | UserMassPreference;
 const UNITS = {
   mass: UserMassPreference,
+  temperature: UserTemperaturePreference,
   pressure: UserPressurePreference,
   gravity: UserGravityPreference,
   volume: UserVolumePreference,

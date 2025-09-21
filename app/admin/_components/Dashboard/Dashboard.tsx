@@ -24,14 +24,7 @@ export default function Dashboard({ user }: DashboardProps) {
         <div>
           <Link href="/admin/settings">Settings</Link>
         </div>
-        <div>
-          <AmountProp
-            variant="inline"
-            label="T"
-            value={20}
-            unit={$Enums.MassUnit.Kg}
-          />
-        </div>
+        <div></div>
       </div>
     </div>
   );

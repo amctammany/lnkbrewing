@@ -1,5 +1,7 @@
 import { Prop } from "@/components/Prop";
+import { AmountProp } from "@/components/Prop/AmountProp";
 import { MashStepType } from "@/types/Profile";
+import { $Enums } from "@prisma/client";
 import React from "react";
 
 export type MashStepListItemProps = {
@@ -10,7 +12,11 @@ export default function MashStepListItem({ src }: MashStepListItemProps) {
     <div className="lg:flex lg:flex-row grid grid-cols-2 text-sm lg:text-lg">
       <Prop label="Type" value={src?.type} />
       <Prop label="Time" value={src?.time} />
-      <Prop label="Temperature" value={src?.temperature} />
+      <AmountProp
+        label="Temperature"
+        value={src?.temperature}
+        unit={$Enums.UserTemperaturePreference.F}
+      />
       <Prop label="Ramp Time" value={src?.rampTime} />
     </div>
   );

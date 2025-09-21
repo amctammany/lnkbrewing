@@ -1,4 +1,4 @@
-import { MassUnit } from "@prisma/client";
+import { MassUnit, UserTemperaturePreference } from "@prisma/client";
 import { UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
 const massConverter: Record<MassUnit, ConversionType> = {
@@ -8,8 +8,13 @@ const massConverter: Record<MassUnit, ConversionType> = {
   Oz: 35.2,
 };
 
+const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
+  C: 1,
+  F: [(f: number) => (f - 32) * (5 / 9), (c: number) => c * (9 / 5) + 32],
+};
 const converters: Partial<Record<UnitTypes, any>> = {
   mass: makeConverter(massConverter),
+  temperature: makeConverter(tempConverter),
 };
 
 export type ConversionType =
@@ -38,5 +43,6 @@ export function Converter(value: number, from: UnitNames, to: UnitNames) {
   if (UnitDict[to] !== group)
     throw new Error("Cannot convert between two different measurements");
   const convert = converters[group];
+  if (!convert) throw new Error("Converter not available");
   return convert(value, from, to);
 }
