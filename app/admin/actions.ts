@@ -32,6 +32,7 @@ const schema = zfd.formData({
     pressure: z.enum(UserPressurePreference).default("PSI"),
     color: z.enum(UserColorPreference).default("L"),
     gravity: z.enum(UserGravityPreference).default("SG"),
+    mass: z.enum(UserMassPreference).default("Lb"),
     hopMass: z.enum(UserMassPreference).default("Oz"),
     fermentableMass: z.enum(UserMassPreference).default("LbOz"),
   }),

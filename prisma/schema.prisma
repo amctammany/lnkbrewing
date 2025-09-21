@@ -63,6 +63,7 @@ model UserPreferences {
   concentration   ConcentrationUnit         @default(ppm)
   time            TimeUnit                  @default(min)
   volume          UserVolumePreference      @default(gal)
+  mass            UserMassPreference        @default(LbOz)
   hopMass         UserMassPreference        @default(Oz)
   fermentableMass UserMassPreference        @default(Lb)
   gravity         UserGravityPreference     @default(SG)

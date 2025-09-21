@@ -1,6 +1,7 @@
-import AmountProp from "@/components/Prop/AmountProp";
+import AmountProp, { Amount } from "@/components/Prop/AmountProp";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
+import { UnitDict } from "@/lib/Converter/UnitDict";
 import { $Enums, User } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +10,7 @@ export type DashboardProps = {
   user?: User;
 };
 export default function Dashboard({ user }: DashboardProps) {
+  console.log(UnitDict);
   return (
     <div>
       <TopBar breadcrumbs={[{ title: "Dashboard", url: "/admin" }]}>
@@ -25,7 +27,7 @@ export default function Dashboard({ user }: DashboardProps) {
           <Link href="/admin/settings">Settings</Link>
         </div>
         <div>
-          <AmountProp label="T" value={20} unit={$Enums.MassUnit.Lb} />
+          <Amount label="T" value={20} unit={$Enums.MassUnit.Kg} />
         </div>
       </div>
     </div>

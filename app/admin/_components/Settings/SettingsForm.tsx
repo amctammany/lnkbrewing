@@ -121,6 +121,15 @@ export function SettingsForm({ user }: SettingsFormProps) {
           label="Pressure"
           options={UserPressurePreference}
         />
+
+        <SelectInput
+          variant="grid"
+          control={control}
+          label="Mass"
+          name="UserPreferences.mass"
+          options={UserMassPreference}
+        />
+
         <SelectInput
           variant="grid"
           control={control}
