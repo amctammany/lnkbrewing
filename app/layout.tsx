@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+export const experimental_ppr = true;
 
 export const metadata: Metadata = {
   title: "Create Next App",
