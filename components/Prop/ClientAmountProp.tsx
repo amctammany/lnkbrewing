@@ -1,12 +1,9 @@
 "use client";
 
-import { UserType } from "@/app/admin/_components/Settings/SettingsForm";
 import { UnitDict, UnitTypes, UnitNames } from "@/lib/Converter/UnitDict";
 import React, { use } from "react";
-import AmountProp from "./AmountProp";
-import { useSession } from "next-auth/react";
 import { Converter } from "@/lib/Converter/Converter";
-import { PropProps } from "./Prop";
+import { Prop, PropProps } from "./Prop";
 
 export type ClientAmountPropProps = Omit<PropProps, "unit"> & {
   label?: string | React.ReactNode;
@@ -25,5 +22,5 @@ export default function ClientAmountProp({
   const Prefs = refs ?? ({} as any);
   const userUnit = Prefs[UnitDict[unit]];
   const result = Converter(value, unit, userUnit);
-  return <AmountProp label={label} value={result} unit={userUnit} {...props} />;
+  return <Prop label={label} value={result} unit={userUnit} {...props} />;
 }

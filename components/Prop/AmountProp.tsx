@@ -18,10 +18,7 @@ export type AmountPropProps = PropProps & {
     | UserVolumePreference
     | UserMassPreference;
 };
-export default function AmountProp({ value, unit, ...props }: AmountPropProps) {
-  return <Prop value={value} unit={unit} {...props} />;
-}
-export function Amount({ value, unit, ...props }: AmountPropProps) {
+export function AmountProp({ value, unit, ...props }: AmountPropProps) {
   const prefs = getPreferences();
   return (
     <Suspense fallback={<Prop value={value} unit={unit} {...props} />}>

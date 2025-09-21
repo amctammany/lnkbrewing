@@ -1,4 +1,4 @@
-import { Amount } from "@/components/Prop/AmountProp";
+import { AmountProp } from "@/components/Prop/AmountProp";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { $Enums, User } from "@prisma/client";
@@ -25,7 +25,7 @@ export default function Dashboard({ user }: DashboardProps) {
           <Link href="/admin/settings">Settings</Link>
         </div>
         <div>
-          <Amount
+          <AmountProp
             variant="inline"
             label="T"
             value={20}
