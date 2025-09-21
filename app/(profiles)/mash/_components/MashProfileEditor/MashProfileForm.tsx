@@ -35,10 +35,29 @@ export function MashProfileForm({ profile }: { profile: MashProfileType }) {
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />
-      <TextInput label="Name" {...register("name")} />
-      <TextInput label="Description" {...register("description")} />
+      <TextInput label="Name" control={control} name="name" />
+      <TextInput label="Description" control={control} name="description" />
       <div className="grid grid-cols-1 gap-2">
         <MashProfileStepsForm src={profile} />
+      </div>
+      <div>
+        <h4>Mash</h4>
+        <TextInput label="Grain Temp" name="grainTemp" control={control} />
+        <TextInput label="Mash Tun Temp" name="mashTunTemp" control={control} />
+        <TextInput
+          label="Grain Weight Basis"
+          name="mashTunTemp"
+          control={control}
+        />
+      </div>
+      <div>
+        <h4>Sparge</h4>
+        <TextInput label="Sparge Temp" name="spargeTemp" control={control} />
+        <TextInput
+          label="Grain Weight Basis"
+          name="mashTunTemp"
+          control={control}
+        />
       </div>
     </div>
   );
