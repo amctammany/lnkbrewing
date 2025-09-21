@@ -1,9 +1,10 @@
+import { MassUnit } from "@prisma/client";
 import { UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
-const massConverter = {
+const massConverter: Record<MassUnit, ConversionType> = {
   Kg: 1,
   g: 1000,
-  Lb: 2.2,
+  Lb: [(t: number) => t * 2.2, (t: number) => t / 2.2],
   Oz: 35.2,
 };
 
@@ -23,7 +24,13 @@ function makeConverter(src: ConverterDict) {
     to: keyof ConverterDict
   ) => {
     if (!src.hasOwnProperty(from) || !src.hasOwnProperty(to)) throw new Error();
-    return (value / (src[from] as number)) * (src[to] as number);
+    const baseValue =
+      typeof src[from] === "number" ? value / src[from] : src[from]?.[0](value);
+    const res =
+      typeof src[to] === "number"
+        ? (baseValue ?? 1) * src[to]
+        : src[to]?.[1](value);
+    return res;
   };
 }
 export function Converter(value: number, from: UnitNames, to: UnitNames) {
