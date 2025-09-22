@@ -28,9 +28,9 @@ export type SelectInputProps<T extends FieldValues> = {
 const selectStyles = cva("w-fll", {
   variants: {
     variant: {
-      default: ["flex"],
-      inline: ["flex"],
-      grid: ["grid grid-cols-2 items-center justify-content"],
+      default: "flex",
+      grid: "grid grid-flow-col grid-cols-2 tems-center w-full ustify-center",
+      inline: "flex *:first:flex-grow",
     },
     inputSize: {
       default: ["w-ful ontent-center"],
@@ -58,7 +58,7 @@ export default function SelectInput<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <div className={selectStyles({ variant, inputSize })}>
-            <FormLabel className="block  whitespace-nowrap justify-center items-center ">
+            <FormLabel className="m-auto  leading-0:w: block whitespace-nowrap justify-center items-center ">
               {label ?? name}
             </FormLabel>
             <FormControl>

@@ -15,6 +15,7 @@ import {
   UserPreferencesContext,
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
+import AmountField from "@/components/Form/AmountField";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
@@ -49,24 +50,43 @@ export function MashProfileForm({ profile }: { profile: MashProfileType }) {
       <div className="grid grid-cols-1 gap-2">
         <MashProfileStepsForm src={profile} />
       </div>
-      <div>
-        <h4>Mash</h4>
-        <TextInput label="Grain Temp" name="grainTemp" control={control} />
-        <TextInput label="Mash Tun Temp" name="mashTunTemp" control={control} />
-        <TextInput
-          label="Grain Weight Basis"
-          name="mashTunTemp"
-          control={control}
-        />
-      </div>
-      <div>
-        <h4>Sparge</h4>
-        <TextInput label="Sparge Temp" name="spargeTemp" control={control} />
-        <TextInput
-          label="Grain Weight Basis"
-          name="mashTunTemp"
-          control={control}
-        />
+      <div className="grid grid-cols-2">
+        <div>
+          <h4>Mash</h4>
+          <AmountField
+            label="Grain Temp"
+            name="grainTemp"
+            variant="inline"
+            amountType="temperature"
+          />
+          <AmountField
+            label="Mash Tun Temp"
+            name="mashTunTemp"
+            variant="inline"
+            amountType="temperature"
+          />
+          <TextInput
+            label="Grain Weight Basis"
+            name="mashTunTemp"
+            variant="inline"
+            control={control}
+          />
+        </div>
+        <div>
+          <h4>Sparge</h4>
+          <AmountField
+            label="Sparge Temp"
+            name="spargeTemp"
+            variant="inline"
+            amountType="temperature"
+          />
+          <AmountField
+            label="Grain Weight Basis"
+            name="mashTunTemp"
+            variant="inline"
+            amountType="temperature"
+          />
+        </div>
       </div>
     </div>
   );
