@@ -62,24 +62,22 @@ export default function SelectInput<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <FormControl>
-              <div className="flex w-full flex-grow p-1 ">
-                <Select
-                  {...field}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="flex-grow w-full flex ">
-                    <SelectValue placeholder={placeholder} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(options).map(([key, value]) => (
-                      <SelectItem key={key} value={value}>
-                        <div className="flex-grow text-center">{value}</div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <Select
+                {...field}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
+                <SelectTrigger className="">
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(options).map(([key, value]) => (
+                    <SelectItem key={key} value={value}>
+                      <div className="flex-grow text-center">{value}</div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
           </div>
           <FormMessage />

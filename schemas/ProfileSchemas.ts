@@ -1,3 +1,4 @@
+import { $Enums } from "@prisma/client";
 import z from "zod";
 import { zfd } from "zod-form-data";
 
@@ -44,7 +45,8 @@ export const mashStepSchema = zfd.formData({
   name: zfd.text(z.string().optional()),
   temperature: zfd.numeric(z.number()),
   time: zfd.numeric(z.number()),
-  rampTime: zfd.numeric(z.number()),
+  rampTime: zfd.numeric(z.number().default(0)),
+  type: z.enum($Enums.MashStepType).default($Enums.MashStepType.temperature),
 });
 
 export const mashProfileSchema = zfd.formData({
@@ -54,5 +56,7 @@ export const mashProfileSchema = zfd.formData({
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),
+  mashTunTemp: zfd.numeric(z.number().default(72)),
+  grainTemp: zfd.numeric(z.number().default(72)),
   steps: zfd.repeatableOfType(mashStepSchema),
 });
