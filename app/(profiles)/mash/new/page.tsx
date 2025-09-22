@@ -6,6 +6,7 @@ import { authorizeResource } from "@/lib/authorizeResource";
 import { auth } from "@/auth";
 import { MashProfileType } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
+import { getPreferences } from "@/app/admin/queries";
 
 export default async function MashProfileCreatorPage({
   params,
@@ -18,5 +19,13 @@ export default async function MashProfileCreatorPage({
   const profile = {
     userId: session.user.id,
   } as MashProfileType;
-  return <MashProfileEditor action={createMashProfile} profile={profile} />;
+  const preferences = await getPreferences();
+
+  return (
+    <MashProfileEditor
+      preferences={preferences}
+      action={createMashProfile}
+      profile={profile}
+    />
+  );
 }

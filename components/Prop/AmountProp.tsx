@@ -27,7 +27,7 @@ export function AmountProp({ value, unit, ...props }: AmountPropProps) {
       <ClientAmountProp
         unit={unit}
         value={value ?? 0}
-        prefs={prefs}
+        prefs={prefs as any}
         {...props}
       />
     </Suspense>

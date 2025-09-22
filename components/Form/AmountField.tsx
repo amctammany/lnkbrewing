@@ -1,4 +1,5 @@
-import React, { ComponentProps } from "react";
+"use client";
+import React, { ComponentProps, useContext } from "react";
 import { useSession } from "next-auth/react";
 import {
   Control,
@@ -17,6 +18,7 @@ import {
 import { cx, cva, VariantProps } from "class-variance-authority";
 import { InlineInput } from "./InlineInput";
 import { UnitTypes } from "@/lib/Converter/UnitDict";
+import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 
 const amountFieldStyles = cva("", {
   variants: {
@@ -86,7 +88,8 @@ export default function AmountField<T extends FieldValues>({
 } & ComponentProps<"input"> &
   VariantProps<typeof amountFieldStyles>) {
   const { register } = useFormContext();
-  const session = useSession();
+  const prefs = useContext(UserPreferencesContext);
+  console.log({ prefs });
   return (
     <FormField
       control={control}
