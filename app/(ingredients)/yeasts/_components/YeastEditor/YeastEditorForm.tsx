@@ -1,5 +1,5 @@
 "use client";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
@@ -66,7 +66,7 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
         <TextInput name="notes" label="Notes" control={control} />
         <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
           <div>
-            <InlineField
+            <InputField
               name="attenuation"
               type="number"
               step="0.01"
@@ -74,7 +74,7 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
               label="Attenuation"
               AppendIcon={Percent}
             />
-            <InlineField
+            <InputField
               name="tolerance"
               step="0.01"
               type="number"
@@ -82,14 +82,14 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
               label="Tolerance"
               AppendIcon={Percent}
             />
-            <InlineField
+            <InputField
               name="tempLow"
               step="0.1"
               type="number"
               control={control}
               label="Min Temp."
             />
-            <InlineField
+            <InputField
               name="tempHigh"
               step="0.1"
               type="number"

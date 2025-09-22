@@ -13,7 +13,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import Link from "next/link";
 import { cx, VariantProps } from "class-variance-authority";
-import { inlineFieldStyles } from "./InlineField";
+import { inlineFieldStyles } from "./InputField";
 export type RadioGroupInputProps<T extends FieldValues> = {
   className?: string;
   control?: Control<T>;

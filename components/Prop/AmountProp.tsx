@@ -35,6 +35,7 @@ export function AmountProp({
       <ClientAmountProp
         unit={unit}
         value={val}
+        precision={precision}
         prefs={prefs as any}
         {...props}
       />

@@ -1,5 +1,5 @@
 import AmountField from "@/components/Form/AmountField";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import SelectInput from "@/components/Form/SelectInput";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -85,7 +85,7 @@ export default function MashProfileStepField({
               name={`steps.${index}.type`}
               options={$Enums.MashStepType}
             />
-            <InlineField
+            <InputField
               className="flex-grow"
               control={control}
               name={`steps.${index}.name`}
@@ -102,7 +102,7 @@ export default function MashProfileStepField({
               //              AppendIcon={Unit("°F")}
               label="Temp"
             />
-            <InlineField
+            <InputField
               variant="inline"
               control={control}
               name={`steps.${index}.time`}
@@ -110,7 +110,7 @@ export default function MashProfileStepField({
               type="number"
               label="Time"
             />
-            <InlineField
+            <InputField
               control={control}
               variant="inline"
               name={`steps.${index}.rampTime`}

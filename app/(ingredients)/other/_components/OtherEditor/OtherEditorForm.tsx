@@ -1,5 +1,5 @@
 "use client";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";

@@ -5,9 +5,7 @@ import { validateSchema } from "@/lib/validateSchema";
 import { mashProfileSchema } from "@/schemas/ProfileSchemas";
 import { redirect } from "next/navigation";
 export async function createMashProfile(prev: any, formData: FormData) {
-  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, mashProfileSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -21,9 +19,7 @@ export async function createMashProfile(prev: any, formData: FormData) {
 }
 
 export async function updateMashProfile(prev: any, formData: FormData) {
-  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, mashProfileSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

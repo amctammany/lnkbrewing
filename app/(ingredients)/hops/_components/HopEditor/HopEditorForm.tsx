@@ -1,5 +1,5 @@
 "use client";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import RangeField from "@/components/Form/RangeField";
 import { Select } from "@/components/Form/Select";
 import SelectInput from "@/components/Form/SelectInput";
@@ -82,35 +82,35 @@ export function HopEditorForm({}: HopEditorFormProps) {
             control={control}
           />
 
-          <InlineField
+          <InputField
             name="beta"
             type="number"
             step="0.1"
             label="Beta"
             control={control}
           />
-          <InlineField
+          <InputField
             name="bPinene"
             type="number"
             step="0.1"
             label="Beta Pinene"
             control={control}
           />
-          <InlineField
+          <InputField
             name="caryophyllene"
             type="number"
             step="0.1"
             label="Caryophyllene"
             control={control}
           />
-          <InlineField
+          <InputField
             name="cohumulone"
             type="number"
             step="0.1"
             label="Cohumulone"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="farnesene"
             type="number"
@@ -118,7 +118,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Farnesene"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="geraniol"
             type="number"
@@ -126,7 +126,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Gernaniol"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="humulene"
             type="number"
@@ -134,7 +134,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Humulene"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="linalool"
             type="number"
@@ -142,7 +142,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Linalool"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="myrcene"
             type="number"
@@ -150,7 +150,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Myrcene"
             control={control}
           />
-          <InlineField
+          <InputField
             variant="inline"
             name="totalOil"
             type="number"

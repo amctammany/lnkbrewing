@@ -1,5 +1,5 @@
 "use client";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
 import { Card } from "@/components/ui/card";
@@ -37,7 +37,7 @@ export function WaterProfileForm() {
       <TextInput label="Name" {...register("name")} />
       <TextInput label="Description" {...register("description")} />
       <div className="grid grid-cols-3 gap-2">
-        <InlineField
+        <InputField
           variant="inline"
           step=".01"
           type="number"
@@ -45,14 +45,14 @@ export function WaterProfileForm() {
           unit="PPM"
           {...register("calcium")}
         />
-        <InlineField
+        <InputField
           variant="inline"
           step=".01"
           type="number"
           label="Magnesium"
           {...register("magnesium")}
         />
-        <InlineField
+        <InputField
           variant="inline"
           step=".01"
           type="number"

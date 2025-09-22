@@ -25,7 +25,7 @@ export const inlineFieldStyles = cva("", {
     variant: "default",
   },
 });
-export default function InlineField<T extends FieldValues>({
+export default function InputField<T extends FieldValues>({
   control,
   name,
   label,

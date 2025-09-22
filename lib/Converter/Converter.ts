@@ -73,6 +73,6 @@ export function Converter(value: number, from: UnitNames, to: UnitNames) {
   if (!convert) throw new Error("Converter not available");
   const baseValue = convert[from].from(value);
   const newValue = convert[to].to(baseValue);
-  console.log({ to, from, group, value, baseValue, newValue });
+  //  console.log({ to, from, group, value, baseValue, newValue });
   return newValue;
 }

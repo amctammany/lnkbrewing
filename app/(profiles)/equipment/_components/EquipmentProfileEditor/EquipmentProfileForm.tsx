@@ -1,6 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
-import InlineField from "@/components/Form/InlineField";
+import InputField from "@/components/Form/InputField";
 import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,7 +48,7 @@ export function EquipmentProfileForm() {
             <CardTitle>Volumes</CardTitle>
           </CardHeader>
           <CardContent>
-            <InlineField
+            <InputField
               control={control}
               name="boilTime"
               type="number"
@@ -62,7 +62,7 @@ export function EquipmentProfileForm() {
               step={1}
               label="Batch Volume"
             />
-            <InlineField
+            <InputField
               control={control}
               name="boilOffRate"
               type="number"
@@ -100,14 +100,14 @@ export function EquipmentProfileForm() {
           </CardHeader>
           <CardContent>
             {" "}
-            <InlineField
+            <InputField
               control={control}
               name="mashEfficiency"
               type="number"
               step={1}
               label="Mash Efficiency "
             />
-            <InlineField
+            <InputField
               control={control}
               name="brewEfficiency"
               type="number"

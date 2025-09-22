@@ -92,7 +92,6 @@ export default function AmountField<T extends FieldValues>({
   const prefs = useContext(UserPreferencesContext);
   const defUnit = BASE_UNITS[amountType];
   const userUnit = prefs?.[amountType] ?? defUnit;
-  console.log({ prefs, defUnit, userUnit });
   return (
     <FormField
       control={control}
