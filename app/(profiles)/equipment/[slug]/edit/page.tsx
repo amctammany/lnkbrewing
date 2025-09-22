@@ -3,6 +3,7 @@ import { getEquipmentProfile } from "@/app/(profiles)/equipment/queries";
 import { updateEquipmentProfile } from "@/app/(profiles)/equipment/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
+import { getPreferences } from "@/app/admin/queries";
 
 export default async function EquipmentProfileEditorPage({
   params,
@@ -16,7 +17,12 @@ export default async function EquipmentProfileEditorPage({
     getEquipmentProfile,
     slug
   );
+  const preferences = await getPreferences();
   return (
-    <EquipmentProfileEditor action={updateEquipmentProfile} profile={profile} />
+    <EquipmentProfileEditor
+      preferences={preferences}
+      action={updateEquipmentProfile}
+      profile={profile}
+    />
   );
 }

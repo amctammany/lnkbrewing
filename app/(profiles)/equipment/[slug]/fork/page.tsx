@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import { BaseEquipmentProfile } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
 import { EquipmentProfile } from "@prisma/client";
+import { getPreferences } from "@/app/admin/queries";
 
 export default async function EquipmentProfileForkPage({
   params,
@@ -22,6 +23,8 @@ export default async function EquipmentProfileForkPage({
   const profile = (await getEquipmentProfile(slug)) as BaseEquipmentProfile;
 
   if (!profile) return notFound();
+  const preferences = await getPreferences();
+
   const fork: any = {
     ...profile,
     id: null,
@@ -31,6 +34,10 @@ export default async function EquipmentProfileForkPage({
     userId: session.user.id,
   };
   return (
-    <EquipmentProfileEditor action={createEquipmentProfile} profile={fork} />
+    <EquipmentProfileEditor
+      preferences={preferences}
+      action={createEquipmentProfile}
+      profile={fork}
+    />
   );
 }

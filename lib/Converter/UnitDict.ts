@@ -21,6 +21,13 @@ const UNITS = {
   gravity: UserGravityPreference,
   volume: UserVolumePreference,
 };
+export const BASE_UNITS = {
+  mass: UserMassPreference.Kg,
+  temperature: UserTemperaturePreference.C,
+  pressure: UserPressurePreference.PSI,
+  gravity: UserGravityPreference.Brix,
+  volume: UserVolumePreference.L,
+};
 export type UnitTypes = keyof typeof UNITS;
 export const UnitDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
   return Object.values(v).reduce((dict, unit) => {

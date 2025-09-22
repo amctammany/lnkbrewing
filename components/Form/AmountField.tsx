@@ -17,7 +17,7 @@ import {
 } from "../ui/form";
 import { cx, cva, VariantProps } from "class-variance-authority";
 import { InlineInput } from "./InlineInput";
-import { UnitTypes } from "@/lib/Converter/UnitDict";
+import { BASE_UNITS, UnitTypes } from "@/lib/Converter/UnitDict";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 
 const amountFieldStyles = cva("", {
@@ -57,7 +57,6 @@ const amountFieldControlStyles = cva("", {
   },
 });
 export default function AmountField<T extends FieldValues>({
-  control,
   name,
   label,
   type = "string",
@@ -87,9 +86,10 @@ export default function AmountField<T extends FieldValues>({
   description?: string;
 } & ComponentProps<"input"> &
   VariantProps<typeof amountFieldStyles>) {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
   const prefs = useContext(UserPreferencesContext);
-  console.log({ prefs });
+  const defUnit = BASE_UNITS[amountType];
+  console.log({ prefs, defUnit, baseUnit: prefs?.[amountType] ?? defUnit });
   return (
     <FormField
       control={control}
@@ -105,10 +105,10 @@ export default function AmountField<T extends FieldValues>({
                 <div className="flex flex-grow p-1">
                   <InlineInput
                     className="flex-grow text-center  bg-white"
-                    type={type}
+                    type="number"
                     placeholder={placeholder}
                     onChange={(e) => {
-                      field.onChange(e);
+                      field.onChange(e.target.value);
                     }}
                     value={field.value === null ? "" : field.value}
                   />

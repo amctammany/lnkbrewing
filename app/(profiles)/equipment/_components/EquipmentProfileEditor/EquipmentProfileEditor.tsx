@@ -1,4 +1,4 @@
-import { EquipmentProfile } from "@prisma/client";
+import { EquipmentProfile, UserPreferences } from "@prisma/client";
 import React from "react";
 import {
   EquipmentProfileForm,
@@ -12,14 +12,20 @@ import Link from "next/link";
 
 export type EquipmentProfileEditorProps = {
   profile: EquipmentProfileType;
+  preferences: Partial<UserPreferences>;
   action: any;
 };
 export default function EquipmentProfileEditor({
   profile,
   action,
+  preferences,
 }: EquipmentProfileEditorProps) {
   return (
-    <EquipmentProfileFormContainer profile={profile} action={action}>
+    <EquipmentProfileFormContainer
+      preferences={preferences}
+      profile={profile}
+      action={action}
+    >
       <TopBar
         breadcrumbs={[
           { title: "Profiles" },

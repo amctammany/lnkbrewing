@@ -1,30 +1,36 @@
 "use client";
+import AmountField from "@/components/Form/AmountField";
 import InlineField from "@/components/Form/InlineField";
 import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
+import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { OptionalNullable } from "@/lib/utils";
 import { EquipmentProfileType } from "@/types/Profile";
-import { EquipmentProfile } from "@prisma/client";
+import { EquipmentProfile, UserPreferences } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
   profile: EquipmentProfileType;
+  preferences: Partial<UserPreferences>;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function EquipmentProfileFormContainer({
   action,
   profile,
+  preferences,
   children,
 }: EquipmentProfileFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm({ defaultValues: profile, errors: state?.errors });
   return (
-    <Form {...form}>
-      <form action={formAction}>{children}</form>
-    </Form>
+    <UserPreferencesContext value={preferences}>
+      <Form {...form}>
+        <form action={formAction}>{children}</form>
+      </Form>
+    </UserPreferencesContext>
   );
 }
 export function EquipmentProfileForm() {
@@ -50,10 +56,10 @@ export function EquipmentProfileForm() {
               label="Boil Time "
             />
 
-            <InlineField
-              control={control}
+            <AmountField
               name="batchVolume"
               type="number"
+              amountType="volume"
               step={1}
               label="Batch Volume"
             />
