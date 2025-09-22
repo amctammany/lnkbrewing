@@ -10,7 +10,7 @@ import { cx } from "class-variance-authority";
 import { ArrowDown, ArrowUp, Delete, X } from "lucide-react";
 import React from "react";
 import { Control } from "react-hook-form";
-const Unit = (text?: string) =>
+export const Unit = (text?: string) =>
   function UnitComp({ className, ...props }: React.ComponentProps<"span">) {
     return (
       <span className={cx("text-sm font-mono", className)} {...props}>
@@ -95,7 +95,6 @@ export default function MashProfileStepField({
           </div>
           <div className="flex flex-col lg:flex-row *:p-1">
             <AmountField
-              control={control}
               name={`steps.${index}.temperature`}
               variant="inline"
               type="number"

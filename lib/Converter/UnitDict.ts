@@ -26,7 +26,7 @@ export const BASE_UNITS = {
   temperature: UserTemperaturePreference.C,
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
-  volume: UserVolumePreference.L,
+  volume: UserVolumePreference.gal,
 };
 export type UnitTypes = keyof typeof UNITS;
 export const UnitDict = Object.entries(UNITS).reduce((acc, [k, v]) => {

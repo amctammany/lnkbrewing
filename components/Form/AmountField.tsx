@@ -19,6 +19,8 @@ import { cx, cva, VariantProps } from "class-variance-authority";
 import { InlineInput } from "./InlineInput";
 import { BASE_UNITS, UnitTypes } from "@/lib/Converter/UnitDict";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import { Converter } from "@/lib/Converter/Converter";
+import { Unit } from "@/app/(profiles)/mash/_components/MashProfileEditor/MashProfileStepField";
 
 const amountFieldStyles = cva("", {
   variants: {
@@ -89,7 +91,8 @@ export default function AmountField<T extends FieldValues>({
   const { register, control } = useFormContext();
   const prefs = useContext(UserPreferencesContext);
   const defUnit = BASE_UNITS[amountType];
-  console.log({ prefs, defUnit, baseUnit: prefs?.[amountType] ?? defUnit });
+  const userUnit = prefs?.[amountType] ?? defUnit;
+  console.log({ prefs, defUnit, userUnit });
   return (
     <FormField
       control={control}
@@ -106,17 +109,25 @@ export default function AmountField<T extends FieldValues>({
                   <InlineInput
                     className="flex-grow text-center  bg-white"
                     type="number"
+                    append={Unit(userUnit)}
                     placeholder={placeholder}
                     onChange={(e) => {
+                      const val = Converter(
+                        parseFloat(e.target.value),
+                        defUnit,
+                        userUnit
+                      );
                       field.onChange(e.target.value);
                     }}
-                    value={field.value === null ? "" : field.value}
+                    value={
+                      field.value === null ? "" : field.value //Converter(field.value, defUnit, userUnit)
+                    }
                   />
                   <input
                     type="hidden"
                     name={field.name}
                     ref={field.ref}
-                    value={field.value}
+                    value={Converter(field.value, defUnit, userUnit)}
                   />
                 </div>
               </div>

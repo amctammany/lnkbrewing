@@ -55,7 +55,6 @@ export function EquipmentProfileForm() {
               step={1}
               label="Boil Time "
             />
-
             <AmountField
               name="batchVolume"
               type="number"

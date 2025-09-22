@@ -1,4 +1,8 @@
-import { MassUnit, UserTemperaturePreference } from "@prisma/client";
+import {
+  MassUnit,
+  UserTemperaturePreference,
+  UserVolumePreference,
+} from "@prisma/client";
 import { UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
 const massConverter: Record<MassUnit, ConversionType> = {
@@ -6,6 +10,11 @@ const massConverter: Record<MassUnit, ConversionType> = {
   g: 1000,
   Lb: [(t: number) => t * 2.2, (t: number) => t / 2.2],
   Oz: 35.2,
+};
+const volumeConverter: Record<UserVolumePreference, ConversionType> = {
+  L: 1,
+  gal: 0.264172,
+  bbl: 0.00852166206,
 };
 
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
@@ -16,6 +25,7 @@ const converters: Partial<Record<UnitTypes, Record<UnitNames, ConverterType>>> =
   {
     mass: makeConverter(massConverter),
     temperature: makeConverter(tempConverter),
+    volume: makeConverter(volumeConverter),
   };
 
 export type ConversionType =
