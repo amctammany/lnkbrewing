@@ -67,7 +67,7 @@ export function MashProfileForm({ profile }: { profile: MashProfileType }) {
           />
           <TextInput
             label="Grain Weight Basis"
-            name="mashTunTemp"
+            name="grainWeightBasis"
             variant="inline"
             control={control}
           />
@@ -77,12 +77,6 @@ export function MashProfileForm({ profile }: { profile: MashProfileType }) {
           <AmountField
             label="Sparge Temp"
             name="spargeTemp"
-            variant="inline"
-            amountType="temperature"
-          />
-          <AmountField
-            label="Grain Weight Basis"
-            name="mashTunTemp"
             variant="inline"
             amountType="temperature"
           />
