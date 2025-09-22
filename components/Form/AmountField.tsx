@@ -110,14 +110,7 @@ export default function AmountField<T extends FieldValues>({
                     type="number"
                     append={Unit(userUnit)}
                     placeholder={placeholder}
-                    onChange={(e) => {
-                      const val = Converter(
-                        parseFloat(e.target.value),
-                        defUnit,
-                        userUnit
-                      );
-                      field.onChange(e.target.value);
-                    }}
+                    onChange={field.onChange}
                     value={
                       field.value === null ? "" : field.value //Converter(field.value, defUnit, userUnit)
                     }
@@ -126,7 +119,7 @@ export default function AmountField<T extends FieldValues>({
                     type="hidden"
                     name={field.name}
                     ref={field.ref}
-                    value={Converter(field.value, userUnit, defUnit)}
+                    value={field.value} //Converter(field.value, userUnit, defUnit)}
                   />
                 </div>
               </div>
