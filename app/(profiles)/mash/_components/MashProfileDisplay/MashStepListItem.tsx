@@ -12,7 +12,7 @@ export type MashStepListItemProps = {
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
-    <div className="inline-flex">
+    <div className="flex w-full">
       <div className="shrink">
         <SectionIcon />
       </div>

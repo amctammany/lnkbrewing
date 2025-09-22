@@ -126,7 +126,7 @@ export default function AmountField<T extends FieldValues>({
                     type="hidden"
                     name={field.name}
                     ref={field.ref}
-                    value={Converter(field.value, defUnit, userUnit)}
+                    value={Converter(field.value, userUnit, defUnit)}
                   />
                 </div>
               </div>
