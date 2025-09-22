@@ -10,6 +10,7 @@ import { MashProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { MashProfileStepsForm } from "./MashProfileStepsForm";
+import { SessionProvider } from "next-auth/react";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
@@ -23,9 +24,11 @@ export function MashProfileFormContainer({
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm({ defaultValues: profile, errors: state?.errors });
   return (
-    <Form {...form}>
-      <form action={formAction}>{children}</form>
-    </Form>
+    <SessionProvider>
+      <Form {...form}>
+        <form action={formAction}>{children}</form>
+      </Form>
+    </SessionProvider>
   );
 }
 export function MashProfileForm({ profile }: { profile: MashProfileType }) {

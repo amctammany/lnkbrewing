@@ -1,3 +1,4 @@
+import AmountField from "@/components/Form/AmountField";
 import InlineField from "@/components/Form/InlineField";
 import SelectInput from "@/components/Form/SelectInput";
 import { Avatar } from "@/components/ui/avatar";
@@ -93,12 +94,13 @@ export default function MashProfileStepField({
             />
           </div>
           <div className="flex flex-col lg:flex-row *:p-1">
-            <InlineField
+            <AmountField
               control={control}
               name={`steps.${index}.temperature`}
               variant="inline"
               type="number"
-              AppendIcon={Unit("°F")}
+              amountType="temperature"
+              //              AppendIcon={Unit("°F")}
               label="Temp"
             />
             <InlineField
