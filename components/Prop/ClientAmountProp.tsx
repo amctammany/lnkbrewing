@@ -5,12 +5,13 @@ import React, { use } from "react";
 import { Converter } from "@/lib/Converter/Converter";
 import { Prop, PropProps } from "./Prop";
 import { precisionRound } from "@/lib/utils";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 
 export type ClientAmountPropProps = Omit<PropProps, "unit"> & {
   label?: string | React.ReactNode;
   value: number;
   precision?: number;
-  prefs: Promise<Record<UnitTypes, UnitNames> | null>;
+  prefs: Promise<UserPreferencesType | null>;
   unit: UnitNames;
 };
 export default function ClientAmountProp({

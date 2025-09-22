@@ -11,18 +11,14 @@ import { Prop, PropProps } from "./Prop";
 import { getPreferences, getUserPreferences } from "@/app/admin/queries";
 import ClientAmountProp from "./ClientAmountProp";
 import { precisionRound } from "@/lib/utils";
+import { UnitNames } from "@/lib/Converter/UnitDict";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 export type AmountPropProps = PropProps & {
   value?: number;
   precision?: number;
-  unit:
-    | MassUnit
-    | UserPressurePreference
-    | UserGravityPreference
-    | UserVolumePreference
-    | UserTemperaturePreference
-    | UserMassPreference;
+  unit: UnitNames;
 };
-export function AmountProp({
+export async function AmountProp({
   value,
   precision = 1,
   unit,
@@ -36,7 +32,7 @@ export function AmountProp({
         unit={unit}
         value={val}
         precision={precision}
-        prefs={prefs as any}
+        prefs={prefs}
         {...props}
       />
     </Suspense>
