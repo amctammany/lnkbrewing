@@ -17,3 +17,8 @@ export type OptionalNullable<T> = {
 } & {
   [K in keyof PickNotNullable<T>]: T[K];
 };
+
+export function precisionRound(v: number, precision: undefined | number = 1) {
+  const f = Math.pow(10, precision);
+  return Math.round(v * f) / f;
+}

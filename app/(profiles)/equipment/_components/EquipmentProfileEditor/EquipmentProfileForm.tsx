@@ -70,23 +70,23 @@ export function EquipmentProfileForm() {
               label="Boil Off Rate"
             />
 
-            <InlineField
-              control={control}
+            <AmountField
+              amountType="volume"
               name="mashLoss"
               type="number"
               step={1}
               label="Mash Loss"
             />
 
-            <InlineField
-              control={control}
+            <AmountField
+              amountType="volume"
               name="fermenterLoss"
               type="number"
               step={1}
               label="Fermenter Loss"
             />
-            <InlineField
-              control={control}
+            <AmountField
+              amountType="volume"
               name="trubLoss"
               type="number"
               step={1}

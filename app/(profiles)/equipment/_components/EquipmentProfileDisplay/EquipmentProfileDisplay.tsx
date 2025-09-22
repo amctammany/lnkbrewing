@@ -1,5 +1,7 @@
 import { Prop } from "@/components/Prop";
+import { AmountProp } from "@/components/Prop/AmountProp";
 import { Card } from "@/components/ui/card";
+import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
 import { EquipmentProfile } from "@prisma/client";
 import Link from "next/link";
@@ -49,15 +51,32 @@ export default function EquipmentProfileDisplay({
         <div className="grid md:grid-cols-2">
           <div>
             <Prop label="Boil Time" value={profile.boilTime} />
-            <Prop label="Batch Size" value={profile.batchVolume} />
+            <AmountProp
+              label="Batch Size"
+              value={profile.batchVolume}
+              unit={BASE_UNITS.volume}
+            />
             <Prop label="Mash Efficiency" value={profile.mashEfficiency} />
             <Prop label="Brew Efficiency" value={profile.brewEfficiency} />
           </div>
           <div>
             <Prop label="Boiloff Rate" value={profile.boilOffRate} />
-            <Prop label="Mash Loss" value={profile.mashLoss} />
-            <Prop label="Trub Loss" value={profile.trubLoss} />
-            <Prop label="Fermenter Loss" value={profile.fermenterLoss} />
+            <AmountProp
+              label="Mash Loss"
+              value={profile.mashLoss}
+              unit={BASE_UNITS.volume}
+            />
+            <AmountProp
+              label="Trub Loss"
+              precision={2}
+              value={profile.trubLoss}
+              unit={BASE_UNITS.volume}
+            />
+            <AmountProp
+              label="Fermenter Loss"
+              value={profile.fermenterLoss}
+              unit={BASE_UNITS.volume}
+            />
           </div>
         </div>
       </Card>

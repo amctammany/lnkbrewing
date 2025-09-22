@@ -27,7 +27,9 @@ export const Prop = ({ label, value, unit, children, variant }: PropProps) => {
       </span>
       <span className="px-2 font-mono grow border-b-2 text-center">
         {children ?? value}
-        <span className={cx("pl-1", !value && "hidden")}>{unit}</span>
+        <span className={cx("pl-1", value === undefined && "hidden")}>
+          {unit}
+        </span>
       </span>
     </div>
   );
