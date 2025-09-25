@@ -46,7 +46,12 @@ export default function WaterProfileDisplay({
         />
         <Prop label="Description" value={profile.description} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
-          <Box label={<Ca2 />} value={profile.calcium} unit="ppm" />
+          <Box
+            label={<Ca2 />}
+            value={profile.calcium}
+            unit="ppm"
+            className="flex-grow"
+          />
           <Box label={<Mg2 />} value={profile.magnesium} unit="ppm" />
           <Box label={<Cl />} value={profile.chloride} unit="ppm" />
           <Box label={<SO4 />} value={profile.sulfate} unit="ppm" />
