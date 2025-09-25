@@ -21,12 +21,13 @@ const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
   F: [(c: number) => c * (9 / 5) + 32, (f: number) => (f - 32) * (5 / 9)],
 };
-const converters: Partial<Record<UnitTypes, Record<UnitNames, ConverterType>>> =
-  {
-    mass: makeConverter(massConverter),
-    temperature: makeConverter(tempConverter),
-    volume: makeConverter(volumeConverter),
-  };
+export const converters: Partial<
+  Record<UnitTypes, Record<UnitNames, ConverterType>>
+> = {
+  mass: makeConverter(massConverter),
+  temperature: makeConverter(tempConverter),
+  volume: makeConverter(volumeConverter),
+};
 
 export type ConversionType =
   | number
