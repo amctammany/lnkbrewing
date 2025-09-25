@@ -78,6 +78,13 @@ export default function EquipmentProfileDisplay({
               unit={BASE_UNITS.volume}
             />
           </div>
+          <div>
+            <AmountProp
+              label="Fermenter Loss"
+              value={profile.fermenterLoss}
+              unit={BASE_UNITS.volume}
+            />
+          </div>
         </div>
       </Card>
     </div>

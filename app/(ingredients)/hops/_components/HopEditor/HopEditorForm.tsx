@@ -72,7 +72,7 @@ export function HopEditorForm({}: HopEditorFormProps) {
           control={control}
         />
         <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
-        <div className="grid grid-cols-1 ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 ">
           <RangeField
             name="alphaRange"
             low="alphaLow"
