@@ -15,8 +15,8 @@ const Baox = ({
   label: string | React.ReactNode;
   value?: number | null;
 }) => (
-  <div className="grid grid-cols-2 font-mono border-2 rounded p-1 md:*:px-4 md:*:py-3">
-    <span className="md:text-lg font-bold bg-slate-700 text-gray-300 ">
+  <div className="flex flex-grow font-mono border-2 rounded p-1 md:*:px-4 md:*:py-3">
+    <span className="md:text-lg shrink font-bold bg-slate-700 text-gray-300 ">
       {label}
     </span>
     <div className="flexspacing-2 *:my-auto">

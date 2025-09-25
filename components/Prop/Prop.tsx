@@ -2,9 +2,10 @@ import { cva, cx, VariantProps } from "class-variance-authority";
 const propStyles = cva("[&_span]:my-auto ", {
   variants: {
     variant: {
-      default: "block md:*:block align-tex-bottom  py-2 [&_span]:leading-",
+      default:
+        "block md:*:inline-flex md:*:w-full align-text-bottom  py-2 [&_span]:leading-",
       inline: "flex *:block py-1",
-      grid: "grid grid-cols-2 justify-center items-center *:block *:first:text-right",
+      grid: "grid grid-cols-2 justify-center items-center *:inline-flex*:first:text-right",
     },
   },
   defaultVariants: {
