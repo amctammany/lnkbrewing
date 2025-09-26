@@ -10,7 +10,7 @@ import { Pencil, Split } from "lucide-react";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { $Enums, EquipmentProfile } from "@prisma/client";
-import { UnitTypes, UnitTypesType } from "@/lib/Converter/UnitDict";
+import { UnitTypes } from "@/lib/Converter/UnitDict";
 
 export async function generateStaticParams() {
   return (await getEquipmentProfiles()).map(({ slug }) => ({ slug }));
