@@ -29,7 +29,6 @@ export function OtherEditorFormContainer({
   children,
 }: OtherEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  console.log(src);
   const form = useForm<OtherType>({
     defaultValues: src,
     errors: state?.errors,
