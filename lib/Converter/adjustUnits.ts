@@ -2,11 +2,12 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
+import { kMaxLength } from "buffer";
 export type UnitMaskType<T> = {
-  [K in keyof T]: UnitTypes | undefined;
+  [K in keyof T]?: UnitTypes | undefined | object;
 };
 export type UnitMask<T> = {
-  [K in keyof T]?: UnitNames | undefined;
+  [K in keyof T]?: UnitNames | undefined | object;
 };
 
 export type UnitValues<
@@ -25,40 +26,63 @@ function convertUnit({
   type,
   unit,
 }: {
-  value: any;
-  type: UnitTypes;
+  value: number | object;
+  type: UnitTypes | object;
   unit: UnitNames;
 }) {
-  const convert = converters[type];
-  if (!convert) throw new Error("Converter not available");
-  const baseValue = convert[unit].from(value);
-  const newValue = convert[unit].to(value);
-  return { value: newValue, unit } as UnitValue;
+  console.log({ value, type, unit });
+  if (typeof value === "number") {
+    const convert = converters[type as UnitTypes];
+    if (!convert) throw new Error("Converter not available");
+    const baseValue = convert[unit].from(value);
+    const newValue = convert[unit].to(value);
+    return { value: newValue, unit } as UnitValue;
+  }
+  if (Array.isArray(value))
+    return value.map((val) =>
+      Object.entries(type).reduce((acc, [k, v]) => {
+        acc[k] = convertUnit({
+          value: val[k],
+          type: v,
+          unit: (type as any)[k] as any,
+        });
+        return acc;
+      }, {} as any)
+    );
 }
 export function getUnits<T extends FieldValues>(
   src: T,
-  mask: Partial<Record<keyof T, UnitTypes>>,
+  mask: Partial<Record<keyof T, UnitTypes | object>>,
   prefs: UserPreferencesType
 ) {
+  console.log({ src, mask, prefs });
   return Object.keys(src).reduce((acc, k) => {
-    if (mask[k]) acc[k] = prefs[mask[k]] ?? BASE_UNITS[mask[k]];
+    if (typeof mask[k] === "string") {
+      if (mask[k]) acc[k] = prefs[mask[k]] ?? BASE_UNITS[mask[k]];
+    }
     return acc;
   }, {} as any);
 }
 export function adjustUnits<T extends FieldValues>(
-  src: T,
-  mask: Partial<Record<keyof T, UnitTypes>>,
+  src: T | T[],
+  mask: Partial<Record<keyof T, UnitTypes | object | string>>,
   prefs: UserPreferencesType
 ) {
   const s = Object.entries(src).reduce((acc, [k, v]) => {
-    acc[k] = mask[k]
-      ? convertUnit({
-          value: v,
-          type: mask[k],
-          unit: prefs[mask[k]] ?? BASE_UNITS[mask[k]],
-        })
-      : v;
+    if (Array.isArray(v)) {
+      acc[k] = v.map((val) => adjustUnits(val, mask[k] as any, prefs));
+    } else {
+      acc[k] =
+        typeof mask[k] === "string"
+          ? convertUnit({
+              value: v,
+              type: mask[k] as UnitTypes,
+              unit:
+                prefs[mask[k] as UnitTypes] ?? BASE_UNITS[mask[k] as UnitTypes],
+            })
+          : v;
+    }
     return acc;
   }, {} as any);
-  return s;
+  return s as any;
 }

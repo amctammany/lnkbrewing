@@ -38,7 +38,7 @@ export const BASE_UNITS = {
   time: TimeUnit.min,
   percent: PercentUnits.percentage,
   mass: UserMassPreference.Kg,
-  temperature: UserTemperaturePreference.C,
+  temperature: UserTemperaturePreference.F,
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
   volume: UserVolumePreference.gal,

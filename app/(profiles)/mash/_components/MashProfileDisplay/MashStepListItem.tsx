@@ -2,13 +2,13 @@ import { Prop } from "@/components/Prop";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import { Badge } from "@/components/ui/badge";
-import { MashStepType } from "@/types/Profile";
+import { AdjustedMashStepType, MashStepType } from "@/types/Profile";
 import { $Enums } from "@prisma/client";
 import { SectionIcon, Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type MashStepListItemProps = {
-  src: MashStepType;
+  src: AdjustedMashStepType;
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
@@ -20,17 +20,20 @@ export default function MashStepListItem({ src }: MashStepListItemProps) {
         <div>
           <span>{src.name ?? src.type}</span>
           <BadgeProp variant="outlined" Icon={Thermometer}>
-            {src.temperature}
+            {src.temperature.value}
+            {src.temperature.unit}
           </BadgeProp>
 
           <BadgeProp variant="outlined" Icon={Timer}>
-            <span className="text-md">{src.time} min</span>
+            <span className="text-md">
+              {src.time.value} {src.time.unit}
+            </span>
           </BadgeProp>
-          <BadgeProp
-            variant="outlined"
-            Icon={TriangleRight}
-            value={src.rampTime}
-          />
+          <BadgeProp variant="outlined" Icon={TriangleRight}>
+            <span className="text-md">
+              {src.rampTime?.value} {src.rampTime?.unit}
+            </span>
+          </BadgeProp>
         </div>
       </div>
     </div>

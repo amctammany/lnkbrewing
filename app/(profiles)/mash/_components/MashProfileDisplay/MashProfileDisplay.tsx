@@ -1,14 +1,18 @@
 import { Ca2, Cl, HCO3, Mg2, MgSo4, Na, SO4 } from "@/components/Elements";
 import { Prop } from "@/components/Prop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BaseMashProfile, MashProfileType } from "@/types/Profile";
+import {
+  AdjustedMashProfileType,
+  BaseMashProfile,
+  MashProfileType,
+} from "@/types/Profile";
 import { MashProfile } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import MashStepListItem from "./MashStepListItem";
 
 export type MashProfileDisplayProps = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
 };
 export default function MashProfileDisplay({
   profile,

@@ -12,6 +12,18 @@ export interface MashProfileType extends BaseMashProfile {
   origin?: BaseMashProfile;
   steps: MashStepType[];
 }
+type MashProfileAmountFieldNames = "spargeTemp" | "grainTemp";
+export type AdjustedMashProfileType = Omit<
+  AmountFields<MashProfileType, MashProfileAmountFieldNames>,
+  "steps"
+> & { steps: AdjustedMashStepType[] };
+
+type MashStepAmountFieldNames = "temperature" | "rampTime" | "time";
+export type AdjustedMashStepType = AmountFields<
+  MashStepType,
+  MashStepAmountFieldNames
+>;
+
 export interface MashStepType
   extends Omit<OptionalNullable<MashStep>, "mashProfileId" | "id"> {
   id?: number;
