@@ -2,7 +2,6 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getFermentables } from "./queries";
 import FermentablesTable from "./_components/FermentablesTable/FermentablesTable";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 
