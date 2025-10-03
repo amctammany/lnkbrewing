@@ -5,7 +5,10 @@ import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
 import { OptionalNullable } from "@/lib/utils";
 import { EquipmentProfileType } from "@/types/Profile";
 import { EquipmentProfile, UserPreferences } from "@prisma/client";
@@ -13,7 +16,7 @@ import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
   profile: EquipmentProfileType;
-  preferences: Partial<UserPreferences>;
+  preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };

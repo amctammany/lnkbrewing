@@ -62,6 +62,7 @@ model UserPreferences {
   flow            FlowUnit                  @default(gpm)
   concentration   ConcentrationUnit         @default(ppm)
   time            TimeUnit                  @default(min)
+  percent         PercentUnit               @default(percent)
   volume          UserVolumePreference      @default(gal)
   mass            UserMassPreference        @default(LbOz)
   hopMass         UserMassPreference        @default(Oz)
@@ -102,6 +103,11 @@ enum TimeUnit {
   min
   hr
   day
+}
+
+enum PercentUnit {
+  percent
+  percentage
 }
 
 enum UserVolumePreference {

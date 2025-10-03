@@ -1,6 +1,6 @@
 import { Prop, PropProps } from "./Prop";
 import { precisionRound } from "@/lib/utils";
-import { UnitNames } from "@/lib/Converter/UnitDict";
+import { PercentUnits, UnitNames } from "@/lib/Converter/UnitDict";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 export type AmountPropProps = Omit<PropProps, "value"> & {
   value?: UnitValue;
@@ -13,8 +13,10 @@ export async function AmountProp({
 }: AmountPropProps) {
   const { value, unit } = val ?? {};
   //  const prefs = getPreferences();
+  const u =
+    unit === "percent" || unit === "percentage" ? PercentUnits[unit] : unit;
   const v = precisionRound(value ?? 0, precision);
-  return <Prop value={v} unit={unit} {...props} />;
+  return <Prop value={v} unit={u} {...props} />;
   /**
    * return (
 

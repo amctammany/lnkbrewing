@@ -16,8 +16,6 @@ export type UnitValues<
   [P in keyof T]: Q[P] extends UnitNames ? UnitValue : T[P];
 };
 
-type A = UnitValues<{ a: 123; b: 124 }, { a: "g" }>;
-
 export type UnitValue = {
   value: any;
   unit: UnitNames;

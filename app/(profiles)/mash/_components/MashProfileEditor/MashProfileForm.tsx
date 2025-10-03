@@ -19,7 +19,7 @@ import AmountField from "@/components/Form/AmountField";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
-  preferences: Partial<UserPreferences>;
+  preferences: UserPreferencesType;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function MashProfileFormContainer({

@@ -1,5 +1,7 @@
 import {
   MassUnit,
+  PercentUnit,
+  TimeUnit,
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@prisma/client";
@@ -17,6 +19,16 @@ const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   bbl: 0.00852166206,
 };
 
+const timeConverter: Record<TimeUnit, ConversionType> = {
+  min: 1,
+  hr: 60,
+  day: 60 * 24,
+};
+const percentConverter: Record<PercentUnit, ConversionType> = {
+  percentage: 1,
+  percent: 100,
+};
+
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
   F: [(c: number) => c * (9 / 5) + 32, (f: number) => (f - 32) * (5 / 9)],
@@ -24,9 +36,11 @@ const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
 export const converters: Partial<
   Record<UnitTypes, Record<UnitNames, ConverterType>>
 > = {
+  time: makeConverter(timeConverter),
   mass: makeConverter(massConverter),
   temperature: makeConverter(tempConverter),
   volume: makeConverter(volumeConverter),
+  percent: makeConverter(percentConverter),
 };
 
 export type ConversionType =

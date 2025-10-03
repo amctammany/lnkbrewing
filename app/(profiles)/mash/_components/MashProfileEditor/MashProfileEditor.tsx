@@ -13,7 +13,7 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 export type MashProfileEditorProps = {
   profile: MashProfileType;
   action: any;
-  preferences: Partial<UserPreferences>;
+  preferences: UserPreferencesType;
 };
 export default function MashProfileEditor({
   profile,

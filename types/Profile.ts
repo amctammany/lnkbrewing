@@ -35,6 +35,9 @@ type AmountFields<S, N extends keyof S> = {
   [P in keyof S]: P extends N ? UnitValue : S[P];
 };
 type EquipmentProfileAmountFieldNames =
+  | "boilTime"
+  | "brewEfficiency"
+  | "mashEfficiency"
   | "batchVolume"
   | "trubLoss"
   | "mashLoss"

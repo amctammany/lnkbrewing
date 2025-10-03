@@ -9,10 +9,11 @@ import { Button } from "@/components/ui/button";
 import { OptionalNullable } from "@/lib/utils";
 import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
 import Link from "next/link";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 
 export type EquipmentProfileEditorProps = {
   profile: EquipmentProfileType;
-  preferences: Partial<UserPreferences>;
+  preferences: UserPreferencesType;
   action: any;
 };
 export default function EquipmentProfileEditor({

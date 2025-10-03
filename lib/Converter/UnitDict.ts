@@ -5,9 +5,20 @@ import {
   UserVolumePreference,
   UserMassPreference,
   UserTemperaturePreference,
+  TimeUnit,
+  PercentUnit,
 } from "@prisma/client";
 
+export type PercentUnitType = "%" | "%%";
+export const PercentUnits: Record<PercentUnit, PercentUnitType> = {
+  percent: "%",
+  percentage: "%%",
+};
 export type UnitNames =
+  //  | (typeof PercentUnits)[keyof typeof PercentUnits]
+  | PercentUnitType
+  | PercentUnit
+  | TimeUnit
   | MassUnit
   | UserTemperaturePreference
   | UserPressurePreference
@@ -15,6 +26,8 @@ export type UnitNames =
   | UserVolumePreference
   | UserMassPreference;
 const UNITS = {
+  time: TimeUnit,
+  percent: PercentUnits,
   mass: UserMassPreference,
   temperature: UserTemperaturePreference,
   pressure: UserPressurePreference,
@@ -22,6 +35,8 @@ const UNITS = {
   volume: UserVolumePreference,
 };
 export const BASE_UNITS = {
+  time: TimeUnit.min,
+  percent: PercentUnits.percentage,
   mass: UserMassPreference.Kg,
   temperature: UserTemperaturePreference.C,
   pressure: UserPressurePreference.PSI,
