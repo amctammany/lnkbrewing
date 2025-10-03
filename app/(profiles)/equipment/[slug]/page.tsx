@@ -22,19 +22,11 @@ import {
 import { getPreferences } from "@/app/admin/queries";
 import { $Enums, EquipmentProfile } from "@prisma/client";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
+import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 
 export async function generateStaticParams() {
   return (await getEquipmentProfiles()).map(({ slug }) => ({ slug }));
 }
-const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> = {
-  batchVolume: "volume",
-  boilVolume: "volume",
-  preboilVolume: "volume",
-  trubLoss: "volume",
-  mashLoss: "volume",
-  fermenterLoss: "volume",
-  fermenterTopOff: "volume",
-};
 
 export default async function EquipmentProfileDisplayPage({
   params,

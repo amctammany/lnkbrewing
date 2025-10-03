@@ -74,11 +74,7 @@ export default function EquipmentProfileDisplay({
             <AmountProp label="Fermenter Loss" value={profile.fermenterLoss} />
           </div>
           <div>
-            <AmountProp
-              label="Fermenter Loss"
-              value={profile.fermenterLoss}
-              unit={units.fermenterLoss}
-            />
+            <AmountProp label="Fermenter Loss" value={profile.fermenterLoss} />
           </div>
         </div>
       </Card>
