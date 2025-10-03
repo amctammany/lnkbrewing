@@ -1,32 +1,23 @@
-import {
-  MassUnit,
-  UserGravityPreference,
-  UserMassPreference,
-  UserPressurePreference,
-  UserTemperaturePreference,
-  UserVolumePreference,
-} from "@prisma/client";
-import React, { Suspense } from "react";
 import { Prop, PropProps } from "./Prop";
-import { getPreferences, getUserPreferences } from "@/app/admin/queries";
-import ClientAmountProp from "./ClientAmountProp";
 import { precisionRound } from "@/lib/utils";
 import { UnitNames } from "@/lib/Converter/UnitDict";
-import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
-export type AmountPropProps = PropProps & {
-  value?: number;
+import { UnitValue } from "@/lib/Converter/adjustUnits";
+export type AmountPropProps = Omit<PropProps, "value"> & {
+  value?: UnitValue;
   precision?: number;
-  unit: UnitNames;
 };
 export async function AmountProp({
-  value,
+  value: val,
   precision = 1,
-  unit,
   ...props
 }: AmountPropProps) {
-  const prefs = getPreferences();
-  const val = precisionRound(value ?? 0, precision);
-  return (
+  const { value, unit } = val ?? {};
+  //  const prefs = getPreferences();
+  const v = precisionRound(value ?? 0, precision);
+  return <Prop value={v} unit={unit} {...props} />;
+  /**
+   * return (
+
     <Suspense fallback={<Prop value={val} unit={unit} {...props} />}>
       <ClientAmountProp
         unit={unit}
@@ -37,4 +28,5 @@ export async function AmountProp({
       />
     </Suspense>
   );
+*/
 }

@@ -1,24 +1,32 @@
 import React from "react";
-import EquipmentProfileDisplay from "../_components/EquipmentProfileDisplay/EquipmentProfileDisplay";
+import EquipmentProfileDisplay, {
+  EquipmentProfileDisplayProps,
+} from "../_components/EquipmentProfileDisplay/EquipmentProfileDisplay";
 import { getEquipmentProfile, getEquipmentProfiles } from "../queries";
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LinkButton } from "@/components/Button/LinkButton";
-import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  BaseEquipmentProfile,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import {
+  adjustUnits,
+  getUnits,
+  UnitMask,
+  UnitMaskType,
+} from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { $Enums, EquipmentProfile } from "@prisma/client";
-import { UnitTypes } from "@/lib/Converter/UnitDict";
+import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 
 export async function generateStaticParams() {
   return (await getEquipmentProfiles()).map(({ slug }) => ({ slug }));
 }
-type UnitMask<T> = {
-  [K in keyof T]: UnitTypes | undefined;
-};
-const EquipmentProfileMask: UnitMask<Partial<EquipmentProfileType>> = {
+const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> = {
   batchVolume: "volume",
   boilVolume: "volume",
   preboilVolume: "volume",
@@ -36,8 +44,15 @@ export default async function EquipmentProfileDisplayPage({
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   const prefs = await getPreferences();
-  const adjusted = adjustUnits(profile, EquipmentProfileMask, prefs);
-  console.log("adjusted", adjusted);
+  const units = getUnits(profile, EquipmentProfileMask, prefs) as UnitMask<
+    typeof EquipmentProfileMask
+  >;
+  const adjusted = adjustUnits(
+    profile,
+    EquipmentProfileMask,
+    prefs
+  ) as AdjustedEquipmentProfileType;
+  console.log("adjusted", adjusted, units);
   if (!profile) notFound();
   return (
     <div>
@@ -56,7 +71,7 @@ export default async function EquipmentProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <EquipmentProfileDisplay profile={profile as BaseEquipmentProfile} />
+      <EquipmentProfileDisplay profile={adjusted} units={units} />
     </div>
   );
 }

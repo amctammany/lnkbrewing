@@ -1,8 +1,13 @@
 import { Prop } from "@/components/Prop";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import { Card } from "@/components/ui/card";
-import { BASE_UNITS } from "@/lib/Converter/UnitDict";
-import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
+import { UnitMask, UnitValue, UnitValues } from "@/lib/Converter/adjustUnits";
+import { BASE_UNITS, UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
+import {
+  AdjustedEquipmentProfileType,
+  BaseEquipmentProfile,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import { EquipmentProfile } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
@@ -26,11 +31,14 @@ const Box = ({
   </div>
 );
 export type EquipmentProfileDisplayProps = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
+  units: any;
 };
 export default function EquipmentProfileDisplay({
   profile,
+  units,
 }: EquipmentProfileDisplayProps) {
+  console.log({ profile, units });
   return (
     <div>
       <Card className="*:not-last:border-b-2 lg:max-w-2/3 mx-auto">
@@ -51,38 +59,25 @@ export default function EquipmentProfileDisplay({
         <div className="grid md:grid-cols-2">
           <div>
             <Prop label="Boil Time" value={profile.boilTime} unit="min" />
-            <AmountProp
-              label="Batch Size"
-              value={profile.batchVolume}
-              unit={BASE_UNITS.volume}
-            />
+            <AmountProp label="Batch Size" value={profile.batchVolume} />
             <Prop label="Mash Efficiency" value={profile.mashEfficiency} />
             <Prop label="Brew Efficiency" value={profile.brewEfficiency} />
           </div>
           <div>
             <Prop label="Boiloff Rate" value={profile.boilOffRate} />
-            <AmountProp
-              label="Mash Loss"
-              value={profile.mashLoss}
-              unit={BASE_UNITS.volume}
-            />
+            <AmountProp label="Mash Loss" value={profile.mashLoss} />
             <AmountProp
               label="Trub Loss"
               precision={2}
               value={profile.trubLoss}
-              unit={BASE_UNITS.volume}
             />
-            <AmountProp
-              label="Fermenter Loss"
-              value={profile.fermenterLoss}
-              unit={BASE_UNITS.volume}
-            />
+            <AmountProp label="Fermenter Loss" value={profile.fermenterLoss} />
           </div>
           <div>
             <AmountProp
               label="Fermenter Loss"
               value={profile.fermenterLoss}
-              unit={BASE_UNITS.volume}
+              unit={units.fermenterLoss}
             />
           </div>
         </div>

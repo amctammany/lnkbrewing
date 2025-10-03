@@ -6,6 +6,7 @@ import {
 } from "@prisma/client";
 import { BaseUser } from "./User";
 import { OptionalNullable } from "@/lib/utils";
+import { UnitValue } from "@/lib/Converter/adjustUnits";
 export interface MashProfileType extends BaseMashProfile {
   owner?: BaseUser;
   origin?: BaseMashProfile;
@@ -30,6 +31,18 @@ export interface EquipmentProfileType extends BaseEquipmentProfile {
   owner?: BaseUser;
   origin?: BaseEquipmentProfile;
 }
+type AmountFields<S, N extends keyof S> = {
+  [P in keyof S]: P extends N ? UnitValue : S[P];
+};
+type EquipmentProfileAmountFieldNames =
+  | "batchVolume"
+  | "trubLoss"
+  | "mashLoss"
+  | "fermenterLoss";
+export type AdjustedEquipmentProfileType = AmountFields<
+  EquipmentProfileType,
+  EquipmentProfileAmountFieldNames
+>;
 export type BaseEquipmentProfile = Omit<
   OptionalNullable<EquipmentProfile>,
   "id"

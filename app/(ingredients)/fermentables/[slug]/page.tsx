@@ -6,7 +6,6 @@ import {
 } from "@/app/(ingredients)/fermentables/queries";
 import { FermentableDisplay } from "@/app/(ingredients)/fermentables/_components/FermentableDisplay/FermentableDisplay";
 import { notFound } from "next/navigation";
-import { LinkButton } from "@/components/Button/LinkButton";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil } from "lucide-react";
 export async function generateStaticParams() {

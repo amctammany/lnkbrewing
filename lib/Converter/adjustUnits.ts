@@ -2,7 +2,26 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
+export type UnitMaskType<T> = {
+  [K in keyof T]: UnitTypes | undefined;
+};
+export type UnitMask<T> = {
+  [K in keyof T]?: UnitNames | undefined;
+};
 
+export type UnitValues<
+  T extends FieldValues,
+  Q extends Partial<Record<keyof T, UnitNames>>
+> = {
+  [P in keyof T]: Q[P] extends UnitNames ? UnitValue : T[P];
+};
+
+type A = UnitValues<{ a: 123; b: 124 }, { a: "g" }>;
+
+export type UnitValue = {
+  value: any;
+  unit: UnitNames;
+};
 function convertUnit({
   value,
   type,
@@ -16,14 +35,23 @@ function convertUnit({
   if (!convert) throw new Error("Converter not available");
   const baseValue = convert[unit].from(value);
   const newValue = convert[unit].to(value);
-  return newValue;
+  return { value: newValue, unit } as UnitValue;
+}
+export function getUnits<T extends FieldValues>(
+  src: T,
+  mask: Partial<Record<keyof T, UnitTypes>>,
+  prefs: UserPreferencesType
+) {
+  return Object.keys(src).reduce((acc, k) => {
+    if (mask[k]) acc[k] = prefs[mask[k]] ?? BASE_UNITS[mask[k]];
+    return acc;
+  }, {} as any);
 }
 export function adjustUnits<T extends FieldValues>(
   src: T,
   mask: Partial<Record<keyof T, UnitTypes>>,
   prefs: UserPreferencesType
 ) {
-  console.log({ src, mask, prefs });
   const s = Object.entries(src).reduce((acc, [k, v]) => {
     acc[k] = mask[k]
       ? convertUnit({
@@ -34,6 +62,5 @@ export function adjustUnits<T extends FieldValues>(
       : v;
     return acc;
   }, {} as any);
-  console.log(s);
   return s;
 }
