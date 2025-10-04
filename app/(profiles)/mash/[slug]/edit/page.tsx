@@ -5,6 +5,9 @@ import { updateMashProfile } from "@/app/(profiles)/mash/actions";
 import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import { MashProfileMask } from "@/lib/Converter/Masks";
+import { AdjustedMashProfileType } from "@/types/Profile";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 
 export default async function MashProfileEditorPage({
   params,
@@ -18,12 +21,18 @@ export default async function MashProfileEditorPage({
     getMashProfile,
     slug
   );
-  const preferences = await getPreferences();
+  const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: MashProfileMask,
+    prefs,
+    inline: true,
+  }) as AdjustedMashProfileType;
   return (
     <MashProfileEditor
       action={updateMashProfile}
       profile={profile}
-      preferences={preferences}
+      preferences={prefs}
     />
   );
 }

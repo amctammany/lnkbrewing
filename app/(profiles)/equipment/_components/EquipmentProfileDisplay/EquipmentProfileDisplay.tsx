@@ -38,7 +38,6 @@ export default function EquipmentProfileDisplay({
   profile,
   units,
 }: EquipmentProfileDisplayProps) {
-  console.log({ profile, units });
   return (
     <div>
       <Card className="*:not-last:border-b-2 lg:max-w-2/3 mx-auto">

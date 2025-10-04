@@ -21,18 +21,19 @@ export default async function EquipmentProfileEditorPage({
     slug
   );
   const preferences = await getPreferences();
-  const adjusted = adjustUnits(
-    profile,
-    EquipmentProfileMask,
-    preferences,
-    true
-  ) as AdjustedEquipmentProfileType;
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: EquipmentProfileMask,
+    prefs: preferences,
+    inline: true,
+    dir: true,
+  }) as AdjustedEquipmentProfileType;
   //  const stripped = stripUnits(adjusted);
   //  console.log(adjusted, stripped);
   return (
     <EquipmentProfileEditor
       preferences={preferences}
-      action={updateEquipmentProfile}
+      action={updateEquipmentProfile.bind(null, preferences)}
       profile={adjusted}
     />
   );

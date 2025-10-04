@@ -26,19 +26,21 @@ function convertUnit({
   type,
   unit,
   inline = false,
+  dir = true,
 }: {
   value: number | object;
   type: UnitTypes | object;
   unit: UnitNames;
   inline?: boolean;
+  dir?: boolean;
 }) {
-  console.log({ value, type, unit });
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
     if (!convert) throw new Error("Converter not available");
     const baseValue = convert[unit].from(value);
     const newValue = convert[unit].to(value);
-    return inline ? newValue : ({ value: newValue, unit } as UnitValue);
+    const v = dir ? newValue : baseValue;
+    return inline ? v : ({ value: v, unit } as UnitValue);
   }
   if (Array.isArray(value))
     return value.map((val) =>
@@ -57,7 +59,7 @@ export function getUnits<T extends FieldValues>(
   mask: Partial<Record<keyof T, UnitTypes | object>>,
   prefs: UserPreferencesType
 ) {
-  console.log({ src, mask, prefs });
+  //  console.log({ src, mask, prefs });
   return Object.keys(src).reduce((acc, k) => {
     if (typeof mask[k] === "string") {
       if (mask[k]) acc[k] = prefs[mask[k]] ?? BASE_UNITS[mask[k]];
@@ -65,15 +67,30 @@ export function getUnits<T extends FieldValues>(
     return acc;
   }, {} as any);
 }
-export function adjustUnits<T extends FieldValues>(
-  src: T | T[],
-  mask: Partial<Record<keyof T, UnitTypes | object | string>>,
-  prefs: UserPreferencesType,
-  inline = false
-) {
+export function adjustUnits<T extends FieldValues>({
+  src,
+  mask,
+  prefs,
+  inline = false,
+  dir = true,
+}: {
+  src: T | T[];
+  mask: Partial<Record<keyof T, UnitTypes | object | string>>;
+  prefs: UserPreferencesType;
+  inline?: boolean;
+  dir?: boolean;
+}) {
   const s = Object.entries(src).reduce((acc, [k, v]) => {
     if (Array.isArray(v)) {
-      acc[k] = v.map((val) => adjustUnits(val, mask[k] as any, prefs, inline));
+      acc[k] = v.map((val) =>
+        adjustUnits({
+          src: val,
+          mask: mask[k] as any,
+          prefs,
+          inline,
+          dir,
+        })
+      );
     } else {
       acc[k] =
         typeof mask[k] === "string"
@@ -83,6 +100,7 @@ export function adjustUnits<T extends FieldValues>(
               unit:
                 prefs[mask[k] as UnitTypes] ?? BASE_UNITS[mask[k] as UnitTypes],
               inline,
+              dir,
             })
           : v;
     }

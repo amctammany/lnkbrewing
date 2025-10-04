@@ -25,11 +25,11 @@ export default async function MashProfileDisplayPage({
   const units = getUnits(profile, MashProfileMask, prefs) as UnitMask<
     typeof MashProfileMask
   >;
-  const adjusted = adjustUnits(
-    profile,
-    MashProfileMask,
-    prefs
-  ) as AdjustedMashProfileType;
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: MashProfileMask,
+    prefs,
+  }) as AdjustedMashProfileType;
   console.log(adjusted);
   if (!profile) notFound();
   return (

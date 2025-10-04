@@ -39,12 +39,12 @@ export default async function EquipmentProfileDisplayPage({
   const units = getUnits(profile, EquipmentProfileMask, prefs) as UnitMask<
     typeof EquipmentProfileMask
   >;
-  const adjusted = adjustUnits(
-    profile,
-    EquipmentProfileMask,
-    prefs
-  ) as AdjustedEquipmentProfileType;
-  console.log("adjusted", adjusted, units);
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: EquipmentProfileMask,
+    prefs,
+  }) as AdjustedEquipmentProfileType;
+  //  console.log("adjusted", adjusted, units);
   if (!profile) notFound();
   return (
     <div>

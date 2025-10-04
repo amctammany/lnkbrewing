@@ -1,8 +1,12 @@
 "use server";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/client";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { equipmentProfileSchema } from "@/schemas/ProfileSchemas";
+import { UserPreferences } from "@prisma/client";
 import { redirect } from "next/navigation";
 export async function createEquipmentProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, equipmentProfileSchema);
@@ -17,17 +21,30 @@ export async function createEquipmentProfile(prev: any, formData: FormData) {
   //  return { success: true, data: res };
 }
 
-export async function updateEquipmentProfile(prev: any, formData: FormData) {
+export async function updateEquipmentProfile(
+  prefs: UserPreferencesType,
+  prev: any,
+  formData: FormData
+) {
   const v = validateSchema(formData, equipmentProfileSchema);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const adj = adjustUnits({
+    src: v.data,
+    prefs,
+    mask: EquipmentProfileMask,
+    inline: true,
+    dir: false,
+  });
+
+  console.log("update", prefs, v.data, adj);
   const res = await prisma.equipmentProfile.update({
     where: {
       id: v.data.id,
     },
-    data: { ...v.data, slug: slugify(v.data.name) },
+    data: { ...adj, slug: slugify(v.data.name) },
   });
   return redirect(`/equipment/${res.slug}`);
 }
