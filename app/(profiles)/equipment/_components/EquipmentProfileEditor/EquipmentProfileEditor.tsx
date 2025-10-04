@@ -46,7 +46,7 @@ export default function EquipmentProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <EquipmentProfileForm />
+      <EquipmentProfileForm preferences={preferences} />
     </EquipmentProfileFormContainer>
   );
 }

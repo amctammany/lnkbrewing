@@ -24,10 +24,11 @@ export default async function EquipmentProfileEditorPage({
   const adjusted = adjustUnits(
     profile,
     EquipmentProfileMask,
-    preferences
+    preferences,
+    true
   ) as AdjustedEquipmentProfileType;
-  const stripped = stripUnits(adjusted);
-  console.log(stripped);
+  //  const stripped = stripUnits(adjusted);
+  //  console.log(adjusted, stripped);
   return (
     <EquipmentProfileEditor
       preferences={preferences}

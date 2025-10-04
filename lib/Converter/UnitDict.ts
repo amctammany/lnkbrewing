@@ -27,7 +27,7 @@ export type UnitNames =
   | UserMassPreference;
 const UNITS = {
   time: TimeUnit,
-  percent: PercentUnits,
+  percent: PercentUnit,
   mass: UserMassPreference,
   temperature: UserTemperaturePreference,
   pressure: UserPressurePreference,

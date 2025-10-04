@@ -17,7 +17,7 @@ import {
 } from "../ui/form";
 import { cx, cva, VariantProps } from "class-variance-authority";
 import { InlineInput } from "./InlineInput";
-import { BASE_UNITS, UnitTypes } from "@/lib/Converter/UnitDict";
+import { BASE_UNITS, PercentUnits, UnitTypes } from "@/lib/Converter/UnitDict";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { Converter } from "@/lib/Converter/Converter";
 import { Unit } from "@/app/(profiles)/mash/_components/MashProfileEditor/MashProfileStepField";
@@ -92,6 +92,10 @@ export default function AmountField<T extends FieldValues>({
   const prefs = useContext(UserPreferencesContext);
   const defUnit = BASE_UNITS[amountType];
   const userUnit = prefs?.[amountType] ?? defUnit;
+  const u =
+    userUnit === "percent" || userUnit === "percentage"
+      ? PercentUnits[userUnit]
+      : userUnit;
   return (
     <FormField
       control={control}
@@ -108,7 +112,7 @@ export default function AmountField<T extends FieldValues>({
                   <InlineInput
                     className="flex-grow text-center  bg-white"
                     type="number"
-                    append={Unit(userUnit)}
+                    append={Unit(u)}
                     placeholder={placeholder}
                     onChange={field.onChange}
                     value={

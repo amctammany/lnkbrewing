@@ -25,10 +25,12 @@ function convertUnit({
   value,
   type,
   unit,
+  inline = false,
 }: {
   value: number | object;
   type: UnitTypes | object;
   unit: UnitNames;
+  inline?: boolean;
 }) {
   console.log({ value, type, unit });
   if (typeof value === "number") {
@@ -36,7 +38,7 @@ function convertUnit({
     if (!convert) throw new Error("Converter not available");
     const baseValue = convert[unit].from(value);
     const newValue = convert[unit].to(value);
-    return { value: newValue, unit } as UnitValue;
+    return inline ? newValue : ({ value: newValue, unit } as UnitValue);
   }
   if (Array.isArray(value))
     return value.map((val) =>
@@ -66,11 +68,12 @@ export function getUnits<T extends FieldValues>(
 export function adjustUnits<T extends FieldValues>(
   src: T | T[],
   mask: Partial<Record<keyof T, UnitTypes | object | string>>,
-  prefs: UserPreferencesType
+  prefs: UserPreferencesType,
+  inline = false
 ) {
   const s = Object.entries(src).reduce((acc, [k, v]) => {
     if (Array.isArray(v)) {
-      acc[k] = v.map((val) => adjustUnits(val, mask[k] as any, prefs));
+      acc[k] = v.map((val) => adjustUnits(val, mask[k] as any, prefs, inline));
     } else {
       acc[k] =
         typeof mask[k] === "string"
@@ -79,6 +82,7 @@ export function adjustUnits<T extends FieldValues>(
               type: mask[k] as UnitTypes,
               unit:
                 prefs[mask[k] as UnitTypes] ?? BASE_UNITS[mask[k] as UnitTypes],
+              inline,
             })
           : v;
     }
@@ -86,26 +90,6 @@ export function adjustUnits<T extends FieldValues>(
   }, {} as any);
   return s as any;
 }
-type Mapped<T> = {
-  [K in keyof T]?: boolean;
-};
-
-const remap = <T extends Record<string, unknown>>(obj: T) => {
-  const mapped: Record<string, boolean> = {};
-  Object.keys(obj).forEach((key) => {
-    mapped[key] = !!key; // Type 'Mapped<T>' is generic and can only be indexed for reading.(2862)
-  });
-
-  return mapped as Mapped<T>;
-};
-const remapWithAs = <T extends Record<string, unknown>>(obj: T) => {
-  const mapped: Record<string, boolean> = {};
-  Object.keys(obj).forEach((key) => {
-    mapped[key] = !!key;
-  });
-
-  return mapped as Mapped<T>; // Is this my only option?
-};
 export function stripUnits<T extends Record<string, unknown>>(src: T) {
   return Object.keys(src).reduce((acc, k) => {
     const v = src[k as keyof T];

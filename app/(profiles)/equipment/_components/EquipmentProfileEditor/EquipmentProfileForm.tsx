@@ -32,12 +32,19 @@ export function EquipmentProfileFormContainer({
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm({ defaultValues: profile, errors: state?.errors });
   return (
-    <Form {...form}>
-      <form action={formAction}>{children}</form>
-    </Form>
+    <UserPreferencesContext value={preferences}>
+      <Form {...form}>
+        <form action={formAction}>{children}</form>
+      </Form>
+    </UserPreferencesContext>
   );
 }
-export function EquipmentProfileForm() {
+export type EquipmentProfileFormProps = {
+  preferences: UserPreferencesType;
+};
+export function EquipmentProfileForm({
+  preferences,
+}: EquipmentProfileFormProps) {
   const { register, control } = useFormContext<EquipmentProfileType>();
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
@@ -52,8 +59,8 @@ export function EquipmentProfileForm() {
             <CardTitle>Volumes</CardTitle>
           </CardHeader>
           <CardContent>
-            <InputField
-              control={control}
+            <AmountField
+              amountType="time"
               name="boilTime"
               type="number"
               step={1}
@@ -103,16 +110,15 @@ export function EquipmentProfileForm() {
             <CardTitle>Efficiency</CardTitle>
           </CardHeader>
           <CardContent>
-            {" "}
-            <InputField
-              control={control}
+            <AmountField
+              amountType="percent"
               name="mashEfficiency"
               type="number"
               step={1}
               label="Mash Efficiency "
             />
-            <InputField
-              control={control}
+            <AmountField
+              amountType="percent"
               name="brewEfficiency"
               type="number"
               step={1}

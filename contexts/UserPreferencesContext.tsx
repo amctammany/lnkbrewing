@@ -2,9 +2,12 @@
 import { PercentUnitType } from "@/lib/Converter/UnitDict";
 import { UserPreferences } from "@prisma/client";
 import { createContext } from "react";
-export type UserPreferencesType = Partial<
+export type UserPreferencesType = Partial<UserPreferences>;
+/** 
+   * 
   Omit<UserPreferences, "percent"> & { percent: PercentUnitType }
 >;
+  */
 export const UserPreferencesContext = createContext<UserPreferencesType | null>(
   null
 );
