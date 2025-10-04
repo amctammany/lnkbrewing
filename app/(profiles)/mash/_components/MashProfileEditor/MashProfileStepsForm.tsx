@@ -1,15 +1,9 @@
 "use client";
-import InputField from "@/components/Form/InputField";
-import { InlineInput } from "@/components/Form/InlineInput";
-import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
-import { OptionalNullable } from "@/lib/utils";
 import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
-import { MashProfile } from "@prisma/client";
-import React, { useActionState } from "react";
-import { useFieldArray, useForm, useFormContext } from "react-hook-form";
+import React from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import MashProfileStepField from "./MashProfileStepField";
 
 export function MashProfileStepsForm({

@@ -1,13 +1,10 @@
-import { WaterProfile } from "@prisma/client";
 import React from "react";
 import {
   WaterProfileForm,
   WaterProfileFormContainer,
 } from "./WaterProfileForm";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
-import { OptionalNullable } from "@/lib/utils";
-import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
+import { WaterProfileType } from "@/types/Profile";
 import Link from "next/link";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";

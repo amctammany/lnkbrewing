@@ -1,5 +1,4 @@
 import { BaseEquipmentProfile } from "@/types/Profile";
-import { EquipmentProfile } from "@prisma/client";
 import { Droplet } from "lucide-react";
 import Link from "next/link";
 import React from "react";

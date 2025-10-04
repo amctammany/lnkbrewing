@@ -1,7 +1,6 @@
 "use client";
 import TextInput from "@/components/Form/TextInput";
 import type { Style } from "@prisma/client";
-import { register } from "module";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 export type StyleEditorProps = { style: Style };

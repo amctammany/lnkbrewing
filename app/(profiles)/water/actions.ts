@@ -6,7 +6,6 @@ import { waterProfileSchema } from "@/schemas/ProfileSchemas";
 import { redirect } from "next/navigation";
 export async function createWaterProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, waterProfileSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -20,7 +19,6 @@ export async function createWaterProfile(prev: any, formData: FormData) {
 
 export async function updateWaterProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, waterProfileSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

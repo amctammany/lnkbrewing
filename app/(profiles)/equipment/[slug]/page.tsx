@@ -1,16 +1,9 @@
 import React from "react";
-import EquipmentProfileDisplay, {
-  EquipmentProfileDisplayProps,
-} from "../_components/EquipmentProfileDisplay/EquipmentProfileDisplay";
+import EquipmentProfileDisplay from "../_components/EquipmentProfileDisplay/EquipmentProfileDisplay";
 import { getEquipmentProfile, getEquipmentProfiles } from "../queries";
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { LinkButton } from "@/components/Button/LinkButton";
-import {
-  AdjustedEquipmentProfileType,
-  BaseEquipmentProfile,
-  EquipmentProfileType,
-} from "@/types/Profile";
+import { AdjustedEquipmentProfileType } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
 import {
@@ -20,8 +13,6 @@ import {
   UnitMaskType,
 } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
-import { $Enums, EquipmentProfile } from "@prisma/client";
-import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 
 export async function generateStaticParams() {

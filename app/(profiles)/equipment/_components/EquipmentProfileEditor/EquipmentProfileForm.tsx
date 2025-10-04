@@ -1,7 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
 import InputField from "@/components/Form/InputField";
-import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
@@ -9,15 +8,9 @@ import {
   UserPreferencesContext,
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
-import { OptionalNullable } from "@/lib/utils";
-import {
-  AdjustedEquipmentProfileType,
-  EquipmentProfileType,
-} from "@/types/Profile";
-import { EquipmentProfile, UserPreferences } from "@prisma/client";
+import { EquipmentProfileType } from "@/types/Profile";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
-import { TextField } from "@/components/Form/TextField";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
   profile: EquipmentProfileType;
   preferences: UserPreferencesType;

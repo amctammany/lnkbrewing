@@ -1,13 +1,12 @@
 import AmountField from "@/components/Form/AmountField";
 import InputField from "@/components/Form/InputField";
 import SelectInput from "@/components/Form/SelectInput";
-import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MashProfileType, MashStepType } from "@/types/Profile";
 import { $Enums } from "@prisma/client";
 import { cx } from "class-variance-authority";
-import { ArrowDown, ArrowUp, Delete, X } from "lucide-react";
+import { ArrowDown, ArrowUp, X } from "lucide-react";
 import React from "react";
 import { Control } from "react-hook-form";
 export const Unit = (text?: string) =>

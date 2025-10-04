@@ -4,7 +4,6 @@ import { updateMashProfile } from "@/app/(profiles)/mash/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
-import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 import { AdjustedMashProfileType } from "@/types/Profile";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";

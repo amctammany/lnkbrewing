@@ -1,14 +1,7 @@
-import { MashProfile, UserPreferences } from "@prisma/client";
 import React from "react";
 import { MashProfileForm, MashProfileFormContainer } from "./MashProfileForm";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
-import { OptionalNullable } from "@/lib/utils";
-import {
-  AdjustedMashProfileType,
-  BaseMashProfile,
-  MashProfileType,
-} from "@/types/Profile";
+import { AdjustedMashProfileType } from "@/types/Profile";
 import Link from "next/link";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";

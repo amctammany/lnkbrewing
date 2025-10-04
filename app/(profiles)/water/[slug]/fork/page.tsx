@@ -1,15 +1,10 @@
 import WaterProfileEditor from "@/app/(profiles)/water/_components/WaterProfileEditor/WaterProfileEditor";
 import { getWaterProfile } from "@/app/(profiles)/water/queries";
-import {
-  createWaterProfile,
-  updateWaterProfile,
-} from "@/app/(profiles)/water/actions";
+import { createWaterProfile } from "@/app/(profiles)/water/actions";
 
-import { authorizeResource } from "@/lib/authorizeResource";
 import { notFound } from "next/navigation";
 import { BaseWaterProfile } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
-import { WaterProfile } from "@prisma/client";
 
 export default async function WaterProfileForkPage({
   params,

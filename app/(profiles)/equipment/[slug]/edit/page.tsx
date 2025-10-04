@@ -6,10 +6,7 @@ import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits, stripUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
-import {
-  AdjustedEquipmentProfileType,
-  EquipmentProfileType,
-} from "@/types/Profile";
+import { EquipmentProfileType } from "@/types/Profile";
 
 export default async function EquipmentProfileEditorPage({
   params,

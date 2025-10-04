@@ -1,9 +1,5 @@
-import { Prop } from "@/components/Prop";
-import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
-import { Badge } from "@/components/ui/badge";
-import { AdjustedMashStepType, MashStepType } from "@/types/Profile";
-import { $Enums } from "@prisma/client";
+import { AdjustedMashStepType } from "@/types/Profile";
 import { SectionIcon, Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 

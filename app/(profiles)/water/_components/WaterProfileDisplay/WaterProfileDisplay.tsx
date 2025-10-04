@@ -1,30 +1,11 @@
-import { Ca2, Cl, HCO3, Mg2, MgSo4, Na, SO4 } from "@/components/Elements";
+import { Ca2, Cl, HCO3, Mg2, Na, SO4 } from "@/components/Elements";
 import { Prop } from "@/components/Prop";
 import { Card } from "@/components/ui/card";
-import { BaseWaterProfile, WaterProfileType } from "@/types/Profile";
-import { WaterProfile } from "@prisma/client";
+import { WaterProfileType } from "@/types/Profile";
 import Link from "next/link";
 import React from "react";
 const Box = Prop;
-const Baox = ({
-  label,
-  value,
-  unit,
-}: {
-  unit?: string | React.ReactNode;
-  label: string | React.ReactNode;
-  value?: number | null;
-}) => (
-  <div className="flex flex-grow font-mono border-2 rounded p-1 md:*:px-4 md:*:py-3">
-    <span className="md:text-lg shrink font-bold bg-slate-700 text-gray-300 ">
-      {label}
-    </span>
-    <div className="flexspacing-2 *:my-auto">
-      <span className="pr-2">{value}</span>
-      <span>{unit}</span>
-    </div>
-  </div>
-);
+
 export type WaterProfileDisplayProps = {
   profile: WaterProfileType;
 };

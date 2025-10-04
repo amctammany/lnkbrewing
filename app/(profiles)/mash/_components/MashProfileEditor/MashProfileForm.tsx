@@ -1,16 +1,11 @@
 "use client";
-import InputField from "@/components/Form/InputField";
-import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
-import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { OptionalNullable } from "@/lib/utils";
-import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
-import { MashProfile, UserPreferences } from "@prisma/client";
+import { AdjustedMashProfileType } from "@/types/Profile";
+import { MashProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { MashProfileStepsForm } from "./MashProfileStepsForm";
-import { SessionProvider } from "next-auth/react";
 import {
   UserPreferencesContext,
   UserPreferencesType,

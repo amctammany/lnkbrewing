@@ -3,7 +3,6 @@ import WaterProfileDisplay from "../_components/WaterProfileDisplay/WaterProfile
 import { getWaterProfile, getWaterProfiles } from "../queries";
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { BaseWaterProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";

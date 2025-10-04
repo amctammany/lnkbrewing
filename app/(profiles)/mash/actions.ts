@@ -6,7 +6,7 @@ import { MashProfileMask } from "@/lib/Converter/Masks";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { mashProfileSchema } from "@/schemas/ProfileSchemas";
-import { MashStep, MashStepType } from "@prisma/client";
+import { MashStep } from "@prisma/client";
 import { redirect } from "next/navigation";
 export async function createMashProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, mashProfileSchema);
@@ -27,7 +27,6 @@ export async function updateMashProfile(
   prev: any,
   formData: FormData
 ) {
-  console.log(Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, mashProfileSchema);
   if (v.errors) return v;
   if (!v.success) {

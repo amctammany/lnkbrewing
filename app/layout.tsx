@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  SidebarInput,
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import NavSidebar from "@/components/NavSidebar/NavSidebar";
 import { RouteChangeListener } from "@/components/RouteChangeListener";
 //import { SessionProvider } from "next-auth/react";

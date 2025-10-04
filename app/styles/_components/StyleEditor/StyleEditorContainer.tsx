@@ -3,7 +3,6 @@ import { Form } from "@/components/ui/form";
 import type { Style } from "@prisma/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { updateStyle } from "../../actions";
 
 export default function StyleEditorContainer({
   style,

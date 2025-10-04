@@ -1,12 +1,8 @@
 "use client";
 import InputField from "@/components/Form/InputField";
-import { InlineInput } from "@/components/Form/InlineInput";
 import TextInput from "@/components/Form/TextInput";
-import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { OptionalNullable } from "@/lib/utils";
 import { WaterProfileType } from "@/types/Profile";
-import { WaterProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type WaterProfileFormContainerProps<S = unknown> = {
@@ -28,7 +24,7 @@ export function WaterProfileFormContainer({
   );
 }
 export function WaterProfileForm() {
-  const { register, control } = useFormContext<WaterProfile>();
+  const { register } = useFormContext<WaterProfileType>();
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />

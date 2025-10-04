@@ -1,7 +1,6 @@
-import { AmountProp } from "@/components/Prop/AmountProp";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
-import { $Enums, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 

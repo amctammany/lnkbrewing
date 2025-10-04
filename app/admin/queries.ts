@@ -1,12 +1,6 @@
 import { auth } from "@/auth";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/client";
-import {
-  PercentUnitType,
-  UnitNames,
-  UnitTypes,
-} from "@/lib/Converter/UnitDict";
-import { PercentUnit, UserPreferences } from "@prisma/client";
 
 export async function getPreferences() {
   const session = await auth();

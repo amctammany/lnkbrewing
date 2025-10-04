@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import EquipmentProfileListItem from "./EquipmentProfileListItem";
 import { Card } from "@/components/ui/card";

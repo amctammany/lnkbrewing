@@ -4,7 +4,6 @@ import { prisma } from "@/lib/client";
 import { validateSchema } from "@/lib/validateSchema";
 import {
   MassSystem,
-  User,
   UserColorPreference,
   UserGravityPreference,
   UserMassPreference,
@@ -12,7 +11,6 @@ import {
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@prisma/client";
-import { taintObjectReference } from "next/dist/server/app-render/entry-base";
 import { redirect } from "next/navigation";
 import z from "zod";
 import { zfd } from "zod-form-data";
@@ -38,7 +36,6 @@ const schema = zfd.formData({
   }),
 });
 export async function updateUserSettings(prev: any, formData: FormData) {
-  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, schema);
   if (v.errors) return v;
   if (!v.success) {
@@ -57,7 +54,6 @@ export async function updateUserSettings(prev: any, formData: FormData) {
       data: UserPreferences,
     }),
   ]);
-  console.log(res);
   return redirect("/admin");
   //  return { success: true, data: res };
 }

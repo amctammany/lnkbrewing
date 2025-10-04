@@ -6,7 +6,6 @@ import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { equipmentProfileSchema } from "@/schemas/ProfileSchemas";
-import { UserPreferences } from "@prisma/client";
 import { redirect } from "next/navigation";
 export async function createEquipmentProfile(
   prefs: UserPreferencesType,

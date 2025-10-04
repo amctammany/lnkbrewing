@@ -1,14 +1,7 @@
 import { Prop } from "@/components/Prop";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import { Card } from "@/components/ui/card";
-import { UnitMask, UnitValue, UnitValues } from "@/lib/Converter/adjustUnits";
-import { BASE_UNITS, UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import {
-  AdjustedEquipmentProfileType,
-  BaseEquipmentProfile,
-  EquipmentProfileType,
-} from "@/types/Profile";
-import { EquipmentProfile } from "@prisma/client";
+import { AdjustedEquipmentProfileType } from "@/types/Profile";
 import Link from "next/link";
 import React from "react";
 const Box = ({
