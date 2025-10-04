@@ -3,7 +3,6 @@ import React from "react";
 import { getOtherIngredient } from "@/app/(ingredients)/other/queries";
 import { OtherIngredientDisplay } from "@/app/(ingredients)/other/_components/OtherDisplay/OtherDisplay";
 import { notFound } from "next/navigation";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Pencil } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 

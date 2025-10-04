@@ -1,5 +1,4 @@
 import { Prop } from "@/components/Prop";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OtherIngredient } from "@prisma/client";
 import React from "react";
 

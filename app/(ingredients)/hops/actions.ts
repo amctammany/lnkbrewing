@@ -19,7 +19,6 @@ export async function createHop(prev: any, formData: FormData) {
 }
 
 export async function updateHop(prev: any, formData: FormData) {
-  console.log(Object.fromEntries(formData));
   const v = validateSchema(formData, hopSchema);
   if (v.errors) return v;
   if (!v.success) {

@@ -1,7 +1,6 @@
 import { Prop } from "@/components/Prop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { YeastType } from "@/types/Ingredient";
-import { Yeast } from "@prisma/client";
 import React from "react";
 
 export type YeastDisplayProps = {

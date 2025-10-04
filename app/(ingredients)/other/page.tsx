@@ -2,7 +2,6 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getOtherIngredients } from "./queries";
 import OthersTable from "./_components/OthersTable/OthersTable";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 

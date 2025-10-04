@@ -4,7 +4,7 @@ import { updateEquipmentProfile } from "@/app/(profiles)/equipment/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
-import { adjustUnits, stripUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { EquipmentProfileType } from "@/types/Profile";
 

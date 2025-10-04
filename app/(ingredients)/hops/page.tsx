@@ -2,7 +2,6 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getHops } from "./queries";
 import HopsTable from "./_components/HopsTable/HopsTable";
-import { LinkButton } from "@/components/Button/LinkButton";
 import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
 

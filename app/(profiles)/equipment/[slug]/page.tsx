@@ -27,9 +27,6 @@ export default async function EquipmentProfileDisplayPage({
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   const prefs = await getPreferences();
-  const units = getUnits(profile, EquipmentProfileMask, prefs) as UnitMask<
-    typeof EquipmentProfileMask
-  >;
   const adjusted = adjustUnits({
     src: profile,
     mask: EquipmentProfileMask,
@@ -54,7 +51,7 @@ export default async function EquipmentProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <EquipmentProfileDisplay profile={adjusted} units={units} />
+      <EquipmentProfileDisplay profile={adjusted} />
     </div>
   );
 }

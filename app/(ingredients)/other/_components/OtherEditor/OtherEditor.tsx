@@ -1,7 +1,6 @@
 import React, { act } from "react";
 import { OtherEditorForm, OtherEditorFormContainer } from "./OtherEditorForm";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
 import { OtherType } from "@/types/Ingredient";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";

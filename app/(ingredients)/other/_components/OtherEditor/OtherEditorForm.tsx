@@ -1,6 +1,4 @@
 "use client";
-import InputField from "@/components/Form/InputField";
-import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { OtherInput } from "@/schemas/IngredientSchemas";
 import { OtherType } from "@/types/Ingredient";
-import { $Enums, User } from "@prisma/client";
-import { Percent } from "lucide-react";
 import { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 

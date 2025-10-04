@@ -25,11 +25,9 @@ const Box = ({
 );
 export type EquipmentProfileDisplayProps = {
   profile: AdjustedEquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
-  units: any;
 };
 export default function EquipmentProfileDisplay({
   profile,
-  units,
 }: EquipmentProfileDisplayProps) {
   return (
     <div>

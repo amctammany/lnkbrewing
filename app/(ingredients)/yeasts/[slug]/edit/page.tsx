@@ -1,5 +1,5 @@
 import React from "react";
-import { getYeast, getYeasts } from "@/app/(ingredients)/yeasts/queries";
+import { getYeast } from "@/app/(ingredients)/yeasts/queries";
 import { notFound } from "next/navigation";
 
 import { updateYeast } from "../../actions";

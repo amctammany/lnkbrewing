@@ -11,9 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { YeastInput } from "@/schemas/IngredientSchemas";
 import { YeastType } from "@/types/Ingredient";
-import { $Enums, User, Yeast } from "@prisma/client";
+import { $Enums } from "@prisma/client";
 import { Percent } from "lucide-react";
 import { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";

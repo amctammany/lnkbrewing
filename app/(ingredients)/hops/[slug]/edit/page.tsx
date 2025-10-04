@@ -1,7 +1,5 @@
-import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getHop } from "@/app/(ingredients)/hops/queries";
-import { HopDisplay } from "@/app/(ingredients)/hops/_components/HopDisplay/HopDisplay";
 import { notFound } from "next/navigation";
 import HopEditor from "../../_components/HopEditor/HopEditor";
 import { updateHop } from "@/app/(ingredients)/hops/actions";

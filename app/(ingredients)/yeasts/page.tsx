@@ -2,7 +2,6 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import YeastsTable from "./_components/YeastsTable/YeastsTable";
 import { getYeasts } from "./queries";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 

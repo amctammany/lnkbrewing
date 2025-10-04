@@ -1,5 +1,3 @@
-import { Prop } from "@/components/Prop";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Hop } from "@prisma/client";
 import React from "react";
 import BrewingValues from "./BrewingValues";

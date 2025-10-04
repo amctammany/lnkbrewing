@@ -1,7 +1,6 @@
 import React, { act } from "react";
 import { YeastEditorForm, YeastEditorFormContainer } from "./YeastEditorForm";
 import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
 import { YeastType } from "@/types/Ingredient";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";

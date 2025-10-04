@@ -1,7 +1,6 @@
 "use client";
 import InputField from "@/components/Form/InputField";
 import RangeField from "@/components/Form/RangeField";
-import { Select } from "@/components/Form/Select";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
@@ -13,10 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { HopInput } from "@/schemas/IngredientSchemas";
 import { HopType } from "@/types/Ingredient";
-import { $Enums, User } from "@prisma/client";
-import { Percent } from "lucide-react";
+import { $Enums } from "@prisma/client";
 import { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 
@@ -31,7 +28,6 @@ export function HopEditorFormContainer({
   children,
 }: HopEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  console.log(src);
   const form = useForm<HopType>({
     defaultValues: src,
     errors: state?.errors,

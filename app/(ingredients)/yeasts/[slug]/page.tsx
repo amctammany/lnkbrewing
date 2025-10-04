@@ -3,7 +3,6 @@ import React from "react";
 import { getYeast, getYeasts } from "@/app/(ingredients)/yeasts/queries";
 import { YeastDisplay } from "@/app/(ingredients)/yeasts/_components/YeastDisplay/YeastDisplay";
 import { notFound } from "next/navigation";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Pencil } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 export async function generateStaticParams() {

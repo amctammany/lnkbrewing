@@ -3,7 +3,6 @@ import React from "react";
 import { getHop, getHops } from "@/app/(ingredients)/hops/queries";
 import { HopDisplay } from "@/app/(ingredients)/hops/_components/HopDisplay/HopDisplay";
 import { notFound } from "next/navigation";
-import { LinkButton } from "@/components/Button/LinkButton";
 import { Pencil } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 export async function generateStaticParams() {

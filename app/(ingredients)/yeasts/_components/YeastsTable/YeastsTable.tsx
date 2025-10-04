@@ -1,5 +1,4 @@
 "use client";
-import { Yeast } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
