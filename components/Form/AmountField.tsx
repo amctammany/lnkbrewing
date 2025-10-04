@@ -31,7 +31,7 @@ const amountFieldStyles = cva("", {
     },
   },
   defaultVariants: {
-    variant: "default",
+    variant: "grid",
   },
 });
 const amountFieldLabelStyles = cva(
@@ -96,9 +96,10 @@ export default function AmountField<T extends FieldValues>({
   const defUnit = BASE_UNITS[amountType];
   const userUnit = prefs?.[amountType] ?? defUnit;
   const u =
-    userUnit === "percent" || userUnit === "percentage"
+    unit ??
+    (userUnit === "percent" || userUnit === "percentage"
       ? PercentUnits[userUnit]
-      : userUnit;
+      : userUnit);
   return (
     <FormField
       control={control}
@@ -115,7 +116,7 @@ export default function AmountField<T extends FieldValues>({
                   <InlineInput
                     className="flex-grow text-center  bg-white"
                     type="number"
-                    append={Unit(u)}
+                    append={Unit(u as string)}
                     placeholder={placeholder}
                     {...field}
                     value={

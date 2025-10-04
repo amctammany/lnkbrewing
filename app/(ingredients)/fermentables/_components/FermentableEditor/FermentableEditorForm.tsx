@@ -1,4 +1,5 @@
 "use client";
+import AmountField from "@/components/Form/AmountField";
 import InputField from "@/components/Form/InputField";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
 import { FermentableType } from "@/types/Ingredient";
 //import { $Enums, User, Fermentable } from "@prisma/client";
 import { Percent } from "lucide-react";
@@ -18,11 +23,13 @@ import { useForm, useFormContext } from "react-hook-form";
 
 export type FermentableEditorFormContainerProps<S = unknown> = {
   src: FermentableType;
+  preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => S | Promise<S>;
   children: React.ReactNode;
 };
 export function FermentableEditorFormContainer({
   src,
+  preferences,
   action,
   children,
 }: FermentableEditorFormContainerProps) {
@@ -33,14 +40,16 @@ export function FermentableEditorFormContainer({
   });
 
   return (
-    <Form {...form}>
-      <form
-        action={formAction}
-        //        onSubmit={form.handleSubmit(handleAction)}
-      >
-        {children}
-      </form>
-    </Form>
+    <UserPreferencesContext value={preferences}>
+      <Form {...form}>
+        <form
+          action={formAction}
+          //        onSubmit={form.handleSubmit(handleAction)}
+        >
+          {children}
+        </form>
+      </Form>
+    </UserPreferencesContext>
   );
 }
 
@@ -64,28 +73,81 @@ export function FermentableEditorForm({}: FermentableEditorFormProps) {
         <TextInput name="notes" label="Notes" control={control} />
         <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
           <div>
-            <InputField
-              name="potential"
-              type="number"
-              step="0.01"
-              control={control}
-              label="Potential"
-              AppendIcon={Percent}
-            />
-            <InputField
-              name="color"
-              step="0.01"
-              type="number"
-              control={control}
-              label="Color"
-              AppendIcon={Percent}
-            />
-            <InputField
+            <h4>Details</h4>
+
+            <AmountField
+              amountType="percent"
               name="maxUsage"
               step="0.1"
               type="number"
-              control={control}
               label="Max Usage"
+            />
+            <AmountField
+              amountType="percent"
+              name="price"
+              step="0.1"
+              type="number"
+              label="Price"
+            />
+          </div>
+          <div>
+            <h4>Properties</h4>
+            <AmountField
+              name="potential"
+              step="0.001"
+              type="number"
+              label="Potential"
+              amountType="gravity"
+              unit="SG"
+            />
+            <AmountField
+              name="yield"
+              step="0.01"
+              type="number"
+              label="Yield"
+              amountType="percent"
+            />
+            <AmountField
+              name="color"
+              step="0.01"
+              type="number"
+              label="Color"
+              amountType="color"
+            />
+            <AmountField
+              name="protein"
+              step="0.01"
+              type="number"
+              label="Protein"
+              amountType="percent"
+            />
+            <AmountField
+              name="coarseFineDiff"
+              step="0.01"
+              type="number"
+              label="Coarse Fine Diff"
+              amountType="percent"
+            />
+            <AmountField
+              name="power"
+              step="0.01"
+              type="number"
+              label="Diastatic Power"
+              amountType="percent"
+            />
+            <AmountField
+              name="moisture"
+              step="0.01"
+              type="number"
+              label="Moisture"
+              amountType="percent"
+            />
+            <AmountField
+              name="friability"
+              step="0.01"
+              type="number"
+              label="Friability"
+              amountType="percent"
             />
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { OptionalNullable } from "@/lib/utils";
 import { Fermentable, Hop, OtherIngredient, Yeast } from "@prisma/client";
+import { AmountFields } from "./Profile";
 
 export interface OtherType
   extends Omit<OptionalNullable<OtherIngredient>, "id" | "userId"> {
@@ -21,3 +22,14 @@ export interface FermentableType
   id?: string;
   userId?: string;
 }
+
+type FermentableAmountFieldNames =
+  | "color"
+  | "moisture"
+  | "potential"
+  | "friability"
+  | "protein";
+export type AdjustedFermentable = AmountFields<
+  FermentableType,
+  FermentableAmountFieldNames
+>;

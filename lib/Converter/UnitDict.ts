@@ -7,6 +7,7 @@ import {
   UserTemperaturePreference,
   TimeUnit,
   PercentUnit,
+  UserColorPreference,
 } from "@prisma/client";
 
 export type PercentUnitType = "%" | "%%";
@@ -20,6 +21,7 @@ export type UnitNames =
   | PercentUnit
   | TimeUnit
   | MassUnit
+  | UserColorPreference
   | UserTemperaturePreference
   | UserPressurePreference
   | UserGravityPreference
@@ -29,6 +31,7 @@ const UNITS = {
   time: TimeUnit,
   percent: PercentUnit,
   mass: UserMassPreference,
+  color: UserColorPreference,
   temperature: UserTemperaturePreference,
   pressure: UserPressurePreference,
   gravity: UserGravityPreference,
@@ -39,6 +42,7 @@ export const BASE_UNITS = {
   percent: PercentUnits.percent,
   mass: UserMassPreference.Kg,
   temperature: UserTemperaturePreference.F,
+  color: UserColorPreference.L,
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
   volume: UserVolumePreference.gal,

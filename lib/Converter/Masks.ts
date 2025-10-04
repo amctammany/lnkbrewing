@@ -5,7 +5,7 @@ import {
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { MashProfile, MashStep } from "@prisma/client";
-import { YeastType } from "@/types/Ingredient";
+import { FermentableType, YeastType } from "@/types/Ingredient";
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
@@ -31,6 +31,14 @@ export const MashProfileMask: UnitMaskType<Partial<MashProfileType>> = {
   mashTunTemp: "temperature",
   spargeTemp: "temperature",
   steps: MashStepMask,
+};
+
+export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
+  protein: "percent",
+  friability: "percent",
+  coarseFineDiff: "percent",
+  moisture: "percent",
+  color: "color",
 };
 
 export const YeastMask: UnitMaskType<Partial<YeastType>> = {

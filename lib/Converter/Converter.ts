@@ -2,6 +2,7 @@ import {
   MassUnit,
   PercentUnit,
   TimeUnit,
+  UserColorPreference,
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@prisma/client";
@@ -24,6 +25,12 @@ const timeConverter: Record<TimeUnit, ConversionType> = {
   hr: 60,
   day: 60 * 24,
 };
+const colorConverter: Record<UserColorPreference, ConversionType> = {
+  L: 1,
+  EBC: 12,
+  SRM: 100,
+};
+
 const percentConverter: Record<PercentUnit, ConversionType> = {
   percentage: 1,
   percent: 100,
@@ -38,6 +45,7 @@ export const converters: Partial<
 > = {
   time: makeConverter(timeConverter),
   mass: makeConverter(massConverter),
+  color: makeConverter(colorConverter),
   temperature: makeConverter(tempConverter),
   volume: makeConverter(volumeConverter),
   percent: makeConverter(percentConverter),

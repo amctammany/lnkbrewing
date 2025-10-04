@@ -11,6 +11,7 @@ export const fermentableSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
+  manufacturer: zfd.text(z.string().optional()),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
@@ -19,6 +20,12 @@ export const fermentableSchema = zfd.formData({
   maxUsage: zfd.numeric(z.number().min(0).max(100).optional()),
   color: zfd.numeric(z.number().min(0).max(600).optional()),
   potential: zfd.numeric(z.number().min(0).max(2).optional()),
+  moisture: zfd.numeric(z.number().min(0).max(100).optional()),
+  protein: zfd.numeric(z.number().min(0).max(100).optional()),
+  coarseFineDiff: zfd.numeric(z.number().min(0).max(100).optional()),
+  friability: zfd.numeric(z.number().min(0).max(100).optional()),
+  yield: zfd.numeric(z.number().min(0).max(100).optional()),
+  extract: zfd.numeric(z.number().optional()),
 });
 
 export const otherSchema = zfd.formData({
