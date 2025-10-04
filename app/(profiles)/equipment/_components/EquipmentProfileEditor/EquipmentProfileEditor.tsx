@@ -16,7 +16,7 @@ import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 
 export type EquipmentProfileEditorProps = {
-  profile: AdjustedEquipmentProfileType;
+  profile: EquipmentProfileType;
   preferences: UserPreferencesType;
   action: any;
 };

@@ -1,8 +1,12 @@
 "use server";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/client";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { MashProfileMask } from "@/lib/Converter/Masks";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { mashProfileSchema } from "@/schemas/ProfileSchemas";
+import { MashStep, MashStepType } from "@prisma/client";
 import { redirect } from "next/navigation";
 export async function createMashProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, mashProfileSchema);
@@ -18,17 +22,29 @@ export async function createMashProfile(prev: any, formData: FormData) {
   //  return { success: true, data: res };
 }
 
-export async function updateMashProfile(prev: any, formData: FormData) {
+export async function updateMashProfile(
+  prefs: UserPreferencesType,
+  prev: any,
+  formData: FormData
+) {
+  console.log(Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, mashProfileSchema);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { steps, ...data } = v.data;
+  const adj = adjustUnits({
+    src: v.data,
+    prefs,
+    mask: MashProfileMask,
+    inline: true,
+    dir: false,
+  });
+  const { steps, ...data } = adj;
 
   const stepData = await prisma.$transaction(async (tx) => {
     return Promise.all(
-      steps.map(async ({ id, ...d }) => {
+      (steps as MashStep[]).map(async ({ id, ...d }) => {
         return await tx.mashStep.upsert({
           where: { mashIndex: { mashProfileId: data.id!, index: d.index } },
           create: { ...d, mashProfileId: data.id! },

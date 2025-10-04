@@ -30,8 +30,8 @@ export default async function MashProfileEditorPage({
   }) as AdjustedMashProfileType;
   return (
     <MashProfileEditor
-      action={updateMashProfile}
-      profile={profile}
+      action={updateMashProfile.bind(null, prefs)}
+      profile={adjusted}
       preferences={prefs}
     />
   );

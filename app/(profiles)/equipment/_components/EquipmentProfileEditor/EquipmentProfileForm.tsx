@@ -17,8 +17,9 @@ import {
 import { EquipmentProfile, UserPreferences } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
+import { TextField } from "@/components/Form/TextField";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: AdjustedEquipmentProfileType;
+  profile: EquipmentProfileType;
   preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -30,7 +31,10 @@ export function EquipmentProfileFormContainer({
   children,
 }: EquipmentProfileFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm({ defaultValues: profile, errors: state?.errors });
+  const form = useForm({
+    defaultValues: profile,
+    errors: state?.errors,
+  });
   return (
     <UserPreferencesContext value={preferences}>
       <Form {...form}>
@@ -51,8 +55,8 @@ export function EquipmentProfileForm({
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />
-      <TextInput label="Name" {...register("name")} />
-      <TextInput label="Description" {...register("description")} />
+      <TextInput control={control} name="name" label="Name" />
+      <TextInput control={control} name="description" label="Description" />
       <div className="grid lg:grid-cols-3 gap-2">
         <Card className="grid">
           <CardHeader>
@@ -65,6 +69,7 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Boil Time "
+              variant="grid"
             />
             <AmountField
               name="batchVolume"
@@ -72,6 +77,7 @@ export function EquipmentProfileForm({
               amountType="volume"
               step={1}
               label="Batch Volume"
+              variant="grid"
             />
             <InputField
               control={control}
@@ -79,6 +85,7 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Boil Off Rate"
+              variant="grid"
             />
 
             <AmountField
@@ -87,6 +94,7 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Mash Loss"
+              variant="grid"
             />
 
             <AmountField
@@ -95,6 +103,7 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Fermenter Loss"
+              variant="grid"
             />
             <AmountField
               amountType="volume"
@@ -102,6 +111,7 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Trub Loss"
+              variant="grid"
             />
           </CardContent>
         </Card>

@@ -5,7 +5,7 @@ import TextInput from "@/components/Form/TextInput";
 import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { MashProfile, UserPreferences } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
@@ -17,7 +17,7 @@ import {
 } from "@/contexts/UserPreferencesContext";
 import AmountField from "@/components/Form/AmountField";
 export type MashProfileFormContainerProps<S = unknown> = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   preferences: UserPreferencesType;
   children?: React.ReactNode | React.ReactNode[];
@@ -38,7 +38,11 @@ export function MashProfileFormContainer({
     </UserPreferencesContext>
   );
 }
-export function MashProfileForm({ profile }: { profile: MashProfileType }) {
+export function MashProfileForm({
+  profile,
+}: {
+  profile: AdjustedMashProfileType;
+}) {
   const { register, control } = useFormContext<MashProfile>();
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">

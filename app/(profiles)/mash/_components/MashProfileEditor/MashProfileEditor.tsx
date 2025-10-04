@@ -4,14 +4,18 @@ import { MashProfileForm, MashProfileFormContainer } from "./MashProfileForm";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { OptionalNullable } from "@/lib/utils";
-import { BaseMashProfile, MashProfileType } from "@/types/Profile";
+import {
+  AdjustedMashProfileType,
+  BaseMashProfile,
+  MashProfileType,
+} from "@/types/Profile";
 import Link from "next/link";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 
 export type MashProfileEditorProps = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
   action: any;
   preferences: UserPreferencesType;
 };

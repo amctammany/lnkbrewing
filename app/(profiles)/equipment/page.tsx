@@ -15,11 +15,11 @@ export default async function EquipmentProfilesListPage() {
     <div>
       <TopBar
         breadcrumbs={[
-          { title: "Profiles", url: "/profiles" },
-          { title: "Equipment", url: "/profiles/water" },
+          { title: "Profiles" },
+          { title: "Equipment", url: "/equipment" },
         ]}
       >
-        <IconButton icon={Plus} variant="outline" href="/profiles/water/new">
+        <IconButton icon={Plus} variant="outline" href="/equipment/new">
           Add
         </IconButton>
       </TopBar>

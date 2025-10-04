@@ -6,13 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { OptionalNullable } from "@/lib/utils";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { MashProfile } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
 import MashProfileStepField from "./MashProfileStepField";
 
-export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
+export function MashProfileStepsForm({
+  src,
+}: {
+  src: AdjustedMashProfileType;
+}) {
   const { register, control, watch } = useFormContext<MashProfileType>();
   const { fields, append, insert, swap, remove } = useFieldArray({
     control,

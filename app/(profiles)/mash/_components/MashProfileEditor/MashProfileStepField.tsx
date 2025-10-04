@@ -86,8 +86,8 @@ export default function MashProfileStepField({
               options={$Enums.MashStepType}
             />
             <InputField
-              className="flex-grow"
               control={control}
+              className="flex-grow"
               name={`steps.${index}.name`}
               variant="inline"
               label="Name"

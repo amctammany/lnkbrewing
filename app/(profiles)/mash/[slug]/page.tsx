@@ -22,15 +22,11 @@ export default async function MashProfileDisplayPage({
   const { slug } = await params;
   const profile = await getMashProfile(slug);
   const prefs = await getPreferences();
-  const units = getUnits(profile, MashProfileMask, prefs) as UnitMask<
-    typeof MashProfileMask
-  >;
   const adjusted = adjustUnits({
     src: profile,
     mask: MashProfileMask,
     prefs,
   }) as AdjustedMashProfileType;
-  console.log(adjusted);
   if (!profile) notFound();
   return (
     <div>

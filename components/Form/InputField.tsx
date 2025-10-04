@@ -71,7 +71,7 @@ export default function InputField<T extends FieldValues>({
                   placeholder={placeholder}
                   {...props}
                   {...field}
-                  value={field.value === null ? "" : field.value}
+                  value={field.value ?? ""}
                 />
               </div>
             </FormControl>

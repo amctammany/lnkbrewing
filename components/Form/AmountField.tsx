@@ -26,6 +26,7 @@ const amountFieldStyles = cva("", {
   variants: {
     variant: {
       default: "",
+      grid: "grid grid-flow-col grid-cols-2 tems-center w-full ustify-center",
       inline: "flex",
     },
   },
@@ -39,6 +40,7 @@ const amountFieldLabelStyles = cva(
     variants: {
       variant: {
         default: "",
+        grid: "",
         inline: "flex",
       },
     },
@@ -51,6 +53,7 @@ const amountFieldControlStyles = cva("", {
   variants: {
     variant: {
       default: "",
+      grid: "",
       inline: "flex-grow",
     },
   },
@@ -114,16 +117,10 @@ export default function AmountField<T extends FieldValues>({
                     type="number"
                     append={Unit(u)}
                     placeholder={placeholder}
-                    onChange={field.onChange}
+                    {...field}
                     value={
-                      field.value === null ? "" : field.value //Converter(field.value, defUnit, userUnit)
+                      field.value ?? "" //Converter(field.value, defUnit, userUnit)
                     }
-                  />
-                  <input
-                    type="hidden"
-                    name={field.name}
-                    ref={field.ref}
-                    value={field.value} //Converter(field.value, userUnit, defUnit)}
                   />
                 </div>
               </div>
