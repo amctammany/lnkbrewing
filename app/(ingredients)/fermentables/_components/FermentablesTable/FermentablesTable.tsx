@@ -1,5 +1,4 @@
 "use client";
-import { Fermentable } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
@@ -7,10 +6,10 @@ import slugify from "@/lib/slugify";
 import { FermentablesTableRowActions } from "./FermentablesTableRowActions";
 import { DataTable } from "@/components/DataTable";
 // import { BookType } from "lucide-react";
-const columns: ColumnDef<Fermentable>[] = [
+const columns: ColumnDef<FermentableType>[] = [
   {
     accessorKey: "name",
-    header: Header<Fermentable>,
+    header: Header<FermentableType>,
     size: 3,
     cell: ({ getValue }) => (
       <Link
@@ -26,33 +25,34 @@ const columns: ColumnDef<Fermentable>[] = [
   },
   {
     accessorKey: "color",
-    header: Header<Fermentable>,
+    header: Header<FermentableType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "maxUsage",
-    header: Header<Fermentable>,
+    header: Header<FermentableType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "potential",
-    header: Header<Fermentable>,
+    header: Header<FermentableType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "country",
-    header: Header<Fermentable>,
+    header: Header<FermentableType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     id: "actions",
     enableHiding: false,
-    cell: FermentablesTableRowActions<Fermentable>,
+    cell: FermentablesTableRowActions<FermentableType>,
   },
 ];
 import React from "react";
+import { FermentableType } from "@/types/Ingredient";
 export interface FermentablesTableProps {
-  src: Fermentable[];
+  src: FermentableType[];
 }
 export const FermentablesTable: React.FC<FermentablesTableProps> = ({
   src,

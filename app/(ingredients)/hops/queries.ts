@@ -11,5 +11,5 @@ export async function getHop(slug: string) {
 
 export async function getHops() {
   const hops = await prisma.hop.findMany();
-  return hops;
+  return hops as HopType[];
 }

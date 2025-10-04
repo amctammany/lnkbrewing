@@ -20,7 +20,7 @@ function InlineInput({
         type={type}
         data-slot="input"
         className={cx(
-          " text-center px-3 py-2 border rounded-lg w-full",
+          " text-center p-1 border rounded-lg w-full",
           Pre && "pl-10",
           App && "pr-10"
         )}

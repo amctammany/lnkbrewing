@@ -1,5 +1,4 @@
 "use client";
-import { Hop } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
@@ -7,10 +6,10 @@ import slugify from "@/lib/slugify";
 import { HopsTableRowActions } from "./HopsTableRowActions";
 import { DataTable } from "@/components/DataTable";
 // import { BookType } from "lucide-react";
-const columns: ColumnDef<Hop>[] = [
+const columns: ColumnDef<HopType>[] = [
   {
     accessorKey: "name",
-    header: Header<Hop>,
+    header: Header<HopType>,
     size: 3,
     cell: ({ getValue }) => (
       <Link
@@ -24,34 +23,35 @@ const columns: ColumnDef<Hop>[] = [
   },
   {
     accessorKey: "alpha",
-    header: Header<Hop>,
+    header: Header<HopType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "beta",
-    header: Header<Hop>,
+    header: Header<HopType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     accessorKey: "usage",
-    header: Header<Hop>,
+    header: Header<HopType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
 
   {
     accessorKey: "country",
-    header: Header<Hop>,
+    header: Header<HopType>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
   {
     id: "actions",
     enableHiding: false,
-    cell: HopsTableRowActions<Hop>,
+    cell: HopsTableRowActions<HopType>,
   },
 ];
 import React from "react";
+import { HopType } from "@/types/Ingredient";
 export interface HopsTableProps {
-  src: Hop[];
+  src: HopType[];
 }
 export const HopsTable: React.FC<HopsTableProps> = ({ src }) => {
   return (

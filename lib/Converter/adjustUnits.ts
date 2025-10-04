@@ -2,7 +2,6 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
-import { kMaxLength } from "buffer";
 export type UnitMaskType<T> = {
   [K in keyof T]?: UnitTypes | undefined | object;
 };

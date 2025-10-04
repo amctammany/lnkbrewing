@@ -273,21 +273,41 @@ model WaterProfile {
   forks       WaterProfile[] @relation("origin")
 }
 
+enum FermentableType {
+  Grain
+  Extract
+  Sugar
+  Adjunct
+  DryExtract
+  Fruit
+  Juice
+  Honey
+}
+
 model Fermentable {
-  id           String  @id @unique @default(cuid())
-  name         String
-  slug         String  @unique
-  description  String?
-  notes        String?
-  manufacturer String?
-  country      String?
-  power        Int?
-  maxUsage     Float?
-  color        Float?
-  potential    Float?
-  stability    String?
-  userId       String?
-  owner        User?   @relation(fields: [userId], references: [id])
+  id             String           @id @unique @default(cuid())
+  name           String
+  slug           String           @unique
+  description    String?
+  notes          String?
+  manufacturer   String?
+  country        String?
+  price          Float?
+  type           FermentableType? @default(Grain)
+  power          Float?
+  maxUsage       Float?
+  color          Float?
+  potential      Float?
+  moisture       Float?
+  protein        Float?
+  coarseFineDiff Float?
+  extract        Float?
+  friability     Float?
+  yield          Float?
+  stability      String?
+  userId         String?
+  usage          IngredientUsage? @default(Mash)
+  owner          User?            @relation(fields: [userId], references: [id])
   //FermentableIngredient FermentableIngredient[]
 }
 
@@ -321,6 +341,7 @@ model Yeast {
   manufacturer    String?
   type            YeastType?
   form            YeastForm?
+  price           Float?
   tempLow         Float?
   tempHigh        Float?
   flocculation    YeastFlocculation?
@@ -328,7 +349,10 @@ model Yeast {
   attenuation     Float?
   attenuationLow  Float?
   attenuationHigh Float?
+  cellsPerUnit    Float?
+  productId       String?
   userId          String?
+  diastatic       Boolean?           @default(false)
   owner           User?              @relation(fields: [userId], references: [id])
 
   //  YeastIngredient YeastIngredient[]
@@ -409,12 +433,13 @@ enum OtherIngredientType {
 enum IngredientUsage {
   Mash
   Boil
-
+  Steep
   Whirlpool
   DryHop
   Primary
   Secondary
   Bottling
+  Sparge
 }
 
 enum MashSpargeWaterCalculations {

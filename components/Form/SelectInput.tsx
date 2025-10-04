@@ -25,7 +25,7 @@ export type SelectInputProps<T extends FieldValues> = {
   options: Record<string, string>;
   description?: string;
 } & VariantProps<typeof selectStyles>;
-const selectStyles = cva("w-fll", {
+const selectStyles = cva("w-full [&_button]:w-full", {
   variants: {
     variant: {
       default: "flex",

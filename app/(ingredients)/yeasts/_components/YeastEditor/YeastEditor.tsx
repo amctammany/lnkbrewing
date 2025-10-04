@@ -4,15 +4,25 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { YeastType } from "@/types/Ingredient";
 import { Save } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 
 export type YeastEditorProps<S = unknown> = {
   yeast: YeastType;
+  preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => S | Promise<S>;
   children?: React.ReactNode;
 };
-export default function YeastEditor({ yeast, action }: YeastEditorProps) {
+export default function YeastEditor({
+  preferences,
+  yeast,
+  action,
+}: YeastEditorProps) {
   return (
-    <YeastEditorFormContainer src={yeast} action={action}>
+    <YeastEditorFormContainer
+      preferences={preferences}
+      src={yeast}
+      action={action}
+    >
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },

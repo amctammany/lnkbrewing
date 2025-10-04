@@ -1,10 +1,10 @@
 import { Prop } from "@/components/Prop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Fermentable } from "@prisma/client";
+import { FermentableType } from "@/types/Ingredient";
 import React from "react";
 
 export type FermentableDisplayProps = {
-  src: Fermentable;
+  src: FermentableType;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (

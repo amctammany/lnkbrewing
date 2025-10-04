@@ -1,9 +1,9 @@
 import { Prop } from "@/components/Prop";
-import { OtherIngredient } from "@prisma/client";
+import { OtherType } from "@/types/Ingredient";
 import React from "react";
 
 export type OtherIngredientDisplayProps = {
-  src: OtherIngredient;
+  src: OtherType;
 };
 export function OtherIngredientDisplay({ src }: OtherIngredientDisplayProps) {
   return (

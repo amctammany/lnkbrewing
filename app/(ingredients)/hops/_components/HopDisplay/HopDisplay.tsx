@@ -1,10 +1,10 @@
-import { Hop } from "@prisma/client";
 import React from "react";
 import BrewingValues from "./BrewingValues";
 import General from "./General";
+import { HopType } from "@/types/Ingredient";
 
 export type HopDisplayProps = {
-  src: Hop;
+  src: HopType;
 };
 export function HopDisplay({ src }: HopDisplayProps) {
   return (

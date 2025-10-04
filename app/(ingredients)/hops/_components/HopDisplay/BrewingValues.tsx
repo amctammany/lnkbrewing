@@ -1,9 +1,9 @@
 import { Prop } from "@/components/Prop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Hop } from "@prisma/client";
+import { HopType } from "@/types/Ingredient";
 import React from "react";
 
-export default function BrewingValues({ src }: { src: Hop }) {
+export default function BrewingValues({ src }: { src: HopType }) {
   return (
     <Card>
       <CardHeader>

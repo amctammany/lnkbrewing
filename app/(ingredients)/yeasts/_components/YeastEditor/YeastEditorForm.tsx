@@ -1,4 +1,5 @@
 "use client";
+import AmountField from "@/components/Form/AmountField";
 import InputField from "@/components/Form/InputField";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
@@ -11,6 +12,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
 import { YeastType } from "@/types/Ingredient";
 import { $Enums } from "@prisma/client";
 import { Percent } from "lucide-react";
@@ -19,12 +24,14 @@ import { useForm, useFormContext } from "react-hook-form";
 
 export type YeastEditorFormContainerProps<S = unknown> = {
   src: YeastType;
+  preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => S | Promise<S>;
   children: React.ReactNode;
 };
 export function YeastEditorFormContainer({
   src,
   action,
+  preferences,
   children,
 }: YeastEditorFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -34,14 +41,16 @@ export function YeastEditorFormContainer({
   });
 
   return (
-    <Form {...form}>
-      <form
-        action={formAction}
-        //        onSubmit={form.handleSubmit(handleAction)}
-      >
-        {children}
-      </form>
-    </Form>
+    <UserPreferencesContext value={preferences}>
+      <Form {...form}>
+        <form
+          action={formAction}
+          //        onSubmit={form.handleSubmit(handleAction)}
+        >
+          {children}
+        </form>
+      </Form>
+    </UserPreferencesContext>
   );
 }
 
@@ -65,36 +74,57 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
         <TextInput name="notes" label="Notes" control={control} />
         <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
           <div>
-            <InputField
-              name="attenuation"
-              type="number"
-              step="0.01"
+            <div className="md:grid md:grid-cols-2">
+              <AmountField
+                control={control}
+                amountType="percent"
+                name="attenuationLow"
+                type="number"
+                step="0.01"
+                variant="grid"
+                label="Min. Attenuation"
+              />
+
+              <AmountField
+                control={control}
+                amountType="percent"
+                name="attenuationHigh"
+                type="number"
+                step="0.01"
+                variant="grid"
+                label="Max. Attenuation"
+              />
+            </div>
+
+            <AmountField
               control={control}
-              label="Attenuation"
-              AppendIcon={Percent}
-            />
-            <InputField
               name="tolerance"
               step="0.01"
               type="number"
-              control={control}
+              amountType="percent"
+              variant="grid"
               label="Tolerance"
-              AppendIcon={Percent}
             />
-            <InputField
-              name="tempLow"
-              step="0.1"
-              type="number"
-              control={control}
-              label="Min Temp."
-            />
-            <InputField
-              name="tempHigh"
-              step="0.1"
-              type="number"
-              control={control}
-              label="Max Temp."
-            />
+            <div className="md:grid md:grid-cols-2">
+              <AmountField
+                control={control}
+                amountType="temperature"
+                name="tempLow"
+                step="0.1"
+                type="number"
+                label="Min Temp."
+                variant="grid"
+              />
+              <AmountField
+                control={control}
+                amountType="temperature"
+                name="tempHigh"
+                step="0.1"
+                type="number"
+                label="Max Temp."
+                variant="grid"
+              />
+            </div>
           </div>
           <div>
             <SelectInput
@@ -102,18 +132,21 @@ export function YeastEditorForm({}: YeastEditorFormProps) {
               control={control}
               label="Type"
               options={$Enums.YeastType}
+              variant="grid"
             />
             <SelectInput
               name="form"
               control={control}
               label="Form"
               options={$Enums.YeastForm}
+              variant="grid"
             />
             <SelectInput
               name="flocculation"
               control={control}
               label="Flocculation"
               options={$Enums.YeastFlocculation}
+              variant="grid"
             />
           </div>
         </div>
