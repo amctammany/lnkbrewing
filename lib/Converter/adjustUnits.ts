@@ -86,3 +86,37 @@ export function adjustUnits<T extends FieldValues>(
   }, {} as any);
   return s as any;
 }
+type Mapped<T> = {
+  [K in keyof T]?: boolean;
+};
+
+const remap = <T extends Record<string, unknown>>(obj: T) => {
+  const mapped: Record<string, boolean> = {};
+  Object.keys(obj).forEach((key) => {
+    mapped[key] = !!key; // Type 'Mapped<T>' is generic and can only be indexed for reading.(2862)
+  });
+
+  return mapped as Mapped<T>;
+};
+const remapWithAs = <T extends Record<string, unknown>>(obj: T) => {
+  const mapped: Record<string, boolean> = {};
+  Object.keys(obj).forEach((key) => {
+    mapped[key] = !!key;
+  });
+
+  return mapped as Mapped<T>; // Is this my only option?
+};
+export function stripUnits<T extends Record<string, unknown>>(src: T) {
+  return Object.keys(src).reduce((acc, k) => {
+    const v = src[k as keyof T];
+    acc[k as keyof T] =
+      !!v &&
+      typeof v === "object" &&
+      v.hasOwnProperty("value") &&
+      v.hasOwnProperty("unit")
+        ? (v as any).value
+        : v;
+
+    return acc;
+  }, {} as T);
+}

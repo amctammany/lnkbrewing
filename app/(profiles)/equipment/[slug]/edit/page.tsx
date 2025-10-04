@@ -4,6 +4,9 @@ import { updateEquipmentProfile } from "@/app/(profiles)/equipment/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
+import { adjustUnits, stripUnits } from "@/lib/Converter/adjustUnits";
+import { EquipmentProfileMask } from "@/lib/Converter/Masks";
+import { AdjustedEquipmentProfileType } from "@/types/Profile";
 
 export default async function EquipmentProfileEditorPage({
   params,
@@ -18,11 +21,18 @@ export default async function EquipmentProfileEditorPage({
     slug
   );
   const preferences = await getPreferences();
+  const adjusted = adjustUnits(
+    profile,
+    EquipmentProfileMask,
+    preferences
+  ) as AdjustedEquipmentProfileType;
+  const stripped = stripUnits(adjusted);
+  console.log(stripped);
   return (
     <EquipmentProfileEditor
       preferences={preferences}
       action={updateEquipmentProfile}
-      profile={profile}
+      profile={adjusted}
     />
   );
 }

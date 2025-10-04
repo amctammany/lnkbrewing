@@ -10,12 +10,15 @@ import {
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import { OptionalNullable } from "@/lib/utils";
-import { EquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import { EquipmentProfile, UserPreferences } from "@prisma/client";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType;
   preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -29,11 +32,9 @@ export function EquipmentProfileFormContainer({
   const [state, formAction] = useActionState<any, FormData>(action, null);
   const form = useForm({ defaultValues: profile, errors: state?.errors });
   return (
-    <UserPreferencesContext value={preferences}>
-      <Form {...form}>
-        <form action={formAction}>{children}</form>
-      </Form>
-    </UserPreferencesContext>
+    <Form {...form}>
+      <form action={formAction}>{children}</form>
+    </Form>
   );
 }
 export function EquipmentProfileForm() {
