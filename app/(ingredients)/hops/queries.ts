@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/client";
 import { HopType } from "@/types/Ingredient";
+import { cache } from "react";
 
-export async function getHop(slug: string) {
+export const getHop = cache(async (slug: string) => {
   const hop = await prisma.hop.findFirst({ where: { slug } });
   return {
     alphaRange: [hop?.alphaLow, hop?.alpha, hop?.alphaHigh].map(
@@ -43,9 +44,9 @@ export async function getHop(slug: string) {
     ),
     ...hop,
   } as HopType;
-}
+});
 
-export async function getHops() {
-  const hops = await prisma.hop.findMany();
+export const getHops = cache(async (args: any = {}) => {
+  const hops = await prisma.hop.findMany(args);
   return hops as HopType[];
-}
+});

@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/client";
 import { OtherType } from "@/types/Ingredient";
+import { cache } from "react";
 
-export async function getOtherIngredient(slug: string) {
+export const getOtherIngredient = cache(async (slug: string) => {
   const other = await prisma.otherIngredient.findFirst({ where: { slug } });
   return other as OtherType;
-}
+});
 
-export async function getOtherIngredients() {
-  const others = await prisma.otherIngredient.findMany();
+export const getOtherIngredients = cache(async (args: any = {}) => {
+  const others = await prisma.otherIngredient.findMany(args);
   return others as OtherType[];
-}
+});

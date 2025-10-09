@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/client";
 import { FermentableType } from "@/types/Ingredient";
+import { cache } from "react";
 
-export async function getFermentables() {
-  const fermentables = await prisma.fermentable.findMany();
+export const getFermentables = cache(async (args: any = {}) => {
+  const fermentables = await prisma.fermentable.findMany(args);
   return fermentables as FermentableType[];
-}
+});
 
-export async function getFermentable(slug: string) {
+export const getFermentable = cache(async (slug: string) => {
   const fermentable = await prisma.fermentable.findFirst({ where: { slug } });
   return fermentable as FermentableType;
-}
+});

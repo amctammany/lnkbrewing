@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/client";
 import { EquipmentProfileType } from "@/types/Profile";
+import { cache } from "react";
 
-export async function getEquipmentProfiles() {
-  const profiles = await prisma.equipmentProfile.findMany();
+export const getEquipmentProfiles = cache(async (args: any = {}) => {
+  const profiles = await prisma.equipmentProfile.findMany(args);
   return profiles;
-}
+});
 
-export async function getEquipmentProfile(slug: string) {
+export const getEquipmentProfile = cache(async (slug: string) => {
   const profile = await prisma.equipmentProfile.findFirst({
     where: { slug },
     include: {
@@ -15,4 +16,4 @@ export async function getEquipmentProfile(slug: string) {
     },
   });
   return profile as EquipmentProfileType;
-}
+});
