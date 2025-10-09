@@ -34,6 +34,7 @@ export const MashProfileMask: UnitMaskType<Partial<MashProfileType>> = {
 };
 
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
+  maxUsage: "percent",
   protein: "percent",
   friability: "percent",
   coarseFineDiff: "percent",

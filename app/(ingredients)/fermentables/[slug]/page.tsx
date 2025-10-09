@@ -8,6 +8,10 @@ import { FermentableDisplay } from "@/app/(ingredients)/fermentables/_components
 import { notFound } from "next/navigation";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil } from "lucide-react";
+import { getPreferences } from "@/app/admin/queries";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { FermentableMask } from "@/lib/Converter/Masks";
+import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }
@@ -15,7 +19,14 @@ export async function generateStaticParams() {
 export default async function FermentableDisplayPage({ params }: any) {
   const { slug } = await params;
   const fermentable = await getFermentable(slug);
+
   if (!fermentable) return notFound();
+  const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: fermentable,
+    mask: FermentableMask,
+    prefs,
+  }) as AdjustedFermentableType;
   return (
     <div>
       <TopBar
@@ -30,7 +41,7 @@ export default async function FermentableDisplayPage({ params }: any) {
         </IconButton>
       </TopBar>
       <div>
-        <FermentableDisplay src={fermentable} />
+        <FermentableDisplay src={adjusted} />
       </div>
     </div>
   );

@@ -25,11 +25,11 @@ export interface FermentableType
 
 type FermentableAmountFieldNames =
   | "color"
+  | "maxUsage"
   | "moisture"
-  | "potential"
   | "friability"
   | "protein";
-export type AdjustedFermentable = AmountFields<
+export type AdjustedFermentableType = AmountFields<
   FermentableType,
   FermentableAmountFieldNames
 >;

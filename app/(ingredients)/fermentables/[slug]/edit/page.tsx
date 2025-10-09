@@ -11,7 +11,7 @@ import { authorizeResource } from "@/lib/authorizeResource";
 import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { FermentableMask } from "@/lib/Converter/Masks";
-import { AdjustedFermentable, FermentableType } from "@/types/Ingredient";
+import { FermentableType } from "@/types/Ingredient";
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }

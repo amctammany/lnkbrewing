@@ -1,10 +1,11 @@
 import { Prop } from "@/components/Prop";
+import { AmountProp } from "@/components/Prop/AmountProp";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FermentableType } from "@/types/Ingredient";
+import { AdjustedFermentableType } from "@/types/Ingredient";
 import React from "react";
 
 export type FermentableDisplayProps = {
-  src: FermentableType;
+  src: AdjustedFermentableType;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
@@ -19,11 +20,13 @@ export function FermentableDisplay({ src }: FermentableDisplayProps) {
             <Prop label="Description" value={src.description} />
             <Prop label="Manufacturer" value={src.manufacturer} />
             <Prop label="Country" value={src.country} />
-            <Prop label="Color" value={src.color} />
+            <AmountProp label="Color" value={src.color} />
 
             <Prop label="Power" value={src.power} />
             <Prop label="Potential" value={src.potential} />
-            <Prop label="Max Usage" value={src.maxUsage} />
+            <AmountProp label="Protein" value={src.protein} />
+            <AmountProp label="Friability" value={src.friability} />
+            <AmountProp label="Max Usage" value={src.maxUsage} />
             <Prop label="Country" value={src.country} />
             <Prop label="Stability" value={src.stability} />
             <Prop label="Notes" value={src.notes} />

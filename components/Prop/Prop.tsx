@@ -10,7 +10,7 @@ const propStyles = cva("[&_span]:my-auto ", {
     },
   },
   defaultVariants: {
-    variant: "grid",
+    variant: "default",
   },
 });
 
