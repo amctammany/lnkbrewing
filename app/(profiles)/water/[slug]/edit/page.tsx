@@ -3,11 +3,12 @@ import { getWaterProfile } from "@/app/(profiles)/water/queries";
 import { updateWaterProfile } from "@/app/(profiles)/water/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
+interface WaterProfileEditorPageProps {
+  params: Promise<{ slug: string }>;
+}
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: WaterProfileEditorPageProps) {
   const { slug } = await params;
   const profile = await getWaterProfile(slug);
   return {
@@ -17,9 +18,7 @@ export async function generateMetadata({
 }
 export default async function WaterProfileEditorPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: WaterProfileEditorPageProps) {
   const { slug } = await params;
 
   const profile = await authorizeResource(

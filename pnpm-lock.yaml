@@ -14,9 +14,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.0))
-      '@next/bundle-analyzer':
-        specifier: ^15.5.3
-        version: 15.5.3
       '@prisma/client':
         specifier: 6.17.0
         version: 6.17.0(prisma@6.17.0(typescript@5.9.2))(typescript@5.9.2)
@@ -114,6 +111,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
+      '@next/bundle-analyzer':
+        specifier: 15.6.0-canary.54
+        version: 15.6.0-canary.54
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.13
@@ -593,8 +593,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@next/bundle-analyzer@15.5.3':
-    resolution: {integrity: sha512-l2NxnWHP2gWHbomAlz/wFnN2jNCx/dpr7P/XWeOLhULiyKkXSac8O8SjxRO/8FNhr2l4JNtWVKk82Uya4cZYTw==}
+  '@next/bundle-analyzer@15.6.0-canary.54':
+    resolution: {integrity: sha512-PR9B3Dlq8vSjoLpsEuBNGa9z+1/uH/rq5QH4GUmfENWFM1+0rkAvdjQQgerkPELRZSbSpU2ly4AunQMxCm41cQ==}
 
   '@next/env@15.6.0-canary.54':
     resolution: {integrity: sha512-JgxtLpWVwu7iAC2oKmXSEZlAn7ogsPVWqBVGftwj9QpP0ufHASbt3UTHBXo2Fc4/Msl8PYeL19DlahcRfUDwaQ==}
@@ -3320,7 +3320,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@next/bundle-analyzer@15.5.3':
+  '@next/bundle-analyzer@15.6.0-canary.54':
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:

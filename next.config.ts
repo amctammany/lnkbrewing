@@ -4,10 +4,13 @@ import NextBundleAnalyzer from "@next/bundle-analyzer";
 import path from "path";
 const nextConfig: NextConfig = {
   /* config options here */
+  turbopack: {},
+  /**
   turbopack: {
     root: path.join(__dirname, "."),
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
+  */
   reactCompiler: {
     compilationMode: "annotation",
   },
@@ -25,7 +28,7 @@ const nextConfig: NextConfig = {
 };
 
 const withBundleAnalyzer1 = NextBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
+  enabled: true, //process.env.ANALYZE === "true",
 });
 //const c =
 // process.env.ANALYZE === "true" ? withBundleAnalyzer(nextConfig) : nextConfig;

@@ -6,11 +6,12 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { BaseWaterProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
+interface WaterProfileDisplayPageProps {
+  params: Promise<{ slug: string }>;
+}
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: WaterProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getWaterProfile(slug);
   return {
@@ -20,9 +21,7 @@ export async function generateMetadata({
 }
 export default async function WaterProfileDisplayPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: WaterProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getWaterProfile(slug);
   if (!profile) notFound();

@@ -12,14 +12,13 @@ import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { FermentableMask } from "@/lib/Converter/Masks";
 import { FermentableType } from "@/types/Ingredient";
+interface FermentableEditorPageProps {
+  params: Promise<{ slug: string }>;
+}
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata({ params }: FermentableEditorPageProps) {
   const { slug } = await params;
   const fermentable = await getFermentable(slug);
   return {
@@ -27,7 +26,9 @@ export async function generateMetadata({
     description: fermentable.manufacturer,
   };
 }
-export default async function FermentableEditorPage({ params }: any) {
+export default async function FermentableEditorPage({
+  params,
+}: FermentableEditorPageProps) {
   const { slug } = await params;
   const fermentable = await authorizeResource(
     `/fermentables/${slug}/edit`,

@@ -14,15 +14,16 @@ import {
 } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
+interface EquipmentProfileDisplayPageProps {
+  params: Promise<{ slug: string }>;
+}
 
 export async function generateStaticParams() {
   return (await getEquipmentProfiles()).map(({ slug }) => ({ slug }));
 }
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: EquipmentProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   return {
@@ -33,9 +34,7 @@ export async function generateMetadata({
 
 export default async function EquipmentProfileDisplayPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: EquipmentProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   if (!profile) notFound();

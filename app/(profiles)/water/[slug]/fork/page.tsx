@@ -5,11 +5,11 @@ import { createWaterProfile } from "@/app/(profiles)/water/actions";
 import { notFound } from "next/navigation";
 import { BaseWaterProfile } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface WaterProfileForkPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: WaterProfileForkPageProps) {
   const { slug } = await params;
   const profile = await getWaterProfile(slug);
   return {
@@ -19,9 +19,7 @@ export async function generateMetadata({
 }
 export default async function WaterProfileForkPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: WaterProfileForkPageProps) {
   const { slug } = await params;
   const session = await verifySession(`/profiles/water/${slug}/fork`);
 

@@ -7,11 +7,11 @@ import { getPreferences } from "@/app/admin/queries";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 import { AdjustedMashProfileType } from "@/types/Profile";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface MashProfileEditorPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: MashProfileEditorPageProps) {
   const { slug } = await params;
   const profile = await getMashProfile(slug);
   return {
@@ -21,9 +21,7 @@ export async function generateMetadata({
 }
 export default async function MashProfileEditorPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: MashProfileEditorPageProps) {
   const { slug } = await params;
 
   const profile = await authorizeResource(

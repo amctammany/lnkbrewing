@@ -5,11 +5,17 @@ import { YeastDisplay } from "@/app/(ingredients)/yeasts/_components/YeastDispla
 import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
+interface YeastDisplayPageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateStaticParams() {
   return (await getYeasts()).map(({ slug }) => ({ slug }));
 }
 
-export default async function YeastDisplayPage({ params }: any) {
+export default async function YeastDisplayPage({
+  params,
+}: YeastDisplayPageProps) {
   const { slug } = await params;
   const yeast = await getYeast(slug);
   if (!yeast) return notFound();

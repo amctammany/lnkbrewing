@@ -7,11 +7,13 @@ import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { EquipmentProfileType } from "@/types/Profile";
+interface EquipmentProfileEditorPageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   return {
@@ -22,9 +24,7 @@ export async function generateMetadata({
 
 export default async function EquipmentProfileEditorPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
 
   const profile = await authorizeResource(

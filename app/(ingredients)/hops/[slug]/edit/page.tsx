@@ -7,11 +7,10 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { HopType } from "@/types/Ingredient";
 import { HopMask } from "@/lib/Converter/Masks";
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface HopEditorPageProps {
+  params: Promise<{ slug: string }>;
+}
+export async function generateMetadata({ params }: HopEditorPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
   return {
@@ -19,7 +18,7 @@ export async function generateMetadata({
     description: hop.description,
   };
 }
-export default async function HopDisplayPage({ params }: any) {
+export default async function HopEditorPage({ params }: HopEditorPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
   if (!hop) return notFound();

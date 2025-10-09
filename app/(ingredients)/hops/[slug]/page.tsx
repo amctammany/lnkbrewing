@@ -9,14 +9,14 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { AdjustedHopType } from "@/types/Ingredient";
 import { HopMask } from "@/lib/Converter/Masks";
+interface HopDisplayPageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateStaticParams() {
   return (await getHops()).map(({ slug }) => ({ slug }));
 }
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata({ params }: HopDisplayPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
   return {
@@ -24,7 +24,7 @@ export async function generateMetadata({
     description: hop.description,
   };
 }
-export default async function HopDisplayPage({ params }: any) {
+export default async function HopDisplayPage({ params }: HopDisplayPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
   if (!hop) return notFound();

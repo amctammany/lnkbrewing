@@ -9,15 +9,16 @@ import { Pencil, Split } from "lucide-react";
 import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { MashProfileMask } from "@/lib/Converter/Masks";
+interface MashProfileDisplayPageProps {
+  params: Promise<{ slug: string }>;
+}
 
 export async function generateStaticParams() {
   return (await getMashProfiles()).map(({ slug }) => ({ slug }));
 }
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: MashProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getMashProfile(slug);
   return {
@@ -27,9 +28,7 @@ export async function generateMetadata({
 }
 export default async function MashProfileDisplayPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: MashProfileDisplayPageProps) {
   const { slug } = await params;
   const profile = await getMashProfile(slug);
   const prefs = await getPreferences();
