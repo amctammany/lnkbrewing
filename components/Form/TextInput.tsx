@@ -82,8 +82,8 @@ export default function TextInput<T extends FieldValues>({
                   className="flex-grow bg-white"
                   type={type}
                   placeholder={placeholder}
-                  {...props}
                   {...field}
+                  {...props}
                   value={field.value ?? ""}
                 />
                 <div

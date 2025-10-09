@@ -24,6 +24,7 @@ export type SelectInputProps<T extends FieldValues> = {
   placeholder?: string;
   options: Record<string, string>;
   description?: string;
+  onBlur?: any;
 } & VariantProps<typeof selectStyles>;
 const selectStyles = cva("w-full [&_button]:w-full", {
   variants: {
@@ -42,6 +43,7 @@ const selectStyles = cva("w-full [&_button]:w-full", {
 });
 export default function SelectInput<T extends FieldValues>({
   className,
+  onBlur,
   control,
   name,
   label,
@@ -67,7 +69,7 @@ export default function SelectInput<T extends FieldValues>({
               value={field.value}
               defaultValue={field.value}
             >
-              <FormControl>
+              <FormControl onBlur={onBlur}>
                 <SelectTrigger className="m-auto " aria-label={field.value}>
                   <SelectValue placeholder={placeholder} />
                 </SelectTrigger>

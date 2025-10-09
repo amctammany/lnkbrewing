@@ -22,6 +22,7 @@ export type RadioGroupInputProps<T extends FieldValues> = {
   placeholder?: string;
   options: Record<string, string>;
   description?: string;
+  onBlur?: any;
 } & VariantProps<typeof inlineFieldStyles>;
 export default function RadioGroupInput<T extends FieldValues>({
   control,
@@ -30,10 +31,10 @@ export default function RadioGroupInput<T extends FieldValues>({
   options,
   placeholder,
   description,
+  onBlur,
   className = "",
   variant,
 }: RadioGroupInputProps<T>) {
-  console.log(name);
   return (
     <FormField
       control={control}
@@ -45,7 +46,8 @@ export default function RadioGroupInput<T extends FieldValues>({
             <RadioGroup
               name={field.name}
               onValueChange={field.onChange}
-              defaultValue={field.value}
+              value={field.value}
+              onChange={onBlur}
               className="flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2"
             >
               {Object.entries(options).map(([key, value]) => (

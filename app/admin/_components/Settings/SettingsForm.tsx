@@ -4,6 +4,9 @@ import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { RevisionContext } from "@/contexts/RevisionContext";
+import useRevisionHistory from "@/hooks/useRevisionHistory";
+import { get } from "@/lib/utils";
 
 import {
   UserGravityPreference,
@@ -16,7 +19,7 @@ import {
   UserColorPreference,
   UserVolumePreference,
 } from "@prisma/client";
-import React, { useActionState } from "react";
+import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 
 export type SettingsFormContainerProps<S = unknown> = {
@@ -30,16 +33,25 @@ export function SettingsContainerForm({
   children,
 }: SettingsFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm<User>({ defaultValues: user, errors: state?.errors });
+  const form = useForm<UserType>({
+    defaultValues: user,
+    errors: state?.errors,
+  });
+  const revision = useRevisionHistory<UserType>(
+    form.getValues() as any,
+    form.setValue as any
+  );
 
   return (
     <Form {...form}>
-      <form
-        action={formAction}
-        //        onSubmit={form.handleSubmit(handleAction)}
-      >
-        {children}
-      </form>
+      <RevisionContext value={revision}>
+        <form
+          action={formAction}
+          //        onSubmit={form.handleSubmit(handleAction)}
+        >
+          {children}
+        </form>
+      </RevisionContext>
     </Form>
   );
 }
@@ -50,14 +62,55 @@ export type SettingsFormProps = {
 };
 export type UserType = User & { UserPreferences: UserPreferences };
 export function SettingsForm({ user }: SettingsFormProps) {
-  const { register, control } = useFormContext<UserType>();
+  const { register, control, getValues, formState } =
+    useFormContext<UserType>();
+  const { state, undo, redo, canRedo, canUndo, update } =
+    useContext(RevisionContext)!;
+  const updateHistory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const oldValue = get(state as any, e.target.name);
+    const newValue = e.target.value;
+    console.log(
+      "updateHistory",
+      oldValue,
+      newValue,
+      e.target.name,
+      e.target.value
+    );
+    if (oldValue !== newValue)
+      update({
+        type: "SET",
+        payload: { name: e.target.name, prev: oldValue, value: e.target.value },
+      });
+  };
+  const handleUndo = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    undo();
+  };
+  const handleRedo = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    redo();
+  };
   return (
     <div className="grid grid-cols-2 ">
       <div className="*:py-1">
+        <Button onClick={handleUndo} disabled={!canUndo}>
+          Undo
+        </Button>
+        <Button onClick={handleRedo} disabled={!canRedo}>
+          Redo
+        </Button>
         <input type="hidden" {...register("id")} />
-        <TextInput label="Name" {...register("name")} />
-        <TextInput label="Username" {...register("username")} />
-        <TextInput label="Email" {...register("email")} />
+        <TextInput label="Name" {...register("name")} onBlur={updateHistory} />
+        <TextInput
+          label="Username"
+          {...register("username")}
+          onBlur={updateHistory}
+        />
+        <TextInput
+          label="Email"
+          {...register("email")}
+          onBlur={updateHistory}
+        />
       </div>
       <div className="*:py-1">
         <input type="hidden" {...register("UserPreferences.userId")} />
@@ -66,10 +119,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
           control={control}
           label="Mass System"
           name="UserPreferences.massSystem"
+          onBlur={updateHistory}
           options={MassSystem}
         />
         <RadioGroupInput
           variant="inline"
+          onBlur={updateHistory}
           control={control}
           label="Color"
           name="UserPreferences.color"
@@ -77,12 +132,14 @@ export function SettingsForm({ user }: SettingsFormProps) {
         />
         <RadioGroupInput
           variant="inline"
+          onBlur={updateHistory}
           control={control}
           label="Temperature"
           name="UserPreferences.temperature"
           options={UserTemperaturePreference}
         />
         <SelectInput
+          onBlur={updateHistory}
           variant="grid"
           control={control}
           label="Volume"
@@ -95,8 +152,10 @@ export function SettingsForm({ user }: SettingsFormProps) {
           label="Gravity"
           name="UserPreferences.gravity"
           options={UserGravityPreference}
+          onBlur={updateHistory}
         />
         <SelectInput
+          onBlur={updateHistory}
           variant="grid"
           control={control}
           name="UserPreferences.pressure"
