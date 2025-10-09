@@ -33,14 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <Suspense fallback={<div>Loading...</div>}>
-            <RouteChangeListener />
-          </Suspense>
+          <RouteChangeListener />
           <NavSidebar />
 
-          <Suspense>
-            <SidebarInset className="overflow-hidden">{children}</SidebarInset>
-          </Suspense>
+          <SidebarInset className="overflow-hidden">{children}</SidebarInset>
         </SidebarProvider>
       </body>
     </html>
