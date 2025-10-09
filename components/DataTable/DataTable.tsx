@@ -139,7 +139,7 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="relative overflow-auto h-screen" ref={tableContainerRef}>
+      <div className="relative overflow-auto h-[350px]" ref={tableContainerRef}>
         <Table className="grid">
           <TableHeader className="grid sticky top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (

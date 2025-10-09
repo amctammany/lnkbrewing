@@ -13,10 +13,12 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
   "use no memo";
   const { rows } = table.getRowModel();
   const columns = table.getAllColumns();
-  const [_, reset] = useState<boolean>();
+  const [loaded, reset] = useState<boolean>(false);
   useEffect(() => {
-    if (tableContainerRef.current) reset(true);
-  }, [tableContainerRef.current]);
+    if (tableContainerRef.current && !loaded) {
+      reset(true);
+    }
+  }, [tableContainerRef]);
   // Important: Keep the row virtualizer in the lowest component possible to avoid unnecessary re-renders.
   const rowVirtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
     count: rows.length,
@@ -28,7 +30,7 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
       navigator.userAgent.indexOf("Firefox") === -1
         ? (element) => element?.getBoundingClientRect().height
         : undefined,
-    overscan: 5,
+    overscan: 25,
   });
   return (
     <TableBody
