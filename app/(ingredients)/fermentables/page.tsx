@@ -1,5 +1,5 @@
 import { TopBar } from "@/components/TopBar/TopBar";
-import React from "react";
+import React, { Suspense } from "react";
 import { getFermentables } from "./queries";
 import FermentablesTable from "./_components/FermentablesTable/FermentablesTable";
 import { Plus } from "lucide-react";
@@ -23,7 +23,9 @@ export default async function FermentablesIngredientsPage() {
         </IconButton>
       </TopBar>
       <div>
-        <FermentablesTable src={fermentables} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FermentablesTable src={fermentables} />
+        </Suspense>
       </div>
     </div>
   );

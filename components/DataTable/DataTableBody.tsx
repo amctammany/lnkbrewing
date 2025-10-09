@@ -2,6 +2,7 @@ import { Row, Table } from "@tanstack/react-table";
 import { TableBody, TableCell, TableRow } from "../ui/table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { DataTableBodyRow } from "./DataTableBodyRow";
+import { useEffect, useState } from "react";
 
 interface TableBodyProps<T = any> {
   table: Table<T>;
@@ -9,9 +10,13 @@ interface TableBodyProps<T = any> {
 }
 
 export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
+  "use no memo";
   const { rows } = table.getRowModel();
   const columns = table.getAllColumns();
-
+  const [_, reset] = useState<boolean>();
+  useEffect(() => {
+    if (tableContainerRef.current) reset(true);
+  }, [tableContainerRef.current]);
   // Important: Keep the row virtualizer in the lowest component possible to avoid unnecessary re-renders.
   const rowVirtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
     count: rows.length,
@@ -32,7 +37,7 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
     >
       {table.getRowModel().rows?.length ? (
         rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const row = rows[virtualRow.index] as Row<any>;
+          const row = table.getRowModel().rows[virtualRow.index] as Row<any>;
           return (
             <DataTableBodyRow
               key={row.id}

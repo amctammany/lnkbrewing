@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     root: path.join(__dirname, "."),
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
+  reactCompiler: {
+    compilationMode: "annotation",
+  },
   experimental: {
     useCache: true,
     //    cacheComponents: true,

@@ -57,6 +57,7 @@ export interface FermentablesTableProps {
 export const FermentablesTable: React.FC<FermentablesTableProps> = ({
   src,
 }) => {
+  "use no memo";
   return (
     <div>
       <div className="relative overflow-auto">

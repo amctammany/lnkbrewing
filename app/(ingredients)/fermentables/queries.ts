@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/lib/client";
 import { FermentableType } from "@/types/Ingredient";
 import { cache } from "react";

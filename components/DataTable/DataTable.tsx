@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
   selectable = true,
 }: //children,
 DataTableProps<TData, TValue>) {
-  //"use no memo";
+  "use no memo";
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<any>([]);
@@ -163,10 +163,14 @@ DataTableProps<TData, TValue>) {
               </TableRow>
             ))}
           </TableHeader>
-          <DataTableBody
-            table={table}
-            tableContainerRef={tableContainerRef as any}
-          />
+          {tableContainerRef && (
+            <DataTableBody
+              table={table}
+              tableContainerRef={
+                tableContainerRef as React.RefObject<HTMLDivElement>
+              }
+            />
+          )}
         </Table>
       </div>
     </div>
