@@ -1,12 +1,18 @@
 "use client";
 
 import {
+  useVirtualizer,
+  VirtualItem,
+  Virtualizer,
+} from "@tanstack/react-virtual";
+import {
   ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  Row,
   RowSelectionState,
   SortingState,
   useReactTable,
@@ -20,7 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 //import clsx from "clsx";
 import TableSearch from "./TableSearch";
@@ -51,13 +57,14 @@ DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<any>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useReactTable({
     data,
     columns: selectable
       ? [
           {
             id: "select",
+            size: 24,
             header: ({ table }) => (
               <Checkbox
                 checked={
@@ -108,8 +115,22 @@ DataTableProps<TData, TValue>) {
     },
     [table]
   );
+  const { rows } = table.getRowModel();
+
+  const rowVirtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
+    count: rows.length,
+    estimateSize: () => 33, //estimate row height for accurate scrollbar dragging
+    getScrollElement: () => tableContainerRef.current,
+    //measure dynamic row height, except in firefox because it measures table border height incorrectly
+    measureElement:
+      typeof window !== "undefined" &&
+      navigator.userAgent.indexOf("Firefox") === -1
+        ? (element) => element?.getBoundingClientRect().height
+        : undefined,
+    overscan: 5,
+  });
   return (
-    <div className="w-auto">
+    <div className="w-full relative ">
       <TableSearch table={table}>
         {filters?.map(({ name, options }) =>
           options ? (
@@ -130,14 +151,18 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="overflow-hidden border">
-        <Table className="grow border-t-2 border-gray-200 table table-auto">
-          <TableHeader>
+      <div className="relative overflow-auto h-[640px]" ref={tableContainerRef}>
+        <Table className="grid">
+          <TableHeader className="grid sticky top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="flex w-full">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className="flex"
+                      style={{ width: header.getSize() }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -150,23 +175,38 @@ DataTableProps<TData, TValue>) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody
+            className={`grid relative`}
+            style={{ height: rowVirtualizer.getTotalSize() }}
+          >
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const row = rows[virtualRow.index] as Row<any>;
+                return (
+                  <TableRow
+                    className="flex absolute w-full "
+                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                    data-index={virtualRow.index}
+                    ref={(node) => rowVirtualizer.measureElement(node)}
+                    key={row.id}
+                    //                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        style={{ width: cell.column.getSize() }}
+                        className="flex my-auto"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell
