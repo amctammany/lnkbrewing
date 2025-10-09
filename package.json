@@ -34,7 +34,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.2",
     "lucide-react": "^0.544.0",
-    "next": "15.6.0-canary.8",
+    "next": "15.6.0-canary.53",
     "next-auth": "5.0.0-beta.29",
     "react": "19.1.0",
     "react-dom": "19.1.0",
