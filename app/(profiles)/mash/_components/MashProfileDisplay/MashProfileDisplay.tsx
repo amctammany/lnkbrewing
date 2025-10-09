@@ -13,8 +13,8 @@ export default function MashProfileDisplay({
 }: MashProfileDisplayProps) {
   return (
     <div>
-      <Card className="m-1 ">
-        <CardHeader>
+      <Card className="m-1 w-full">
+        <CardHeader className="border-b-4">
           <CardTitle>Mash Profile</CardTitle>
         </CardHeader>
         <CardContent>

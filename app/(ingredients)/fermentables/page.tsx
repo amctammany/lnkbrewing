@@ -15,7 +15,7 @@ export default async function FermentablesIngredientsPage() {
           { title: "Fermentables", url: "/fermentables" },
         ]}
       >
-        <IconButton size="sm" icon={Plus} href={"/fermentables/new"}>
+        <IconButton icon={Plus} href={"/fermentables/new"}>
           New
         </IconButton>
       </TopBar>

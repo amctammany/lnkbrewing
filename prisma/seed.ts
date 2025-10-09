@@ -202,8 +202,9 @@ async function main() {
     ),
   });
   await prisma.fermentable.createMany({
-    data: grains.map((grain) => ({
+    data: grains.map(({ maxUsage, ...grain }) => ({
       ...grain,
+      ...toPercent({ maxUsage }),
       slug: slugify(grain.name, { lower: true }),
     })),
   });

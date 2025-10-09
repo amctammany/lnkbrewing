@@ -26,6 +26,7 @@ export default async function EquipmentProfileDisplayPage({
 }) {
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
+  if (!profile) notFound();
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -33,7 +34,6 @@ export default async function EquipmentProfileDisplayPage({
     prefs,
   }) as AdjustedEquipmentProfileType;
   //  console.log("adjusted", adjusted, units);
-  if (!profile) notFound();
   return (
     <div>
       <TopBar
