@@ -1,5 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
+import HistoryForm from "@/components/Form/HistoryForm";
 import InputField from "@/components/Form/InputField";
 import TextInput from "@/components/Form/TextInput";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,7 @@ import {
   UserPreferencesContext,
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
+import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { EquipmentProfileType } from "@/types/Profile";
 import React, { useActionState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
@@ -28,12 +30,14 @@ export function EquipmentProfileFormContainer({
     defaultValues: profile,
     errors: state?.errors,
   });
+  const revision = useRevisionHistory<EquipmentProfileType>(
+    form.getValues() as any,
+    form.setValue as any
+  );
   return (
-    <UserPreferencesContext value={preferences}>
-      <Form {...form}>
-        <form action={formAction}>{children}</form>
-      </Form>
-    </UserPreferencesContext>
+    <HistoryForm formProps={form} historyProps={revision}>
+      <form action={formAction}>{children}</form>
+    </HistoryForm>
   );
 }
 export type EquipmentProfileFormProps = {

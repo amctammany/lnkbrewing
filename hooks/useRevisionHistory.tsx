@@ -1,5 +1,5 @@
 import { updateEquipmentProfile } from "@/app/(profiles)/equipment/actions";
-import { deepSet } from "@/lib/utils";
+import { deepSet, get } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FieldValues } from "react-hook-form";
 export type RevisionActionTypes = "SET" | "ADD" | "REMOVE";
@@ -127,6 +127,7 @@ function useRevisionHistory<T extends FieldValues>(
 
   const [state, setState] = useState<T>(initialState);
   const [historyPointer, setHistoryPointer] = useState(history.current.length);
+
   const update = useCallback(
     (action: RevisionActionType<T>) => {
       const newHistory = history.current.slice(0, historyPointer + 1);
@@ -170,16 +171,60 @@ function useRevisionHistory<T extends FieldValues>(
     updateFn(state);
   }, [state, updateFn]);
    */
+  const updateHistory = useMemo(
+    () => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const oldValue = get(state as any, e.target.name);
+      const newValue = e.target.value as any;
+
+      if (oldValue !== newValue)
+        update({
+          type: "SET",
+          payload: {
+            name: e.target.name,
+            prev: oldValue,
+            value: e.target.value as any,
+          },
+        });
+    },
+    [update, state]
+  );
+  const handleUndo = useMemo(
+    () => (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      undo();
+    },
+    [undo]
+  );
+  const handleRedo = useMemo(
+    () => (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      redo();
+    },
+    [redo]
+  );
   return useMemo(
     () => ({
+      state,
+      update,
+      handleRedo,
+      handleUndo,
+      updateHistory,
+      undo,
+      redo,
+      canUndo,
+      canRedo,
+    }),
+    [
       state,
       update,
       undo,
       redo,
       canUndo,
       canRedo,
-    }),
-    [state, update, undo, redo, canUndo, canRedo]
+      updateHistory,
+      handleRedo,
+      handleUndo,
+    ]
   );
 }
 

@@ -63,32 +63,17 @@ export type UserType = User & { UserPreferences: UserPreferences };
 export function SettingsForm({ user }: SettingsFormProps) {
   const { register, control, getValues, formState } =
     useFormContext<UserType>();
-  const { state, undo, redo, canRedo, canUndo, update } =
-    useContext(RevisionContext)!;
-  const updateHistory = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const oldValue = get(state as any, e.target.name);
-    const newValue = e.target.value;
-    console.log(
-      "updateHistory",
-      oldValue,
-      newValue,
-      e.target.name,
-      e.target.value
-    );
-    if (oldValue !== newValue)
-      update({
-        type: "SET",
-        payload: { name: e.target.name, prev: oldValue, value: e.target.value },
-      });
-  };
-  const handleUndo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    undo();
-  };
-  const handleRedo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    redo();
-  };
+  const {
+    state,
+    undo,
+    redo,
+    handleRedo,
+    handleUndo,
+    updateHistory,
+    canRedo,
+    canUndo,
+    update,
+  } = useContext(RevisionContext)!;
   return (
     <div className="grid grid-cols-2 ">
       <div className="*:py-1">
