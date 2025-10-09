@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
+    "analyze": "ANALYZE=true next build --turbopack",
     "postinstall": "prisma generate && prisma db push --accept-data-loss",
     "lint": "eslint",
     "prepare": "husky"
@@ -35,7 +35,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.2",
     "lucide-react": "^0.544.0",
-    "next": "15.6.0-canary.52",
+    "next": "15.6.0-canary.54",
     "next-auth": "5.0.0-beta.29",
     "react": "19.1.0",
     "react-dom": "19.1.0",

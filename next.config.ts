@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     useCache: true,
-    ppr: "incremental",
+    //    cacheComponents: true,
     authInterrupts: true,
   },
   /**
@@ -21,14 +21,9 @@ const nextConfig: NextConfig = {
    */
 };
 
-const withBundleAnalyzer = NextBundleAnalyzer({
+const withBundleAnalyzer1 = NextBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
-/**const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: true,
-});
-export default process.env.ANALYZE === "true"
-  ? withBundleAnalyzer(nextConfig)
-  : nextConfig;
-  */
-export default withBundleAnalyzer(nextConfig);
+//const c =
+// process.env.ANALYZE === "true" ? withBundleAnalyzer(nextConfig) : nextConfig;
+export default withBundleAnalyzer1(nextConfig);
