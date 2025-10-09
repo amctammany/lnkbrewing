@@ -174,8 +174,13 @@ function useRevisionHistory<T extends FieldValues>(
   const updateHistory = useMemo(
     () => (e: React.ChangeEvent<HTMLInputElement>) => {
       const oldValue = get(state as any, e.target.name);
-      const newValue = e.target.value as any;
+      const newValue =
+        e.target.type === "number"
+          ? parseFloat(e.target.value)
+          : (e.target.value as any);
+      console.log(e.target.type);
 
+      console.log("updateHistory", { oldValue, newValue, name: e.target.name });
       if (oldValue !== newValue)
         update({
           type: "SET",

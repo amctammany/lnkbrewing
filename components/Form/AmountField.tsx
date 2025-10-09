@@ -66,6 +66,7 @@ export default function AmountField<T extends FieldValues>({
   label,
   type = "string",
   amountType,
+  onBlur,
   placeholder,
   description,
   unit,
@@ -89,6 +90,7 @@ export default function AmountField<T extends FieldValues>({
   label?: string | React.ReactNode;
   placeholder?: string;
   description?: string;
+  onBlur?: any;
 } & ComponentProps<"input"> &
   VariantProps<typeof amountFieldStyles>) {
   const { register, control } = useFormContext();
@@ -110,7 +112,10 @@ export default function AmountField<T extends FieldValues>({
             <FormLabel className={amountFieldLabelStyles({ variant })}>
               {label ?? name}
             </FormLabel>
-            <FormControl className={amountFieldControlStyles({ variant })}>
+            <FormControl
+              onBlur={onBlur}
+              className={amountFieldControlStyles({ variant })}
+            >
               <div className="flex-grow w-full">
                 <div className="flex flex-grow p-1">
                   <InlineInput

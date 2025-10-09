@@ -77,12 +77,6 @@ export function SettingsForm({ user }: SettingsFormProps) {
   return (
     <div className="grid grid-cols-2 ">
       <div className="*:py-1">
-        <Button onClick={handleUndo} disabled={!canUndo}>
-          Undo
-        </Button>
-        <Button onClick={handleRedo} disabled={!canRedo}>
-          Redo
-        </Button>
         <input type="hidden" {...register("id")} />
         <TextInput label="Name" {...register("name")} onBlur={updateHistory} />
         <TextInput
