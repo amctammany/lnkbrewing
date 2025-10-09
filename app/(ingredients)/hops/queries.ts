@@ -2,7 +2,7 @@ import { prisma } from "@/lib/client";
 import { HopType } from "@/types/Ingredient";
 import { cache } from "react";
 
-export const getHop = cache(async (slug: string) => {
+export const getHop = async (slug: string) => {
   const hop = await prisma.hop.findFirst({ where: { slug } });
   return {
     alphaRange: [hop?.alphaLow, hop?.alpha, hop?.alphaHigh].map(
@@ -44,9 +44,9 @@ export const getHop = cache(async (slug: string) => {
     ),
     ...hop,
   } as HopType;
-});
+};
 
-export const getHops = cache(async (args: any = {}) => {
+export const getHops = async (args: any = {}) => {
   const hops = await prisma.hop.findMany(args);
   return hops as HopType[];
-});
+};

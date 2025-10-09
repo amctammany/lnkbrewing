@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import NavSidebar from "@/components/NavSidebar/NavSidebar";
 import { RouteChangeListener } from "@/components/RouteChangeListener";
+import { Suspense } from "react";
 //import { SessionProvider } from "next-auth/react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-export const experimental_ppr = true;
+//export const experimental_ppr = true;
 
 export const metadata: Metadata = {
   title: "LNK",
@@ -32,10 +33,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <RouteChangeListener />
+          <Suspense fallback={<div>Loading...</div>}>
+            <RouteChangeListener />
+          </Suspense>
           <NavSidebar />
 
-          <SidebarInset className="overflow-hidden">{children}</SidebarInset>
+          <Suspense>
+            <SidebarInset className="overflow-hidden">{children}</SidebarInset>
+          </Suspense>
         </SidebarProvider>
       </body>
     </html>
