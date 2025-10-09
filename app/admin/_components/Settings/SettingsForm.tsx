@@ -1,4 +1,5 @@
 "use client";
+import HistoryForm from "@/components/Form/HistoryForm";
 import RadioGroupInput from "@/components/Form/RadioGroupInput";
 import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
@@ -43,16 +44,14 @@ export function SettingsContainerForm({
   );
 
   return (
-    <Form {...form}>
-      <RevisionContext value={revision}>
-        <form
-          action={formAction}
-          //        onSubmit={form.handleSubmit(handleAction)}
-        >
-          {children}
-        </form>
-      </RevisionContext>
-    </Form>
+    <HistoryForm formProps={form} historyProps={revision}>
+      <form
+        action={formAction}
+        //        onSubmit={form.handleSubmit(handleAction)}
+      >
+        {children}
+      </form>
+    </HistoryForm>
   );
 }
 
