@@ -105,18 +105,25 @@ export default function RangeField<T extends FieldValues>({
                     value={field.value[0] ?? 0}
                     {...register(low)}
                   />
+                  <div className="flex-grow flex w-full relative mx-2 pt-4">
+                    <span className="font-bold block absolute left-1 -top-2 text-center">
+                      {min}
+                    </span>
+                    <Slider
+                      className="flex-grow mx-2 py-2 border-r-2 border-l-2 border-black"
+                      min={min}
+                      max={max}
+                      value={field.value}
+                      ref={field.ref}
+                      onValueChange={(v) => {
+                        field.onChange(v);
+                      }}
+                    />
 
-                  <Slider
-                    className="flex-grow mx-2"
-                    min={min}
-                    max={max}
-                    value={field.value}
-                    ref={field.ref}
-                    onValueChange={(v) => {
-                      field.onChange(v);
-                    }}
-                  />
-
+                    <span className="font-bold block absolute -top-2 right-0 text-center ">
+                      {max}
+                    </span>
+                  </div>
                   <input
                     className="ring rounded text-center w-8"
                     type="number"

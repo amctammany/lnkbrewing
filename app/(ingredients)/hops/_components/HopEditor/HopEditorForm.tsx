@@ -68,13 +68,15 @@ export function HopEditorForm({}: HopEditorFormProps) {
           control={control}
         />
         <SelectInput name="usage" options={$Enums.HopUsage} control={control} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 ">
+        <div className="grid grid-cols-1 lg:grid-cols-1 ">
           <RangeField
             name="alphaRange"
             low="alphaLow"
             high="alphaHigh"
             median="alpha"
             label="Alpha Range"
+            min={0}
+            max={60}
             control={control}
           />
           <RangeField
@@ -83,6 +85,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             high="betaHigh"
             median="beta"
             label="Beta Range"
+            min={0}
+            max={40}
             control={control}
           />
           <RangeField
@@ -92,6 +96,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="cohumulone"
             label="Cohumulone Range"
             control={control}
+            min={0}
+            max={50}
           />
           <RangeField
             name="linaloolRange"
@@ -100,6 +106,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="linalool"
             label="Linalool Range"
             control={control}
+            min={0}
+            max={20}
           />
           <RangeField
             name="caryophylleneRange"
@@ -108,6 +116,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="caryophyllene"
             label="Caryophyllene Range"
             control={control}
+            min={0}
+            max={20}
           />
           <RangeField
             name="bPineneRange"
@@ -116,6 +126,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="bPinene"
             label="b-Pinene Range"
             control={control}
+            min={0}
+            max={10}
           />
           <RangeField
             name="farneseneRange"
@@ -124,6 +136,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="farnesene"
             label="Farnesene Range"
             control={control}
+            min={0}
+            max={40}
           />
           <RangeField
             name="myrceneRange"
@@ -132,6 +146,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             median="myrcene"
             label="Myrcene Range"
             control={control}
+            min={0}
+            max={80}
           />
           <RangeField
             name="humuleneRange"
@@ -139,6 +155,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             high="humuleneHigh"
             median="humulene"
             label="Humulene Range"
+            min={0}
+            max={30}
             control={control}
           />
           <RangeField
@@ -147,6 +165,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             high="geraniolHigh"
             median="geraniol"
             label="Geraniol Range"
+            min={0}
+            max={20}
             control={control}
           />
 
@@ -156,6 +176,8 @@ export function HopEditorForm({}: HopEditorFormProps) {
             high="totalOilHigh"
             median="totalOil"
             label="Total Oil Range"
+            min={0}
+            max={10}
             control={control}
           />
         </div>
