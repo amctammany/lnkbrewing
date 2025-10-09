@@ -27,7 +27,7 @@ export function DataTableBodyRow({
         <TableCell
           key={cell.id}
           style={{ width: cell.column.getSize() }}
-          className="flex my-auto"
+          className="flex my-auto not-first:px-6"
         >
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>

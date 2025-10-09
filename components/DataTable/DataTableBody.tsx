@@ -32,7 +32,7 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
         : undefined,
     overscan: 25,
   });
-  return (
+  return tableContainerRef.current ? (
     <TableBody
       className="grid relative"
       style={{ height: rowVirtualizer.getTotalSize() }}
@@ -56,6 +56,14 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
           </TableCell>
         </TableRow>
       )}
+    </TableBody>
+  ) : (
+    <TableBody>
+      <TableRow>
+        <TableCell colSpan={columns.length} className="h-24 text-center">
+          Loading...
+        </TableCell>
+      </TableRow>
     </TableBody>
   );
 }
