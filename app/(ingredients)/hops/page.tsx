@@ -4,6 +4,10 @@ import { getHops } from "./queries";
 import HopsTable from "./_components/HopsTable/HopsTable";
 import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Hops",
+};
 
 export default async function HopsIngredientsPage() {
   const hops = await getHops();

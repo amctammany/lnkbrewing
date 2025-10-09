@@ -3,7 +3,18 @@ import { getWaterProfile } from "@/app/(profiles)/water/queries";
 import { updateWaterProfile } from "@/app/(profiles)/water/actions";
 
 import { authorizeResource } from "@/lib/authorizeResource";
-
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getWaterProfile(slug);
+  return {
+    title: `LNK - Water Profile - ${profile.name} Edit`,
+    description: profile.description,
+  };
+}
 export default async function WaterProfileEditorPage({
   params,
 }: {

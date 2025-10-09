@@ -13,6 +13,18 @@ import { MashProfileMask } from "@/lib/Converter/Masks";
 export async function generateStaticParams() {
   return (await getMashProfiles()).map(({ slug }) => ({ slug }));
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getMashProfile(slug);
+  return {
+    title: `LNK - Mash Profile - ${profile.name}`,
+    description: profile.description,
+  };
+}
 export default async function MashProfileDisplayPage({
   params,
 }: {

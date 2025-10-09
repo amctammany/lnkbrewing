@@ -5,6 +5,10 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Plus } from "lucide-react";
 import { BaseEquipmentProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Equipment Profiles",
+};
 
 export default async function EquipmentProfilesListPage() {
   const profiles = await getEquipmentProfiles();

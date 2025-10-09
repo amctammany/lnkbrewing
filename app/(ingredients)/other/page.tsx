@@ -4,6 +4,10 @@ import { getOtherIngredients } from "./queries";
 import OthersTable from "./_components/OthersTable/OthersTable";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Other",
+};
 
 export default async function OthersIngredientsPage() {
   const others = await getOtherIngredients();

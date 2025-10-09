@@ -7,7 +7,18 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { HopType } from "@/types/Ingredient";
 import { HopMask } from "@/lib/Converter/Masks";
-
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const hop = await getHop(slug);
+  return {
+    title: `LNK - Hops - ${hop.name}`,
+    description: hop.description,
+  };
+}
 export default async function HopDisplayPage({ params }: any) {
   const { slug } = await params;
   const hop = await getHop(slug);

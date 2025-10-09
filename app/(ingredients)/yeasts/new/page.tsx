@@ -5,6 +5,10 @@ import YeastEditor from "@/app/(ingredients)/yeasts/_components/YeastEditor/Yeas
 import { getPreferences } from "@/app/admin/queries";
 import { YeastType } from "@/types/Ingredient";
 import { verifySession } from "@/lib/verifySession";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - New Yeast",
+};
 
 export default async function YeastCreatorPage() {
   const session = await verifySession("/yeasts/new");

@@ -5,6 +5,10 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Plus } from "lucide-react";
 import { BaseWaterProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Water Profiles",
+};
 
 export default async function WaterProfilesListPage() {
   const profiles = await getWaterProfiles();

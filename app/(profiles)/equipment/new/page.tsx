@@ -5,6 +5,10 @@ import { getPreferences } from "@/app/admin/queries";
 import { EquipmentProfileType } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
 
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - New Equipment Profile",
+};
 export default async function EquipmentProfileCreatorPage() {
   const session = await verifySession("/equipment/new");
   const profile = {

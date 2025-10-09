@@ -5,6 +5,10 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Plus } from "lucide-react";
 import { MashProfile } from "@prisma/client";
 import IconButton from "@/components/Button/IconButton";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Mash Profiles",
+};
 
 export default async function MashProfilesListPage() {
   const profiles = await getMashProfiles();

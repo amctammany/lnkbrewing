@@ -6,9 +6,17 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { BaseWaterProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
-
-export async function generateStaticParams() {
-  return (await getWaterProfiles()).map(({ slug }) => ({ slug }));
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getWaterProfile(slug);
+  return {
+    title: `LNK - Water Profile - ${profile.name} Fork`,
+    description: profile.description,
+  };
 }
 export default async function WaterProfileDisplayPage({
   params,

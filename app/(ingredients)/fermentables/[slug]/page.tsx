@@ -15,7 +15,18 @@ import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 export async function generateStaticParams() {
   return (await getFermentables()).map(({ slug }) => ({ slug }));
 }
-
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const fermentable = await getFermentable(slug);
+  return {
+    title: `LNK - Fermentables - ${fermentable.name}`,
+    description: fermentable.manufacturer,
+  };
+}
 export default async function FermentableDisplayPage({ params }: any) {
   const { slug } = await params;
   const fermentable = await getFermentable(slug);

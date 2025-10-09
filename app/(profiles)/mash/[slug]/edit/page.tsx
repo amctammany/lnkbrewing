@@ -7,7 +7,18 @@ import { getPreferences } from "@/app/admin/queries";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 import { AdjustedMashProfileType } from "@/types/Profile";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getMashProfile(slug);
+  return {
+    title: `LNK - Mash Profile - ${profile.name} Edit`,
+    description: profile.description,
+  };
+}
 export default async function MashProfileEditorPage({
   params,
 }: {

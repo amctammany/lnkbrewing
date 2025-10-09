@@ -7,6 +7,18 @@ import { getPreferences } from "@/app/admin/queries";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { EquipmentProfileType } from "@/types/Profile";
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getEquipmentProfile(slug);
+  return {
+    title: `LNK - Equipment Profiles - ${profile.name} Edit`,
+    description: profile.description,
+  };
+}
 
 export default async function EquipmentProfileEditorPage({
   params,

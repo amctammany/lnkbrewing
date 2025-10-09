@@ -8,6 +8,18 @@ import IconButton from "@/components/Button/IconButton";
 export async function generateStaticParams() {
   return (await getYeasts()).map(({ slug }) => ({ slug }));
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const yeast = await getYeast(slug);
+  return {
+    title: `LNK - Yeasts - ${yeast.name}`,
+    description: yeast.manufacturer,
+  };
+}
 
 export default async function YeastDisplayPage({ params }: any) {
   const { slug } = await params;

@@ -5,6 +5,10 @@ import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
 import { getPreferences } from "@/app/admin/queries";
 
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - New Mash Profile",
+};
 export default async function MashProfileCreatorPage() {
   const session = await verifySession("/mash/new");
   const profile = {

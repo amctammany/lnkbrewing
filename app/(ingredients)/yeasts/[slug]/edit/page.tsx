@@ -9,6 +9,18 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { getPreferences } from "@/app/admin/queries";
 import { YeastType } from "@/types/Ingredient";
 import { YeastMask } from "@/lib/Converter/Masks";
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const yeast = await getYeast(slug);
+  return {
+    title: `LNK - Yeasts - ${yeast.name}`,
+    description: yeast.manufacturer,
+  };
+}
 
 export default async function YeastEditorPage({ params }: any) {
   const { slug } = await params;

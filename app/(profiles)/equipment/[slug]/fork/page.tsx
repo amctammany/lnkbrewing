@@ -6,6 +6,18 @@ import { notFound } from "next/navigation";
 import { BaseEquipmentProfile } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
 import { getPreferences } from "@/app/admin/queries";
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getEquipmentProfile(slug);
+  return {
+    title: `LNK - Equipment Profiles - ${profile.name} Fork`,
+    description: profile.description,
+  };
+}
 
 export default async function EquipmentProfileForkPage({
   params,

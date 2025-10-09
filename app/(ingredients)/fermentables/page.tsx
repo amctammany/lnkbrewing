@@ -4,7 +4,10 @@ import { getFermentables } from "./queries";
 import FermentablesTable from "./_components/FermentablesTable/FermentablesTable";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Fermentables",
+};
 export default async function FermentablesIngredientsPage() {
   const fermentables = await getFermentables();
   return (

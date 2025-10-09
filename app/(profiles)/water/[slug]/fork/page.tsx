@@ -5,7 +5,18 @@ import { createWaterProfile } from "@/app/(profiles)/water/actions";
 import { notFound } from "next/navigation";
 import { BaseWaterProfile } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
-
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const profile = await getWaterProfile(slug);
+  return {
+    title: `LNK - Water Profile - ${profile.name} Fork`,
+    description: profile.description,
+  };
+}
 export default async function WaterProfileForkPage({
   params,
 }: {

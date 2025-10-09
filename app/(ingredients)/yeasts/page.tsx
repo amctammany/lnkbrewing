@@ -4,6 +4,10 @@ import YeastsTable from "./_components/YeastsTable/YeastsTable";
 import { getYeasts } from "./queries";
 import { Plus } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "LNK - Yeasts",
+};
 
 export default async function YeastsIngredientsPage() {
   const yeasts = await getYeasts();
