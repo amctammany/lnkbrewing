@@ -77,81 +77,85 @@ export function HopEditorForm({}: HopEditorFormProps) {
             label="Alpha Range"
             control={control}
           />
+          <RangeField
+            name="betaRange"
+            low="betaLow"
+            high="betaHigh"
+            median="beta"
+            label="Beta Range"
+            control={control}
+          />
+          <RangeField
+            name="cohumoloneRange"
+            low="cohumuloneLow"
+            high="cohumuloneHigh"
+            median="cohumulone"
+            label="Cohumulone Range"
+            control={control}
+          />
+          <RangeField
+            name="linaloolRange"
+            low="linaloolLow"
+            high="linaloolHigh"
+            median="linalool"
+            label="Linalool Range"
+            control={control}
+          />
+          <RangeField
+            name="caryophylleneRange"
+            low="caryophylleneLow"
+            high="caryophylleneHigh"
+            median="caryophyllene"
+            label="Caryophyllene Range"
+            control={control}
+          />
+          <RangeField
+            name="bPineneRange"
+            low="bPineneLow"
+            high="bPineneHigh"
+            median="bPinene"
+            label="b-Pinene Range"
+            control={control}
+          />
+          <RangeField
+            name="farneseneRange"
+            low="farneseneLow"
+            high="farneseneHigh"
+            median="farnesene"
+            label="Farnesene Range"
+            control={control}
+          />
+          <RangeField
+            name="myrceneRange"
+            low="myrceneLow"
+            high="myrceneHigh"
+            median="myrcene"
+            label="Myrcene Range"
+            control={control}
+          />
+          <RangeField
+            name="humuleneRange"
+            low="humuleneLow"
+            high="humuleneHigh"
+            median="humulene"
+            label="Humulene Range"
+            control={control}
+          />
+          <RangeField
+            name="geraniolRange"
+            low="geraniolLow"
+            high="geraniolHigh"
+            median="geraniol"
+            label="Geraniol Range"
+            control={control}
+          />
 
-          <InputField
-            name="beta"
-            type="number"
-            step="0.1"
-            label="Beta"
-            control={control}
-          />
-          <InputField
-            name="bPinene"
-            type="number"
-            step="0.1"
-            label="Beta Pinene"
-            control={control}
-          />
-          <InputField
-            name="caryophyllene"
-            type="number"
-            step="0.1"
-            label="Caryophyllene"
-            control={control}
-          />
-          <InputField
-            name="cohumulone"
-            type="number"
-            step="0.1"
-            label="Cohumulone"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="farnesene"
-            type="number"
-            step="0.1"
-            label="Farnesene"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="geraniol"
-            type="number"
-            step="0.1"
-            label="Gernaniol"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="humulene"
-            type="number"
-            step="0.1"
-            label="Humulene"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="linalool"
-            type="number"
-            step="0.1"
-            label="Linalool"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="myrcene"
-            type="number"
-            step="0.1"
-            label="Myrcene"
-            control={control}
-          />
-          <InputField
-            variant="inline"
-            name="totalOil"
-            type="number"
-            step="0.1"
-            label="Total Oil"
+          <RangeField
+            name="totalOilRange"
+            low="totalOilLow"
+            high="totalOilHigh"
+            median="totalOil"
+            label="Total Oil Range"
             control={control}
           />
         </div>

@@ -102,7 +102,7 @@ export default function RangeField<T extends FieldValues>({
                   <input
                     className="ring rounded text-center w-8"
                     type="number"
-                    value={field.value[0]}
+                    value={field.value[0] ?? 0}
                     {...register(low)}
                   />
 
@@ -120,7 +120,7 @@ export default function RangeField<T extends FieldValues>({
                   <input
                     className="ring rounded text-center w-8"
                     type="number"
-                    value={field.value[2]}
+                    value={field.value[2] ?? 0}
                     {...register(high)}
                   />
                 </div>
@@ -130,7 +130,7 @@ export default function RangeField<T extends FieldValues>({
                     <input
                       className="block absolute ring rounded text-center w-8 mx-2"
                       type="number"
-                      value={field.value[1]}
+                      value={field.value[1] ?? 0}
                       style={{
                         marginLeft: `calc(${
                           (field.value[1] * 100) / max
