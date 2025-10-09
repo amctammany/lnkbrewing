@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/client";
 import { WaterProfileType } from "@/types/Profile";
+import { cache } from "react";
 
-export const getWaterProfiles = async (args: any = {}) => {
+export const getWaterProfiles = cache(async (args: any = {}) => {
   const profiles = await prisma.waterProfile.findMany(args);
   return profiles;
-};
+});
 
-export const getWaterProfile = async (slug: string) => {
+export const getWaterProfile = cache(async (slug: string) => {
   const profile = await prisma.waterProfile.findFirst({
     where: { slug },
     include: {
@@ -15,4 +16,4 @@ export const getWaterProfile = async (slug: string) => {
     },
   });
   return profile as WaterProfileType;
-};
+});
