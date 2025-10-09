@@ -116,20 +116,7 @@ DataTableProps<TData, TValue>) {
     },
     [table]
   );
-  const { rows } = table.getRowModel();
 
-  const rowVirtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
-    count: rows.length,
-    estimateSize: () => 33, //estimate row height for accurate scrollbar dragging
-    getScrollElement: () => tableContainerRef.current,
-    //measure dynamic row height, except in firefox because it measures table border height incorrectly
-    measureElement:
-      typeof window !== "undefined" &&
-      navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element?.getBoundingClientRect().height
-        : undefined,
-    // overscan: 5,
-  });
   return (
     <div className="w-full relative ">
       <TableSearch table={table}>
@@ -152,7 +139,7 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="relative overflow-auto " ref={tableContainerRef}>
+      <div className="relative overflow-auto h-screen" ref={tableContainerRef}>
         <Table className="grid">
           <TableHeader className="grid sticky top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (

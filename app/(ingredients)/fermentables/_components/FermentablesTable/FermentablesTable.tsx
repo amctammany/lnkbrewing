@@ -10,7 +10,7 @@ const columns: ColumnDef<FermentableType>[] = [
   {
     accessorKey: "name",
     header: Header<FermentableType>,
-    size: 3,
+    size: 240,
     cell: ({ getValue }) => (
       <Link
         className="hover:underline w-8"

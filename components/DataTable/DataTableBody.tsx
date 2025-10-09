@@ -26,7 +26,10 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
     overscan: 5,
   });
   return (
-    <TableBody>
+    <TableBody
+      className="grid relative"
+      style={{ height: rowVirtualizer.getTotalSize() }}
+    >
       {table.getRowModel().rows?.length ? (
         rowVirtualizer.getVirtualItems().map((virtualRow) => {
           const row = rows[virtualRow.index] as Row<any>;
