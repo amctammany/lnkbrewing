@@ -33,6 +33,7 @@ function convertUnit({
   inline?: boolean;
   dir?: boolean;
 }) {
+  console.log("converUnit", { value, type, unit, inline, dir });
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
     if (!convert) throw new Error("Converter not available");
@@ -101,7 +102,7 @@ export function adjustUnits<T extends FieldValues>({
                 inline,
                 dir,
               })
-            : v;
+            : src[k as keyof typeof src];
       }
       return acc;
     },
