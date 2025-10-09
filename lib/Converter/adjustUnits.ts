@@ -79,32 +79,35 @@ export function adjustUnits<T extends FieldValues>({
   inline?: boolean;
   dir?: boolean;
 }) {
-  const s = Object.entries(src).reduce((acc, [k, v]) => {
-    if (Array.isArray(v)) {
-      acc[k] = v.map((val) =>
-        adjustUnits({
-          src: val,
-          mask: mask[k] as any,
-          prefs,
-          inline,
-          dir,
-        })
-      );
-    } else {
-      acc[k] =
-        typeof mask[k] === "string"
-          ? convertUnit({
-              value: v,
-              type: mask[k] as UnitTypes,
-              unit:
-                prefs[mask[k] as UnitTypes] ?? BASE_UNITS[mask[k] as UnitTypes],
-              inline,
-              dir,
-            })
-          : v;
-    }
-    return acc;
-  }, {} as any);
+  console.log({ src, mask, prefs, inline, dir });
+  const s = Object.entries(mask).reduce(
+    (acc, [k, v]) => {
+      if (Array.isArray(src[k as keyof typeof src])) {
+        acc[k] = src[k as keyof typeof src].map((val: any) =>
+          adjustUnits({
+            src: val,
+            mask: v as any,
+            prefs,
+            inline,
+            dir,
+          })
+        );
+      } else {
+        acc[k] =
+          typeof v === "string"
+            ? convertUnit({
+                value: src[k as keyof typeof src],
+                type: v as UnitTypes,
+                unit: prefs[v as UnitTypes] ?? BASE_UNITS[v as UnitTypes],
+                inline,
+                dir,
+              })
+            : v;
+      }
+      return acc;
+    },
+    { ...src } as any
+  );
   return s as any;
 }
 export function stripUnits<T extends Record<string, unknown>>(src: T) {

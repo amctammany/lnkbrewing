@@ -64,7 +64,6 @@ export const HopMask: UnitMaskType<Partial<HopType>> = {
   cohumulone: "percent",
   cohumuloneLow: "percent",
   cohumuloneHigh: "percent",
-  totalOil: "percent",
 };
 
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
