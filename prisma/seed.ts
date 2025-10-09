@@ -12,6 +12,13 @@ import grains from "../data/grains.json";
 import yeasts from "../data/yeasts.json";
 import yakima from "../data/yakima.json";
 import slugify from "@/lib/slugify";
+function toPercent(obj: Record<string, number>) {
+  return Object.keys(obj).reduce((acc, key) => {
+    const value = obj[key];
+    acc[key] = value != null ? value / 100 : null;
+    return acc;
+  }, {} as Record<string, number | null>);
+}
 async function main() {
   await prisma.style.deleteMany();
   await prisma.waterProfile.deleteMany();
@@ -117,13 +124,82 @@ async function main() {
   });
   await prisma.hop.createMany({
     //eslint-disable-next-line
-    data: hops.map(({ aromas, usage, flavorMap, ...hop }: any) => ({
-      flavor: aromas,
-      ...hop,
+    data: hops.map(
+      ({
+        aromas,
+        usage,
+        alpha,
+        alphaLow,
+        alphaHigh,
+        beta,
+        betaLow,
+        betaHigh,
+        cohumulone,
+        cohumuloneLow,
+        cohumuloneHigh,
+        caryophyllene,
+        caryophylleneHigh,
+        caryophylleneLow,
+        geraniol,
+        geraniolHigh,
+        geraniolLow,
+        farnesene,
+        farneseneHigh,
+        farneseneLow,
+        humulene,
+        humuleneHigh,
+        humuleneLow,
+        bPinene,
+        bPineneHigh,
+        bPineneLow,
+        linalool,
+        linaloolHigh,
+        linaloolLow,
+        myrcene,
+        myrceneLow,
+        myrceneHigh,
+        flavorMap,
+        ...hop
+      }: any) => ({
+        flavor: aromas,
+        ...toPercent({
+          alpha,
+          alphaLow,
+          alphaHigh,
+          beta,
+          betaLow,
+          betaHigh,
+          cohumulone,
+          cohumuloneLow,
+          cohumuloneHigh,
+          caryophyllene,
+          caryophylleneHigh,
+          caryophylleneLow,
+          geraniol,
+          geraniolHigh,
+          geraniolLow,
+          farnesene,
+          farneseneHigh,
+          farneseneLow,
+          humulene,
+          humuleneHigh,
+          humuleneLow,
+          bPinene,
+          bPineneHigh,
+          bPineneLow,
+          linalool,
+          linaloolHigh,
+          linaloolLow,
+          myrcene,
+          myrceneLow,
+          myrceneHigh,
+        }),
+        ...hop,
 
-      slug: slugify(hop.name),
-      usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
-    })),
+        slug: slugify(hop.name),
+        usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
+      })
+    ),
   });
   await prisma.fermentable.createMany({
     data: grains.map((grain) => ({

@@ -5,7 +5,7 @@ import {
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { MashProfile, MashStep } from "@prisma/client";
-import { FermentableType, YeastType } from "@/types/Ingredient";
+import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
@@ -31,6 +31,40 @@ export const MashProfileMask: UnitMaskType<Partial<MashProfileType>> = {
   mashTunTemp: "temperature",
   spargeTemp: "temperature",
   steps: MashStepMask,
+};
+
+export const HopMask: UnitMaskType<Partial<HopType>> = {
+  alpha: "percent",
+  alphaLow: "percent",
+  alphaHigh: "percent",
+  beta: "percent",
+  betaLow: "percent",
+  betaHigh: "percent",
+  humulene: "percent",
+  humuleneLow: "percent",
+  humuleneHigh: "percent",
+  bPinene: "percent",
+  bPineneLow: "percent",
+  bPineneHigh: "percent",
+  myrcene: "percent",
+  myrceneLow: "percent",
+  myrceneHigh: "percent",
+  caryophyllene: "percent",
+  caryophylleneLow: "percent",
+  caryophylleneHigh: "percent",
+  farnesene: "percent",
+  farneseneLow: "percent",
+  farneseneHigh: "percent",
+  linalool: "percent",
+  linaloolLow: "percent",
+  linaloolHigh: "percent",
+  geraniol: "percent",
+  geraniolLow: "percent",
+  geraniolHigh: "percent",
+  cohumulone: "percent",
+  cohumuloneLow: "percent",
+  cohumuloneHigh: "percent",
+  totalOil: "percent",
 };
 
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {

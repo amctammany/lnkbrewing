@@ -1,9 +1,9 @@
 import { Prop } from "@/components/Prop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { HopType } from "@/types/Ingredient";
+import { AdjustedHopType } from "@/types/Ingredient";
 import React from "react";
 
-export default function General({ src }: { src: HopType }) {
+export default function General({ src }: { src: AdjustedHopType }) {
   return (
     <Card>
       <CardHeader>

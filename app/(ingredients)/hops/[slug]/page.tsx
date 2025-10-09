@@ -5,6 +5,10 @@ import { HopDisplay } from "@/app/(ingredients)/hops/_components/HopDisplay/HopD
 import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { getPreferences } from "@/app/admin/queries";
+import { AdjustedHopType } from "@/types/Ingredient";
+import { HopMask } from "@/lib/Converter/Masks";
 export async function generateStaticParams() {
   return (await getHops()).map(({ slug }) => ({ slug }));
 }
@@ -12,6 +16,12 @@ export default async function HopDisplayPage({ params }: any) {
   const { slug } = await params;
   const hop = await getHop(slug);
   if (!hop) return notFound();
+  const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: hop,
+    mask: HopMask,
+    prefs,
+  }) as AdjustedHopType;
   return (
     <div>
       <TopBar
@@ -30,7 +40,7 @@ export default async function HopDisplayPage({ params }: any) {
         </IconButton>
       </TopBar>
       <div>
-        <HopDisplay src={hop} />
+        <HopDisplay src={adjusted} />
       </div>
     </div>
   );

@@ -24,12 +24,16 @@ const columns: ColumnDef<HopType>[] = [
   {
     accessorKey: "alpha",
     header: Header<HopType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => (
+      <span>{precisionRound(getValue<number>() * 100, 2)}%</span>
+    ),
   },
   {
     accessorKey: "beta",
     header: Header<HopType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => (
+      <span>{precisionRound(getValue<number>() * 100, 2)}%</span>
+    ),
   },
   {
     accessorKey: "usage",
@@ -50,6 +54,7 @@ const columns: ColumnDef<HopType>[] = [
 ];
 import React from "react";
 import { HopType } from "@/types/Ingredient";
+import { precisionRound } from "@/lib/utils";
 export interface HopsTableProps {
   src: HopType[];
 }

@@ -12,6 +12,19 @@ export interface HopType extends Omit<OptionalNullable<Hop>, "id" | "userId"> {
   id?: string;
   userId?: string;
 }
+type HopAmountFieldNames =
+  | "alpha"
+  | "beta"
+  | "humulene"
+  | "myrcene"
+  | "caryophyllene"
+  | "farnesene"
+  | "linalool"
+  | "geraniol"
+  | "bPinene"
+  | "cohumulone"
+  | "totalOil";
+export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
 export interface YeastType
   extends Omit<OptionalNullable<Yeast>, "id" | "userId"> {
   userId?: string;
