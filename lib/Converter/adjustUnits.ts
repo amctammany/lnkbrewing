@@ -79,7 +79,6 @@ export function adjustUnits<T extends FieldValues>({
   inline?: boolean;
   dir?: boolean;
 }) {
-  console.log({ src, mask, prefs, inline, dir });
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(src[k as keyof typeof src])) {

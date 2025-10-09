@@ -4,6 +4,25 @@ import { cx, VariantProps } from "class-variance-authority";
 import { LinkButton } from "./LinkButton";
 import { LucideIcon } from "lucide-react";
 
+function getIconSize(size: "sm" | "md" | "lg" | "default" | "icon" | "xl") {
+  switch (size) {
+    case "sm":
+      return 16;
+    case "md":
+      return 20;
+    case "lg":
+      return 24;
+    case "xl":
+      return 28;
+    case "icon":
+      return 14;
+
+    case "default":
+      return 20;
+    default:
+      return 20;
+  }
+}
 export type IconButtonProps = {
   icon: LucideIcon;
   href?: string;
@@ -22,12 +41,12 @@ export default function IconButton({
 }: IconButtonProps) {
   return href ? (
     <LinkButton href={href} variant="outline" size={props.size} {...props}>
-      <Icon size={props.size ?? "md"} />
+      <Icon size={getIconSize(props.size ?? "md")} />
       <span className={cx("hidden md:block")}>{label ?? children}</span>
     </LinkButton>
   ) : (
     <Button variant="outline" size={props.size} {...props}>
-      <Icon size={props.size ?? "md"} />
+      <Icon size={getIconSize(props.size ?? "md")} />
       <span className={cx("hidden md:block")}>{label ?? children}</span>
     </Button>
   );
