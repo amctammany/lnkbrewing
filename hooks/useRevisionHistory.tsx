@@ -184,7 +184,7 @@ function useRevisionHistory<T extends FieldValues>(
             ? parseFloat(e.target.value)
             : (e.target.value as any);
 
-        if (oldValue !== newValue)
+        if (oldValue !== newValue && !(oldValue === null && newValue === ""))
           update({
             type: "SET",
             payload: {
