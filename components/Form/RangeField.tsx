@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, useContext } from "react";
 import {
   Control,
   FieldPath,
@@ -16,6 +16,7 @@ import {
 import { Input } from "../ui/input";
 import { cx, cva, VariantProps } from "class-variance-authority";
 import { Slider } from "../ui/slider";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
 const rangeFieldStyles = cva("", {
   variants: {
@@ -86,6 +87,7 @@ export default function RangeField<T extends FieldValues>({
 } & ComponentProps<"input"> &
   VariantProps<typeof rangeFieldStyles>) {
   const { register } = useFormContext();
+  const ctx = useContext(RevisionContext);
   return (
     <FormField
       control={control}
@@ -117,6 +119,10 @@ export default function RangeField<T extends FieldValues>({
                       ref={field.ref}
                       onValueChange={(v) => {
                         field.onChange(v);
+                        ctx?.update({
+                          type: "SET",
+                          payload: { name, value: v, prev: field.value },
+                        });
                       }}
                     />
 

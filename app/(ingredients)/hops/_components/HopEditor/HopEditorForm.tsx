@@ -1,4 +1,5 @@
 "use client";
+import HistoryForm from "@/components/Form/HistoryForm";
 import InputField from "@/components/Form/InputField";
 import RangeField from "@/components/Form/RangeField";
 import SelectInput from "@/components/Form/SelectInput";
@@ -12,6 +13,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
+import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { HopType } from "@/types/Ingredient";
 import { $Enums } from "@prisma/client";
 import { useActionState } from "react";
@@ -20,10 +26,12 @@ import { useForm, useFormContext } from "react-hook-form";
 export type HopEditorFormContainerProps<S = unknown> = {
   src: HopType;
   action: (state: S, formData: FormData) => S | Promise<S>;
+  preferences: UserPreferencesType;
   children: React.ReactNode;
 };
 export function HopEditorFormContainer({
   src,
+  preferences,
   action,
   children,
 }: HopEditorFormContainerProps) {
@@ -32,16 +40,22 @@ export function HopEditorFormContainer({
     defaultValues: src,
     errors: state?.errors,
   });
+  const historyCtx = useRevisionHistory<HopType>(
+    form.getValues() as any,
+    form.setValue as any
+  );
 
   return (
-    <Form {...form}>
-      <form
-        action={formAction}
-        //        onSubmit={form.handleSubmit(handleAction)}
-      >
-        {children}
-      </form>
-    </Form>
+    <UserPreferencesContext value={preferences}>
+      <HistoryForm formProps={form} historyProps={historyCtx}>
+        <form
+          action={formAction}
+          //        onSubmit={form.handleSubmit(handleAction)}
+        >
+          {children}
+        </form>
+      </HistoryForm>
+    </UserPreferencesContext>
   );
 }
 
