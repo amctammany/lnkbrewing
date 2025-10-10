@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, useContext } from "react";
 import { Control, FieldPath, FieldValues } from "react-hook-form";
 import {
   FormField,
@@ -10,6 +10,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { cx, cva, VariantProps } from "class-variance-authority";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
 const textInputStyles = cva("", {
   variants: {
@@ -66,6 +67,7 @@ export default function TextInput<T extends FieldValues>({
   description?: string;
 } & ComponentProps<"input"> &
   VariantProps<typeof textInputStyles>) {
+  const ctx = useContext(RevisionContext);
   return (
     <FormField
       control={control}
@@ -76,7 +78,10 @@ export default function TextInput<T extends FieldValues>({
             <FormLabel className={textInputLabelStyles({ variant })}>
               {label ?? name}
             </FormLabel>
-            <FormControl className={textInputControlStyles({ variant })}>
+            <FormControl
+              onBlur={ctx?.updateHistory}
+              className={textInputControlStyles({ variant })}
+            >
               <div className="flex p-1">
                 <Input
                   className="flex-grow bg-white"

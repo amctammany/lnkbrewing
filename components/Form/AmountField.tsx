@@ -21,6 +21,7 @@ import { BASE_UNITS, PercentUnits, UnitTypes } from "@/lib/Converter/UnitDict";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { Converter } from "@/lib/Converter/Converter";
 import { Unit } from "@/app/(profiles)/mash/_components/MashProfileEditor/MashProfileStepField";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
 const amountFieldStyles = cva("", {
   variants: {
@@ -95,6 +96,7 @@ export default function AmountField<T extends FieldValues>({
   VariantProps<typeof amountFieldStyles>) {
   const { register, control } = useFormContext();
   const prefs = useContext(UserPreferencesContext);
+  const historyCtx = useContext(RevisionContext);
   const defUnit = BASE_UNITS[amountType];
   const userUnit = prefs?.[amountType] ?? defUnit;
   const u =
@@ -113,7 +115,7 @@ export default function AmountField<T extends FieldValues>({
               {label ?? name}
             </FormLabel>
             <FormControl
-              onBlur={onBlur}
+              onBlur={historyCtx?.updateHistory}
               className={amountFieldControlStyles({ variant })}
             >
               <div className="flex-grow w-full">

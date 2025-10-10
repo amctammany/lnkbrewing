@@ -1,5 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
+import HistoryForm from "@/components/Form/HistoryForm";
 import InputField from "@/components/Form/InputField";
 import TextInput from "@/components/Form/TextInput";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import {
   UserPreferencesContext,
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
+import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { FermentableType } from "@/types/Ingredient";
 //import { $Enums, User, Fermentable } from "@prisma/client";
 import { Percent } from "lucide-react";
@@ -38,17 +40,21 @@ export function FermentableEditorFormContainer({
     defaultValues: src,
     errors: state?.errors,
   });
+  const historyCtx = useRevisionHistory<FermentableType>(
+    form.getValues() as any,
+    form.setValue as any
+  );
 
   return (
     <UserPreferencesContext value={preferences}>
-      <Form {...form}>
+      <HistoryForm formProps={form} historyProps={historyCtx}>
         <form
           action={formAction}
           //        onSubmit={form.handleSubmit(handleAction)}
         >
           {children}
         </form>
-      </Form>
+      </HistoryForm>
     </UserPreferencesContext>
   );
 }

@@ -7,8 +7,9 @@ import { TopBar } from "@/components/TopBar/TopBar";
 // import { Button } from "@/components/ui/button";
 import { FermentableType } from "@/types/Ingredient";
 import IconButton from "@/components/Button/IconButton";
-import { Save } from "lucide-react";
+import { Save, Undo } from "lucide-react";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import FermentableEditorTools from "./FermentableEditorTools";
 
 export type FermentableEditorProps<S = unknown> = {
   fermentable: FermentableType;
@@ -34,9 +35,7 @@ export default function FermentableEditor({
           { title: fermentable.name, url: `/fermentables/${fermentable.slug}` },
         ]}
       >
-        <IconButton icon={Save} type="submit">
-          Save
-        </IconButton>
+        <FermentableEditorTools />
       </TopBar>
       <div>
         <FermentableEditorForm src={fermentable} />

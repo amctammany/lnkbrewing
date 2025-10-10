@@ -172,25 +172,32 @@ function useRevisionHistory<T extends FieldValues>(
   }, [state, updateFn]);
    */
   const updateHistory = useMemo(
-    () => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const oldValue = get(state as any, e.target.name);
-      const newValue =
-        e.target.type === "number"
-          ? parseFloat(e.target.value)
-          : (e.target.value as any);
+    () =>
+      (
+        e:
+          | React.ChangeEvent<HTMLInputElement>
+          | React.FocusEvent<HTMLInputElement>
+      ) => {
+        const oldValue = get(state as any, e.target.name);
+        const newValue =
+          e.target.type === "number"
+            ? parseFloat(e.target.value)
+            : (e.target.value as any);
 
-      if (oldValue !== newValue)
-        update({
-          type: "SET",
-          payload: {
-            name: e.target.name,
-            prev: oldValue,
-            value: e.target.value as any,
-          },
-        });
-    },
+        if (oldValue !== newValue)
+          update({
+            type: "SET",
+            payload: {
+              name: e.target.name,
+              prev: oldValue,
+              value: e.target.value as any,
+            },
+          });
+      },
     [update, state]
-  );
+  ) as
+    | React.FocusEventHandler<HTMLElement>
+    | React.ChangeEventHandler<HTMLElement>;
   const handleUndo = useMemo(
     () => (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
