@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Control, FieldPath, FieldValues } from "react-hook-form";
 import {
   FormControl,
@@ -16,6 +16,7 @@ import {
   Select,
 } from "@/components/ui/select";
 import { cva, VariantProps } from "class-variance-authority";
+import { RevisionContext } from "@/contexts/RevisionContext";
 export type SelectInputProps<T extends FieldValues> = {
   className?: string;
   control?: Control<T>;
@@ -53,6 +54,7 @@ export default function SelectInput<T extends FieldValues>({
   inputSize,
   description,
 }: SelectInputProps<T>) {
+  const ctx = useContext(RevisionContext);
   return (
     <FormField
       control={control}
@@ -65,7 +67,17 @@ export default function SelectInput<T extends FieldValues>({
             </FormLabel>
             <Select
               name={field.name}
-              onValueChange={field.onChange}
+              onValueChange={(v) => {
+                field.onChange(v);
+                ctx?.update({
+                  type: "SET",
+                  payload: {
+                    name: field.name,
+                    value: v,
+                    prev: field.value,
+                  },
+                });
+              }}
               value={field.value}
               defaultValue={field.value}
             >

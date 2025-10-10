@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: HopEditorPageProps) {
 export default async function HopEditorPage({ params }: HopEditorPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
+  console.log(slug, hop);
   if (!hop) return notFound();
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
@@ -31,7 +32,7 @@ export default async function HopEditorPage({ params }: HopEditorPageProps) {
   }) as HopType;
   return (
     <div>
-      <HopEditor src={adjusted} action={updateHop} />
+      <HopEditor src={adjusted} action={updateHop} preferences={prefs} />
     </div>
   );
 }

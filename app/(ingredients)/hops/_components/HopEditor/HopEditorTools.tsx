@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { Redo, Save, Undo } from "lucide-react";
