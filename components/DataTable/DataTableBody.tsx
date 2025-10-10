@@ -10,7 +10,7 @@ interface TableBodyProps<T = any> {
 }
 
 export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
-  "use no memo";
+  // "use no memo";
   const { rows } = table.getRowModel();
   const columns = table.getAllColumns();
   const [loaded, reset] = useState<boolean>(false);

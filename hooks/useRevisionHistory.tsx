@@ -178,9 +178,7 @@ function useRevisionHistory<T extends FieldValues>(
         e.target.type === "number"
           ? parseFloat(e.target.value)
           : (e.target.value as any);
-      console.log(e.target.type);
 
-      console.log("updateHistory", { oldValue, newValue, name: e.target.name });
       if (oldValue !== newValue)
         update({
           type: "SET",
