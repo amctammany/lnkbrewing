@@ -118,7 +118,7 @@ DataTableProps<TData, TValue>) {
   );
 
   return (
-    <div className="w-full relative ">
+    <div className="w-full relative h-full">
       <TableSearch table={table}>
         {filters?.map(({ name, options }) =>
           options ? (
@@ -139,9 +139,9 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="relative overflow-auto h-[350px]" ref={tableContainerRef}>
+      <div className="relative " ref={tableContainerRef}>
         <Table className="grid">
-          <TableHeader className="grid sticky top-0 z-1">
+          <TableHeader className="grid top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="flex w-full">
                 {headerGroup.headers.map((header) => {

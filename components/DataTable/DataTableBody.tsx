@@ -33,30 +33,32 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
     overscan: 25,
   });
   return tableContainerRef.current ? (
-    <TableBody
-      className="grid relative"
-      style={{ height: rowVirtualizer.getTotalSize() }}
-    >
-      {table.getRowModel().rows?.length ? (
-        rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const row = table.getRowModel().rows[virtualRow.index] as Row<any>;
-          return (
-            <DataTableBodyRow
-              key={row.id}
-              row={row}
-              virtualRow={virtualRow}
-              rowVirtualizer={rowVirtualizer}
-            />
-          );
-        })
-      ) : (
-        <TableRow>
-          <TableCell colSpan={columns.length} className="h-24 text-center">
-            No results.
-          </TableCell>
-        </TableRow>
-      )}
-    </TableBody>
+    <div className="relative overflow-auto h-[380px]">
+      <TableBody
+        className="grid relative "
+        style={{ height: rowVirtualizer.getTotalSize() }}
+      >
+        {table.getRowModel().rows?.length ? (
+          rowVirtualizer.getVirtualItems().map((virtualRow) => {
+            const row = table.getRowModel().rows[virtualRow.index] as Row<any>;
+            return (
+              <DataTableBodyRow
+                key={row.id}
+                row={row}
+                virtualRow={virtualRow}
+                rowVirtualizer={rowVirtualizer}
+              />
+            );
+          })
+        ) : (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="h-24 text-center">
+              No results.
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </div>
   ) : (
     <TableBody>
       <TableRow>
