@@ -2,6 +2,7 @@ import { LinkProps } from "next/link";
 import Link from "next/link";
 import { Button, buttonVariants } from "../ui/button";
 import { VariantProps } from "class-variance-authority";
+import { Route } from "next";
 
 export type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
@@ -9,7 +10,7 @@ export type ButtonProps = React.ComponentProps<"button"> &
   };
 export type LinkButtonProps = ButtonProps & {
   scroll?: boolean;
-  href: LinkProps["href"];
+  href: LinkProps<Route>["href"];
 };
 export const LinkButton = ({ href, scroll, ...props }: LinkButtonProps) => {
   return (

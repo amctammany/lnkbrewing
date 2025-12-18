@@ -13,6 +13,7 @@ import slugify from "slugify";
 //import { removeFermentable } from "@/app/Fermentables/actions";
 import Link from "next/link";
 import { RemoveButton } from "@/components/RemoveButton";
+import { Route } from "next";
 
 export function FermentablesTableRowActions<T>({
   row,
@@ -29,9 +30,11 @@ export function FermentablesTableRowActions<T>({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/fermentables/${slugify(row.getValue("name"), {
-              lower: true,
-            })}/fork`}
+            href={
+              `/fermentables/${slugify(row.getValue("name"), {
+                lower: true,
+              })}/fork` as Route
+            }
           >
             <span>Fork</span>
           </Link>

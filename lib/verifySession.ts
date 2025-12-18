@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { Route } from "next";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
@@ -12,7 +13,7 @@ export const verifySession = cache(async function (redirect_url = "") {
     const url = new URLSearchParams({
       redirect_url,
     }).toString();
-    return redirect("/admin/login?" + url.toString());
+    return redirect(("/admin/login?" + url.toString()) as Route);
   }
   return session;
 });

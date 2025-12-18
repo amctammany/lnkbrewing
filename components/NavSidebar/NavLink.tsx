@@ -1,4 +1,5 @@
 //"use client";
+import { Route } from "next";
 import Link, { LinkProps } from "next/link";
 import React, { ComponentProps } from "react";
 
@@ -11,7 +12,7 @@ export function NavLink(props: NavLinkProps) {
     setOpenMobile(false);
   };
 */
-  return <Link {...props} prefetch={false} />;
+  return <Link {...props} href={props.href as Route} prefetch={false} />;
 }
 
 export default NavLink;

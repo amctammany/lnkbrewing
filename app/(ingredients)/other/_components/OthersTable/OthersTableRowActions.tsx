@@ -13,6 +13,7 @@ import slugify from "slugify";
 //import { removeOther } from "@/app/Others/actions";
 import Link from "next/link";
 import { RemoveButton } from "@/components/RemoveButton";
+import { Route } from "next";
 
 export function OthersTableRowActions<T>({ row }: CellContext<T, unknown>) {
   return (
@@ -27,9 +28,11 @@ export function OthersTableRowActions<T>({ row }: CellContext<T, unknown>) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/others/${slugify(row.getValue("name"), {
-              lower: true,
-            })}/fork`}
+            href={
+              `/others/${slugify(row.getValue("name"), {
+                lower: true,
+              })}/fork` as Route
+            }
           >
             <span>Fork</span>
           </Link>

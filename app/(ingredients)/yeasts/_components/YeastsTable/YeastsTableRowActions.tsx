@@ -13,6 +13,7 @@ import slugify from "slugify";
 //import { removeYeast } from "@/app/Yeasts/actions";
 import Link from "next/link";
 import { RemoveButton } from "@/components/RemoveButton";
+import { Route } from "next";
 
 export function YeastsTableRowActions<T>({ row }: CellContext<T, unknown>) {
   return (
@@ -27,9 +28,11 @@ export function YeastsTableRowActions<T>({ row }: CellContext<T, unknown>) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/yeasts/${slugify(row.getValue("name"), {
-              lower: true,
-            })}/fork`}
+            href={
+              `/yeasts/${slugify(row.getValue("name"), {
+                lower: true,
+              })}/fork` as Route
+            }
           >
             <span>Fork</span>
           </Link>

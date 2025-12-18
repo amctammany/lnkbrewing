@@ -2,6 +2,7 @@ import type { DefaultSession, NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/client";
+import { User, UserRoles } from "./generated/prisma/client";
 
 const PAdapter = (p: any) => {
   const Pa = PrismaAdapter(p);
@@ -15,7 +16,6 @@ const PAdapter = (p: any) => {
     },
   };
 };
-import { User, UserRoles } from "@prisma/client";
 declare module "next-auth" {
   /**
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context

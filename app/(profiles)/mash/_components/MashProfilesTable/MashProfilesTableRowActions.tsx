@@ -13,6 +13,7 @@ import slugify from "slugify";
 //import { removeMashProfile } from "@/app/MashProfiles/actions";
 import Link from "next/link";
 import { RemoveButton } from "@/components/RemoveButton";
+import { Route } from "next";
 
 export function MashProfilesTableRowActions<T>({
   row,
@@ -29,9 +30,11 @@ export function MashProfilesTableRowActions<T>({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/mash/${slugify(row.getValue("name"), {
-              lower: true,
-            })}/fork`}
+            href={
+              `/mash/${slugify(row.getValue("name"), {
+                lower: true,
+              })}/fork` as Route
+            }
           >
             <span>Fork</span>
           </Link>

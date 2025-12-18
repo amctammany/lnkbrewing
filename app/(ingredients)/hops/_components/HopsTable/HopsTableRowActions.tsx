@@ -13,6 +13,7 @@ import slugify from "slugify";
 //import { removeHop } from "@/app/Hops/actions";
 import Link from "next/link";
 import { RemoveButton } from "@/components/RemoveButton";
+import { Route } from "next";
 
 export function HopsTableRowActions<T>({ row }: CellContext<T, unknown>) {
   return (
@@ -27,9 +28,11 @@ export function HopsTableRowActions<T>({ row }: CellContext<T, unknown>) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/Hops/${slugify(row.getValue("name"), {
-              lower: true,
-            })}/fork`}
+            href={
+              `/Hops/${slugify(row.getValue("name"), {
+                lower: true,
+              })}/fork` as Route
+            }
           >
             <span>Fork</span>
           </Link>
